@@ -1,13 +1,11 @@
 'use strict';
 
-var config        = require('../config');
-var gulp          = require('gulp');
+var gulp   = require('gulp');
+var config = require('../config');
 
-gulp.task('watch', ['browserSync', 'server'], function() {
-
-  gulp.watch(config.scripts.src, ['lint', 'browserify']);
-  gulp.watch(config.styles.src,  ['styles']);
-  gulp.watch(config.images.src,  ['images', 'reload']);
-  gulp.watch(config.views.src,   ['views']);
-
+gulp.task('watch', function() {
+  // Scripts are automatically watched by Watchify inside Browserify task
+  gulp.watch(config.styles.src,                 ['sass']);
+  gulp.watch(config.images.src,                 ['imagemin']);
+  gulp.watch(config.sourceDir + 'index.html',   ['copyIndex']);
 });

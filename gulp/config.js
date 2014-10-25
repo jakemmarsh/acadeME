@@ -1,39 +1,18 @@
 'use strict';
 
 module.exports = {
-
-  'serverport': 3000,
-
-  'styles': {
-    'src' : 'app/styles/**/*.scss',
-    'dest': 'build/css'
-  },
-
   'scripts': {
-    'src' : 'app/js/**/*.js',
-    'dest': 'build/js'
+    'src': './app/js/**/*.js',
+    'dest': './build/js/'
   },
-
   'images': {
-    'src' : 'app/images/**/*',
-    'dest': 'build/images'
+    'src': './app/images/**/*.{jpeg,jpg,png}',
+    'dest': './build/images/'
   },
-
-  'views': {
-    'src': [
-      'app/index.html',
-      'app/views/**/*.html'
-    ],
-    'dest': 'app/js'
+  'styles': {
+    'src': './app/styles/**/*.scss',
+    'dest': './build/css/'
   },
-
-  'dist': {
-    'root'  : 'build'
-  },
-
-  'browserify': {
-    'entries'   : ['./app/js/main.js'],
-    'bundleName': 'main.js'
-  }
-
+  'sourceDir': './app/',
+  'buildDir': './build/'
 };

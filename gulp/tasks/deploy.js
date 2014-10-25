@@ -1,9 +1,10 @@
 'use strict';
 
-var gulp = require('gulp');
+var gulp   = require('gulp');
+//var config = require('../config');
 
 gulp.task('deploy', function() {
 
-  // Any deployment logic should go here
+  // Deploy to hosting environment
 
 });

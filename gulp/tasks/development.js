@@ -3,12 +3,16 @@
 var gulp        = require('gulp');
 var runSequence = require('run-sequence');
 
-gulp.task('dev', function(cb) {
+gulp.task('dev', ['clean'], function(callback) {
 
-  cb = cb || function() {};
+  callback = callback || function() {};
 
   global.isProd = false;
 
-  runSequence('clean', 'styles', 'images', 'views', 'browserify', 'watch', cb);
+  // Run all tasks once
+  runSequence('sass', 'imagemin', 'browserify', 'fonts', 'copyIndex', 'copyIcons', callback);
+
+  // Then, run the watch task to keep tabs on changes
+  gulp.start('watch');
 
 });

@@ -1,22 +1,24 @@
+/**
+ * @jsx React.DOM
+ */
 'use strict';
 
-/**
- * @ngInject
- */
-function Routes($stateProvider, $locationProvider, $urlRouterProvider) {
+var Routes        = require('react-router').Routes;
+var Route         = require('react-router').Route;
+var NotFoundRoute = require('react-router').NotFoundRoute;
+var App           = require('./App');
+var HomePage      = require('./pages/HomePage');
+var SearchPage    = require('./pages/SearchPage');
+var CoursePage    = require('./pages/CoursePage');
+var NotFoundPage  = require('./pages/NotFoundPage');
 
-  $locationProvider.html5Mode(true);
-
-  $stateProvider
-  .state('Home', {
-    url: '/',
-    controller: 'ExampleCtrl as home',
-    templateUrl: 'home.html',
-    title: 'Home'
-  });
-
-  $urlRouterProvider.otherwise('/');
-
-}
-
-module.exports = Routes;
+module.exports = (
+  <Routes location='history'>
+    <Route path='/' handler={App}>
+      <Route name='Home' path='/' handler={HomePage} />
+      <Route name='Search' path='/search' handler={SearchPage} />
+      <Route name='Course' path='/course/:id' handler={CoursePage} />
+      <NotFoundRoute handler={NotFoundPage} />
+    </Route>
+  </Routes>
+);

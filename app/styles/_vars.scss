@@ -1,19 +1,20 @@
 // colors
-$font-color--dark: #333;
-$font-color--light: #fff;
-$background--light: #eee;
-$background--dark: #222;
-$blue: #1f8de2;
-$green: #1fe27b;
-$red: #e21f3f;
+$white: #ffffff;
+$black: #000000;
+
+$background-light-grey: #f3f7fa;
+$sidebar-background-grey: #25282d;
+
+$text-grey: #6e7a86;
+$text-dark-grey: #4a515b;
+$sidebar-title-grey: #37414b;
+$sidebar-link-grey: #707a84;
+
+$orange: #f69068;
+$teal: #68bfb9;
+$dark-teal: #4cada6;
+$darkest-teal: #247672;
 
 // spacing
 $full-space: 40px;
 $half-space: 20px;
-
-// font sizing
-$font-size--xs: 10px;
-$font-size--sm: 12px;
-$font-size--md: 16px;
-$font-size--lg: 24px;
-$font-size--xl: 32px;

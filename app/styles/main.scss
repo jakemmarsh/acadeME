@@ -1,9 +1,18 @@
+// Base styles
 @import 'vars';
+@import 'mixins';
 @import 'typography';
+@import 'layout';
+@import 'base';
 
-body {
-  font-family: Helvetica, sans-serif;
-  color: $font-color--dark;
-  background-color: $background--light;
-  padding: $half-space;
-}
+// Elements
+@import 'elements/header';
+@import 'elements/sidebar';
+@import 'elements/progress-bar';
+@import 'elements/top-menu';
+@import 'elements/footer';
+
+// Pages
+
+// Third-party libraries
+@import 'vendor/font-awesome/font-awesome';

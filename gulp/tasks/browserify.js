@@ -1,47 +1,47 @@
 'use strict';
 
-var config       = require('../config');
 var gulp         = require('gulp');
 var gulpif       = require('gulp-if');
 var gutil        = require('gulp-util');
 var source       = require('vinyl-source-stream');
 var streamify    = require('gulp-streamify');
+var rename       = require('gulp-rename');
 var watchify     = require('watchify');
 var browserify   = require('browserify');
+var reactify     = require('reactify');
 var uglify       = require('gulp-uglify');
-var handleErrors = require('../util/handleErrors');
-var browserSync  = require('browser-sync');
-var ngAnnotate   = require('browserify-ngannotate');
+var handleErrors = require('../util/handle-errors');
+var config       = require('../config');
 
 // Based on: http://blog.avisi.nl/2014/04/25/how-to-keep-a-fast-build-with-browserify-and-reactjs/
-function buildScript(file) {
+function buildScript(file, watch) {
 
   var bundler = browserify({
-    entries: config.browserify.entries,
+    entries: [config.sourceDir + 'js/' + file],
     cache: {},
     packageCache: {},
     fullPaths: true
   });
 
-  if ( !global.isProd ) {
+  if ( watch ) {
     bundler = watchify(bundler);
     bundler.on('update', function() {
       rebundle();
+      gutil.log('Rebundle...');
     });
   }
 
-  bundler.transform(ngAnnotate);
+  bundler.transform(reactify);
 
   function rebundle() {
     var stream = bundler.bundle();
-
-    gutil.log('Rebundle...');
-
     return stream.on('error', handleErrors)
-      .pipe(source(file))
-      .pipe(gulpif(global.isProd, streamify(uglify())))
-      .pipe(gulp.dest(config.scripts.dest))
-      .pipe(browserSync.reload({ stream: true, once: true }));
+    .pipe(source(file))
+    .pipe(gulpif(global.isProd, streamify(uglify())))
+    .pipe(streamify(rename({
+      basename: 'main'
+    })))
+    .pipe(gulp.dest(config.scripts.dest));
   }
 
   return rebundle();
@@ -50,6 +50,7 @@ function buildScript(file) {
 
 gulp.task('browserify', function() {
 
-  return buildScript('main.js');
+  // Only run watchify if NOT production
+  return buildScript('index.js', !global.isProd);
 
 });
