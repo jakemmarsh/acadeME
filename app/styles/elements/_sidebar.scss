@@ -5,6 +5,8 @@ nav.sidebar {
   height: 100%;
   width: 325px;
 
+  background: $sidebar-background-grey;
+
   .course-info-container {
     visibility: hidden;
     opacity: 0;
@@ -18,8 +20,12 @@ nav.sidebar {
       background: $teal;
       color: $white;
 
-      .title,
-      .instructor {
+      .title, .instructor, span {
+        opacity: 0;
+        @include transition(opacity 0.1s ease-in-out);
+      }
+
+      .title, .instructor {
         font-family: $sans-serif-family;
       }
 
@@ -46,13 +52,15 @@ nav.sidebar {
       max-height: 1000px;
 
       transition-delay: 0s;
+
+      .title, .instructor, span {
+        opacity: 1;
+      }
     }
   }
 
   .links-container {
     padding: $full-space;
-
-    background: $sidebar-background-grey;
 
     ul {
       margin: 0;
@@ -78,6 +86,10 @@ nav.sidebar {
         }
 
         &.active {
+          a {
+            color: $white;
+          }
+
           border-color: $orange;
         }
 

@@ -45,9 +45,9 @@ var Sidebar = React.createClass({
   renderNavigation: function() {
     return (
       <ul>
-        <ListLink to="Home">My Courses</ListLink>
-        <ListLink to="Course" params={ {id: 1} }>Explore</ListLink>
-        <ListLink to="Search">Search</ListLink>
+        <ListLink to="Home">My Curriculum</ListLink>
+        <ListLink to="Explore">Explore Courses</ListLink>
+        <ListLink to="Course" params={ {courseId: 0} }>Test Course</ListLink>
       </ul>
     );
   },
@@ -64,7 +64,7 @@ var Sidebar = React.createClass({
       <nav className="sidebar">
         <div className={courseInfoContainerClasses}>
           <div className="title-container">
-            <h1 className="title">{courseTitle}</h1>
+            <h3 className="title">{courseTitle}</h3>
             <span>Taught by</span>
             <h4 className="instructor flush">{instructorName}</h4>
           </div>

@@ -12,11 +12,41 @@
 $sans-serif-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $serif-family: "Calisto MT", "Bookman Old Style", Bookman, "Goudy Old Style", Garamond, "Hoefler Text", "Bitstream Charter", Georgia, serif;
 
+body {
+  font-family: $sans-serif-family;
+  font-size: 16px;
+  color: $text-grey;
+}
+
 h1, h2, h3, h4, h5, h6 {
-  margin-bottom: $half-space;
+  margin: 0 0 $half-space;
 
   font-family: $serif-family;
   font-weight: 600;
+}
+
+h1,.alpha {
+  font-size: 36px;
+}
+
+h2,.beta {
+  font-size: 30px;
+}
+
+h3,.gamma {
+  font-size: 24px;
+}
+
+h4,.delta {
+  font-size: 20px;
+}
+
+h5,.epsilon {
+  font-size: 18px;
+}
+
+h6,.zeta {
+  font-size: 16px;
 }
 
 a {

@@ -10,20 +10,18 @@ var TopMenu = require('../components/TopMenu');
 var CoursePage = React.createClass({
 
   componentDidMount: function() {
-    this.props.setCourse({
-      title: 'Human-Computer Interaction',
-      instructor: {
-        name: 'Joe Black'
-      },
-      percentageComplete: 35
-    });
+    this.props.updatePageTitle(this.props.course.title);
   },
 
   render: function() {
     return (
       <section className="course-page">
-        <TopMenu />
-        Course
+
+        <TopMenu course={this.props.course} query={this.props.query.q} />
+
+        <this.props.activeRouteHandler updatePageTitle={this.props.updatePageTitle}
+                                       course={this.props.course} />
+
       </section>
     );
   }

@@ -1,3 +1,45 @@
-.flush {
-  margin: 0;
-}
+.nudge { margin: $full-space; }
+.nudge-half { margin: $half-space; }
+.nudge--top { margin-top: $full-space; }
+.nudge-half--top { margin-top: $half-space; }
+.nudge--bottom { margin-bottom: $full-space; }
+.nudge-half--bottom { margin-bottom: $half-space; }
+.nudge--left { margin-left: $full-space; }
+.nudge-half--left { margin-left: $half-space; }
+.nudge--right { margin-right: $full-space; }
+.nudge-half--right { margin-right: $half-space; }
+.nudge--sides { margin-left: $full-space; margin-right: $full-space; }
+.nudge-half--sides { margin-left: $half-space; margin-right: $half-space; }
+.nudge--ends { margin-top: $full-space; margin-bottom: $full-space; }
+.nudge-half--ends { margin-top: $half-space; margin-bottom: $half-space; }
+
+.flush { margin: 0; }
+.flush--top { margin-top: 0; }
+.flush--bottom { margin-bottom: 0; }
+.flush--left { margin-left: 0; }
+.flush--right { margin-right: 0; }
+.flush--sides { margin-left: 0; margin-right: 0; }
+.flush--ends { margin-top: 0; margin-bottom: 0; }
+
+.island { padding: $full-space; }
+.islet { padding: $half-space; }
+.soft--top { padding-top: $full-space; }
+.soft-half--top { padding-top: $half-space; }
+.soft--bottom { padding-bottom: $full-space; }
+.soft-half--bottom { padding-bottom: $half-space; }
+.soft--left { padding-left: $full-space; }
+.soft-half--left { padding-left: $half-space; }
+.soft--right { padding-right: $full-space; }
+.soft-half--right { padding-right: $half-space; }
+.soft--sides { padding-left: $full-space; padding-right: $full-space; }
+.soft-half--sides { padding-left: $half-space; padding-right: $half-space; }
+.soft--ends { padding-top: $full-space; padding-bottom: $full-space; }
+.soft-half--ends { padding-top: $half-space; padding-bottom: $half-space; }
+
+.hard { padding: 0; }
+.hard--top { padding-top: 0; }
+.hard--bottom { padding-bottom: 0; }
+.hard--left { padding-left: 0; }
+.hard--right { padding-right: 0; }
+.hard--sides { padding-left: 0; padding-right: 0; }
+.hard--ends { padding-top: 0; padding-bottom: 0; }

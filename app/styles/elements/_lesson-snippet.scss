@@ -1,0 +1,45 @@
+$icon-size: 45px;
+$border-size: 8px;
+
+article.lesson-snippet {
+
+  position: relative;
+  margin: $full-space;
+  padding: $full-space;
+
+  background: $white;
+  @include box-shadow(0px 1px 1.5px rgba(0, 0, 0, 0.1));
+
+  .title {
+    color: $text-dark-grey;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 0;
+  }
+
+  &:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: '';
+    position: absolute;
+    top: -($icon-size + $border-size)/2;
+    left: 50%;
+    margin-left: -($icon-size + $border-size)/2;
+    width: $icon-size;
+    height: $icon-size;
+
+    line-height: 25px;
+    text-align: center;
+
+    border: 10px solid $background-light-grey;
+    @include border-radius(100%);
+    background: $orange;
+    color: $background-light-grey;
+  }
+
+  &.completed:before {
+    content: '\f00c'; // fontawesome check mark
+    background: $teal;
+  }
+
+}

@@ -8,8 +8,10 @@ ul.top-menu {
   list-style: none;
 
   background: $white;
+  @include box-shadow(0px 1px 1.5px rgba(0, 0, 0, 0.1));
 
   li {
+    width: 33%;
     display: table-cell;
     vertical-align: middle;
     text-align: center;
@@ -30,12 +32,29 @@ ul.top-menu {
       }
 
       &:hover {
-        color: $teal;
+        color: $orange;
       }
     }
 
     &.search-container {
-      width: 275px;
+      padding: 0 $half-space;
+
+      text-align: left;
+
+      i {
+        margin-right: $half-space/2;
+      }
+
+      input.search {
+        width: 85%;
+        border: 0;
+        outline: 0;
+
+        font-family: $serif-family;
+        font-size: 16px;
+        font-style: italic;
+        color: $text-dark-grey;
+      }
     }
 
     &:not(:last-child) {
