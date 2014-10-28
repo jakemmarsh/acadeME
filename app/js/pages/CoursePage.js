@@ -3,14 +3,28 @@
  */
 'use strict';
 
-var React   = require('react');
+var React         = require('react');
 
-var TopMenu = require('../components/TopMenu');
+var CourseActions = require('../actions/CourseActions');
+var TopMenu       = require('../components/TopMenu');
 
 var CoursePage = React.createClass({
 
-  componentDidMount: function() {
-    this.props.updatePageTitle(this.props.course.title);
+  propTypes: {
+    course: React.PropTypes.object,
+    updatePageTitle: React.PropTypes.func
+  },
+
+  getDefaultProps: function() {
+    return {
+      course: {}
+    };
+  },
+
+  componentWillMount: function() {
+    CourseActions.openCourse(this.props.params.courseId.toString(), function() {
+      this.props.updatePageTitle(this.props.course.title);
+    }.bind(this));
   },
 
   render: function() {

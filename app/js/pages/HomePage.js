@@ -12,7 +12,7 @@ var HomePage = React.createClass({
   },
 
   componentDidMount: function() {
-    this.props.updatePageTitle('Home');
+    this.props.updatePageTitle('My Curriculum');
   },
 
   render: function() {

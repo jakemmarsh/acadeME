@@ -4,6 +4,7 @@
 'use strict';
 
 var React = require('react/addons');
+var _     = require('underscore');
 var Link  = require('react-router').Link;
 
 var cx    = React.addons.classSet;
@@ -11,8 +12,15 @@ var cx    = React.addons.classSet;
 var LessonSnippet = React.createClass({
 
   propTypes: {
-    lesson: React.PropTypes.object.isRequired,
-    courseId: React.PropTypes.number.isRequired
+    lesson: React.PropTypes.object,
+    course: React.PropTypes.object
+  },
+
+  getDefaultProps: function() {
+    return {
+      lesson: {},
+      course: {}
+    };
   },
 
   render: function() {
@@ -20,29 +28,32 @@ var LessonSnippet = React.createClass({
       'lesson-snippet': true,
       'completed': this.props.lesson.completed || true
     });
+    var element = null;
 
-    console.log('id:', this.props.courseId);
+    if ( !_.isEmpty(this.props.course) ) {
+      element = (
+        <article className={classes}>
 
-    return (
-      <article className={classes}>
+          <h2 className="title">{this.props.lesson.title}</h2>
 
-        <h2 className="title">{this.props.lesson.title}</h2>
+          <p className="description flush">{this.props.lesson.description}</p>
 
-        <p className="description flush">{this.props.lesson.description}</p>
+          <div className="buttons-container soft--top">
+            <Link to="CourseLesson" params={ {courseId: this.props.course.id, lessonId: this.props.lesson.id} }
+                                    className="button orange nudge-half--right">
+              Read Lesson
+            </Link>
+            <Link to="LessonQuiz" params={ {courseId: this.props.course.id, lessonId: this.props.lesson.id} }
+                                  className="button nudge-half--right">
+              Take Quiz
+            </Link>
+          </div>
 
-        <div className="buttons-container soft--top">
-          <Link to="CourseLesson" params={ {courseId: this.props.courseId, lessonId: this.props.lesson.id} }
-                                  className="button orange nudge-half--right">
-            Read Lesson
-          </Link>
-          <Link to="LessonQuiz" params={ {courseId: this.props.courseId, lessonId: this.props.lesson.id} }
-                                className="button nudge-half--right">
-            Take Quiz
-          </Link>
-        </div>
+        </article>
+      );
+    }
 
-      </article>
-    );
+    return element;
   }
 
 });

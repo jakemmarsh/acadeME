@@ -23,6 +23,8 @@ var CourseChat        = require('./pages/Course/Chat');
 
 var NotFoundPage      = require('./pages/NotFoundPage');
 
+require('./stores');
+
 module.exports = (
   <Routes location='history'>
 

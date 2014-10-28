@@ -3,52 +3,39 @@
  */
 'use strict';
 
-var React       = require('react/addons');
-var ActiveState = require('react-router').ActiveState;
+var React              = require('react/addons');
+var Reflux             = require('reflux');
+var ActiveState        = require('react-router').ActiveState;
 
-var Header      = require('./components/Header');
-var Sidebar     = require('./components/Sidebar');
-var Footer      = require('./components/Footer');
-
-var testCourse = {
-  id: 0,
-  title: 'Human-Computer Interaction',
-  instructor: {
-    name: 'Joe Black'
-  },
-  percentageComplete: 35,
-  lessons: [
-    {
-      id: 0,
-      title: 'Rapid Prototyping',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus. Vivamus nec sem vitae sem suscipit tempus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
-      image_url: ''
-    },
-    {
-      id: 1,
-      title: 'Heuristic Evaluation',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus.',
-      image_url: ''
-    }
-  ]
-};
+var CurrentCourseStore = require('./stores/CurrentCourseStore');
+var Header             = require('./components/Header');
+var Sidebar            = require('./components/Sidebar');
+var Footer             = require('./components/Footer');
 
 var App = React.createClass({
 
-  mixins: [ActiveState],
+  mixins: [ActiveState, Reflux.ListenerMixin],
 
   getInitialState: function() {
     return {
-      course: testCourse
+      course: {}
     };
+  },
+
+  _onCourseChange: function(course) {
+    this.setState({
+      currentCourse: course
+    });
   },
 
   componentWillReceiveProps: function() {
     if ( !this.isActive('Course') ) {
-      this.setCourse(null);
-    } else {
-      this.setCourse(testCourse);
+      this._onCourseChange({});
     }
+  },
+
+  componentDidMount: function() {
+    this.listenTo(CurrentCourseStore, this._onCourseChange);
   },
 
   updatePageTitle: function(title) {
@@ -64,12 +51,6 @@ var App = React.createClass({
     document.title = newPageTitle;
   },
 
-  setCourse: function(course, cb) {
-    this.setState({
-      course: course
-    }, cb);
-  },
-
   render: function() {
     return (
       <div>
@@ -77,11 +58,10 @@ var App = React.createClass({
         <Header />
 
         <div className="body-container">
-          <Sidebar course={this.state.course} />
+          <Sidebar course={this.state.currentCourse} />
           <div className="content-container">
             <this.props.activeRouteHandler updatePageTitle={this.updatePageTitle}
-                                           setCourse={this.setCourse}
-                                           course={this.state.course} />
+                                           course={this.state.currentCourse} />
           </div>
         </div>
 

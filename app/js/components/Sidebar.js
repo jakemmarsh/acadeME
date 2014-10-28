@@ -17,6 +17,12 @@ var Sidebar = React.createClass({
     course: React.PropTypes.object
   },
 
+  getDefaultProps: function() {
+    return {
+        course: {}
+    };
+  },
+
   getInitialState: function() {
     return {
       displayCourseInfo: true
@@ -33,7 +39,6 @@ var Sidebar = React.createClass({
     var element = null;
 
     if ( this.props.course && this.props.course.percentageComplete ) {
-      console.log('percentage:', this.props.course.percentageComplete);
       element = (
         <ProgressBar percentage={this.props.course.percentageComplete} />
       );

@@ -3,25 +3,50 @@
  */
 'use strict';
 
-var React         = require('react/addons');
+var React           = require('react/addons');
+var Reflux          = require('reflux');
+var _               = require('underscore');
 
-var LessonSnippet = require('../../components/LessonSnippet');
+var LessonListStore = require('../../stores/LessonListStore');
+var LessonSnippet   = require('../../components/LessonSnippet');
 
 var CourseLessonsList = React.createClass({
 
-  propTypes: {
-    course: React.PropTypes.object.isRequired
+  mixins: [Reflux.ListenerMixin],
+
+  getDefaultProps: function() {
+    return {
+      course: {}
+    };
+  },
+
+  getInitialState: function() {
+    return {
+      lessons: LessonListStore.currentList || []
+    };
+  },
+
+  _onLessonListChange: function(lessonList) {
+    this.setState({
+      lessons: lessonList
+    });
+  },
+
+  componentDidMount: function() {
+    this.listenTo(LessonListStore, this._onLessonListChange);
   },
 
   renderLessons: function() {
     var elements = null;
 
-    if ( this.props.course && this.props.course.lessons ) {
-      elements =  this.props.course.lessons.map(function(lesson, index) {
+    if ( !_.isEmpty(this.props.course) && this.state.lessons ) {
+      elements =  this.state.lessons.map(function(lesson, index) {
         return (
-          <LessonSnippet courseId={this.props.course.id} lesson={lesson} key={index} />
+          <LessonSnippet course={this.props.course} lesson={lesson} key={index} />
         );
       }.bind(this));
+
+      console.log('render elements:', elements);
     }
 
     return elements;
