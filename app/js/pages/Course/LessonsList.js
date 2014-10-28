@@ -45,8 +45,6 @@ var CourseLessonsList = React.createClass({
           <LessonSnippet course={this.props.course} lesson={lesson} key={index} />
         );
       }.bind(this));
-
-      console.log('render elements:', elements);
     }
 
     return elements;
