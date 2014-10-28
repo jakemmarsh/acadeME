@@ -50,6 +50,12 @@ h6,.zeta {
 }
 
 a {
+  position: relative;
+  top: 0;
   text-decoration: none;
   color: $teal;
+
+  &:active {
+    top: 2px;
+  }
 }

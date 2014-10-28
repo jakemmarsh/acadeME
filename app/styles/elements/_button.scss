@@ -1,8 +1,6 @@
 .button {
 
-  position: relative;
   padding: $half-space/2;
-  top: 0;
 
   text-transform: uppercase;
   font-weight: 600;
@@ -22,10 +20,6 @@
     &:hover {
       background-color: lighten($orange, 5);
     }
-  }
-
-  &:active {
-    top: 2px;
   }
 
 }
