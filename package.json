@@ -38,8 +38,8 @@
     "gulp-imagemin": "git://github.com/jakemmarsh/gulp-imagemin.git#master",
     "gulp-notify": "^1.6.0",
     "gulp-streamify": "0.0.5",
-    "react": "^0.11.2",
-    "react-router": "^0.9.0",
+    "react": "^0.12.0",
+    "react-router": "^0.10.0",
     "del": "^0.1.3",
     "underscore": "^1.7.0",
     "reflux": "^0.1.13"
