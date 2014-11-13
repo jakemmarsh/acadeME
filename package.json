@@ -45,7 +45,9 @@
     "reflux": "^0.1.13",
     "sequelize": "^2.0.0-rc2",
     "bcrypt": "^0.8.0",
-    "when": "^3.6.1"
+    "when": "^3.6.1",
+    "humps": "0.0.1",
+    "superagent": "^0.21.0"
   },
   "devDependencies": {
     "supervisor": "^0.6.0"
