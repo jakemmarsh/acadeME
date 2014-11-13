@@ -5,6 +5,7 @@ var morgan         = require('morgan');
 var compression    = require('compression');
 var methodOverride = require('method-override');
 var bodyParser     = require('body-parser');
+var api            = require('./api');
 var app            = express();
 
 /* ====================================================== */
@@ -43,6 +44,9 @@ app.use('*/js', express.static(__dirname + '/build/js'));
 app.use('*/images', express.static(__dirname + '/build/images'));
 app.use('*/css', express.static(__dirname + '/build/css'));
 app.use('*/fonts', express.static(__dirname + '/build/fonts'));
+
+// Mount the API
+app.use('/api', api);
 
 // Serve index.html for all main routes to leave routing up to react-router
 app.all('/*', function(req, res) {
