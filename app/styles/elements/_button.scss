@@ -8,18 +8,10 @@
   color: $white;
   @include border-radius(3px);
 
-  @include transition(background-color 0.2s ease-in-out);
+  @include transition(background-color 0.1s ease-in-out);
 
   &:hover {
-    background-color: lighten($teal, 5);
-  }
-
-  &.orange {
     background-color: $orange;
-
-    &:hover {
-      background-color: lighten($orange, 5);
-    }
   }
 
 }

@@ -26,7 +26,7 @@ var LessonSnippet = React.createClass({
   render: function() {
     var classes = cx({
       'lesson-snippet': true,
-      'completed': this.props.lesson.completed || true
+      'completed': this.props.lesson.completed || true // TODO: actual logic for this
     });
     var element = null;
 
@@ -40,11 +40,11 @@ var LessonSnippet = React.createClass({
 
           <div className="buttons-container soft--top">
             <Link to="CourseLesson" params={ {courseId: this.props.course.id, lessonId: this.props.lesson.id} }
-                                    className="button orange nudge-half--right">
+                                    className="button nudge-half--right">
               Read Lesson
             </Link>
             <Link to="LessonQuiz" params={ {courseId: this.props.course.id, lessonId: this.props.lesson.id} }
-                                  className="button nudge-half--right">
+                                  className="button">
               Take Quiz
             </Link>
           </div>
