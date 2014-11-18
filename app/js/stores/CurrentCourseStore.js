@@ -3,6 +3,7 @@
 var Reflux        = require('reflux');
 
 var CourseActions = require('../actions/CourseActions');
+var CourseAPI     = require('../utils/CourseAPI');
 
 var CurrentCourseStore = Reflux.createStore({
 
@@ -15,21 +16,14 @@ var CurrentCourseStore = Reflux.createStore({
 
     console.log('retrieve course for:', courseId);
 
-    var course = {
-      id: 0,
-      title: 'Human-Computer Interaction',
-      instructor: {
-        name: 'Joe Black'
-      },
-      percentageComplete: 35
-    };
-
-    this.currentCourse = course;
-
-    // TODO: load course from database
-
-    this.trigger(course);
-    cb();
+    CourseAPI.get(courseId).then(function(course) {
+      this.course = course;
+      this.trigger(course);
+      cb();
+    }).catch(function(err) {
+      // TODO: handle error
+      console.log('error retrieving course:', err);
+    });
   }
 
 });

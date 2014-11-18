@@ -3,6 +3,7 @@
 var Reflux        = require('reflux');
 
 var LessonActions = require('../actions/LessonActions');
+var LessonAPI     = require('../utils/LessonAPI');
 
 var CurrentLessonStore = Reflux.createStore({
 
@@ -10,20 +11,19 @@ var CurrentLessonStore = Reflux.createStore({
     this.listenTo(LessonActions.openLesson, this.openLesson);
   },
 
-  // TODO: does this receive a full lesson, or just a lesson ID?
-  openLesson: function(lessonId) {
-    var lesson;
+  openLesson: function(lessonId, cb) {
+    cb = cb || function() {};
 
     console.log('retrieve lesson for:', lessonId);
 
-    lesson = {
-      id: 1,
-      title: 'Heuristic Evaluation',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus.',
-      image_url: ''
-    };
-
-    this.trigger(lesson);
+    LessonAPI.get(lessonId).then(function(lesson) {
+      this.lesson = lesson;
+      this.trigger(lesson);
+      cb();
+    }).catch(function(err) {
+      // TODO: handle error
+      console.log('error retrieving lesson:', err);
+    });
   }
 
 });
