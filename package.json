@@ -1,18 +1,18 @@
 {
-  "name": "react-browserify-gulp-boilerplate",
+  "name": "elearning",
   "version": "0.1.0",
   "author": "Jake Marsh <jakemmarsh@gmail.com>",
-  "description": "Boilerplate using React, Browserify, SASS, and Gulp.",
+  "description": "A new approach to elearning to promote collaboration and feedback.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jakemmarsh/react-browserify-gulp-boilerplate.git"
+    "url": "https://github.com/jakemmarsh/elearning.git"
   },
   "keywords": [
     "gulp",
     "browserify",
     "react",
     "sass",
-    "boilerplate"
+    "elearning"
   ],
   "private": true,
   "engines": {
@@ -35,7 +35,6 @@
     "watchify": "^1.0.2",
     "reactify": "^0.14.0",
     "gulp-if": "^1.2.4",
-    "gulp-imagemin": "git://github.com/jakemmarsh/gulp-imagemin.git#master",
     "gulp-notify": "^1.6.0",
     "gulp-streamify": "0.0.5",
     "react": "^0.12.0",
@@ -47,7 +46,8 @@
     "bcrypt": "^0.8.0",
     "when": "^3.6.1",
     "humps": "0.0.1",
-    "superagent": "^0.21.0"
+    "superagent": "^0.21.0",
+    "gulp-imagemin": "^2.0.0",
   },
   "devDependencies": {
     "supervisor": "^0.6.0"
