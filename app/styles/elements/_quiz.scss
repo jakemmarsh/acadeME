@@ -1,0 +1,9 @@
+div.quiz {
+
+  .progress-bar {
+    background-color: darken($background-light-grey, 10);
+
+    .fill { background-color: $orange; }
+  }
+
+}

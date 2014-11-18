@@ -8,8 +8,19 @@ var Reflux           = require('reflux');
 
 var CurrentQuizStore = require('../../stores/CurrentQuizStore');
 var LessonActions    = require('../../actions/LessonActions');
+var Quiz             = require('../../components/Quiz');
 
 var LessonQuiz = React.createClass({
+
+  statics: {
+    willTransitionFrom: function(transition, component) {
+      if ( !component.state.quizComplete ) {
+        if( !window.confirm('You haven\'t yet finished this quiz! Are you sure you want to leave and lose all progress?') ) {
+          transition.abort();
+        }
+      }
+    }
+  },
 
   mixins: [Reflux.ListenerMixin],
 
@@ -21,7 +32,8 @@ var LessonQuiz = React.createClass({
 
   getInitialState: function() {
     return {
-      quiz: {}
+      quiz: {},
+      quizComplete: false
     };
   },
 
@@ -39,10 +51,16 @@ var LessonQuiz = React.createClass({
     this.listenTo(CurrentQuizStore, this._onQuizChange);
   },
 
+  flagQuizComplete: function() {
+    this.setState({
+      quizComplete: true
+    });
+  },
+
   render: function() {
     return (
       <div>
-        Quiz for specific course lesson
+        <Quiz quiz={this.state.quiz} flagQuizComplete={this.flagQuizComplete} />
       </div>
     );
   }
