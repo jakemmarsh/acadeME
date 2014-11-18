@@ -8,22 +8,14 @@ nav.sidebar {
   background: $sidebar-background-grey;
 
   .course-info-container {
-    visibility: hidden;
-    opacity: 0;
-    max-height: 0;
-
-    @include transition(visibility 0s linear 0.5s, opacity 0.5s ease-in-out, max-height 0.5s ease-in-out);
+    opacity: 1;
+    max-height: 1000px;
 
     .title-container {
       padding: $full-space;
 
       background: $teal;
       color: $white;
-
-      .title, .instructor, span {
-        opacity: 0;
-        @include transition(opacity 0.1s ease-in-out);
-      }
 
       .title, .instructor {
         font-family: $sans-serif-family;
@@ -45,18 +37,29 @@ nav.sidebar {
 
       background: $dark-teal;
     }
+  }
 
-    &.open {
-      visibility: visible;
-      opacity: 1;
-      max-height: 1000px;
+  /* React CSS Transition Group styles */
+  .course-info-container-enter {
+    opacity: 0.01;
+    max-height: 1px;
+    @include transition(opacity 0.5s ease-in-out, max-height 0.5s ease-in-out);
+  }
 
-      transition-delay: 0s;
+  .course-info-container-enter-active {
+    opacity: 1;
+    max-height: 1000px;
+  }
 
-      .title, .instructor, span {
-        opacity: 1;
-      }
-    }
+  .course-info-container-leave {
+    opacity: 1;
+    max-height: 1000px;
+    @include transition(opacity 0.5s ease-in-out, max-height 0.5s ease-in-out);
+  }
+
+  .course-info-container-leave-active {
+    opacity: 0.01;
+    max-height: 1px;
   }
 
   .links-container {

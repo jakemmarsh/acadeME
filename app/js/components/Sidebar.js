@@ -3,13 +3,12 @@
  */
 'use strict';
 
-var React       = require('react/addons');
-var _           = require('underscore');
+var React                   = require('react/addons');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var _                       = require('underscore');
 
-var ListLink    = require('./ListLink');
-var ProgressBar = require('./ProgressBar');
-
-var cx          = React.addons.classSet;
+var ListLink                = require('./ListLink');
+var ProgressBar             = require('./ProgressBar');
 
 var Sidebar = React.createClass({
 
@@ -29,16 +28,36 @@ var Sidebar = React.createClass({
     };
   },
 
-  toggleCourse: function() {
-    this.setState({
-      displayCourseInfo: !this.state.displayCourseInfo
-    });
+  renderCourseInfo: function() {
+    var element = [];
+    var courseTitle;
+    var instructorName;
+
+    if ( !_.isEmpty(this.props.course) ) {
+      console.log('have course');
+      courseTitle = this.props.course.title || '';
+      instructorName = this.props.course.instructor ? this.props.course.instructor.name : '';
+      element = (
+        <div className="course-info-container" key={this.props.course.title}>
+            <div className="title-container">
+              <h3 className="title">{courseTitle}</h3>
+              <span>Taught by</span>
+              <h4 className="instructor flush">{instructorName}</h4>
+            </div>
+            <div className="progress-container">
+              {this.renderProgressBar()}
+            </div>
+        </div>
+      );
+    }
+
+    return element;
   },
 
   renderProgressBar: function() {
     var element = null;
 
-    if ( this.props.course && this.props.course.percentageComplete ) {
+    if ( !_.isEmpty(this.props.course) && this.props.course.percentageComplete ) {
       element = (
         <ProgressBar percentage={this.props.course.percentageComplete} />
       );
@@ -58,29 +77,19 @@ var Sidebar = React.createClass({
   },
 
   render: function() {
-    var courseInfoContainerClasses = cx({
-      'course-info-container': true,
-      'open': !_.isEmpty(this.props.course)
-    });
-    var courseTitle = this.props.course ? this.props.course.title : '';
-    var instructorName = this.props.course && this.props.course.instructor ? this.props.course.instructor.name : '';
-
     return (
       <nav className="sidebar">
-        <div className={courseInfoContainerClasses}>
-          <div className="title-container">
-            <h3 className="title">{courseTitle}</h3>
-            <span>Taught by</span>
-            <h4 className="instructor flush">{instructorName}</h4>
-          </div>
-          <div className="progress-container">
-            {this.renderProgressBar()}
-          </div>
-        </div>
+
+        <ReactCSSTransitionGroup transitionName="course-info-container" component="div">
+          {this.renderCourseInfo()}
+        </ReactCSSTransitionGroup>
+
         <div className="links-container">
           {this.renderNavigation()}
         </div>
+
         <div className="shadow" />
+
       </nav>
     );
   }
