@@ -20,7 +20,7 @@ var CurrentLessonStore = Reflux.createStore({
       this.lesson = lesson;
       this.trigger(lesson);
       cb();
-    }).catch(function(err) {
+    }.bind(this)).catch(function(err) {
       // TODO: handle error
       console.log('error retrieving lesson:', err);
     });

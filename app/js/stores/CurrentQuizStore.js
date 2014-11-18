@@ -23,7 +23,7 @@ var CurrentQuizStore = Reflux.createStore({
       this.quiz = quiz;
       this.trigger(quiz);
       cb();
-    }).catch(function(err) {
+    }.bind(this)).catch(function(err) {
       // TODO: handle error
       console.log('error getting quiz:', err);
     });
@@ -36,7 +36,7 @@ var CurrentQuizStore = Reflux.createStore({
 
     QuizAPI.getQuestion(quizId, numQuestions, userScore).then(function(question) {
       cb(question);
-    }).catch(function(err) {
+    }.bind(this)).catch(function(err) {
       // TODO: handle error
       console.log('error getting question:', err);
     });
@@ -49,7 +49,7 @@ var CurrentQuizStore = Reflux.createStore({
 
     QuizAPI.checkAnswer(this.quiz.id, questionId, answer).then(function(result) {
       cb(result);
-    }).catch(function(err) {
+    }.bind(this)).catch(function(err) {
       // TODO: handle error
       console.log('error checking answer:', err);
     });

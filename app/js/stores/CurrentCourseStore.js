@@ -20,7 +20,7 @@ var CurrentCourseStore = Reflux.createStore({
       this.course = course;
       this.trigger(course);
       cb();
-    }).catch(function(err) {
+    }.bind(this)).catch(function(err) {
       // TODO: handle error
       console.log('error retrieving course:', err);
     });
