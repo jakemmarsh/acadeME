@@ -59,9 +59,7 @@ var LessonQuiz = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <Quiz quiz={this.state.quiz} flagQuizComplete={this.flagQuizComplete} />
-      </div>
+      <Quiz quiz={this.state.quiz} flagQuizComplete={this.flagQuizComplete} />
     );
   }
 

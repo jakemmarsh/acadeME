@@ -125,7 +125,7 @@ var Quiz = React.createClass({
 
         {this.renderProgressBar()}
 
-        (this.renderCurrentQuestion())
+        {this.renderCurrentQuestion()}
 
         {this.renderFinishedScreen()}
 

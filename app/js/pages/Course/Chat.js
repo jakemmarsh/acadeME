@@ -45,9 +45,9 @@ var CourseChat = React.createClass({
     var elements = null;
 
     if ( this.state.conversations ) {
-      elements = _.map(this.state.conversations, function(conversation) {
+      elements = _.map(this.state.conversations, function(conversation, index) {
         return (
-          <li>{conversation.recipient}</li>
+          <li key={index}>{conversation.recipient}</li>
         );
       });
     }

@@ -5,7 +5,7 @@
 
 var React = require('react/addons');
 var _     = require('underscore');
-var Link  = require('react-router').Link;
+var Link  = React.createFactory(require('react-router').Link);
 
 var cx    = React.addons.classSet;
 
