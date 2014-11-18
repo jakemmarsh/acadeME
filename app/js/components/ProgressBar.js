@@ -3,24 +3,49 @@
  */
 'use strict';
 
-var React = require('react/addons');
+var React                   = require('react/addons');
+var ReactCSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup);
+
+var Tooltip                 = require('./Tooltip');
 
 var ProgressBar = React.createClass({
 
   propTypes: {
-    percentage: React.PropTypes.number.isRequired
+    percentage: React.PropTypes.number.isRequired,
+    showTooltip: React.PropTypes.bool.isRequired
   },
 
-  showTooltip: function() {
-    console.log('hover over progress bar');
+  getDefaultProps: function() {
+    return {
+      showTooltip: false
+    };
+  },
+
+  renderTooltip: function() {
+    var element = null;
+
+    if ( this.props.showTooltip ) {
+      element = (
+        <Tooltip left={this.props.percentage + '%'}
+                 content={this.props.percentage + '%'} />
+      );
+    }
+
+    return element;
   },
 
   render: function() {
     var fillWidth = this.props.percentage + '%';
 
     return (
-      <div className="progress-bar" onMouseOver={this.showTooltip}>
+      <div className="progress-bar">
+
         <div className="fill" style={{width: fillWidth}} />
+
+        <ReactCSSTransitionGroup transitionName="tooltip">
+          {this.renderTooltip()}
+        </ReactCSSTransitionGroup>
+
       </div>
     );
   }

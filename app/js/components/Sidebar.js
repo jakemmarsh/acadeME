@@ -4,7 +4,7 @@
 'use strict';
 
 var React                   = require('react/addons');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var ReactCSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup);
 var _                       = require('underscore');
 
 var ListLink                = require('./ListLink');
@@ -24,8 +24,17 @@ var Sidebar = React.createClass({
 
   getInitialState: function() {
     return {
-      displayCourseInfo: true
+      displayCourseInfo: true,
+      displayProgressTooltip: false
     };
+  },
+
+  showProgressTooltip: function() {
+    this.setState({ displayProgressTooltip: true });
+  },
+
+  hideProgressTooltip: function() {
+    this.setState({ displayProgressTooltip: false });
   },
 
   renderCourseInfo: function() {
@@ -34,7 +43,6 @@ var Sidebar = React.createClass({
     var instructorName;
 
     if ( !_.isEmpty(this.props.course) ) {
-      console.log('have course');
       courseTitle = this.props.course.title || '';
       instructorName = this.props.course.instructor ? this.props.course.instructor.name : '';
       element = (
@@ -44,7 +52,7 @@ var Sidebar = React.createClass({
               <span>Taught by</span>
               <h4 className="instructor flush">{instructorName}</h4>
             </div>
-            <div className="progress-container">
+            <div className="progress-container" onMouseOver={this.showProgressTooltip} onMouseLeave={this.hideProgressTooltip}>
               {this.renderProgressBar()}
             </div>
         </div>
@@ -59,7 +67,7 @@ var Sidebar = React.createClass({
 
     if ( !_.isEmpty(this.props.course) && this.props.course.percentageComplete ) {
       element = (
-        <ProgressBar percentage={this.props.course.percentageComplete} />
+        <ProgressBar percentage={this.props.course.percentageComplete} showTooltip={this.state.displayProgressTooltip} />
       );
     }
 
