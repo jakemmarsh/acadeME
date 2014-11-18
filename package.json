@@ -48,6 +48,8 @@
     "humps": "0.0.1",
     "superagent": "^0.21.0",
     "gulp-imagemin": "^2.0.0",
+    "pg": "^3.6.3",
+    "slug": "^0.8.0"
   },
   "devDependencies": {
     "supervisor": "^0.6.0"

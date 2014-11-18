@@ -23,7 +23,7 @@ exports.get = function(req, res) {
       if ( _.isEmpty(user) ) {
         deferred.reject({
           status: 404,
-          error: 'User could not be found at identifier: ' + identifier
+          body: 'User could not be found at identifier: ' + identifier
         });
       } else {
         deferred.resolve(user);
@@ -31,7 +31,7 @@ exports.get = function(req, res) {
     }).catch(function(err) {
       deferred.reject({
         status: 500,
-        error: err
+        body: err
       });
     });
 
@@ -42,7 +42,7 @@ exports.get = function(req, res) {
     res.status(200).json(user);
   }, function(err) {
     res.status(err.status).json({
-      error: err.error
+      error: err.body
     });
   });
 

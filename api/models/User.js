@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
         isEmail: true
       }
     },
-    type:            { type: DataTypes.enum('student', 'instructor'), allowNull: false },
+    type:            { type: DataTypes.ENUM('student', 'instructor'), allowNull: false },
     imageUrl:        { type: DataTypes.STRING },
     hash:            { type: DataTypes.STRING },
     activationKey:   { type: DataTypes.STRING },

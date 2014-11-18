@@ -17,7 +17,7 @@ exports.login = function(req, res) {
         if ( err || !result ) {
           deferred.reject({
             status: 403,
-            error: err || 'Password is incorrect.'
+            body: err || 'Password is incorrect.'
           });
         } else {
           deferred.resolve(retrievedUser);
@@ -34,7 +34,7 @@ exports.login = function(req, res) {
     res.status(200).json(user);
   }, function(err) {
     res.status(err.status).json({
-      error: err.error
+      error: err.body
     });
   });
 
@@ -51,7 +51,7 @@ exports.register = function(req, res) {
       if ( err ) {
         deferred.reject({
           status: 500,
-          error: err
+          body: err
         });
       } else {
         user.hash = hash;
@@ -64,7 +64,7 @@ exports.register = function(req, res) {
           console.log('error creating user:', err);
           deferred.reject({
             status: 500,
-            error: err
+            body: err
           });
         });
       }
@@ -77,7 +77,7 @@ exports.register = function(req, res) {
     res.status(200).json(user);
   }, function(err) {
     res.status(err.status).json({
-      error: err.error
+      error: err.body
     });
   });
 
