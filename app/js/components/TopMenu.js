@@ -69,4 +69,4 @@ var TopMenu = React.createClass({
 
 });
 
-module.exports = TopMenu;
+module.exports = React.createFactory(TopMenu);

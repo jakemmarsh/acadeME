@@ -73,4 +73,4 @@ var App = React.createClass({
 
 });
 
-module.exports = App;
+module.exports = React.createFactory(App);

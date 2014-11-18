@@ -37,4 +37,4 @@ var CourseLesson = React.createClass({
 
 });
 
-module.exports = CourseLesson;
+module.exports = React.createFactory(CourseLesson);

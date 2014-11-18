@@ -5,7 +5,7 @@
 
 var React       = require('react/addons');
 var ActiveState = require('react-router').ActiveState;
-var Link        = require('react-router').Link;
+var Link        = React.createFactory(require('react-router').Link);
 
 var ListLink = React.createClass({
 
@@ -21,4 +21,4 @@ var ListLink = React.createClass({
 
 });
 
-module.exports = ListLink;
+module.exports = React.createFactory(ListLink);

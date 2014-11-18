@@ -87,4 +87,4 @@ var Sidebar = React.createClass({
 
 });
 
-module.exports = Sidebar;
+module.exports = React.createFactory(Sidebar);

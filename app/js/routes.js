@@ -15,15 +15,13 @@ var HomePage          = require('./pages/HomePage');
 var ExplorePage       = require('./pages/ExplorePage');
 
 var CoursePage        = require('./pages/CoursePage');
-var CourseLessonsList = require('./pages/Course/LessonsList');
+var CourseLessonList = require('./pages/Course/LessonList');
 var CourseLesson      = require('./pages/Course/Lesson');
 var LessonQuiz        = require('./pages/Course/Quiz');
 var CourseSearch      = require('./pages/Course/Search');
 var CourseChat        = require('./pages/Course/Chat');
 
 var NotFoundPage      = require('./pages/NotFoundPage');
-
-require('./stores');
 
 module.exports = (
   <Routes location='history'>
@@ -36,7 +34,7 @@ module.exports = (
       <Route name='Explore' path='/explore' handler={ExplorePage} />
 
       <Route name='Course' path='/course/:courseId' handler={CoursePage}>
-        <DefaultRoute handler={CourseLessonsList} />
+        <DefaultRoute handler={CourseLessonList} />
         <Route name='CourseLesson' path='/course/:courseId/lesson/:lessonId' handler={CourseLesson} />
         <Route name='LessonQuiz' path='/course/:courseId/lesson/:lessonId/quiz' handler={LessonQuiz} />
         <Route name='CourseSearch' path='/course/:courseId/search' handler={CourseSearch} />

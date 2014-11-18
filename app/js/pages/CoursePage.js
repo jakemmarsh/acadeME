@@ -42,4 +42,4 @@ var CoursePage = React.createClass({
 
 });
 
-module.exports = CoursePage;
+module.exports = React.createFactory(CoursePage);

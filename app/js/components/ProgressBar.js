@@ -11,11 +11,15 @@ var ProgressBar = React.createClass({
     percentage: React.PropTypes.number.isRequired
   },
 
+  showTooltip: function() {
+    console.log('hover over progress bar');
+  },
+
   render: function() {
     var fillWidth = this.props.percentage + '%';
 
     return (
-      <div className="progress-bar">
+      <div className="progress-bar" onMouseOver={this.showTooltip}>
         <div className="fill" style={{width: fillWidth}} />
       </div>
     );
@@ -23,4 +27,4 @@ var ProgressBar = React.createClass({
 
 });
 
-module.exports = ProgressBar;
+module.exports = React.createFactory(ProgressBar);

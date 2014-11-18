@@ -58,4 +58,4 @@ var LessonSnippet = React.createClass({
 
 });
 
-module.exports = LessonSnippet;
+module.exports = React.createFactory(LessonSnippet);

@@ -65,4 +65,4 @@ var CourseChat = React.createClass({
 
 });
 
-module.exports = CourseChat;
+module.exports = React.createFactory(CourseChat);

@@ -49,4 +49,4 @@ var LessonQuiz = React.createClass({
 
 });
 
-module.exports = LessonQuiz;
+module.exports = React.createFactory(LessonQuiz);
