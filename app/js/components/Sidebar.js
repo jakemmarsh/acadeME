@@ -24,17 +24,8 @@ var Sidebar = React.createClass({
 
   getInitialState: function() {
     return {
-      displayCourseInfo: true,
-      displayProgressTooltip: false
+      displayCourseInfo: true
     };
-  },
-
-  showProgressTooltip: function() {
-    this.setState({ displayProgressTooltip: true });
-  },
-
-  hideProgressTooltip: function() {
-    this.setState({ displayProgressTooltip: false });
   },
 
   renderCourseInfo: function() {
@@ -52,7 +43,7 @@ var Sidebar = React.createClass({
               <span>Taught by</span>
               <h4 className="instructor flush">{instructorName}</h4>
             </div>
-            <div className="progress-container" onMouseOver={this.showProgressTooltip} onMouseLeave={this.hideProgressTooltip}>
+            <div className="progress-container">
               {this.renderProgressBar()}
             </div>
         </div>
@@ -67,7 +58,7 @@ var Sidebar = React.createClass({
 
     if ( !_.isEmpty(this.props.course) && this.props.course.percentageComplete ) {
       element = (
-        <ProgressBar percentage={this.props.course.percentageComplete} showTooltip={this.state.displayProgressTooltip} />
+        <ProgressBar percentage={this.props.course.percentageComplete} />
       );
     }
 

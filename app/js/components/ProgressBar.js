@@ -11,20 +11,27 @@ var Tooltip                 = require('./Tooltip');
 var ProgressBar = React.createClass({
 
   propTypes: {
-    percentage: React.PropTypes.number.isRequired,
-    showTooltip: React.PropTypes.bool.isRequired
+    percentage: React.PropTypes.number.isRequired
   },
 
-  getDefaultProps: function() {
+  getInitialState: function() {
     return {
-      showTooltip: false
+      displayTooltip: false
     };
+  },
+
+  showProgressTooltip: function() {
+    this.setState({ displayTooltip: true });
+  },
+
+  hideProgressTooltip: function() {
+    this.setState({ displayTooltip: false });
   },
 
   renderTooltip: function() {
     var element = null;
 
-    if ( this.props.showTooltip ) {
+    if ( this.state.displayTooltip ) {
       element = (
         <Tooltip left={this.props.percentage + '%'}
                  content={this.props.percentage + '%'} />
@@ -38,7 +45,7 @@ var ProgressBar = React.createClass({
     var fillWidth = this.props.percentage + '%';
 
     return (
-      <div className="progress-bar">
+      <div className="progress-bar" onMouseOver={this.showProgressTooltip} onMouseLeave={this.hideProgressTooltip}>
 
         <div className="fill" style={{width: fillWidth}} />
 
