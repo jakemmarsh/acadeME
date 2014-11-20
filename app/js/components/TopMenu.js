@@ -6,6 +6,7 @@
 var React      = require('react/addons');
 var _          = require('underscore');
 var Navigation = require('react-router').Navigation;
+var Link       = React.createFactory(require('react-router').Link);
 
 var ListLink = require('./ListLink');
 
@@ -14,13 +15,17 @@ var TopMenu = React.createClass({
   mixins: [React.addons.LinkedStateMixin, Navigation],
 
   propTypes: {
+    currentUser: React.PropTypes.object,
     course: React.PropTypes.object,
     query: React.PropTypes.string
   },
 
   getDefaultProps: function() {
     return {
-        course: {}
+      currentUser : {},
+      course: {
+        user: {}
+      }
     };
   },
 
@@ -38,20 +43,40 @@ var TopMenu = React.createClass({
     }
   },
 
+  renderCreateButton: function() {
+    var element = null;
+
+    if ( true || this.props.course.user.id === this.props.currentUser.id ) {
+      element = (
+        <li className="create-lesson-button">
+          <i className="fa fa-plus" />
+          <Link to="CreateLesson" params={{ courseId: this.props.course.id }} />
+        </li>
+      );
+    }
+
+    return element;
+  },
+
   render: function() {
     var element = null;
 
     if ( !_.isEmpty(this.props.course) ) {
       element = (
         <ul className="top-menu">
+
+          {this.renderCreateButton()}
+
           <ListLink to="Course" params={ {courseId: this.props.course.id} }>
             <i className="fa fa-book" />
             Lessons
           </ListLink>
+
           <ListLink to="CourseChat" params={ {courseId: this.props.course.id} }>
             <i className="fa fa-comments" />
             Chat
           </ListLink>
+
           <li className="search-container">
             <i className="fa fa-search" />
             <input type="text"
@@ -60,6 +85,7 @@ var TopMenu = React.createClass({
                    valueLink={this.linkState('query')}
                    onKeyPress={this.submitOnEnter} />
           </li>
+
         </ul>
       );
     }

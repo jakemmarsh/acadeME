@@ -20,6 +20,7 @@ var CourseLesson      = require('./pages/Course/Lesson');
 var LessonQuiz        = require('./pages/Course/Quiz');
 var CourseSearch      = require('./pages/Course/Search');
 var CourseChat        = require('./pages/Course/Chat');
+var CreateLesson      = require('./pages/Course/CreateLesson');
 
 var NotFoundPage      = require('./pages/NotFoundPage');
 
@@ -39,6 +40,7 @@ module.exports = (
         <Route name='LessonQuiz' path='/course/:courseId/lesson/:lessonId/quiz' handler={LessonQuiz} />
         <Route name='CourseSearch' path='/course/:courseId/search' handler={CourseSearch} />
         <Route name='CourseChat' path='/course/:courseId/chat' handler={CourseChat} />
+        <Route name='CreateLesson' path='/course/:courseId/create' handler={CreateLesson} />
       </Route>
 
       <NotFoundRoute handler={NotFoundPage} />
