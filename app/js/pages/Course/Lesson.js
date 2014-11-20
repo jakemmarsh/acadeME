@@ -13,6 +13,12 @@ var CourseLesson = React.createClass({
 
   mixins: [Reflux.ListenerMixin],
 
+  getInitialState: function() {
+    return {
+      lesson: {}
+    };
+  },
+
   _onLessonChange: function(lesson) {
     this.setState({
       lesson: lesson
@@ -30,7 +36,10 @@ var CourseLesson = React.createClass({
   render: function() {
     return (
       <div>
-        Specific course lesson
+        <h2 className="nudge nudge-half--bottom">{this.state.lesson.title}</h2>
+        <div className="lesson islet nudge flush--top">
+          Specific course lesson
+        </div>
       </div>
     );
   }

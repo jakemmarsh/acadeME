@@ -7,8 +7,7 @@ article.lesson-snippet {
   margin: $full-space;
   padding: $full-space;
 
-  background: $white;
-  @include box-shadow(0px 1px 1.5px rgba(0, 0, 0, 0.1));
+  @extend %card;
 
   .title {
     color: $text-dark-grey;
