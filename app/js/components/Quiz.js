@@ -4,6 +4,7 @@
 'use strict';
 
 var React       = require('react/addons');
+var _           = require('underscore');
 
 var QuizActions = require('../actions/QuizActions');
 var ProgressBar = require('./ProgressBar');
@@ -17,7 +18,9 @@ var Quiz = React.createClass({
 
   getDefaultProps: function() {
     return {
-      quiz: {}
+      quiz: {
+        answers: []
+      }
     };
   },
 
@@ -26,7 +29,8 @@ var Quiz = React.createClass({
       question: null,
       userScore: 0,
       currentQuestionNumber: 0,
-      quizComplete: false
+      quizComplete: false,
+      selectedAnswer: {}
     };
   },
 
@@ -34,7 +38,7 @@ var Quiz = React.createClass({
     var newScore = this.state.userScore;
 
     // TODO: more complex algorithm for scoring
-    if ( result.isCorrect ) {
+    if ( true || result ) {
       newScore++;
     } else {
       newScore--;
@@ -47,22 +51,35 @@ var Quiz = React.createClass({
     if ( question ) {
       this.setState({
         question: question,
-        currentQuestionNumber: this.state.currentQuestionNumber + 1
+        currentQuestionNumber: this.state.currentQuestionNumber + 1,
+        selectedAnswer: {}
       });
     }
   },
 
-  componentWillMount: function() {
-    this.getNextQuestion();
+  componentDidUpdate: function(prevProps) {
+    console.log('did update:', this.props.quiz);
+    if ( !_.isEmpty(this.props.quiz) && this.props.quiz.id !== prevProps.quiz.id ) {
+      this.getNextQuestion();
+    }
   },
 
-  checkAnswer: function() {
-    QuizActions.checkAnswer(this.state.question.id, this.state.answer, this._onAnswerCheck);
+  getNumQuestions: function() {
+    return this.props.quiz.answers ? this.props.quiz.answers.length : 1;
+  },
+
+  selectAnswer: function(answer) {
+    this.setState({ selectedAnswer: answer });
+  },
+
+  submitAnswer: function() {
+    QuizActions.checkAnswer(this.state.question.id, this.state.selectedAnswer, this._onAnswerCheck);
   },
 
   getNextQuestion: function() {
+    console.log('get next question:', this.state.currentQuestionNumber, this.props.quiz.numQuestions);
     if ( this.state.currentQuestionNumber < this.props.quiz.numQuestions ) {
-      QuizActions.loadQuestion(this.props.quiz.id, this.state.currentQuestionNumber, this.state.userScore, this._onQuestionChange);
+      QuizActions.getQuestion(this.props.quiz.id, this.state.currentQuestionNumber, this.state.userScore, this._onQuestionChange);
     } else {
       this.setState({ quizComplete: true }, this.props.flagQuizComplete);
     }
@@ -86,19 +103,72 @@ var Quiz = React.createClass({
 
     if ( this.state.currentQuestionNumber > 0 ) {
       element = (
-        <ProgressBar percentage={percentage} />
+        <ProgressBar percentage={percentage} showTooltip={true} />
       );
     }
 
     return element;
   },
 
+  renderChoices: function() {
+    var getCharacterFromIndex = function(index) {
+      return String.fromCharCode(97 + index);
+    };
+    var answerClass;
+
+    return _.map(this.state.question.answers, function(answer, index) {
+      answerClass = this.state.selectedAnswer.id === answer.id ? 'selected' : '';
+      return (
+        <li key={index} className={answerClass} onClick={this.selectAnswer.bind(null, answer)}>
+          <div className="choice-indicator">
+            {getCharacterFromIndex(index)}
+          </div>
+          <span>{answer.body}</span>
+        </li>
+      );
+    }.bind(this));
+  },
+
+  renderMultipleChoice: function() {
+    return (
+      <ul className="multiple-choice">
+        {this.renderChoices()}
+      </ul>
+    );
+  },
+
+  renderShortAnswer: function() {
+    return (
+      <textarea />
+    );
+  },
+
+  renderAnswers: function() {
+    switch ( this.state.question.type ) {
+      case 'short':
+        return this.renderShortAnswer();
+      case 'multi':
+        return this.renderMultipleChoice();
+    }
+  },
+
   renderCurrentQuestion: function() {
     var element = null;
+    var isLastQuestion = this.state.currentQuestionNumber === this.props.quiz.numQuestions;
+    var isSubmitDisabled = _.isEmpty(this.state.selectedAnswer);
+    var buttonValue = isLastQuestion ? 'Finish Quiz' : 'Next Question';
 
     if ( this.state.question && this.state.currentQuestionNumber > 0 ) {
       element = (
-        <div />
+        <div className="question-container">
+          <h2 className="question-body">{this.state.question.body}</h2>
+          {this.renderAnswers()}
+          <input type="submit"
+                 className="button float-right nudge--right nudge--bottom"
+                 onClick={this.submitAnswer}
+                 disabled={isSubmitDisabled ? 'true' : ''}
+                 value={buttonValue} />
+        </div>
       );
     }
 
@@ -118,6 +188,7 @@ var Quiz = React.createClass({
   },
 
   render: function() {
+    console.log('quiz:', this.props.quiz);
     return (
       <div className="quiz">
 

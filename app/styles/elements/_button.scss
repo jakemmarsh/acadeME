@@ -2,16 +2,23 @@
 
   padding: $half-space/2;
 
+  cursor: pointer;
   text-transform: uppercase;
   font-weight: 600;
+  font-size: 14px;
   background-color: $teal;
   color: $white;
+  border: none;
   @include border-radius(3px);
 
   @include transition(background-color 0.1s ease-in-out);
 
   &:hover {
     background-color: $orange;
+  }
+
+  &:disabled {
+    background-color: darken($background-light-grey, 10);
   }
 
 }

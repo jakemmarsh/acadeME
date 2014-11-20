@@ -11,7 +11,6 @@ ul.top-menu {
   @include box-shadow(0px 1px 1.5px rgba(0, 0, 0, 0.1));
 
   li {
-    width: 33%;
     display: table-cell;
     vertical-align: middle;
     text-align: center;
@@ -36,7 +35,28 @@ ul.top-menu {
       }
     }
 
+    &.create-lesson-button {
+      position: relative;
+      width: 75px;
+
+      background-color: $orange;
+      color: $white;
+
+      a {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      &:active {
+        padding-top: 2px;
+      }
+    }
+
     &.search-container {
+      width: 30%;
       padding: 0 $half-space;
 
       text-align: left;
