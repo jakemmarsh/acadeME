@@ -21,3 +21,16 @@ body {
     vertical-align: top;
   }
 }
+
+textarea,
+input {
+  outline: none;
+  border-style: solid;
+  border-width: 1px;
+  border-color: darken($background-light-grey, 5);
+  @include transition(border-color 0.1s ease-in-out);
+
+  &:active, &:focus {
+    border-color: $teal;
+  }
+}

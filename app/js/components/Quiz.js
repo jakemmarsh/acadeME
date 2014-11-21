@@ -99,7 +99,7 @@ var Quiz = React.createClass({
 
   renderProgressBar: function() {
     var element = null;
-    var percentage = (this.state.currentQuestionNumber/this.props.quiz.numQuestions)*100;
+    var percentage = ((this.state.currentQuestionNumber-1)/this.props.quiz.numQuestions)*100;
 
     if ( this.state.currentQuestionNumber > 0 ) {
       element = (

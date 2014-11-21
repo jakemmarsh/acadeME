@@ -35,7 +35,7 @@ div.quiz {
       @include transition(background-color 0.1s ease-in-out, color 0.1s ease-in-out);
 
       &:hover {
-        background-color: $background-light-grey;
+        background-color: darken($background-light-grey, 2);
 
         color: $orange;
 
@@ -45,7 +45,7 @@ div.quiz {
       }
 
       &.selected {
-        background-color: $background-light-grey;
+        background-color: darken($background-light-grey, 2);
 
         color: $teal;
 

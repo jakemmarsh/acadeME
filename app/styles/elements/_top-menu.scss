@@ -40,6 +40,7 @@ ul.top-menu {
       width: 75px;
 
       background-color: $orange;
+      @include transition(background-color 0.1s ease-in-out);
       color: $white;
 
       a {
@@ -48,6 +49,10 @@ ul.top-menu {
         right: 0;
         bottom: 0;
         left: 0;
+      }
+
+      &:hover {
+        background-color: lighten($orange, 2);
       }
 
       &:active {
@@ -73,7 +78,6 @@ ul.top-menu {
         font-family: $serif-family;
         font-size: 16px;
         font-style: italic;
-        color: $text-dark-grey;
       }
     }
 
