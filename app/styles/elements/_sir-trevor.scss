@@ -1,0 +1,74 @@
+.st-outer {
+
+  *, *:before, *:after {
+    @include transition(background-color 0.1s ease-in-out, border-color 0.1s ease-in-out, color 0.1s ease-in-out);
+  }
+
+  .st-block-controls__top,
+  .st-block__inner,
+  .st-icon--add:after {
+    @extend %card;
+    margin-bottom: $half-space;
+    @include border-radius(0);
+  }
+
+  .st-block-controls__top,
+  .st-icon--add:after {
+    cursor: pointer;
+  }
+
+  .st-block__inner {
+    padding: $half-space;
+    border-style: solid;
+    border-width: 2px;
+    border-color: $white;
+
+    &:hover {
+      border-color: $teal;
+    }
+  }
+
+  .st-block__ui, .st-block__ui-delete-controls {
+    bottom: -2px; /* width of border */
+    right: -2px;
+  }
+
+  .st-block-ui-btn,
+  .st-block-control-ui-btn {
+    color: $teal;
+    background-color: $white;
+    border-style: solid;
+    border-width: 2px;
+    border-color: $teal;
+
+    &:not(:last-child) {
+      border-right-width: 0;
+    }
+
+    &:hover {
+      color: $white;
+      background-color: $teal;
+      border-color: $teal;
+    }
+  }
+
+  .st-block-controls__top:hover:before,
+  .st-block--with-plus:after {
+    color: $orange;
+    background-color: darken($background-light-grey, 2);
+  }
+
+  .st-block-control {
+    color: $teal;
+
+    &:hover {
+      color: $orange;
+    }
+  }
+
+  .st-block__messages {
+    top: -$half-space;
+    left: -$half-space;
+  }
+
+}

@@ -16,9 +16,12 @@
 @import 'elements/lesson';
 @import 'elements/button';
 @import 'elements/quiz';
+@import 'elements/sir-trevor';
 @import 'elements/footer';
 
 // Pages
+@import 'pages/create-lesson';
 
 // Third-party libraries
 @import 'vendor/font-awesome/font-awesome';
+@import 'vendor/sir-trevor/sir-trevor';

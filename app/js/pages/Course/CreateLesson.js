@@ -3,15 +3,15 @@
  */
 'use strict';
 
-var React         = require('react/addons');
-var Navigation    = require('react-router').Navigation;
-var Reflux        = require('reflux');
+var React           = require('react/addons');
+var Navigation      = require('react-router').Navigation;
 
-var CourseActions = require('../../actions/CourseActions');
+var CourseActions   = require('../../actions/CourseActions');
+var SirTrevorEditor = require('../../components/SirTrevorEditor');
 
 var CreateLesson = React.createClass({
 
-  mixins: [Navigation, Reflux.ListenerMixin],
+  mixins: [Navigation, React.addons.LinkedStateMixin],
 
   propTypes: {
     course: React.PropTypes.object.isRequired
@@ -23,10 +23,10 @@ var CreateLesson = React.createClass({
     };
   },
 
-  _onLessonChange: function(lesson) {
-    this.setState({
-      lesson: lesson
-    });
+  getInitialState: function() {
+    return {
+      title: ''
+    };
   },
 
   handleSubmit: function() {
@@ -40,9 +40,13 @@ var CreateLesson = React.createClass({
 
   render: function() {
     return (
-      <div>
-        Create lesson for course: {this.props.course.id}
-      </div>
+      <section className="create-lesson nudge">
+
+        <input type="text" valueLink={this.linkState('title')} placeholder="Lesson title" className="lesson-title-input nudge-half--bottom" />
+
+        <SirTrevorEditor save={this.handleSubmit} />
+
+      </section>
     );
   }
 
