@@ -21,7 +21,9 @@ var LessonAPI = {
     deferred.resolve({
       id: id,
       title: 'Heuristic Evaluation',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus.',
+      bodyElements: [
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus.'
+      ],
       image_url: ''
     });
 
