@@ -10,9 +10,7 @@ window._         = require('underscore'); // to avoid undefined errors in SirTre
 window.Eventable = require('eventablejs/eventable'); // to avoid undefined errors in SirTrevor
 require('sir-trevor');
 
-console.log(window.SirTrevor);
-
-var SirTrevorEditor = React.createClass({
+var Editor = React.createClass({
 
   propTypes: {
     save: React.PropTypes.func.isRequired
@@ -52,4 +50,4 @@ var SirTrevorEditor = React.createClass({
 
 });
 
-module.exports = React.createFactory(SirTrevorEditor);
+module.exports = React.createFactory(Editor);

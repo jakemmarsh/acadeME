@@ -21,6 +21,7 @@ api.get('/user/:identifier', routes.user.get);
 // Course endpoints
 api.get('/course/:identifier', routes.course.get);
 api.get('/course/:id/search/:query', routes.course.search);
+api.put('/course/:id/lesson', routes.course.createLesson);
 api.delete('/course/:id', routes.course.delete);
 
 /* ====================================================== */

@@ -77,6 +77,12 @@ exports.search = function(req, res) {
 
 /* ====================================================== */
 
+exports.createLesson = function(req, res) {
+
+};
+
+/* ====================================================== */
+
 exports.delete = function(req, res) {
 
   var deleteCourse = function(id) {

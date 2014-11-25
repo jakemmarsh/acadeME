@@ -3,11 +3,11 @@
  */
 'use strict';
 
-var React           = require('react/addons');
-var Navigation      = require('react-router').Navigation;
+var React         = require('react/addons');
+var Navigation    = require('react-router').Navigation;
 
-var CourseActions   = require('../../actions/CourseActions');
-var SirTrevorEditor = require('../../components/SirTrevorEditor');
+var CourseActions = require('../../actions/CourseActions');
+var Editor        = require('../../components/Editor');
 
 var CreateLesson = React.createClass({
 
@@ -29,8 +29,11 @@ var CreateLesson = React.createClass({
     };
   },
 
-  handleSubmit: function() {
-    var lesson = {};
+  handleSubmit: function(data) {
+    var lesson = {
+      title: this.state.title,
+      data: data
+    };
 
     CourseActions.createLesson(lesson, function() {
       console.log('lesson created');
@@ -44,7 +47,7 @@ var CreateLesson = React.createClass({
 
         <input type="text" valueLink={this.linkState('title')} placeholder="Lesson title" className="lesson-title-input nudge-half--bottom" />
 
-        <SirTrevorEditor save={this.handleSubmit} />
+        <Editor save={this.handleSubmit} />
 
       </section>
     );

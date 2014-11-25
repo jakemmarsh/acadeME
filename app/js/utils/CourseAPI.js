@@ -12,7 +12,7 @@ var CourseAPI = {
 
     // request.get(APIUtils.API_ROOT + 'course/' + id).end(function(res) {
     //   if ( !res.ok ) {
-    //     deferred.reject(res.text);
+    //     deferred.reject(JSON.parse(res.text));
     //   } else {
     //     deferred.resolve(APIUtils.normalizeResponse(res));
     //   }
@@ -44,12 +44,26 @@ var CourseAPI = {
     return deferred.promise;
   },
 
+  createLesson: function(courseId, lesson) {
+    var deferred = when.defer();
+
+    request.put(APIUtils.API_ROOT + 'course/' + courseId + '/lesson', lesson).end(function(res) {
+      if ( !res.ok ) {
+        deferred.reject(JSON.parse(res.text));
+      } else {
+        deferred.resolve(APIUtils.normalizeResponse(res));
+      }
+    });
+
+    return deferred.promise;
+  },
+
   search: function(id, query) {
     var deferred = when.defer();
 
     request.get(APIUtils.API_ROOT + 'course/' + id + '/search/' + query).end(function(res) {
       if ( !res.ok ) {
-        deferred.reject(res.text);
+        deferred.reject(JSON.parse(res.text));
       } else {
         deferred.resolve(APIUtils.normalizeResponse(res));
       }
@@ -63,7 +77,7 @@ var CourseAPI = {
 
     request.delete(APIUtils.API_ROOT + 'course/' + id).end(function(res) {
       if ( !res.ok ) {
-        deferred.reject(res.text);
+        deferred.reject(JSON.parse(res.text));
       } else {
         deferred.resolve(APIUtils.normalizeResponse(res));
       }

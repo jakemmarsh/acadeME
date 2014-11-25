@@ -68,8 +68,7 @@
     "sir-trevor": "./node_modules/sir-trevor/sir-trevor.js",
     "eventable": "./node_modules/eventablejs/eventable.js"
   },
-  "browserify-shim": {
-  },
+  "browserify-shim": {},
   "scripts": {
     "start": "supervisor server.js"
   }
