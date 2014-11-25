@@ -59,7 +59,7 @@ var LessonQuiz = React.createClass({
 
   render: function() {
     return (
-      <Quiz quiz={this.state.quiz} flagQuizComplete={this.flagQuizComplete} />
+      <Quiz lessonId={parseInt(this.props.params.lessonId)} quiz={this.state.quiz} flagQuizComplete={this.flagQuizComplete} />
     );
   }
 

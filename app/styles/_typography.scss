@@ -49,6 +49,30 @@ h6,.zeta {
   font-size: 16px;
 }
 
+.serif {
+  font-family: $serif-family;
+}
+
+.sans-serif {
+  font-family: $sans-serif-family;
+}
+
+.orange {
+  color: $orange;
+}
+
+.teal {
+  color: $teal;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.weight--normal {
+  font-weight: 300;
+}
+
 a {
   position: relative;
   top: 0;

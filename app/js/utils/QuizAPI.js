@@ -53,13 +53,15 @@ var QuizAPI = {
   checkAnswer: function(quizId, questionId, answer) {
     var deferred = when.defer();
 
-    request.post(APIUtils.API_ROOT + 'quiz/' + quizId + '/check/' + questionId, answer).end(function(res) {
-      if ( !res.ok ) {
-        deferred.reject(res.text);
-      } else {
-        deferred.resolve(APIUtils.normalizeResponse(res));
-      }
-    });
+    // request.post(APIUtils.API_ROOT + 'quiz/' + quizId + '/check/' + questionId, answer).end(function(res) {
+    //   if ( !res.ok ) {
+    //     deferred.reject(res.text);
+    //   } else {
+    //     deferred.resolve(APIUtils.normalizeResponse(res));
+    //   }
+    // });
+
+    deferred.resolve(true);
 
     return deferred.promise;
   }

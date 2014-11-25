@@ -5,6 +5,7 @@
 
 var React       = require('react/addons');
 var _           = require('underscore');
+var Link        = React.createFactory(require('react-router').Link);
 
 var QuizActions = require('../actions/QuizActions');
 var ProgressBar = require('./ProgressBar');
@@ -12,6 +13,7 @@ var ProgressBar = require('./ProgressBar');
 var Quiz = React.createClass({
 
   propTypes: {
+    lessonId: React.PropTypes.number.isRequired,
     quiz: React.PropTypes.object.isRequired,
     flagQuizComplete: React.PropTypes.func.isRequired
   },
@@ -57,12 +59,12 @@ var Quiz = React.createClass({
     }
   },
 
-  componentDidUpdate: function(prevProps) {
-    console.log('did update:', this.props.quiz);
-    if ( !_.isEmpty(this.props.quiz) && this.props.quiz.id !== prevProps.quiz.id ) {
-      this.getNextQuestion();
-    }
-  },
+  // componentDidUpdate: function(prevProps) {
+  //   console.log('did update:', this.props.quiz);
+  //   if ( !_.isEmpty(this.props.quiz) && this.props.quiz.id !== prevProps.quiz.id ) {
+  //     this.getNextQuestion();
+  //   }
+  // },
 
   getNumQuestions: function() {
     return this.props.quiz.answers ? this.props.quiz.answers.length : 1;
@@ -81,7 +83,10 @@ var Quiz = React.createClass({
     if ( this.state.currentQuestionNumber < this.props.quiz.numQuestions ) {
       QuizActions.getQuestion(this.props.quiz.id, this.state.currentQuestionNumber, this.state.userScore, this._onQuestionChange);
     } else {
-      this.setState({ quizComplete: true }, this.props.flagQuizComplete);
+      this.setState({
+        currentQuestionNumber: this.state.currentQuestionNumber + 1,
+        quizComplete: true
+      }, this.props.flagQuizComplete);
     }
   },
 
@@ -90,7 +95,15 @@ var Quiz = React.createClass({
 
     if ( this.state.currentQuestionNumber === 0 ) {
       element = (
-        <div />
+        <div className="intro-finish-container soft--sides">
+          <div>
+            <h1 className="title sans-serif flush--bottom">{this.props.quiz.title}</h1>
+            <h6 className="teal serif italic weight--normal">{this.props.quiz.numQuestions} questions</h6>
+          </div>
+          <div>
+            <a className="button soft--sides soft-half--ends" onClick={this.getNextQuestion}>Begin Quiz</a>
+          </div>
+        </div>
       );
     }
 
@@ -158,7 +171,7 @@ var Quiz = React.createClass({
     var isSubmitDisabled = _.isEmpty(this.state.selectedAnswer);
     var buttonValue = isLastQuestion ? 'Finish Quiz' : 'Next Question';
 
-    if ( this.state.question && this.state.currentQuestionNumber > 0 ) {
+    if ( !this.state.quizComplete && this.state.question && this.state.currentQuestionNumber > 0 ) {
       element = (
         <div className="question-container">
           <h2 className="question-body">{this.state.question.body}</h2>
@@ -180,7 +193,19 @@ var Quiz = React.createClass({
 
     if ( this.state.quizComplete ) {
       element = (
-        <div />
+        <div className="intro-finish-container soft--sides">
+          <div>
+            <h1 className="title sans-serif flush--bottom">Quiz complete!</h1>
+            <h6 className="teal serif italic weight--normal">Your score: {this.state.userScore}/{this.props.quiz.numQuestions}</h6>
+          </div>
+          <div>
+            <Link to="CourseLesson"
+                  params={{ courseId: this.props.quiz.id, lessonId: this.props.lessonId }}
+                  className="button soft--sides soft-half--ends">
+              Back to Lesson
+            </Link>
+          </div>
+        </div>
       );
     }
 

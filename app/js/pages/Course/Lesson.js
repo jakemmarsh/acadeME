@@ -7,6 +7,7 @@ var React              = require('react/addons');
 var Reflux             = require('reflux');
 var _                  = require('underscore');
 var marked             = require('react-marked');
+var Link               = React.createFactory(require('react-router').Link);
 
 var CurrentLessonStore = require('../../stores/CurrentLessonStore');
 var LessonActions      = require('../../actions/LessonActions');
@@ -14,6 +15,10 @@ var LessonActions      = require('../../actions/LessonActions');
 var CourseLesson = React.createClass({
 
   mixins: [Reflux.ListenerMixin],
+
+  propTypes: {
+    lesson: React.PropTypes.object.isRequired
+  },
 
   getInitialState: function() {
     return {
@@ -41,12 +46,30 @@ var CourseLesson = React.createClass({
     });
   },
 
+  renderQuizLink: function() {
+    var element = null;
+
+    // TODO: check if
+    if ( !_.isEmpty(this.state.lesson) ) {
+      element = (
+        <Link to="LessonQuiz"
+              params={{ courseId: this.props.course.id, lessonId: this.state.lesson.id }}
+              className="button">
+          Take Quiz
+        </Link>
+      );
+    }
+
+    return element;
+  },
+
   render: function() {
     return (
       <div>
         <h2 className="nudge nudge-half--bottom">{this.state.lesson.title}</h2>
         <div className="lesson islet nudge flush--top">
           {this.renderLessonBody()}
+          {this.renderQuizLink()}
         </div>
       </div>
     );

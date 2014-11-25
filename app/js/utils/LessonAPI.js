@@ -45,7 +45,7 @@ var LessonAPI = {
       id: id,
       title: 'Test Quiz',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus.',
-      numQuestions: 10
+      numQuestions: 5
     });
 
     return deferred.promise;

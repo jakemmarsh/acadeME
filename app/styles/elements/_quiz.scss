@@ -1,5 +1,22 @@
 div.quiz {
 
+  .intro-finish-container {
+    display: table;
+    width: 100%;
+    padding-top: 150px;
+    padding-bottom: 150px;
+
+    & > * {
+      display: table-cell;
+      vertical-align: middle;
+      width: 50%;
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+  }
+
   .progress-bar {
     margin: $full-space $full-space $half-space;
     height: 8px;
