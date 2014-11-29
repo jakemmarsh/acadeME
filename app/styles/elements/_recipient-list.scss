@@ -34,8 +34,9 @@
 
     &.title {
       cursor: default;
-      color: $white;
-      background-color: lighten($header-grey, 15);
+      color: $header-grey-text;
+      background-color: lighten($header-grey, 35);
+      border-bottom: none !important; /* override last-child styling */
 
       h5 {
         text-transform: uppercase;
@@ -43,8 +44,8 @@
       }
 
       &:hover {
-        background-color: lighten($header-grey, 15);
-        color: $white;
+        background-color: lighten($header-grey, 35);
+        color: $header-grey-text;
       }
     }
 
