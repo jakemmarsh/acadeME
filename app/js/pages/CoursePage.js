@@ -11,7 +11,8 @@ var TopMenu       = require('../components/TopMenu');
 var CoursePage = React.createClass({
 
   propTypes: {
-    course: React.PropTypes.object,
+    currentUser: React.PropTypes.object.isRequired,
+    course: React.PropTypes.object.isRequired,
     updatePageTitle: React.PropTypes.func
   },
 
@@ -33,7 +34,8 @@ var CoursePage = React.createClass({
 
         <TopMenu course={this.props.course} query={this.props.query.q} />
 
-        <this.props.activeRouteHandler updatePageTitle={this.props.updatePageTitle}
+        <this.props.activeRouteHandler currentUser={this.props.currentUser}
+                                       updatePageTitle={this.props.updatePageTitle}
                                        course={this.props.course} />
 
       </section>

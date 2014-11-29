@@ -17,11 +17,13 @@ var CourseLesson = React.createClass({
   mixins: [Reflux.ListenerMixin],
 
   propTypes: {
+    currentUser: React.PropTypes.object.isRequired,
     lesson: React.PropTypes.object.isRequired
   },
 
   getInitialState: function() {
     return {
+      currentUser: {},
       lesson: {}
     };
   },

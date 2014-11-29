@@ -3,9 +3,8 @@
  */
 'use strict';
 
-var React                 = require('react/addons');
-var Reflux                = require('reflux');
-var _                     = require('underscore');
+var React         = require('react/addons');
+var Reflux        = require('reflux');
 
 var CourseActions         = require('../../actions/CourseActions');
 var ConversationListStore = require('../../stores/ConversationListStore');
@@ -14,15 +13,15 @@ var CourseChat = React.createClass({
 
   mixins: [Reflux.ListenerMixin],
 
-  getDefaultProps: function() {
-    return {
-      course: {}
-    };
+  propType: {
+    currentUser: React.PropTypes.object.isRequired,
+    course: React.PropTypes.object.isRequired
   },
 
-  getInitialState: function() {
+  getDefaultProps: function() {
     return {
-      conversations: []
+      currentUser: {},
+      course: {}
     };
   },
 

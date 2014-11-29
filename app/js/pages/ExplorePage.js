@@ -8,6 +8,7 @@ var React = require('react/addons');
 var SearchPage = React.createClass({
 
   propTypes: {
+    currentUser: React.PropTypes.object.isRequired,
     updatePageTitle: React.PropTypes.func
   },
 

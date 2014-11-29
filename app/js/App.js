@@ -18,6 +18,7 @@ var App = React.createClass({
 
   getInitialState: function() {
     return {
+      currentUser: {},
       course: {}
     };
   },
@@ -60,7 +61,8 @@ var App = React.createClass({
         <div className="body-container">
           <Sidebar course={this.state.currentCourse} />
           <div className="content-container">
-            <this.props.activeRouteHandler updatePageTitle={this.updatePageTitle}
+            <this.props.activeRouteHandler currentUser={this.state.currentUser}
+                                           updatePageTitle={this.updatePageTitle}
                                            course={this.state.currentCourse} />
           </div>
         </div>

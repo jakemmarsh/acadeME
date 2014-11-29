@@ -24,8 +24,14 @@ var LessonQuiz = React.createClass({
 
   mixins: [Reflux.ListenerMixin],
 
+  propTypes: {
+    currentUser: React.PropTypes.object.isRequired,
+    course: React.PropTypes.object.isRequired
+  },
+
   getDefaultProps: function() {
     return {
+      currentUser: {},
       course: {}
     };
   },
@@ -59,7 +65,10 @@ var LessonQuiz = React.createClass({
 
   render: function() {
     return (
-      <Quiz lessonId={parseInt(this.props.params.lessonId)} quiz={this.state.quiz} flagQuizComplete={this.flagQuizComplete} />
+      <Quiz currentUser={this.props.currentUser}
+            lessonId={parseInt(this.props.params.lessonId)}
+            quiz={this.state.quiz}
+            flagQuizComplete={this.flagQuizComplete} />
     );
   }
 

@@ -8,7 +8,15 @@ var React = require('react/addons');
 var CourseSearch = React.createClass({
 
   propTypes: {
+    currentUser: React.PropTypes.object.isRequired,
     course: React.PropTypes.object.isRequired
+  },
+
+  getDefaultProps: function() {
+    return {
+      currentUser: {},
+      course: {}
+    };
   },
 
   getInitialState: function() {

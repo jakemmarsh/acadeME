@@ -14,11 +14,13 @@ var CreateLesson = React.createClass({
   mixins: [Navigation, React.addons.LinkedStateMixin],
 
   propTypes: {
+    currentUser: React.PropTypes.object.isRequired,
     course: React.PropTypes.object.isRequired
   },
 
   getDefaultProps: function() {
     return {
+      currentUser: {},
       course: {}
     };
   },

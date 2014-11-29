@@ -10,8 +10,14 @@ var LessonSnippet = require('../../components/LessonSnippet');
 
 var CourseLessonList = React.createClass({
 
+  propTypes: {
+    currentUser: React.PropTypes.object.isRequired,
+    course: React.PropTypes.object.isRequired
+  },
+
   getDefaultProps: function() {
     return {
+      currentUser: {},
       course: {}
     };
   },
