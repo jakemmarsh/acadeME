@@ -3,8 +3,10 @@
  */
 'use strict';
 
-var React = require('react/addons');
-var _     = require('underscore');
+var React      = require('react/addons');
+var _          = require('underscore');
+
+var UserAvatar = require('./UserAvatar');
 
 var RecipientList = React.createClass({
 
@@ -56,7 +58,12 @@ var RecipientList = React.createClass({
 
       return (
         <li key={index} onClick={this.props.openConversation.bind(null, recipient.id)} className={classes}>
-          {recipient.name}
+          <div className="avatar-container">
+            <UserAvatar user={recipient} />
+          </div>
+          <div className="name-container">
+            {recipient.name}
+          </div>
         </li>
       );
     }.bind(this));

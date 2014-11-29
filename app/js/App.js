@@ -7,6 +7,8 @@ var React              = require('react/addons');
 var Reflux             = require('reflux');
 var ActiveState        = require('react-router').ActiveState;
 
+var UserActions        = require('./actions/UserActions');
+var CurrentUserStore   = require('./stores/CurrentUserStore');
 var CurrentCourseStore = require('./stores/CurrentCourseStore');
 var Header             = require('./components/Header');
 var Sidebar            = require('./components/Sidebar');
@@ -23,11 +25,19 @@ var App = React.createClass({
     };
   },
 
+  _onUserChange: function(err, user) {
+    if ( err ) {
+      // handle error
+    } else {
+      this.setState({ currentUser: user });
+    }
+  },
+
   _onCourseChange: function(err, course) {
     if ( err ) {
       // TODO: handle error
     } else {
-    this.setState({ currentCourse: course });
+      this.setState({ currentCourse: course });
     }
   },
 
@@ -38,6 +48,8 @@ var App = React.createClass({
   },
 
   componentDidMount: function() {
+    UserActions.check(this._onUserChange);
+    this.listenTo(CurrentUserStore, this._onUserChange);
     this.listenTo(CurrentCourseStore, this._onCourseChange);
   },
 

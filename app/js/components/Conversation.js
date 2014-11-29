@@ -3,8 +3,10 @@
  */
 'use strict';
 
-var React = require('react/addons');
-var _     = require('underscore');
+var React      = require('react/addons');
+var _          = require('underscore');
+
+var UserAvatar = require('./UserAvatar');
 
 var Conversation = React.createClass({
 
@@ -34,26 +36,31 @@ var Conversation = React.createClass({
 
     if ( keyCode === '13' || keyCode === 13 ) {
       console.log('new message:', this.state.newMessage);
+      this.setState({ newMessage: '' });
     }
   },
 
   userDidSend: function(message) {
-    return message.userId === this.props.currentUser.id;
+    return message.user.id === this.props.currentUser.id;
   },
 
   renderMessages: function() {
     var elements = null;
     var classes;
+    var messageUser;
 
     if ( !_.isEmpty(this.props.conversation) ) {
       elements = _.map(this.props.conversation.messages, function(message, index) {
         classes = 'message' + (this.userDidSend(message) ? ' user-sent' : '');
+        messageUser = this.userDidSend(message) ? this.props.currentUser : message.user;
 
         return (
           <li key={index} className={classes}>
-            <div className="user-container" />
+            <div className="user-container">
+              <UserAvatar user={messageUser} />
+            </div>
             <div className="body-container">
-              {message.body}
+              <div className="body">{message.body}</div>
             </div>
           </li>
         );
@@ -72,7 +79,7 @@ var Conversation = React.createClass({
                id="new-message"
                className="message-input"
                placeholder="Send a message..."
-               valueLink={this.linkState('query')}
+               valueLink={this.linkState('newMessage')}
                onKeyPress={this.submitOnEnter}  />
       );
     }
@@ -84,9 +91,9 @@ var Conversation = React.createClass({
     return (
       <div className="conversation">
 
-        <div className="messages-container">
+        <ul className="messages-container">
           {this.renderMessages()}
-        </div>
+        </ul>
 
         {this.renderInput()}
 

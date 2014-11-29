@@ -2,6 +2,7 @@
 
 var Reflux           = require('reflux');
 
+var ChatAPI          = require('../utils/ChatAPI');
 var ChatActions      = require('../actions/ChatActions');
 var CurrentUserStore = require('../stores/CurrentUserStore');
 
@@ -14,21 +15,22 @@ var CurrentConversationStore = Reflux.createStore({
     this.listenTo(ChatActions.sendMessage, this.sendMessage);
   },
 
-  openConversation: function(courseId, recipientId) {
-    var conversation = {
-      recipient: {
-        id: recipientId
-      },
-      messages: []
-    };
+  openConversation: function(courseId, recipientId, cb) {
+    if ( CurrentUserStore.user && CurrentUserStore.user.id ) {
+      cb = cb || function() {};
 
-    console.log('open conversation with course:', courseId, 'recipient:', recipientId);
+      console.log('open conversation with course:', courseId, 'recipient:', recipientId);
 
-    this.conversation = conversation;
-
-    // TODO: load entire conversation from database using courseId, currentUser, and recipientId
-
-    this.trigger(null, this.conversation);
+      ChatAPI.getConversation(CurrentUserStore.user.id, courseId, recipientId).then(function(conversation) {
+        this.conversation = conversation;
+        cb(null, conversation);
+        this.trigger(null, conversation);
+      }.bind(this)).catch(function(err) {
+        this.conversation = null;
+        cb(err);
+        console.log('error getting conversation:', err);
+      }.bind(this));
+    }
   },
 
   sendMessage: function() {

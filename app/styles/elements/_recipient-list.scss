@@ -5,12 +5,15 @@
   width: 20%;
   margin: 0;
   padding: 0;
+  vertical-align: top;
 
   list-style: none;
   background-color: $white;
   border-right: 1px solid darken($background-light-grey, 5);
 
   li {
+    display: table;
+    width: 100%;
     padding: $half-space;
 
     cursor: pointer;
@@ -20,6 +23,23 @@
     border-right-color: $teal;
     border-right-width: 0px;
     @include transition(background-color 0.1s ease-in-out, color 0.1s ease-in-out, border-right-width 0.2s ease-in-out);
+
+    .avatar-container,
+    .name-container {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .avatar-container {
+      width: 70px;
+
+      .user-avatar { margin: 0 auto; }
+    }
+
+    .name-container {
+      width: calc(100% - 70px);
+      padding-left: $half-space;
+    }
 
     &:hover {
       background-color: darken($background-light-grey, 2);

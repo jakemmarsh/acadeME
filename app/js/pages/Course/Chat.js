@@ -3,11 +3,10 @@
  */
 'use strict';
 
-var React         = require('react/addons');
-var Reflux        = require('reflux');
+var React  = require('react/addons');
+var Reflux = require('reflux');
 
-var CourseActions = require('../../actions/CourseActions');
-var Chat          = require('../../components/Chat');
+var Chat   = require('../../components/Chat');
 
 var CourseChat = React.createClass({
 
@@ -23,10 +22,6 @@ var CourseChat = React.createClass({
       currentUser: {},
       course: {}
     };
-  },
-
-  componentWillMount: function() {
-    CourseActions.openChat(this.props.params.courseId);
   },
 
   render: function() {

@@ -5,6 +5,7 @@
 
 var React                    = require('react/addons');
 var Reflux                   = require('reflux');
+var _                        = require('underscore');
 
 var CourseRecipientsStore    = require('../stores/CourseRecipientsStore');
 var CurrentConversationStore = require('../stores/CurrentConversationStore');
@@ -61,13 +62,24 @@ var Chat = React.createClass({
   },
 
   componentWillMount: function() {
-    CourseActions.openChat(this.props.course.id, this._onRecipientsChange);
     this.listenTo(CourseRecipientsStore, this._onRecipientsChange);
     this.listenTo(CurrentConversationStore, this._onConversationChange);
+
+    if ( !_.isEmpty(this.props.course) && !_.isEmpty(this.props.currentUser) ) {
+      CourseActions.openChat(this.props.course.id, this._onRecipientsChange);
+    }
+  },
+
+  componentWillReceiveProps: function(prevProps) {
+    if( !_.isEqual(this.props.course, prevProps.course) || !_.isEqual(this.props.currentUser, prevProps.currentUser) ) {
+      CourseActions.openChat(this.props.course.id, this._onRecipientsChange);
+    }
   },
 
   openConversation: function(recipientId) {
-    ChatActions.openConversation(this.props.course.id, recipientId, this._onConversationChange);
+    if ( _.isEmpty(this.state.conversation.recipient) || recipientId !== this.state.conversation.recipient.id ) {
+      ChatActions.openConversation(this.props.course.id, recipientId, this._onConversationChange);
+    }
   },
 
   render: function() {

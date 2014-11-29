@@ -19,12 +19,14 @@ var CurrentTrackStore = Reflux.createStore({
     cb = cb || function() {};
 
     AuthAPI.check().then(function(user) {
-      cb(null, user);
+      console.log('checked:', user);
       this.user = user;
-      this.trigger(user);
+      cb(null, this.user);
+      this.trigger(this.user);
     }.bind(this)).catch(function(err) {
-      console.log('error checking login status:', err);
+      cb(err);
       this.trigger(null);
+      console.log('error checking login status:', err);
     }.bind(this));
   },
 
@@ -52,7 +54,10 @@ var CurrentTrackStore = Reflux.createStore({
       cb();
       this.user = null;
       this.trigger(null);
-    }.bind(this));
+    }.bind(this)).catch(function(err) {
+      cb(err);
+      console.log('error logging out:', err);
+    });
   }
 
 });

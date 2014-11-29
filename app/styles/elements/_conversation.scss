@@ -4,18 +4,60 @@
   display: table-cell;
   width: 80%;
   height: 100%;
+  padding: $half-space;
 
   .messages-container {
-    display: table-cell;
     height: calc(100% - 35px);
     min-height: calc(100% - 35px);
+    padding: 0;
+    margin: 0;
+    list-style: none;
 
     .message {
-      @extend %clearfix;
+      display: table;
+      width: 100%;
 
       .user-container,
       .body-container {
+        display: table-cell;
+        vertical-align: middle;
         float: left;
+      }
+
+      .user-container {
+        width: 100px;
+        padding: $half-space $half-space/2 $half-space $half-space;
+
+        .user-avatar { margin: 0 auto; }
+      }
+
+      .body-container {
+        width: calc(100% - 100px);
+        padding: $half-space $half-space $half-space $half-space/2;
+
+        .body {
+          position: relative;
+          float: left;
+          width: 70%;
+          padding: $half-space;
+
+          background-color: $white;
+          @include border-radius(3px);
+
+          &:after {
+            right: 100%;
+            top: 12px;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            border-color: rgba(255, 255, 255, 0);
+            border-right-color: $white;
+            border-width: 15px;
+          }
+        }
       }
 
       &.user-sent {
@@ -23,17 +65,36 @@
         .body-container {
           float: right;
         }
+
+        .body-container {
+          padding: $half-space $half-space/2 $half-space $half-space;
+
+          .body {
+            float: right;
+            background-color: lighten($teal, 30);
+
+            &:after {
+              left: 100%;
+              right: auto;
+              border-right-color: rgba(255, 255, 255, 0);
+              border-left-color: lighten($teal, 30);
+            }
+          }
+        }
+
+        .user-container {
+          padding: $half-space $half-space $half-space $half-space/2;
+        }
       }
     }
   }
 
   input.message-input {
     position: absolute;
-    bottom: 0;
-    left: 0;
+    bottom: $half-space;
+    left: $half-space;
     display: block;
     width: calc(100% - #{$half-space*2});
-    margin: $half-space;
     height: 40px;
     padding: $half-space $half-space/2;
 

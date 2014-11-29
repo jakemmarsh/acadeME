@@ -35,3 +35,16 @@ input {
     border-color: $teal;
   }
 }
+
+%clearfix:before,
+%clearfix:after,
+.clearfix:before,
+.clearfix:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+%clearfix:after,
+.clearfix:after {
+  clear: both;
+}
