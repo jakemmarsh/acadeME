@@ -1,0 +1,44 @@
+%conversation {
+
+  position: relative;
+  display: table-cell;
+  width: 80%;
+  height: 100%;
+
+  .messages-container {
+    display: table-cell;
+    height: calc(100% - 35px);
+    min-height: calc(100% - 35px);
+
+    .message {
+      @extend %clearfix;
+
+      .user-container,
+      .body-container {
+        float: left;
+      }
+
+      &.user-sent {
+        .user-container,
+        .body-container {
+          float: right;
+        }
+      }
+    }
+  }
+
+  input.message-input {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: calc(100% - #{$half-space*2});
+    margin: $half-space;
+    height: 40px;
+    padding: $half-space $half-space/2;
+
+    font-size: 16px;
+    font-family: $serif-family;
+  }
+
+}

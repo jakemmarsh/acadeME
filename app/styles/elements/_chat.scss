@@ -1,0 +1,17 @@
+section.chat {
+
+  display: table;
+  width: 100%;
+  height: 100%;
+  min-height: 800px;
+  max-height: 820px;
+
+  ul.recipient-list {
+    @extend %recipient-list;
+  }
+
+  .conversation {
+    @extend %conversation;
+  }
+
+}

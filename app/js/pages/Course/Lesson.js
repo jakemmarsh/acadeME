@@ -28,10 +28,12 @@ var CourseLesson = React.createClass({
     };
   },
 
-  _onLessonChange: function(lesson) {
-    this.setState({
-      lesson: lesson
-    });
+  _onLessonChange: function(err, lesson) {
+    if ( err ) {
+      // TODO: handle error
+    } else {
+      this.setState({ lesson: lesson });
+    }
   },
 
   componentWillMount: function() {

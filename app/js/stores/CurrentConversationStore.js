@@ -1,24 +1,38 @@
 'use strict';
 
-var Reflux              = require('reflux');
-var ConversationActions = require('../actions/ConversationActions');
+var Reflux           = require('reflux');
+
+var ChatActions      = require('../actions/ChatActions');
+var CurrentUserStore = require('../stores/CurrentUserStore');
 
 var CurrentConversationStore = Reflux.createStore({
 
   init: function() {
-    this.listenTo(ConversationActions.openConversation, this.openConversation);
+    this.conversation = null;
+
+    this.listenTo(ChatActions.openConversation, this.openConversation);
+    this.listenTo(ChatActions.sendMessage, this.sendMessage);
   },
 
-  openConversation: function(conversationId) {
-    var conversation;
+  openConversation: function(courseId, recipientId) {
+    var conversation = {
+      recipient: {
+        id: recipientId
+      },
+      messages: []
+    };
 
-    console.log('open conversation with id:', conversationId);
+    console.log('open conversation with course:', courseId, 'recipient:', recipientId);
 
-    this.currentConversation = conversation;
+    this.conversation = conversation;
 
-    // TODO: load entire conversation from database using conversationId
+    // TODO: load entire conversation from database using courseId, currentUser, and recipientId
 
-    this.trigger(conversation);
+    this.trigger(null, this.conversation);
+  },
+
+  sendMessage: function() {
+    console.log('send message');
   }
 
 });

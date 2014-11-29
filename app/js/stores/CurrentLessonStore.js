@@ -8,6 +8,8 @@ var LessonAPI     = require('../utils/LessonAPI');
 var CurrentLessonStore = Reflux.createStore({
 
   init: function() {
+    this.lesson = null;
+
     this.listenTo(LessonActions.openLesson, this.openLesson);
   },
 
@@ -18,12 +20,13 @@ var CurrentLessonStore = Reflux.createStore({
 
     LessonAPI.get(lessonId).then(function(lesson) {
       this.lesson = lesson;
-      this.trigger(lesson);
-      cb();
+      cb(null, this.lesson);
+      this.trigger(null, this.lesson);
     }.bind(this)).catch(function(err) {
-      // TODO: handle error
+      this.lesson = null;
+      cb(err);
       console.log('error retrieving lesson:', err);
-    });
+    }.bind(this));
   }
 
 });

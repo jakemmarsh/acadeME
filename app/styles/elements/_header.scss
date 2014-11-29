@@ -6,7 +6,7 @@ header {
   text-align: center;
 
   color: #567186;
-  background: rgb(113,135,149);
+  background: $header-grey;
   background: -moz-linear-gradient(left,  rgba(113,135,149,1) 0%, rgba(132,155,171,1) 53%, rgba(113,135,149,1) 100%);
   background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(113,135,149,1)), color-stop(53%,rgba(132,155,171,1)), color-stop(100%,rgba(113,135,149,1)));
   background: -webkit-linear-gradient(left,  rgba(113,135,149,1) 0%,rgba(132,155,171,1) 53%,rgba(113,135,149,1) 100%);

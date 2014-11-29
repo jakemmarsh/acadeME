@@ -21,12 +21,12 @@ var CurrentQuizStore = Reflux.createStore({
 
     LessonAPI.getQuiz(lessonId).then(function(quiz) {
       this.quiz = quiz;
-      this.trigger(quiz);
-      cb();
+      cb(null, this.quiz);
+      this.trigger(this.quiz);
     }.bind(this)).catch(function(err) {
-      // TODO: handle error
+      cb(err);
       console.log('error getting quiz:', err);
-    });
+    }.bind(this));
   },
 
   loadQuestion: function(quizId, numQuestions, userScore, cb) {
@@ -35,11 +35,11 @@ var CurrentQuizStore = Reflux.createStore({
     console.log('load question for quiz:', quizId);
 
     QuizAPI.getQuestion(quizId, numQuestions, userScore).then(function(question) {
-      cb(question);
+      cb(null, question);
     }.bind(this)).catch(function(err) {
-      // TODO: handle error
+      cb(err);
       console.log('error getting question:', err);
-    });
+    }.bind(this));
   },
 
   checkAnswer: function(questionId, answer, cb) {
@@ -48,11 +48,11 @@ var CurrentQuizStore = Reflux.createStore({
     console.log('checking answer for question:', questionId);
 
     QuizAPI.checkAnswer(this.quiz.id, questionId, answer).then(function(result) {
-      cb(result);
+      cb(null, result);
     }.bind(this)).catch(function(err) {
-      // TODO: handle error
+      cb(err);
       console.log('error checking answer:', err);
-    });
+    }.bind(this));
   }
 
 });

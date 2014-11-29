@@ -6,8 +6,8 @@
 var React         = require('react/addons');
 var Reflux        = require('reflux');
 
-var CourseActions         = require('../../actions/CourseActions');
-var ConversationListStore = require('../../stores/ConversationListStore');
+var CourseActions = require('../../actions/CourseActions');
+var Chat          = require('../../components/Chat');
 
 var CourseChat = React.createClass({
 
@@ -25,40 +25,13 @@ var CourseChat = React.createClass({
     };
   },
 
-  _onConversationListChange: function(conversationList) {
-    this.setState({
-      conversations: conversationList
-    }, function() {
-    });
-  },
-
   componentWillMount: function() {
-    CourseActions.openConversations(this.props.params.courseId);
-  },
-
-  componentDidMount: function() {
-    this.listenTo(ConversationListStore, this._onConversationListChange);
-  },
-
-  renderConversations: function() {
-    var elements = null;
-
-    if ( this.state.conversations ) {
-      elements = _.map(this.state.conversations, function(conversation, index) {
-        return (
-          <li key={index}>{conversation.recipient}</li>
-        );
-      });
-    }
-
-    return elements;
+    CourseActions.openChat(this.props.params.courseId);
   },
 
   render: function() {
     return (
-      <div>
-        {this.renderConversations()}
-      </div>
+      <Chat currentUser={this.props.currentUser} course={this.props.course} />
     );
   }
 

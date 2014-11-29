@@ -23,10 +23,12 @@ var App = React.createClass({
     };
   },
 
-  _onCourseChange: function(course) {
-    this.setState({
-      currentCourse: course
-    });
+  _onCourseChange: function(err, course) {
+    if ( err ) {
+      // TODO: handle error
+    } else {
+    this.setState({ currentCourse: course });
+    }
   },
 
   componentWillReceiveProps: function() {
