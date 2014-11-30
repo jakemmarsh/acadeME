@@ -5,6 +5,7 @@
 
 var React      = require('react/addons');
 var _          = require('underscore');
+var $          = require('jquery');
 
 var UserAvatar = require('./UserAvatar');
 
@@ -15,13 +16,16 @@ var Conversation = React.createClass({
   propTypes: {
     currentUser: React.PropTypes.object.isRequired,
     course: React.PropTypes.object.isRequired,
-    conversation: React.PropTypes.object.isRequired
+    conversation: React.PropTypes.object.isRequired,
+    newMessages: React.PropTypes.array,
+    sendMessage: React.PropTypes.func.isRequired
   },
 
   getDefaultProps: function() {
     return {
       course: {},
-      conversation: {}
+      conversation: {},
+      newMessages: []
     };
   },
 
@@ -31,12 +35,25 @@ var Conversation = React.createClass({
     };
   },
 
+  componentDidUpdate: function() {
+    if ( this.props.conversation.messages || this.props.newMessages.length ) {
+      var $messagesContainer = $(this.refs.messages.getDOMNode());
+      var $lastChild = $messagesContainer.children('li').last();
+      var lastChildBottom = $lastChild.position().top + $lastChild.outerHeight(true);
+
+      // Keep messages container scrolled to bottom of newest message as new messages are sent
+      $messagesContainer.scrollTop(lastChildBottom);
+    }
+  },
+
   submitOnEnter: function(evt) {
     var keyCode = evt.keyCode || evt.which;
 
     if ( keyCode === '13' || keyCode === 13 ) {
       console.log('new message:', this.state.newMessage);
-      this.setState({ newMessage: '' });
+      this.props.sendMessage(this.state.newMessage, this.props.conversation, this.props.currentUser, function() {
+        this.setState({ newMessage: '' });
+      }.bind(this));
     }
   },
 
@@ -44,13 +61,13 @@ var Conversation = React.createClass({
     return message.user.id === this.props.currentUser.id;
   },
 
-  renderMessages: function() {
+  renderMessages: function(messages) {
     var elements = null;
     var classes;
     var messageUser;
 
-    if ( !_.isEmpty(this.props.conversation) ) {
-      elements = _.map(this.props.conversation.messages, function(message, index) {
+    if ( !_.isEmpty(messages) ) {
+      elements = _.map(messages, function(message, index) {
         classes = 'message' + (this.userDidSend(message) ? ' user-sent' : '');
         messageUser = this.userDidSend(message) ? this.props.currentUser : message.user;
 
@@ -91,8 +108,9 @@ var Conversation = React.createClass({
     return (
       <div className="conversation">
 
-        <ul className="messages-container">
-          {this.renderMessages()}
+        <ul ref="messages" className="messages-container">
+          {this.renderMessages(this.props.conversation.messages)}
+          {this.renderMessages(this.props.newMessages)}
         </ul>
 
         {this.renderInput()}

@@ -6,8 +6,8 @@
 var React                    = require('react/addons');
 var Reflux                   = require('reflux');
 var _                        = require('underscore');
-var io                       = require('socket.io-client');
 
+var ChatSocketMixin          = require('../mixins/ChatSocketMixin');
 var CourseRecipientsStore    = require('../stores/CourseRecipientsStore');
 var CurrentConversationStore = require('../stores/CurrentConversationStore');
 var CourseActions            = require('../actions/CourseActions');
@@ -17,7 +17,7 @@ var Conversation             = require('./Conversation');
 
 var Chat = React.createClass({
 
-  mixins: [Reflux.ListenerMixin],
+  mixins: [Reflux.ListenerMixin, ChatSocketMixin],
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired,
@@ -58,7 +58,9 @@ var Chat = React.createClass({
       this.setState({
         error: null,
         conversation: conversation
-      });
+      }, function() {
+        this.joinChat(this.props.course.id, this.props.currentUser.id, this.state.conversation.recipient.id);
+      }.bind(this));
     }
   },
 
@@ -77,12 +79,9 @@ var Chat = React.createClass({
     }
   },
 
-  componentDidMount: function() {
-    this.socket = io('http://localhost:3000');
-  },
-
   openConversation: function(recipientId) {
     if ( _.isEmpty(this.state.conversation.recipient) || recipientId !== this.state.conversation.recipient.id ) {
+      this.leaveChat();
       ChatActions.openConversation(this.props.course.id, recipientId, this._onConversationChange);
     }
   },
@@ -99,7 +98,9 @@ var Chat = React.createClass({
 
         <Conversation currentUser={this.props.currentUser}
                       course={this.props.course}
-                      conversation={this.state.conversation} />
+                      conversation={this.state.conversation}
+                      newMessages={this.state.newMessages}
+                      sendMessage={this.sendMessage} />
 
       </section>
     );

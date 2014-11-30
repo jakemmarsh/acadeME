@@ -6,8 +6,9 @@
   padding: $half-space;
 
   .messages-container {
-    height: calc(100% - 35px);
-    min-height: calc(100% - 35px);
+    height: calc(100% - #{$full-space+$half-space});
+    min-height: calc(100% - #{$full-space+$half-space});
+    overflow-y: auto;
     padding: 0;
     margin: 0;
     list-style: none;

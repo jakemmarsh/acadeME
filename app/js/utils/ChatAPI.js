@@ -30,6 +30,7 @@ var ChatAPI = {
     var deferred = when.defer();
 
     deferred.resolve({
+      id: 1,
       recipient: {
         id: recipientId
       },
