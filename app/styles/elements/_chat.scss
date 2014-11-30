@@ -8,10 +8,12 @@ section.chat {
 
   ul.recipient-list {
     @extend %recipient-list;
+    width: 30%;
   }
 
   .conversation {
     @extend %conversation;
+    width: 70%;
   }
 
 }
