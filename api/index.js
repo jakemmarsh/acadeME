@@ -1,40 +1,50 @@
 'use strict';
 
-var path    = require('path');
-var express = require('express');
-var api     = express();
-var routes  = require(path.join(__dirname, 'routes'));
+module.exports = function(server) {
 
-/* ====================================================== */
+  var path    = require('path');
+  var express = require('express');
+  var api     = express();
+  var routes  = require(path.join(__dirname, 'routes'));
 
-// Auth endpoints
-api.put('/register', routes.auth.register);
-api.post('/login', routes.auth.login);
+  /* ====================================================== */
 
-/* ====================================================== */
+  require('./sockets')(server, routes);
 
-// User endpoints
-api.get('/user/:identifier', routes.user.get);
+  /* ====================================================== */
 
-/* ====================================================== */
+  // Auth endpoints
+  api.put('/register', routes.auth.register);
+  api.post('/login', routes.auth.login);
 
-// Course endpoints
-api.get('/course/:identifier', routes.course.get);
-api.get('/course/:id/search/:query', routes.course.search);
-api.put('/course/:id/lesson', routes.course.createLesson);
-api.delete('/course/:id', routes.course.delete);
+  /* ====================================================== */
 
-/* ====================================================== */
+  // User endpoints
+  api.get('/user/:identifier', routes.user.get);
 
-// Lesson endpoints
-api.get('/lesson/:identifier', routes.lesson.get);
-api.get('/lesson/:lessonId/quiz', routes.quiz.get);
-api.delete('/lesson/:id', routes.lesson.delete);
+  /* ====================================================== */
 
-/* ====================================================== */
+  // Course endpoints
+  api.get('/course/:identifier', routes.course.get);
+  api.get('/course/:id/search/:query', routes.course.search);
+  api.put('/course/:id/lesson', routes.course.createLesson);
+  api.delete('/course/:id', routes.course.delete);
 
-// Quiz endpoints
-api.post('quiz/:quizId/check/:questionId', routes.quiz.checkAnswer);
-api.get('quiz/:quizId/question', routes.quiz.getQuestion);
+  /* ====================================================== */
 
-module.exports = api;
+  // Lesson endpoints
+  api.get('/lesson/:identifier', routes.lesson.get);
+  api.get('/lesson/:lessonId/quiz', routes.quiz.get);
+  api.delete('/lesson/:id', routes.lesson.delete);
+
+  /* ====================================================== */
+
+  // Quiz endpoints
+  api.post('quiz/:quizId/check/:questionId', routes.quiz.checkAnswer);
+  api.get('quiz/:quizId/question', routes.quiz.getQuestion);
+
+  /* ====================================================== */
+
+  return api;
+
+};

@@ -7,6 +7,7 @@ var methodOverride = require('method-override');
 var bodyParser     = require('body-parser');
 var api            = require('./api');
 var app            = express();
+var server         = app.listen(process.env.PORT || 3000);
 
 /* ====================================================== */
 
@@ -46,14 +47,9 @@ app.use('*/css', express.static(__dirname + '/build/css'));
 app.use('*/fonts', express.static(__dirname + '/build/fonts'));
 
 // Mount the API
-app.use('/api', api);
+app.use('/api', api(server));
 
 // Serve index.html for all main routes to leave routing up to react-router
 app.all('/*', function(req, res) {
     res.sendFile('index.html', { root: 'build' });
 });
-
-/* ====================================================== */
-
-// start the server
-app.listen(process.env.PORT || 3000);

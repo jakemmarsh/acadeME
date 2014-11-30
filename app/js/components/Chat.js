@@ -6,6 +6,7 @@
 var React                    = require('react/addons');
 var Reflux                   = require('reflux');
 var _                        = require('underscore');
+var io                       = require('socket.io-client');
 
 var CourseRecipientsStore    = require('../stores/CourseRecipientsStore');
 var CurrentConversationStore = require('../stores/CurrentConversationStore');
@@ -63,7 +64,7 @@ var Chat = React.createClass({
 
   componentWillMount: function() {
     this.listenTo(CourseRecipientsStore, this._onRecipientsChange);
-    this.listenTo(CurrentConversationStore, this._onConversationChange);
+    //this.listenTo(CurrentConversationStore, this._onConversationChange);
 
     if ( !_.isEmpty(this.props.course) && !_.isEmpty(this.props.currentUser) ) {
       CourseActions.openChat(this.props.course.id, this._onRecipientsChange);
@@ -74,6 +75,10 @@ var Chat = React.createClass({
     if( !_.isEqual(this.props.course, prevProps.course) || !_.isEqual(this.props.currentUser, prevProps.currentUser) ) {
       CourseActions.openChat(this.props.course.id, this._onRecipientsChange);
     }
+  },
+
+  componentDidMount: function() {
+    this.socket = io('http://localhost:3000');
   },
 
   openConversation: function(recipientId) {
