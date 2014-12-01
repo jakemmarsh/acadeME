@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
   var Lesson = sequelize.define('Lesson', {
     title:        { type: DataTypes.STRING, allowNull: false },
     description:  { type: DataTypes.TEXT },
-    bodyElements: { type: DataTypes.ARRAY(DataTypes.TEXT), allowNull: false },
+    bodyElements: { type: DataTypes.ARRAY(DataTypes.TEXT)/*, allowNull: false*/ },
     imageUrl:     { type: DataTypes.STRING }
   },
   {

@@ -20,6 +20,10 @@ exports.get = function(req, res) {
       where: query,
       include: [
         {
+          model: models.User,
+          as: 'Instructor'
+        },
+        {
           model: models.Lesson,
           attributes: ['id', 'title', 'description']
         }

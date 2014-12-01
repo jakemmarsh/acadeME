@@ -4,6 +4,7 @@ module.exports = function(sequelize, DataTypes) {
 
   var User = sequelize.define('User', {
     username:        { type: DataTypes.STRING, unique: true, allowNull: false },
+    name:            { type: DataTypes.STRING },
     email: {
       type: DataTypes.STRING,
       unique: true,
@@ -11,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
         isEmail: true
       }
     },
-    type:            { type: DataTypes.ENUM('student', 'instructor'), allowNull: false },
+    type:            { type: DataTypes.ENUM('student', 'instructor'), defaultValue: 'student' },
     imageUrl:        { type: DataTypes.STRING },
     hash:            { type: DataTypes.STRING },
     activationKey:   { type: DataTypes.STRING },
@@ -23,6 +24,7 @@ module.exports = function(sequelize, DataTypes) {
         User.hasMany(models.Course);
         User.hasMany(models.Conversation); // TODO: is this necessary?
         User.hasMany(models.Message);
+        User.hasMany(models.Enrollment);
       }
     }
   });
