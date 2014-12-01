@@ -7,27 +7,30 @@ var APIUtils = require('./APIUtils');
 
 var ChatAPI = {
 
-  getCourseRecipients: function(userId, courseId) {
+  getCourseRecipients: function(courseId) {
     var deferred = when.defer();
 
-    deferred.resolve([
-      {
-        id: 2,
-        name: 'Steve Jobs',
-        imageUrl: 'http://a5.files.biography.com/image/upload/c_fill,dpr_1.0,g_face,h_300,q_80,w_300/MTE5NDg0MDU0NTIzODQwMDE1.jpg'
-      },
-      {
-        id: 3,
-        name: 'Bill Gates',
-        imageUrl: 'http://timedotcom.files.wordpress.com/2014/01/bill-gates.jpg?w=1100'
+    request.get(APIUtils.API_ROOT + 'chat/' + courseId + '/recipients').end(function(res) {
+      if ( !res.ok ) {
+        deferred.reject(JSON.parse(res.text));
+      } else {
+        deferred.resolve(APIUtils.normalizeResponse(res));
       }
-    ]);
+    });
 
     return deferred.promise;
   },
 
   getConversation: function(currentUserId, courseId, recipientId) {
     var deferred = when.defer();
+
+    request.get(APIUtils.API_ROOT + 'chat/' + courseId + '/recipients').end(function(res) {
+      if ( !res.ok ) {
+        deferred.reject(JSON.parse(res.text));
+      } else {
+        deferred.resolve(APIUtils.normalizeResponse(res));
+      }
+    });
 
     deferred.resolve({
       id: 1,

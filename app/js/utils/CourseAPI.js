@@ -10,35 +10,12 @@ var CourseAPI = {
   get: function(id) {
     var deferred = when.defer();
 
-    // request.get(APIUtils.API_ROOT + 'course/' + id).end(function(res) {
-    //   if ( !res.ok ) {
-    //     deferred.reject(JSON.parse(res.text));
-    //   } else {
-    //     deferred.resolve(APIUtils.normalizeResponse(res));
-    //   }
-    // });
-
-    deferred.resolve({
-      id: id,
-      title: 'Human-Computer Interaction',
-      instructor: {
-        name: 'Joe Black'
-      },
-      percentageComplete: 35,
-      lessons: [
-        {
-          id: 0,
-          title: 'Rapid Prototyping',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus. Vivamus nec sem vitae sem suscipit tempus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
-          image_url: ''
-        },
-        {
-          id: 1,
-          title: 'Heuristic Evaluation',
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus.',
-          image_url: ''
-        }
-      ]
+    request.get(APIUtils.API_ROOT + 'course/' + id).end(function(res) {
+      if ( !res.ok ) {
+        deferred.reject(JSON.parse(res.text));
+      } else {
+        deferred.resolve(APIUtils.normalizeResponse(res));
+      }
     });
 
     return deferred.promise;

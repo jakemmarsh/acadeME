@@ -12,11 +12,6 @@ var ChatSocketMixin = {
     };
   },
 
-  componentWillUnmount: function() {
-    this.socket.emit('manualDisconnect');
-    this.socket = null;
-  },
-
   clearNewMessages: function() {
     this.setState({ newMessages: [] });
   },

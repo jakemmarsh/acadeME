@@ -10,21 +10,12 @@ var LessonAPI = {
   get: function(id) {
     var deferred = when.defer();
 
-    // request.get(APIUtils.API_ROOT + 'lesson/' + id).end(function(res) {
-    //   if ( !res.ok ) {
-    //     deferred.reject(res.text);
-    //   } else {
-    //     deferred.resolve(APIUtils.normalizeResponse(res));
-    //   }
-    // });
-
-    deferred.resolve({
-      id: id,
-      title: 'Heuristic Evaluation',
-      bodyElements: [
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus.'
-      ],
-      image_url: ''
+    request.get(APIUtils.API_ROOT + 'lesson/' + id).end(function(res) {
+      if ( !res.ok ) {
+        deferred.reject(res.text);
+      } else {
+        deferred.resolve(APIUtils.normalizeResponse(res));
+      }
     });
 
     return deferred.promise;
