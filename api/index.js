@@ -9,7 +9,7 @@ module.exports = function(server) {
 
   /* ====================================================== */
 
-  require('./sockets')(server, routes);
+  require('./sockets')(server);
 
   /* ====================================================== */
 
@@ -40,8 +40,13 @@ module.exports = function(server) {
   /* ====================================================== */
 
   // Quiz endpoints
-  api.post('quiz/:quizId/check/:questionId', routes.quiz.checkAnswer);
-  api.get('quiz/:quizId/question', routes.quiz.getQuestion);
+  api.post('/quiz/:quizId/check/:questionId', routes.quiz.checkAnswer);
+  api.get('/quiz/:quizId/question', routes.quiz.getQuestion);
+
+  /* ====================================================== */
+
+  api.get('/chat/:courseId/recipients', routes.chat.getRecipients);
+  api.get('/chat/:courseId/conversation/', routes.chat.getConversation); // TODO: figure out what other params this needs
 
   /* ====================================================== */
 

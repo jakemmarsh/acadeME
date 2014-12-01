@@ -59,7 +59,7 @@ var Chat = React.createClass({
         error: null,
         conversation: conversation
       }, function() {
-        this.joinChat(this.props.course.id, this.props.currentUser.id, this.state.conversation.recipient.id);
+        this.joinChat(this.props.course, this.props.currentUser, this.state.conversation.recipient);
       }.bind(this));
     }
   },
@@ -73,9 +73,9 @@ var Chat = React.createClass({
     }
   },
 
-  componentWillReceiveProps: function(prevProps) {
-    if( !_.isEqual(this.props.course, prevProps.course) || !_.isEqual(this.props.currentUser, prevProps.currentUser) ) {
-      CourseActions.openChat(this.props.course.id, this._onRecipientsChange);
+  componentWillReceiveProps: function(nextProps) {
+    if( !_.isEqual(this.props.course, nextProps.course) || !_.isEqual(this.props.currentUser, nextProps.currentUser) ) {
+      CourseActions.openChat(nextProps.course.id, this._onRecipientsChange);
     }
   },
 

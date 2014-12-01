@@ -37,25 +37,27 @@ var ChatSocketMixin = {
     }
   },
 
-  joinChat: function(courseId, currentUserId, recipientId, cb) {
+  joinChat: function(course, currentUser, recipient, cb) {
     cb = cb || function() {};
 
     this.openSocket();
 
     this.socket.emit('joinChat', {
-      courseId: courseId,
-      currentUserId: currentUserId,
-      recipientId: recipientId
+      course: course,
+      currentUser: currentUser,
+      recipient: recipient
     }, cb);
   },
 
   sendMessage: function(message, conversation, currentUser, cb) {
     cb = cb || function() {};
 
+    console.log('send message:', message);
+
     this.socket.emit('sendMessage', {
-      body: message,
-      conversationId: conversation.id,
-      userId: currentUser.id
+      Body: message,
+      ConversationId: conversation.id,
+      UserId: currentUser.id
     }, cb);
   },
 

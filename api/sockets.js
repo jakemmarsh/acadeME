@@ -1,13 +1,15 @@
 'use strict';
 
-module.exports = function(server, routes) {
+var chatUtils = require('./utils/chat');
+
+module.exports = function(server) {
 
   var io = require('socket.io').listen(server);
 
   var buildRoomString = function(data) {
-    var sortedUserIds = [data.currentUserId, data.recipientId].sort();
+    var sortedUserIds = [data.currentUser.id, data.recipient.id].sort();
 
-    return data.courseId.toString() + '-' + sortedUserIds[0].toString() + '-' + sortedUserIds[1].toString();
+    return data.course.id.toString() + '-' + sortedUserIds[0].toString() + '-' + sortedUserIds[1].toString();
   };
 
   io.on('connection', function(socket) {
@@ -23,32 +25,29 @@ module.exports = function(server, routes) {
       console.log('join:', socket.room);
 
       // TODO: create conversation if it doesn't exist?
-
-      socket.join(socket.room);
-
-      cb();
+      chatUtils.upsertConversation(data.course.id, [data.currentUser, data.recipient]).then(function(conversation) {
+        socket.conversationId = conversation.id;
+        socket.join(socket.room);
+        cb(conversation);
+      });
     });
 
     socket.on('sendMessage', function(data, cb) {
       cb = cb || function() {};
 
-      console.log('sendMessage:', data);
-      console.log('in room:', io.sockets.in(socket.room));
+      console.log('receive message:', data);
 
       // TODO: save message in database
-      io.sockets.in(socket.room).emit('updateChat', {
-        user: {
-          id: data.userId
-        },
-        body: data.body
+      chatUtils.saveMessage(socket.conversationId, data).then(function(message) {
+        io.sockets.in(socket.room).emit('updateChat', message);
+        cb(message);
       });
-
-      cb();
     });
 
     socket.on('leaveChat', function() {
       console.log('leave');
       socket.leave(socket.room);
+      socket.conversationId = null;
       socket.room = null;
     });
 

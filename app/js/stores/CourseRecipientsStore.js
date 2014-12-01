@@ -15,12 +15,12 @@ var CourseRecipientsStore = Reflux.createStore({
   },
 
   loadRecipients: function(courseId, cb) {
-    if ( CurrentUserStore.user && CurrentUserStore.user.id ) {
+    if ( courseId && CurrentUserStore.user && CurrentUserStore.user.id ) {
       cb = cb || function() {};
 
       console.log('load recipients for course:', courseId);
 
-      ChatAPI.getCourseRecipients(CurrentUserStore.user.id, courseId).then(function(recipients) {
+      ChatAPI.getCourseRecipients(courseId).then(function(recipients) {
         this.recipients = recipients;
         cb(null, this.recipients);
         this.trigger(null, this.recipients);
