@@ -4,8 +4,7 @@ var Reflux = require('reflux');
 
 var ChatActions = Reflux.createActions([
 
-  'openConversation',
-  'sendMessage'
+  'openConversation'
 
 ]);
 

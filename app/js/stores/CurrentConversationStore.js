@@ -12,7 +12,6 @@ var CurrentConversationStore = Reflux.createStore({
     this.conversation = null;
 
     this.listenTo(ChatActions.openConversation, this.openConversation);
-    this.listenTo(ChatActions.sendMessage, this.sendMessage);
   },
 
   openConversation: function(courseId, recipientId, cb) {
@@ -31,10 +30,6 @@ var CurrentConversationStore = Reflux.createStore({
         console.log('error getting conversation:', err);
       }.bind(this));
     }
-  },
-
-  sendMessage: function() {
-    console.log('send message');
   }
 
 });

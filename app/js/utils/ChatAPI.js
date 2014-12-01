@@ -55,12 +55,6 @@ var ChatAPI = {
     });
 
     return deferred.promise;
-  },
-
-  sendMessage: function() {
-    var deferred = when.defer();
-
-    return deferred.promise;
   }
 
 };

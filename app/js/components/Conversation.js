@@ -50,7 +50,6 @@ var Conversation = React.createClass({
     var keyCode = evt.keyCode || evt.which;
 
     if ( keyCode === '13' || keyCode === 13 ) {
-      console.log('new message:', this.state.newMessage);
       this.props.sendMessage(this.state.newMessage, this.props.conversation, this.props.currentUser, function() {
         this.setState({ newMessage: '' });
       }.bind(this));
