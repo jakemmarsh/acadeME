@@ -7,7 +7,8 @@ module.exports = function(sequelize) {
     classMethods: {
       associate: function(models) {
         Conversation.belongsTo(models.Course);
-        Conversation.hasMany(models.User);
+        Conversation.belongsTo(models.User, { as: 'UserOne' });
+        Conversation.belongsTo(models.User, { as: 'UserTwo' });
         Conversation.hasMany(models.Message);
       }
     }

@@ -52,8 +52,8 @@ module.exports = function(models) {
       }
     ];
 
-    models.Lesson.bulkCreate(lessons).then(function(lessons) {
-      deferred.resolve(course, lessons);
+    models.Lesson.bulkCreate(lessons).then(function() {
+      deferred.resolve(course);
     });
 
     return deferred.promise;
@@ -103,45 +103,47 @@ module.exports = function(models) {
       imageUrl: 'https://scontent-b-lga.xx.fbcdn.net/hphotos-xpf1/t31.0-8/1796992_10151957242618173_179336983_o.jpg'
     };
 
-    models.User.create(user).then(function() {
-      deferred.resolve(otherUsers);
+    models.User.create(user).then(function(currentUser) {
+      deferred.resolve([currentUser, otherUsers]);
     });
 
     return deferred.promise;
   };
 
-  var createConversation = function(otherUsers) {
+  var createConversation = function(users) {
+    var currentUser = users[0];
+    var otherUsers = users[1];
     var deferred = when.defer();
+    var sortedOtherUserIds = [otherUsers[0].id, otherUsers[1].id].sort();
+    var sortedIds = [currentUser.id, sortedOtherUserIds[0]].sort();
     var conversation = {
-      CourseId: 1
+      CourseId: 1,
+      UserOneId: sortedIds[0],
+      UserTwoId: sortedIds[1]
     };
 
     models.Conversation.create(conversation).then(function(createdConversation) {
-      createdConversation.setUsers(otherUsers).then(function() {
-        deferred.resolve(createdConversation);
-      });
+      deferred.resolve([currentUser, otherUsers, createdConversation]);
     });
 
     return deferred.promise;
   };
 
-  var createMessages = function() {
+  var createMessages = function(previousData) {
+    var currentUser = previousData[0];
+    var otherUsers = previousData[1];
+    var createdConversation = previousData[2];
     var deferred = when.defer();
     var messagesToCreate = [
       {
         body: 'This is a message sent by another user with ID 2!',
-        UserId: 2,
-        ConversationId: 1
-      },
-      {
-        body: 'This is a message sent by another user with ID 3!',
-        UserId: 3,
-        ConversationId: 1
+        UserId: otherUsers[0].id,
+        ConversationId: createdConversation.id
       },
       {
         body: 'This is a message sent by the current!',
-        UserId: 2,
-        ConversationId: 1
+        UserId: currentUser.id,
+        ConversationId: createdConversation.id
       }
     ];
 

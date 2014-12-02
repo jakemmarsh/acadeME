@@ -22,7 +22,6 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         User.hasMany(models.Course);
-        User.hasMany(models.Conversation); // TODO: is this necessary?
         User.hasMany(models.Message);
         User.hasMany(models.Enrollment);
       }
