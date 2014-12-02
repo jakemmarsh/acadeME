@@ -10,8 +10,9 @@ module.exports = function(models) {
   var createInstructorUser = function() {
     var deferred = when.defer();
     var user = {
-      username: 'jblack',
-      name: 'Joe Black'
+      username: 'jdoe',
+      name: 'John Doe',
+      imageUrl: 'http://themes.mysitemyway.com/_shared/images/content/john_doe.jpg'
     };
 
     models.User.create(user).then(function(createdUser) {

@@ -42,7 +42,12 @@ var RecipientList = React.createClass({
 
       element = (
         <li onClick={this.props.openConversation.bind(null, this.props.course.instructor.id)} className={classes}>
-          {this.props.course.instructor.name}
+          <div className="avatar-container">
+            <UserAvatar user={this.props.course.instructor} />
+          </div>
+          <div className="name-container">
+            {this.props.course.instructor.name}
+          </div>
         </li>
       );
     }
