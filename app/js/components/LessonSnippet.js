@@ -34,16 +34,19 @@ var LessonSnippet = React.createClass({
       element = (
         <article className={classes}>
 
-          <h2 className="title">{this.props.lesson.title}</h2>
+          <Link to="CourseLesson" params={{ courseId: this.props.course.id, lessonId: this.props.lesson.id }}
+                                  className="title">
+            {this.props.lesson.title}
+          </Link>
 
           <p className="description flush">{this.props.lesson.description}</p>
 
           <div className="buttons-container soft--top">
-            <Link to="CourseLesson" params={ {courseId: this.props.course.id, lessonId: this.props.lesson.id} }
+            <Link to="CourseLesson" params={{ courseId: this.props.course.id, lessonId: this.props.lesson.id }}
                                     className="button nudge-half--right">
               Read Lesson
             </Link>
-            <Link to="LessonQuiz" params={ {courseId: this.props.course.id, lessonId: this.props.lesson.id} }
+            <Link to="LessonQuiz" params={{ courseId: this.props.course.id, lessonId: this.props.lesson.id }}
                                   className="button">
               Take Quiz
             </Link>

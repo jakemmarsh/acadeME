@@ -10,7 +10,13 @@ article.lesson-snippet {
   @extend %card;
 
   .title {
+    display: inline-block;
+    @extend h2;
     color: $text-dark-grey;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 
   &:not(:last-child) {

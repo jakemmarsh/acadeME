@@ -58,7 +58,7 @@ var CourseLesson = React.createClass({
       element = (
         <Link to="LessonQuiz"
               params={{ courseId: this.props.course.id, lessonId: this.state.lesson.id }}
-              className="button">
+              className="button inline-block">
           Take Quiz
         </Link>
       );

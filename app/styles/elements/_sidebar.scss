@@ -22,7 +22,15 @@ nav.sidebar {
       }
 
       .title {
+        display: inline-block;
+        @extend h3;
         text-transform: uppercase;
+        color: $white;
+
+        &:hover {
+          color: $white;
+          text-decoration: none;
+        }
       }
 
       span {

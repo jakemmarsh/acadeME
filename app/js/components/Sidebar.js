@@ -6,6 +6,7 @@
 var React                   = require('react/addons');
 var ReactCSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup);
 var _                       = require('lodash');
+var Link                    = React.createFactory(require('react-router').Link);
 
 var ListLink                = require('./ListLink');
 var ProgressBar             = require('./ProgressBar');
@@ -39,7 +40,7 @@ var Sidebar = React.createClass({
       element = (
         <div className="course-info-container" key={this.props.course.title}>
             <div className="title-container">
-              <h3 className="title">{courseTitle}</h3>
+              <Link to="Course" params={{ courseId: this.props.course.id }} className="title">{courseTitle}</Link>
               <span>Taught by</span>
               <h4 className="instructor flush">{instructorName}</h4>
             </div>
