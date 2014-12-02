@@ -35,6 +35,7 @@ var Chat = React.createClass({
     return {
       error: null,
       recipients: [],
+      currentRecipient: {},
       conversation: {}
     };
   },
@@ -77,10 +78,11 @@ var Chat = React.createClass({
     }
   },
 
-  openConversation: function(recipientId) {
-    if ( _.isEmpty(this.state.conversation.recipient) || recipientId !== this.state.conversation.recipient.id ) {
-      this.joinChat(this.props.course.id, this.props.currentUser.id, recipientId).then(function() {
-        ChatActions.openConversation(this.props.course.id, recipientId, this._onConversationChange);
+  openConversation: function(recipient) {
+    if ( _.isEmpty(this.state.conversation.recipient) || recipient.id !== this.state.conversation.recipient.id ) {
+      this.joinChat(this.props.course.id, this.props.currentUser.id, recipient.id).then(function() {
+        ChatActions.openConversation(this.props.course.id, recipient.id, this._onConversationChange);
+        this.setState({ currentRecipient: recipient });
       }.bind(this));
     }
   },
@@ -96,6 +98,7 @@ var Chat = React.createClass({
                        openConversation={this.openConversation} />
 
         <Conversation currentUser={this.props.currentUser}
+                      currentRecipient={this.state.currentRecipient}
                       course={this.props.course}
                       conversation={this.state.conversation}
                       newMessages={this.state.newMessages}

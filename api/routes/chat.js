@@ -58,19 +58,7 @@ exports.getConversation = function(req, res) {
 
     models.Conversation.find({
       where: { CourseId: courseId, UserOneId: userOneId, UserTwoId: userTwoId },
-      include: [
-        {
-          model: models.User,
-          as: 'UserOne'
-        },
-        {
-          model: models.User,
-          as: 'UserTwo'
-        },
-        {
-          model: models.Message
-        }
-      ]
+      include: [models.Message]
     }).then(function(conversation) {
       if ( !conversation ) {
         deferred.reject({

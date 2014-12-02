@@ -15,6 +15,7 @@ var Conversation = React.createClass({
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired,
+    currentRecipient: React.PropTypes.object.isRequired,
     course: React.PropTypes.object.isRequired,
     conversation: React.PropTypes.object.isRequired,
     newMessages: React.PropTypes.array,
@@ -23,17 +24,12 @@ var Conversation = React.createClass({
 
   getDefaultProps: function() {
     return {
+      currentUser: {},
+      currentRecipient: {},
       course: {},
       conversation: {},
-      newMessages: [],
-      conversationUsers: []
+      newMessages: []
     };
-  },
-
-  componentWillReceiveProps: function(nextProps) {
-    if ( !_.isEqual(this.props.conversation, nextProps.conversation) ) {
-      this.setState({ conversationUsers: [nextProps.conversation.userOne, nextProps.conversation.userTwo] });
-    }
   },
 
   getInitialState: function() {
@@ -64,7 +60,11 @@ var Conversation = React.createClass({
   },
 
   getMessageUser: function(message) {
-    return _.findWhere(this.state.conversationUsers, { id: message.userId });
+    if ( message.userId === this.props.currentUser.id ) {
+      return this.props.currentUser;
+    } else if ( message.userId === this.props.currentRecipient.id ) {
+      return this.props.currentRecipient;
+    }
   },
 
   userDidSend: function(message) {

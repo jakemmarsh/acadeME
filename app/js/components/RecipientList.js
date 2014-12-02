@@ -26,8 +26,8 @@ var RecipientList = React.createClass({
   },
 
   isActive: function(recipientId) {
-    if ( this.props.conversation && this.props.conversation.userOne && this.props.conversation.userTwo ) {
-      return this.props.conversation.userOne.id === recipientId || this.props.conversation.userTwo.id === recipientId;
+    if ( this.props.conversation ) {
+      return this.props.conversation.userOneId === recipientId || this.props.conversation.userTwoId === recipientId;
     } else {
       return false;
     }
@@ -41,7 +41,7 @@ var RecipientList = React.createClass({
       classes = this.isActive(this.props.course.instructor.id) ? 'active' : '';
 
       element = (
-        <li onClick={this.props.openConversation.bind(null, this.props.course.instructor.id)} className={classes}>
+        <li onClick={this.props.openConversation.bind(null, this.props.course.instructor)} className={classes}>
           <div className="avatar-container">
             <UserAvatar user={this.props.course.instructor} />
           </div>
@@ -62,7 +62,7 @@ var RecipientList = React.createClass({
       classes = this.isActive(recipient.id) ? 'active' : '';
 
       return (
-        <li key={index} onClick={this.props.openConversation.bind(null, recipient.id)} className={classes}>
+        <li key={index} onClick={this.props.openConversation.bind(null, recipient)} className={classes}>
           <div className="avatar-container">
             <UserAvatar user={recipient} />
           </div>
