@@ -51,26 +51,14 @@
     "pg": "^3.6.3",
     "slug": "^0.8.0",
     "jquery": "^2.1.1",
-    "eventable": "git://github.com/madebymany/eventable",
     "sir-trevor": "git://github.com/madebymany/sir-trevor-js",
     "react-marked": "^0.3.1",
-    "browserify-shim": "^3.8.0",
     "socket.io": "^1.2.1",
     "socket.io-client": "^1.2.1"
   },
   "devDependencies": {
     "supervisor": "^0.6.0"
   },
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
-  },
-  "browser": {
-    "sir-trevor": "./node_modules/sir-trevor/sir-trevor.js",
-    "eventable": "./node_modules/eventablejs/eventable.js"
-  },
-  "browserify-shim": {},
   "scripts": {
     "start": "supervisor server.js"
   }
