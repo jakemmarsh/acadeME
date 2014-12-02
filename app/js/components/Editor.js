@@ -5,10 +5,8 @@
 
 var React        = require('react/addons');
 var $            = require('jquery');
-window.jQuery    = $; // to avoid undefined errors in SirTrevor
-window._         = require('underscore'); // to avoid undefined errors in SirTrevor
-window.Eventable = require('eventablejs/eventable'); // to avoid undefined errors in SirTrevor
-require('sir-trevor');
+window.$         = $;
+var sirTrevor    = require('sir-trevor');
 
 var Editor = React.createClass({
 
@@ -24,7 +22,7 @@ var Editor = React.createClass({
       blockTypes: ['Text', 'Image', 'Video', /*'List',*/ 'Heading', 'Quote']
     };
 
-    new window.SirTrevor.Editor(options);
+    new sirTrevor.Editor(options);
   },
 
   saveForm: function() {
