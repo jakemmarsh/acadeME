@@ -27,20 +27,23 @@ var CreateLesson = React.createClass({
 
   getInitialState: function() {
     return {
-      title: ''
+      title: '',
+      description: ''
     };
   },
 
   handleSubmit: function(data) {
     var lesson = {
       title: this.state.title,
-      data: data
+      description: this.state.description,
+      imageUrl: '',
+      bodyElements: data || []
     };
 
     CourseActions.createLesson(lesson, function() {
       console.log('lesson created');
       this.transitionTo('Course', { courseId: this.props.course.id });
-    });
+    }.bind(this));
   },
 
   render: function() {
@@ -48,6 +51,8 @@ var CreateLesson = React.createClass({
       <section className="create-lesson nudge">
 
         <input type="text" valueLink={this.linkState('title')} placeholder="Lesson title" className="lesson-title-input nudge-half--bottom" />
+
+        <input type="text" valueLink={this.linkState('description')} placeholder="Brief description of the lesson" className="lesson-description-input nudge-half--bottom" />
 
         <Editor save={this.handleSubmit} />
 

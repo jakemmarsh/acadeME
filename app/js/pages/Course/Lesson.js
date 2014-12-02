@@ -44,10 +44,60 @@ var CourseLesson = React.createClass({
     this.listenTo(CurrentLessonStore, this._onLessonChange);
   },
 
+  renderTextElement: function(element, index) {
+    return (
+      <div className="element text" key={index}>
+        <p>{marked(element.data.text)}</p>
+      </div>
+    );
+  },
+
+  renderImageElement: function(element, index) {
+    return (
+      <div className="element image" key={index}>
+      </div>
+    );
+  },
+
+  renderVideoElement: function(element, index) {
+    return (
+      <div className="element video" key={index}>
+      </div>
+    );
+  },
+
+  renderHeadingElement: function(element, index) {
+    return (
+      <div className="element heading" key={index}>
+        <h1>{marked(element.data.text)}</h1>
+      </div>
+    );
+  },
+
+  renderQuoteElement: function(element, index) {
+    return (
+      <div className="element quote" key={index}>
+        {marked(element.data.text)}
+        {marked(element.data.cite)}
+      </div>
+    );
+  },
+
   renderLessonBody: function() {
-    return _.map(this.state.lesson.bodyElements, function(element) {
-      return marked(element);
-    });
+    return _.map(this.state.lesson.bodyElements, function(element, index) {
+      switch ( element.type ) {
+        case 'text':
+          return this.renderTextElement(element, index);
+        case 'image':
+          return this.renderImageElement(element, index);
+        case 'video':
+          return this.renderVideoElement(element, index);
+        case 'heading':
+          return this.renderHeadingElement(element, index);
+        case 'quote':
+          return this.renderQuoteElement(element, index);
+      }
+    }.bind(this));
   },
 
   renderQuizLink: function() {

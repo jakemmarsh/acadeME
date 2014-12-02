@@ -6,7 +6,7 @@
 var React        = require('react/addons');
 var $            = require('jquery');
 window.$         = $;
-var sirTrevor    = require('sir-trevor');
+var SirTrevor    = require('sir-trevor');
 
 var Editor = React.createClass({
 
@@ -22,14 +22,17 @@ var Editor = React.createClass({
       blockTypes: ['Text', 'Image', 'Video', /*'List',*/ 'Heading', 'Quote']
     };
 
-    new sirTrevor.Editor(options);
+    new SirTrevor.Editor(options);
   },
 
   saveForm: function() {
-    var data = window.SirTrevor.getInstance().onFormSubmit();
+    var instance = SirTrevor.getInstance(0);
 
-    console.log(data);
-    //this.props.save(data);
+    // Run validations and serialize data
+    instance.onFormSubmit();
+
+    // Retrieve data and pass to function
+    this.props.save(instance.dataStore.data);
   },
 
   render: function() {
@@ -40,7 +43,7 @@ var Editor = React.createClass({
           <textarea ref="textarea"></textarea>
         </form>
 
-        <a className="button float-right" onClick={this.saveForm}>Save Lesson</a>
+        <a className="button float-right nudge--bottom" onClick={this.saveForm}>Save Lesson</a>
 
       </div>
     );

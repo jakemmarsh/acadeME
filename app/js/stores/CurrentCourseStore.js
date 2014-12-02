@@ -34,11 +34,13 @@ var CurrentCourseStore = Reflux.createStore({
   createLesson: function(lesson, cb) {
     cb = cb || function () {};
 
+    console.log('create lesson:', lesson);
+
     CourseAPI.createLesson(this.course.id, lesson).then(function(lesson) {
       cb(null, lesson);
       this.openCourse(this.course.id);
     }.bind(this)).catch(function(err) {
-      console.log('error retrieving lesson:', err);
+      console.log('error creating lesson:', err);
       cb(err);
       this.trigger(err);
     }.bind(this));

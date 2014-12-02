@@ -5,19 +5,21 @@ module.exports = function(sequelize, DataTypes) {
   var Lesson = sequelize.define('Lesson', {
     title:        { type: DataTypes.STRING, allowNull: false },
     description:  { type: DataTypes.TEXT },
-    bodyElements: { type: DataTypes.ARRAY(DataTypes.TEXT)/*, allowNull: false*/ },
+    bodyElements: { type: DataTypes.TEXT, defaultValue: '[]', allowNull: false },
     imageUrl:     { type: DataTypes.STRING }
   },
   {
+    getterMethods: {
+      bodyElements: function() {
+        if ( this.getDataValue('bodyElements') ) {
+          return JSON.parse(this.getDataValue('bodyElements'));
+        }
+        return null;
+      }
+    },
     setterMethods: {
       bodyElements: function(value) {
-        var description = this.getDataValue('description');
-
-        this.setDataValue('bodyElements', value);
-
-        if ( !description || !description.length ) {
-          this.setDataValue('description', value[0].substr(0, 200) + '...');
-        }
+        return this.setDataValue('bodyElements', JSON.stringify(value));
       }
     },
     classMethods: {

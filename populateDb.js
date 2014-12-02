@@ -43,13 +43,15 @@ module.exports = function(models) {
         CourseId: course.id,
         title: 'Rapid Prototyping',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus. Vivamus nec sem vitae sem suscipit tempus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.',
-        image_url: ''
+        image_url: '',
+        bodyElements: []
       },
       {
         CourseId: course.id,
         title: 'Heuristic Evaluation',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus.',
-        image_url: ''
+        image_url: '',
+        bodyElements: []
       }
     ];
 

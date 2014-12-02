@@ -83,6 +83,37 @@ exports.search = function(req, res) {
 
 exports.createLesson = function(req, res) {
 
+  var create = function(courseId, lesson) {
+    var deferred = when.defer();
+
+    lesson = {
+      CourseId: courseId,
+      title: lesson.title || lesson.Title,
+      description: lesson.description || lesson.Description,
+      bodyElements: lesson.bodyElements || lesson.BodyElements,
+      imageUrl: lesson.imageUrl || lesson.ImageUrl
+    };
+
+    models.Lesson.create(lesson).then(function(createdLesson) {
+      deferred.resolve(createdLesson);
+    }).catch(function(err) {
+      deferred.reject({
+        status: 500,
+        body: err
+      });
+    });
+
+    return deferred.promise;
+  };
+
+  create(req.params.id, req.body).then(function(createdLesson) {
+    res.status(200).json(createdLesson);
+  }).catch(function(err) {
+    res.status(err.status).json({
+      error: err.error
+    });
+  });
+
 };
 
 /* ====================================================== */
