@@ -25,8 +25,15 @@ var Conversation = React.createClass({
     return {
       course: {},
       conversation: {},
-      newMessages: []
+      newMessages: [],
+      conversationUsers: []
     };
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    if ( !_.isEqual(this.props.conversation, nextProps.conversation) ) {
+      this.setState({ conversationUsers: [this.props.currentUser, nextProps.conversation.recipient] });
+    }
   },
 
   getInitialState: function() {
@@ -56,8 +63,12 @@ var Conversation = React.createClass({
     }
   },
 
+  getMessageUser: function(message) {
+    return _.findWhere(this.state.conversationUsers, { id: message.userId });
+  },
+
   userDidSend: function(message) {
-    return message.user.id === this.props.currentUser.id;
+    return message.userId === this.props.currentUser.id;
   },
 
   renderMessages: function(messages) {
@@ -73,7 +84,7 @@ var Conversation = React.createClass({
         return (
           <li key={index} className={classes}>
             <div className="user-container">
-              <UserAvatar user={messageUser} />
+              <UserAvatar user={this.getMessageUser(message)} />
             </div>
             <div className="body-container">
               <div className="body">{message.body}</div>

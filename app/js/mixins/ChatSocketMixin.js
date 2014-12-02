@@ -55,7 +55,7 @@ var ChatSocketMixin = {
     console.log('send message:', message);
 
     this.socket.emit('sendMessage', {
-      Body: message,
+      body: message,
       ConversationId: conversation.id,
       UserId: currentUser.id
     }, cb);

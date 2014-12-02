@@ -1,7 +1,6 @@
 'use strict';
 
-var humps        = require('humps');
-var camelizeKeys = humps.camelizeKeys;
+var humps = require('humps');
 
 var APIUtils = {
 
@@ -14,7 +13,7 @@ var APIUtils = {
   },
 
   normalizeResponse: function(response) {
-    return camelizeKeys(response.body);
+    return humps.camelizeKeys(response.body);
   }
 
 };

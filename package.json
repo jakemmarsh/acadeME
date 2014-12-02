@@ -54,7 +54,8 @@
     "sir-trevor": "git://github.com/jakemmarsh/sir-trevor-js",
     "react-marked": "^0.3.1",
     "socket.io": "^1.2.1",
-    "socket.io-client": "^1.2.1"
+    "socket.io-client": "^1.2.1",
+    "kue": "^0.8.9"
   },
   "devDependencies": {
     "supervisor": "^0.6.0"

@@ -14,7 +14,7 @@ exports.upsertConversation = function(courseId, users) {
   models.Conversation.findOrCreate({
     where: { CourseId: courseId },
     defaults: defaultConversation // TODO: should this be passed as defaults?
-  }).spread(function(conversation, created) {
+  }).spread(function(conversation) {
     models.User.findAll({
       where: { id: _.pluck(users, 'id') }
     }).then(function(retrievedUsers) {
@@ -32,13 +32,15 @@ exports.upsertConversation = function(courseId, users) {
 
 /* ====================================================== */
 
-exports.saveMessage = function(courseId, message) {
+exports.saveMessage = function(message) {
 
   var deferred = when.defer();
 
-  message = _.extend(message, {
-    CourseId: courseId
-  });
+  message = {
+    Body: message.body || message.Body,
+    ConversationId: message.conversationId || message.ConversationId,
+    UserId: message.userId || message.UserId
+  };
 
   models.Message.create(message).then(function(createdMessage) {
     deferred.resolve(createdMessage);

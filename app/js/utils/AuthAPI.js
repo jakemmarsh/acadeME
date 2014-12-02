@@ -19,7 +19,7 @@ var AuthAPI = {
     // });
 
     deferred.resolve({
-      id: 1,
+      id: 4,
       name: 'Jake Marsh',
       imageUrl: 'https://scontent-b-lga.xx.fbcdn.net/hphotos-xpf1/t31.0-8/1796992_10151957242618173_179336983_o.jpg'
     });

@@ -6,10 +6,11 @@ module.exports = function(server) {
   var express = require('express');
   var api     = express();
   var routes  = require(path.join(__dirname, 'routes'));
+  var queue   = require('./queue')();
 
   /* ====================================================== */
 
-  require('./sockets')(server);
+  require('./sockets')(server, queue);
 
   /* ====================================================== */
 
@@ -46,7 +47,7 @@ module.exports = function(server) {
   /* ====================================================== */
 
   api.get('/chat/:courseId/recipients', routes.chat.getRecipients);
-  api.get('/chat/:courseId/conversation/', routes.chat.getConversation); // TODO: figure out what other params this needs
+  api.get('/chat/:courseId/conversation', routes.chat.getConversation); // TODO: figure out what other params this needs
 
   /* ====================================================== */
 
