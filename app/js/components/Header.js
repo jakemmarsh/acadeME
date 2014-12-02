@@ -10,7 +10,7 @@ var Header = React.createClass({
   render: function() {
     return (
       <header>
-        Header
+        <img className="logo" src="../images/logo.png" alt="acadeME logo" />
         <div className="shadow" />
       </header>
     );

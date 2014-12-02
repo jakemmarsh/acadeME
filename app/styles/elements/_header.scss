@@ -2,18 +2,25 @@ header {
 
   position: relative;
   height: 70px;
-  padding: $half-space $full-space;
+  line-height: 70px;
+  padding: 0 $full-space;
   text-align: center;
 
-  color: $header-grey-text;
-  background: $header-grey;
-  background: -moz-linear-gradient(left,  rgba(113,135,149,1) 0%, rgba(132,155,171,1) 53%, rgba(113,135,149,1) 100%);
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(113,135,149,1)), color-stop(53%,rgba(132,155,171,1)), color-stop(100%,rgba(113,135,149,1)));
-  background: -webkit-linear-gradient(left,  rgba(113,135,149,1) 0%,rgba(132,155,171,1) 53%,rgba(113,135,149,1) 100%);
-  background: -o-linear-gradient(left,  rgba(113,135,149,1) 0%,rgba(132,155,171,1) 53%,rgba(113,135,149,1) 100%);
-  background: -ms-linear-gradient(left,  rgba(113,135,149,1) 0%,rgba(132,155,171,1) 53%,rgba(113,135,149,1) 100%);
-  background: linear-gradient(to right,  rgba(113,135,149,1) 0%,rgba(132,155,171,1) 53%,rgba(113,135,149,1) 100%);
+  color: $header-grey;
+  background: $header-background-grey;
+  background: -moz-linear-gradient(left,  $header-background-grey 0%, $header-background-light-grey 53%, $header-background-grey 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,$header-background-grey), color-stop(53%,$header-background-light-grey), color-stop(100%,$header-background-grey));
+  background: -webkit-linear-gradient(left,  $header-background-grey 0%,$header-background-light-grey 53%,$header-background-grey 100%);
+  background: -o-linear-gradient(left,  $header-background-grey 0%,$header-background-light-grey 53%,$header-background-grey 100%);
+  background: -ms-linear-gradient(left,  $header-background-grey 0%,$header-background-light-grey 53%,$header-background-grey 100%);
+  background: linear-gradient(to right,  $header-background-grey 0%,$header-background-light-grey 53%,$header-background-grey 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#718795', endColorstr='#718795',GradientType=1 );
+
+  .logo {
+    position: relative;
+    top: 5%;
+    max-height: 80%;
+  }
 
   .shadow {
     position: absolute;

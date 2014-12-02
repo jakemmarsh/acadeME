@@ -54,8 +54,8 @@
 
     &.title {
       cursor: default;
-      color: $header-grey-text;
-      background-color: lighten($header-grey, 35);
+      color: $header-grey;
+      background-color: lighten($header-background-grey, 35);
       border-bottom: none !important; /* override last-child styling */
 
       h5 {
@@ -64,8 +64,8 @@
       }
 
       &:hover {
-        background-color: lighten($header-grey, 35);
-        color: $header-grey-text;
+        background-color: lighten($header-background-grey, 35);
+        color: $header-grey;
       }
     }
 
