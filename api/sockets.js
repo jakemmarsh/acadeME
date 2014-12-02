@@ -10,7 +10,7 @@ module.exports = function(server, queue) {
   var io = require('socket.io').listen(server);
 
   var buildRoomString = function(data) {
-    var sortedUserIds = [data.currentUser.id, data.recipient.id].sort();
+    var sortedUserIds = data.users.sort();
 
     return data.course.id.toString() + '-' + sortedUserIds[0].toString() + '-' + sortedUserIds[1].toString();
   };

@@ -14,8 +14,8 @@ module.exports = function(models) {
       name: 'Joe Black'
     };
 
-    models.User.create(user).then(function(user) {
-      deferred.resolve(user);
+    models.User.create(user).then(function(createdUser) {
+      deferred.resolve(createdUser);
     });
 
     return deferred.promise;
@@ -86,8 +86,8 @@ module.exports = function(models) {
           };
         });
 
-        models.Enrollment.bulkCreate(enrollments).then(function(enrollments) {
-          deferred.resolve(enrollments);
+        models.Enrollment.bulkCreate(enrollments).then(function() {
+          deferred.resolve(users);
         });
       });
     });
@@ -95,6 +95,67 @@ module.exports = function(models) {
     return deferred.promise;
   };
 
-  createInstructorUser().then(createCourse).then(createLessons).then(createEnrolledUsers);
+  var createCurrentUser = function(otherUsers) {
+    var deferred = when.defer();
+    var user = {
+      username: 'jakemmarsh',
+      name: 'Jake Marsh',
+      imageUrl: 'https://scontent-b-lga.xx.fbcdn.net/hphotos-xpf1/t31.0-8/1796992_10151957242618173_179336983_o.jpg'
+    };
+
+    models.User.create(user).then(function() {
+      deferred.resolve(otherUsers);
+    });
+
+    return deferred.promise;
+  };
+
+  var createConversation = function(otherUsers) {
+    var deferred = when.defer();
+    var conversation = {
+      CourseId: 1
+    };
+
+    models.Conversation.create(conversation).then(function(createdConversation) {
+      createdConversation.setUsers(otherUsers).then(function() {
+        deferred.resolve(createdConversation);
+      });
+    });
+
+    return deferred.promise;
+  };
+
+  var createMessages = function() {
+    var deferred = when.defer();
+    var messagesToCreate = [
+      {
+        body: 'This is a message sent by another user with ID 2!',
+        UserId: 2,
+        ConversationId: 1
+      },
+      {
+        body: 'This is a message sent by another user with ID 3!',
+        UserId: 3,
+        ConversationId: 1
+      },
+      {
+        body: 'This is a message sent by the current!',
+        UserId: 2,
+        ConversationId: 1
+      }
+    ];
+
+    models.Message.bulkCreate(messagesToCreate).then(function() {
+      deferred.resolve();
+    });
+  };
+
+  createInstructorUser()
+    .then(createCourse)
+    .then(createLessons)
+    .then(createEnrolledUsers)
+    .then(createCurrentUser)
+    .then(createConversation)
+    .then(createMessages);
 
 };

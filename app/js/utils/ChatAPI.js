@@ -32,24 +32,6 @@ var ChatAPI = {
       }
     });
 
-    deferred.resolve({
-      id: 1,
-      recipient: {
-        id: recipientId,
-        imageUrl: recipientId === 2 ? 'http://a5.files.biography.com/image/upload/c_fill,dpr_1.0,g_face,h_300,q_80,w_300/MTE5NDg0MDU0NTIzODQwMDE1.jpg' : 'http://timedotcom.files.wordpress.com/2014/01/bill-gates.jpg?w=1100'
-      },
-      messages: [
-        {
-          userId: recipientId,
-          body: 'This is a message from the other person!'
-        },
-        {
-          userId: currentUserId,
-          body: 'This is a message sent by the current user!'
-        }
-      ]
-    });
-
     return deferred.promise;
   }
 

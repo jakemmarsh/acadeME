@@ -37,7 +37,7 @@ var ChatSocketMixin = {
     }
   },
 
-  joinChat: function(course, currentUser, recipient, cb) {
+  joinChat: function(course, currentUser, users, cb) {
     cb = cb || function() {};
 
     this.openSocket();
@@ -45,7 +45,7 @@ var ChatSocketMixin = {
     this.socket.emit('joinChat', {
       course: course,
       currentUser: currentUser,
-      recipient: recipient
+      users: users
     }, cb);
   },
 

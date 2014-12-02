@@ -59,7 +59,7 @@ var Chat = React.createClass({
         error: null,
         conversation: conversation
       }, function() {
-        this.joinChat(this.props.course, this.props.currentUser, this.state.conversation.recipient);
+        this.joinChat(this.props.course, this.props.currentUser, this.state.conversation.users);
       }.bind(this));
     }
   },

@@ -21,6 +21,8 @@ module.exports = function() {
       }
     });
 
+    this.clearAllJobs();
+
     this.jobs.process('message', function(job, done) {
       console.log('now processing message:', job.data);
       models.Message.create({
@@ -29,14 +31,15 @@ module.exports = function() {
         ConversationId: job.data.ConversationId || job.data.conversationId
       }).then(done);
     });
-
-    process.once( 'SIGTERM', function (sig) {
-      this.jobs.shutdown(function(err) {
-        console.log( 'Kue is shut down.', err || '' );
-        process.exit(0);
-      }, 5000);
-    });
   }
+
+  Queue.prototype.clearAllJobs = function() {
+    kue.Job.rangeByType('message', 'complete', 0, -1, 'asc', function(err, selectedJobs) {
+      selectedJobs.forEach(function(job) {
+        job.remove();
+      });
+    });
+  };
 
   Queue.prototype.message = function(message) {
     var deferred = when.defer();
@@ -47,7 +50,7 @@ module.exports = function() {
       Body: message.body || message.Body,
       ConversationId: message.conversationId || message.ConversationId,
       UserId: message.userId || message.UserId
-    }).save(function(err){
+    }).removeOnComplete(true).save(function(err){
       if( err ) {
         console.log('Error saving message job:', err);
         deferred.reject(err);
