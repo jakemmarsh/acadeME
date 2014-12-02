@@ -4,6 +4,7 @@
 'use strict';
 
 var React         = require('react');
+var _             = require('lodash');
 
 var CourseActions = require('../actions/CourseActions');
 var TopMenu       = require('../components/TopMenu');
@@ -22,10 +23,14 @@ var CoursePage = React.createClass({
     };
   },
 
+  componentWillReceiveProps: function(nextProps) {
+    if ( !_.isEqual(this.props.course, nextProps.course) ) {
+      this.props.updatePageTitle(nextProps.course.title);
+    }
+  },
+
   componentWillMount: function() {
-    CourseActions.openCourse(this.props.params.courseId.toString(), function() {
-      this.props.updatePageTitle(this.props.course.title);
-    }.bind(this));
+    CourseActions.openCourse(this.props.params.courseId.toString());
   },
 
   render: function() {

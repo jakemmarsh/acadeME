@@ -61,7 +61,7 @@ var App = React.createClass({
       newPageTitle += ' \u2014 ';
     }
 
-    newPageTitle += 'App Name';
+    newPageTitle += 'acadeME';
 
     document.title = newPageTitle;
   },
