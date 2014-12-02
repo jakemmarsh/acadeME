@@ -20,7 +20,7 @@ var CurrentConversationStore = Reflux.createStore({
 
       console.log('open conversation with course:', courseId, 'recipient:', recipientId);
 
-      ChatAPI.getConversation(CurrentUserStore.user.id, courseId, recipientId).then(function(conversation) {
+      ChatAPI.getConversation(courseId, CurrentUserStore.user.id, recipientId).then(function(conversation) {
         this.conversation = conversation;
         cb(null, conversation);
         this.trigger(null, conversation);

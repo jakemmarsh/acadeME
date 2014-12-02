@@ -88,6 +88,12 @@
         }
       }
     }
+
+    hr {
+      border-color: darken($background-light-grey, 5);
+      border-style: solid;
+      border-width: 1px 0 0 0;
+    }
   }
 
   input.message-input {

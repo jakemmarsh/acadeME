@@ -1,6 +1,7 @@
 'use strict';
 
-var io = require('socket.io-client');
+var when = require('when');
+var io   = require('socket.io-client');
 
 var ChatSocketMixin = {
 
@@ -37,16 +38,23 @@ var ChatSocketMixin = {
     }
   },
 
-  joinChat: function(course, currentUser, users, cb) {
+  joinChat: function(courseId, currentUserId, recipientId, cb) {
+    var deferred = when.defer();
+    var sortedIds = [currentUserId, recipientId].sort();
+
     cb = cb || function() {};
 
     this.openSocket();
 
-    this.socket.emit('joinChat', {
-      course: course,
-      currentUser: currentUser,
-      users: users
-    }, cb);
+    this.leaveChat(function() {
+      this.socket.emit('joinChat', {
+        courseId: courseId,
+        userOneId: sortedIds[0],
+        userTwoId: sortedIds[1]
+      }, deferred.resolve);
+    }.bind(this));
+
+    return deferred.promise;
   },
 
   sendMessage: function(message, conversation, currentUser, cb) {

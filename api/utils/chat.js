@@ -1,27 +1,37 @@
 'use strict';
 
 var when   = require('when');
-var _      = require('lodash');
 var models = require('../models');
 
 /* ====================================================== */
 
-exports.upsertConversation = function(courseId, users) {
+exports.upsertConversation = function(courseId, userOneId, userTwoId) {
 
   var deferred = when.defer();
-  var defaultConversation = {};
+  var defaultConversation = {
+    CourseId: courseId,
+    UserOneId: userOneId,
+    UserTwoId: userTwoId
+  };
 
   models.Conversation.findOrCreate({
-    where: { CourseId: courseId },
-    defaults: defaultConversation // TODO: should this be passed as defaults?
+    where: { CourseId: courseId, UserOneId: userOneId, UserTwoId: userTwoId },
+    defaults: defaultConversation, // TODO: should this be passed as defaults?,
+    include: [
+      {
+        model: models.User,
+        as: 'UserOne'
+      },
+      {
+        model: models.User,
+        as: 'UserTwo'
+      },
+      {
+        model: models.Message
+      }
+    ]
   }).spread(function(conversation) {
-    models.User.findAll({
-      where: { id: _.pluck(users, 'id') }
-    }).then(function(retrievedUsers) {
-      conversation.setUsers(retrievedUsers).then(function(updatedConversation) {
-        deferred.resolve(updatedConversation);
-      });
-    });
+    deferred.resolve(conversation);
   }).catch(function(err) {
     deferred.reject(err);
   });
@@ -37,7 +47,7 @@ exports.saveMessage = function(message) {
   var deferred = when.defer();
 
   message = {
-    Body: message.body || message.Body,
+    body: message.body || message.Body,
     ConversationId: message.conversationId || message.ConversationId,
     UserId: message.userId || message.UserId
   };

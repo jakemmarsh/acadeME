@@ -58,9 +58,7 @@ var Chat = React.createClass({
       this.setState({
         error: null,
         conversation: conversation
-      }, function() {
-        this.joinChat(this.props.course, this.props.currentUser, this.state.conversation.users);
-      }.bind(this));
+      });
     }
   },
 
@@ -81,8 +79,9 @@ var Chat = React.createClass({
 
   openConversation: function(recipientId) {
     if ( _.isEmpty(this.state.conversation.recipient) || recipientId !== this.state.conversation.recipient.id ) {
-      this.leaveChat();
-      ChatActions.openConversation(this.props.course.id, recipientId, this._onConversationChange);
+      this.joinChat(this.props.course.id, this.props.currentUser.id, recipientId).then(function() {
+        ChatActions.openConversation(this.props.course.id, recipientId, this._onConversationChange);
+      }.bind(this));
     }
   },
 

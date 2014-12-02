@@ -10,9 +10,7 @@ module.exports = function(server, queue) {
   var io = require('socket.io').listen(server);
 
   var buildRoomString = function(data) {
-    var sortedUserIds = data.users.sort();
-
-    return data.course.id.toString() + '-' + sortedUserIds[0].toString() + '-' + sortedUserIds[1].toString();
+    return data.courseId.toString() + '-' + data.userOneId.toString() + '-' + data.userTwoId.toString();
   };
 
   /* ====================================================== */
@@ -32,7 +30,7 @@ module.exports = function(server, queue) {
       console.log('join:', socket.room);
 
       // TODO: create conversation if it doesn't exist?
-      chatUtils.upsertConversation(data.course.id, [data.currentUser, data.recipient]).then(function(conversation) {
+      chatUtils.upsertConversation(data.courseId, data.userOneId, data.userTwoId).then(function(conversation) {
         socket.conversationId = conversation.id;
         socket.join(socket.room);
         cb(conversation);

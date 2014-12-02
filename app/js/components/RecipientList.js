@@ -26,8 +26,8 @@ var RecipientList = React.createClass({
   },
 
   isActive: function(recipientId) {
-    if ( this.props.conversation && this.props.conversation.recipient ) {
-      return this.props.conversation.recipient.id === recipientId;
+    if ( this.props.conversation && this.props.conversation.userOne && this.props.conversation.userTwo ) {
+      return this.props.conversation.userOne.id === recipientId || this.props.conversation.userTwo.id === recipientId;
     } else {
       return false;
     }

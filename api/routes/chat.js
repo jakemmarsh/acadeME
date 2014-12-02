@@ -53,12 +53,24 @@ exports.getRecipients = function(req, res) {
 
 exports.getConversation = function(req, res) {
 
-  var fetchConversation = function(courseId) {
+  var fetchConversation = function(courseId, userOneId, userTwoId) {
     var deferred = when.defer();
 
     models.Conversation.find({
-      where: { CourseId: courseId },
-      include: [models.User, models.Message]
+      where: { CourseId: courseId, UserOneId: userOneId, UserTwoId: userTwoId },
+      include: [
+        {
+          model: models.User,
+          as: 'UserOne'
+        },
+        {
+          model: models.User,
+          as: 'UserTwo'
+        },
+        {
+          model: models.Message
+        }
+      ]
     }).then(function(conversation) {
       if ( !conversation ) {
         deferred.reject({
@@ -69,6 +81,7 @@ exports.getConversation = function(req, res) {
         deferred.resolve(conversation);
       }
     }).catch(function(err) {
+      console.log('error finding conversation:', err);
       deferred.reject({
         status: 500,
         error: err
@@ -78,7 +91,7 @@ exports.getConversation = function(req, res) {
     return deferred.promise;
   };
 
-  fetchConversation(req.params.courseId).then(function(resp) {
+  fetchConversation(req.params.courseId, req.query.userOne, req.query.userTwo).then(function(resp) {
     res.status(200).json(resp);
   }).catch(function(err) {
     res.status(err.status).json({

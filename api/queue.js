@@ -1,10 +1,10 @@
 'use strict';
 
-var url    = require('url');
-var when   = require('when');
-var kue    = require('kue');
-var config = require('../config');
-var models = require('./models');
+var url       = require('url');
+var when      = require('when');
+var kue       = require('kue');
+var config    = require('../config');
+var chatUtils = require('./utils/chat');
 
 /* ====================================================== */
 
@@ -25,11 +25,7 @@ module.exports = function() {
 
     this.jobs.process('message', function(job, done) {
       console.log('now processing message:', job.data);
-      models.Message.create({
-        body: job.data.Body || job.data.body,
-        UserId: job.data.UserId || job.data.userId,
-        ConversationId: job.data.ConversationId || job.data.conversationId
-      }).then(done);
+      chatUtils.saveMessage(job.data).then(done);
     });
   }
 

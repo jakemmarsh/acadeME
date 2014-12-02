@@ -32,7 +32,7 @@ var Conversation = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
     if ( !_.isEqual(this.props.conversation, nextProps.conversation) ) {
-      this.setState({ conversationUsers: [this.props.currentUser, nextProps.conversation.recipient] });
+      this.setState({ conversationUsers: [nextProps.conversation.userOne, nextProps.conversation.userTwo] });
     }
   },
 
@@ -46,7 +46,7 @@ var Conversation = React.createClass({
     if ( this.props.conversation.messages || this.props.newMessages.length ) {
       var $messagesContainer = $(this.refs.messages.getDOMNode());
       var $lastChild = $messagesContainer.children('li').last();
-      var lastChildBottom = $lastChild.position().top + $lastChild.outerHeight(true);
+      var lastChildBottom = ($lastChild && $lastChild.position()) ? $lastChild.position().top + $lastChild.outerHeight(true) : 0;
 
       // Keep messages container scrolled to bottom of newest message as new messages are sent
       $messagesContainer.scrollTop(lastChildBottom);
@@ -97,6 +97,18 @@ var Conversation = React.createClass({
     return elements;
   },
 
+  renderMessagesSeperator: function() {
+    var element = null;
+
+    if ( !_.isEmpty(this.props.conversation.messages) ) {
+      element = (
+        <hr />
+      );
+    }
+
+    return element;
+  },
+
   renderInput: function() {
     var element = null;
 
@@ -120,6 +132,7 @@ var Conversation = React.createClass({
 
         <ul ref="messages" className="messages-container">
           {this.renderMessages(this.props.conversation.messages)}
+          {this.renderMessagesSeperator()}
           {this.renderMessages(this.props.newMessages)}
         </ul>
 
