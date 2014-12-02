@@ -3,7 +3,7 @@ e-Learning
 
 An interactive e-Learning platform for University of Maine's senior Computer Science capstone project. Built using my [react-browserify-gulp-boilerplate](https://github.com/jakemmarsh/react-browserify-gulp-boilerplate).
 
-![Screenshot of the user interface](https://raw.github.com/jakemmarsh/acadeME/blob/master/screenshot.png)
+![Screenshot of the user interface](https://raw.githubusercontent.com/jakemmarsh/acadeME/master/screenshot.png)
 
 ## To get up and running:
 
