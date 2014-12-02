@@ -5,7 +5,7 @@
 
 var React                    = require('react/addons');
 var Reflux                   = require('reflux');
-var _                        = require('underscore');
+var _                        = require('lodash');
 
 var ChatSocketMixin          = require('../mixins/ChatSocketMixin');
 var CourseRecipientsStore    = require('../stores/CourseRecipientsStore');

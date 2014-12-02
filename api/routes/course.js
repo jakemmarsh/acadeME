@@ -1,7 +1,7 @@
 'use strict';
 
 var when   = require('when');
-var _      = require('underscore');
+var _      = require('lodash');
 var models = require('../models');
 
 /* ====================================================== */

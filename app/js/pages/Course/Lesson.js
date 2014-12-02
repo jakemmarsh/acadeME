@@ -5,7 +5,7 @@
 
 var React              = require('react/addons');
 var Reflux             = require('reflux');
-var _                  = require('underscore');
+var _                  = require('lodash');
 var marked             = require('react-marked');
 var Link               = React.createFactory(require('react-router').Link);
 

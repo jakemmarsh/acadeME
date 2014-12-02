@@ -5,7 +5,7 @@
 
 var React                   = require('react/addons');
 var ReactCSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup);
-var _                       = require('underscore');
+var _                       = require('lodash');
 
 var ListLink                = require('./ListLink');
 var ProgressBar             = require('./ProgressBar');
@@ -70,7 +70,7 @@ var Sidebar = React.createClass({
       <ul>
         <ListLink to="Home">My Curriculum</ListLink>
         <ListLink to="Explore">Explore Courses</ListLink>
-        <ListLink to="Course" params={ {courseId: 0} }>Test Course</ListLink>
+        <ListLink to="Course" params={ {courseId: 1} }>Test Course</ListLink>
       </ul>
     );
   },
