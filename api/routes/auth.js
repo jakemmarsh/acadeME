@@ -1,42 +1,46 @@
 'use strict';
 
-var when   = require('when');
-var bcrypt = require('bcrypt');
-var models = require('../models');
+var when     = require('when');
+var passport = require('passport');
+var _        = require('lodash');
+var models   = require('../models');
 
 /* ====================================================== */
 
-exports.login = function(req, res) {
+exports.isAuthenticated = function(req, res, next) {
 
-  var loginUser = function(credentials) {
-    var deferred = when.defer();
+  if ( req.isAuthenticated() || (req.session && req.session.user) ) {
+    return next();
+  } else {
+    return res.status(401).json({
+      error: 'User must be logged in.'
+    });
+  }
 
-    models.User.find({ username: credentials.username }).then(function(retrievedUser) {
-      console.log('retrieved user:', retrievedUser);
-      bcrypt.compare(credentials.password, retrievedUser.hash, function(err, result) {
-        if ( err || !result ) {
-          deferred.reject({
-            status: 403,
-            body: err || 'Password is incorrect.'
-          });
+};
+
+/* ====================================================== */
+
+exports.login = function(req, res, next) {
+
+  passport.authenticate('local', function(err, user) {
+    if ( err ) {
+      return next(err);
+    } else if ( _.isEmpty(user) ) {
+      return res.status(401).json({
+        error: 'Authentication failed.'
+      });
+    } else {
+      req.login(user, function(err) {
+        if ( err ) {
+          return next(err);
         } else {
-          deferred.resolve(retrievedUser);
+          req.session.cookie.maxAge = 1000*60*60*24*7; // seven days
+          return res.status(200).json(user);
         }
       });
-    }).catch(function(err) {
-      deferred.reject(500, err);
-    });
-
-    return deferred.promise;
-  };
-
-  loginUser(req.body).then(function(user) {
-    res.status(200).json(user);
-  }, function(err) {
-    res.status(err.status).json({
-      error: err.body
-    });
-  });
+    }
+  })(req, res, next);
 
 };
 
@@ -47,27 +51,14 @@ exports.register = function(req, res) {
   var createUser = function(user) {
     var deferred = when.defer();
 
-    bcrypt.hash(user.password, 10, function(err, hash) {
-      if ( err ) {
-        deferred.reject({
-          status: 500,
-          body: err
-        });
-      } else {
-        user.hash = hash;
-
-        console.log('about to create user:', user);
-
-        models.User.create(user).then(function(savedUser) {
-          deferred.resolve(savedUser);
-        }).catch(function(err) {
-          console.log('error creating user:', err);
-          deferred.reject({
-            status: 500,
-            body: err
-          });
-        });
-      }
+    models.User.create(user).then(function(savedUser) {
+      deferred.resolve(savedUser);
+    }).catch(function(err) {
+      console.log('error creating user:', err);
+      deferred.reject({
+        status: 500,
+        error: err
+      });
     });
 
     return deferred.promise;
@@ -75,10 +66,12 @@ exports.register = function(req, res) {
 
   createUser(req.body).then(function(user) {
     res.status(200).json(user);
-  }, function(err) {
+  }).catch(function(err) {
     res.status(err.status).json({
-      error: err.body
+      error: err.error
     });
   });
 
 };
+
+/* ====================================================== */

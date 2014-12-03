@@ -15,8 +15,11 @@ module.exports = function(server) {
   /* ====================================================== */
 
   // Auth endpoints
-  api.put('/register', routes.auth.register);
-  api.post('/login', routes.auth.login);
+  api.put('/auth/register', routes.auth.register);
+  api.get('/auth/check', routes.auth.isAuthenticated, function(req, res) {
+    res.status(200).json(req.user);
+  });
+  api.post('/auth/login', routes.auth.login);
 
   /* ====================================================== */
 
