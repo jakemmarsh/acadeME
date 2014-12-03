@@ -29,6 +29,8 @@ module.exports = function(sequelize, DataTypes) {
             user.setDataValue('hash', hash);
             cb(null, user);
           });
+        } else {
+          cb(null, user);
         }
       }
     },

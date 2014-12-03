@@ -49,8 +49,10 @@ var Quiz = React.createClass({
     this.setState({ userScore: newScore }, this.getNextQuestion);
   },
 
-  _onQuestionChange: function(question) {
-    if ( question ) {
+  _onQuestionChange: function(err, question) {
+    if ( err ) {
+      // TODO: handle error
+    } else if ( question ) {
       this.setState({
         question: question,
         currentQuestionNumber: this.state.currentQuestionNumber + 1,

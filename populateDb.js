@@ -1,7 +1,7 @@
 'use strict';
 
 var when = require('when');
-var _    = require('underscore');
+var _    = require('lodash');
 
 /* ====================================================== */
 
@@ -17,6 +17,8 @@ module.exports = function(models) {
 
     models.User.create(user).then(function(createdUser) {
       deferred.resolve(createdUser);
+    }).catch(function(err) {
+      console.log('error creating instructor user:', err);
     });
 
     return deferred.promise;
@@ -31,6 +33,8 @@ module.exports = function(models) {
 
     models.Course.create(course).then(function(course) {
       deferred.resolve(course);
+    }).catch(function(err) {
+      console.log('error creating course:', err);
     });
 
     return deferred.promise;
@@ -57,6 +61,8 @@ module.exports = function(models) {
 
     models.Lesson.bulkCreate(lessons).then(function() {
       deferred.resolve(course);
+    }).catch(function(err) {
+      console.log('error creating lesssons:', err);
     });
 
     return deferred.promise;
@@ -91,8 +97,12 @@ module.exports = function(models) {
 
         models.Enrollment.bulkCreate(enrollments).then(function() {
           deferred.resolve(users);
+        }).catch(function(err) {
+          console.log('error creating enrollments:', err);
         });
       });
+    }).catch(function(err) {
+      console.log('error creating other users:', err);
     });
 
     return deferred.promise;
@@ -108,6 +118,8 @@ module.exports = function(models) {
 
     models.User.create(user).then(function(currentUser) {
       deferred.resolve([currentUser, otherUsers]);
+    }).catch(function(err) {
+      console.log('error creating current user:', err);
     });
 
     return deferred.promise;
@@ -127,6 +139,8 @@ module.exports = function(models) {
 
     models.Conversation.create(conversation).then(function(createdConversation) {
       deferred.resolve([currentUser, otherUsers, createdConversation]);
+    }).catch(function(err) {
+      console.log('error creating conversation:', err);
     });
 
     return deferred.promise;
@@ -152,6 +166,8 @@ module.exports = function(models) {
 
     models.Message.bulkCreate(messagesToCreate).then(function() {
       deferred.resolve();
+    }).catch(function(err) {
+      console.log('error creating messages:', err);
     });
   };
 
