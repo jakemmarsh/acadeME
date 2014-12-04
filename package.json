@@ -1,11 +1,11 @@
 {
-  "name": "elearning",
+  "name": "acadeME",
   "version": "0.1.0",
   "author": "Jake Marsh <jakemmarsh@gmail.com>",
   "description": "A new approach to elearning to promote collaboration and feedback.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jakemmarsh/elearning.git"
+    "url": "https://github.com/jakemmarsh/academe.git"
   },
   "keywords": [
     "gulp",
