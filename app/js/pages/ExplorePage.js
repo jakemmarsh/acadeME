@@ -35,7 +35,7 @@ var ExplorePage = React.createClass({
   render: function() {
     return (
       <section className="explore-page">
-        Explore Courses
+        Explore Courses: {this.state.query}
       </section>
     );
   }

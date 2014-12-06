@@ -22,7 +22,7 @@ nav.sidebar {
       }
 
       .title {
-        display: inline-block;
+        display: block;
         @extend h3;
         text-transform: uppercase;
         color: $white;
