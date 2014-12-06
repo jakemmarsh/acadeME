@@ -38,7 +38,7 @@ module.exports = function(server) {
 
   // Lesson endpoints
   api.get('/lesson/:identifier', routes.lesson.get);
-  api.get('/lesson/:lessonId/quiz', routes.quiz.get);
+  api.get('/lesson/:id/quiz', routes.quiz.get);
   api.delete('/lesson/:id', routes.lesson.delete);
 
   /* ====================================================== */

@@ -20,9 +20,7 @@ var Quiz = React.createClass({
 
   getDefaultProps: function() {
     return {
-      quiz: {
-        answers: []
-      }
+      quiz: {}
     };
   },
 
@@ -67,10 +65,6 @@ var Quiz = React.createClass({
   //     this.getNextQuestion();
   //   }
   // },
-
-  getNumQuestions: function() {
-    return this.props.quiz.answers ? this.props.quiz.answers.length : 1;
-  },
 
   selectAnswer: function(answer) {
     this.setState({ selectedAnswer: answer });

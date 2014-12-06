@@ -5,7 +5,7 @@
 
 var React = require('react/addons');
 
-var SearchPage = React.createClass({
+var ExplorePage = React.createClass({
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired,
@@ -42,4 +42,4 @@ var SearchPage = React.createClass({
 
 });
 
-module.exports = React.createFactory(SearchPage);
+module.exports = React.createFactory(ExplorePage);

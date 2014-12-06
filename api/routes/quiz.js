@@ -38,7 +38,7 @@ exports.get = function(req, res) {
     return deferred.promise;
   };
 
-  getQuiz(req.params.lessonId).then(function(quiz) {
+  getQuiz(req.params.id).then(function(quiz) {
     res.status(200).json(quiz);
   }, function(err) {
     res.status(err.status).json({
