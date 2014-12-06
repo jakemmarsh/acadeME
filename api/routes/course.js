@@ -59,6 +59,41 @@ exports.get = function(req, res) {
 
 /* ====================================================== */
 
+exports.create = function(req, res) {
+
+  var createCourse = function(course) {
+    var deferred = when.defer();
+
+    course = {
+      title: course.title || course.Title,
+      description: course.description || course.Description,
+      imageUrl: course.imageUrl || course.ImageUrl
+    };
+
+    models.Course.create(course).then(function(createdCourse) {
+      deferred.resolve(createdCourse);
+    }).catch(function(err) {
+      deferred.reject({
+        status: 500,
+        body: err
+      });
+    });
+
+    return deferred.promise;
+  };
+
+  createCourse(req.body).then(function(createdCourse) {
+    res.status(200).json(createdCourse);
+  }).catch(function(err) {
+    res.status(err.status).json({
+      error: err.error
+    });
+  });
+
+};
+
+/* ====================================================== */
+
 exports.search = function(req, res) {
 
   var searchCourse = function(courseId, query) {

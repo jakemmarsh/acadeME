@@ -30,6 +30,7 @@ module.exports = function(server) {
 
   // Course endpoints
   api.get('/course/:identifier', routes.course.get);
+  api.put('/course', routes.course.create);
   api.get('/course/:id/search/:query', routes.course.search);
   api.put('/course/:id/lesson', routes.course.createLesson);
   api.delete('/course/:id', routes.course.delete);

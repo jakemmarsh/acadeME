@@ -14,8 +14,10 @@ var HomePage          = require('./pages/HomePage');
 
 var ExplorePage       = require('./pages/ExplorePage');
 
+var CreateCoursePage  = require('./pages/CreateCoursePage');
+
 var CoursePage        = require('./pages/CoursePage');
-var CourseLessonList = require('./pages/Course/LessonList');
+var CourseLessonList  = require('./pages/Course/LessonList');
 var CourseLesson      = require('./pages/Course/Lesson');
 var LessonQuiz        = require('./pages/Course/Quiz');
 var CourseSearch      = require('./pages/Course/Search');
@@ -33,6 +35,8 @@ module.exports = (
       <Route name='Home' path='/' handler={HomePage} />
 
       <Route name='Explore' path='/explore' handler={ExplorePage} />
+
+      <Route name='CreateCourse' path='/create' handler={CreateCoursePage} />
 
       <Route name='Course' path='/course/:courseId' handler={CoursePage}>
         <DefaultRoute handler={CourseLessonList} />

@@ -21,6 +21,20 @@ var CourseAPI = {
     return deferred.promise;
   },
 
+  create: function(course) {
+    var deferred = when.defer();
+
+    request.put(APIUtils.API_ROOT + 'course', course).end(function(res) {
+      if ( !res.ok ) {
+        deferred.reject(JSON.parse(res.text));
+      } else {
+        deferred.resolve(APIUtils.normalizeResponse(res));
+      }
+    });
+
+    return deferred.promise;
+  },
+
   createLesson: function(courseId, lesson) {
     var deferred = when.defer();
 
