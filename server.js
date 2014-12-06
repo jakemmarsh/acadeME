@@ -5,6 +5,7 @@ var morgan         = require('morgan');
 var compression    = require('compression');
 var methodOverride = require('method-override');
 var bodyParser     = require('body-parser');
+var busboy         = require('connect-busboy');
 var models         = require('./api/models');
 var api            = require('./api');
 var app            = express();
@@ -20,6 +21,7 @@ app.use(bodyParser.json()); // Parses req.body json from html POST
 app.use(bodyParser.urlencoded({
     extended: true
 }));                        // Parses urlencoded req.body, including extended syntax
+app.use(busboy());          // Parse multipart/form-data
 app.set('json spaces', 0);  // Remove superfluous spaces from JSON responses
 
 /* ====================================================== */

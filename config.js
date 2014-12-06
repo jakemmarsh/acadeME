@@ -23,4 +23,12 @@ config.database = {
 
 /* ====================================================== */
 
+config.aws = {
+  bucket: 'academe-assets',
+  key: 'AKIAJO7HIUCLTCV4LHNA',
+  secret: '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'
+};
+
+/* ====================================================== */
+
 module.exports = config;

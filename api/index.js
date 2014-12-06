@@ -49,6 +49,11 @@ module.exports = function(server) {
 
   /* ====================================================== */
 
+  api.put('/aws/upload/:type/:id', routes.aws.uploadImage);
+
+  /* ====================================================== */
+
+  // Chat endpoints
   api.get('/chat/:courseId/recipients', routes.chat.getRecipients);
   api.get('/chat/:courseId/conversation', routes.chat.getConversation); // TODO: figure out what other params this needs
 
