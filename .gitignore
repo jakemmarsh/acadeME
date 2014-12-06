@@ -24,3 +24,6 @@ bower_components
 
 # Build files
 build
+
+# Security credentials, etc
+config.js
