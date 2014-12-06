@@ -50,7 +50,7 @@ module.exports = function(server) {
 
   /* ====================================================== */
 
-  api.put('/aws/upload/:type/:id', routes.aws.uploadImage);
+  api.put('/upload/:type/:id', routes.aws.uploadImage);
 
   /* ====================================================== */
 

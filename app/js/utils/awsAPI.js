@@ -10,7 +10,7 @@ var awsAPI = {
   uploadCourseImage: function(image, courseId) {
     var deferred = when.defer();
 
-    request.put(APIUtils.API_ROOT + 'aws/upload/course/' + courseId)
+    request.put(APIUtils.API_ROOT + 'upload/course/' + courseId)
       .attach('image', image)
       .end(function(res){
         if ( !res.ok ) {
@@ -26,7 +26,7 @@ var awsAPI = {
   uploadLessonImage: function(image, lessonId) {
     var deferred = when.defer();
 
-    request.put(APIUtils.API_ROOT + 'aws/upload/lesson/' + lessonId)
+    request.put(APIUtils.API_ROOT + 'upload/lesson/' + lessonId)
       .attach('image', image)
       .end(function(res){
         if ( !res.ok ) {
