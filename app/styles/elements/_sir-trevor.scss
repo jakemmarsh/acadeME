@@ -18,10 +18,15 @@
   }
 
   .st-block__inner {
-    padding: $half-space;
+    padding: $half-space/2;
     border-style: solid;
     border-width: 2px;
     border-color: $white;
+
+    .st-text-block {
+      font-size: 16px;
+      color: $text-dark-grey;
+    }
 
     &:hover {
       border-color: $teal;

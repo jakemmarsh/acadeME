@@ -40,9 +40,7 @@ var CreateCoursePage = React.createClass({
   },
 
   updateImage: function(file) {
-    this.setState({
-      image: file
-    });
+    this.setState({ image: file });
   },
 
   createCourse: function(course) {

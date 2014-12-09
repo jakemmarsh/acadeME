@@ -37,9 +37,7 @@ var CreateLesson = React.createClass({
   },
 
   updateImage: function(file) {
-    this.setState({
-      image: file
-    });
+    this.setState({ image: file });
   },
 
   createLesson: function(lesson) {
@@ -91,9 +89,11 @@ var CreateLesson = React.createClass({
 
         <input type="text" valueLink={this.linkState('title')} placeholder="Lesson title" className="lesson-title-input nudge-half--bottom" />
 
-        <input type="text" valueLink={this.linkState('description')} placeholder="Brief description of the lesson" className="lesson-description-input nudge-half--bottom" />
+        <textarea valueLink={this.linkState('description')}
+                  className="lesson-description-input nudge-half--bottom"
+                  placeholder="Brief description of the lesson" />
 
-        <FileInput id="imageUrl" accept="image/x-png, image/gif, image/jpeg" processFile={this.updateImage} />
+        <FileInput id="imageUrl" accept="image/x-png, image/gif, image/jpeg" processFile={this.updateImage} className="lesson-image-input nudge-half--bottom" />
 
         <Editor save={this.handleSubmit} />
 

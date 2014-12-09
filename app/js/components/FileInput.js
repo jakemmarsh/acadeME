@@ -15,14 +15,9 @@ var FileInput = React.createClass({
 
   getDefaultProps: function() {
     return {
+      className: '',
       accept: '*',
       id: ''
-    };
-  },
-
-  getInitialState: function() {
-    return {
-      dataUri: null,
     };
   },
 
@@ -36,7 +31,7 @@ var FileInput = React.createClass({
 
   render: function() {
     return (
-      <input type="file" id={this.props.id} accept={this.props.accept} onChange={this.onFileSelect} />
+      <input type="file" id={this.props.id} className={this.props.className} accept={this.props.accept} onChange={this.onFileSelect} />
     );
   }
 
