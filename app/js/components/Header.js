@@ -3,8 +3,10 @@
  */
 'use strict';
 
-var React = require('react/addons');
-var Link  = require('react-router').Link;
+var React      = require('react/addons');
+var Link       = require('react-router').Link;
+
+var UserAvatar = require('./UserAvatar');
 
 var Header = React.createClass({
 
@@ -16,6 +18,16 @@ var Header = React.createClass({
     return {
       currentUser: {}
     };
+  },
+
+  getInitialState: function() {
+    return {
+      shouldDisplayDropdown: false
+    };
+  },
+
+  toggleUserDropdown: function() {
+    this.setState({ shouldDisplayDropdown: !this.state.shouldDisplayDropdown });
   },
 
   renderCreateCourseButton: function() {
@@ -32,7 +44,30 @@ var Header = React.createClass({
     return element;
   },
 
+  renderUserDropdown: function() {
+    var element = null;
+
+    if ( this.state.shouldDisplayDropdown ) {
+      element = (
+        <ul>
+          <li>
+            <i className="fa fa-sign-out" /> Logout
+            <Link to="Explore" />
+          </li>
+        </ul>
+      );
+    }
+
+    return element;
+  },
+
   render: function() {
+    var dropdownContainerClasses = React.addons.classSet({
+      'dropdown-container': true,
+      'open': this.state.shouldDisplayDropdown
+    });
+
+    // TODO: add user avatar next to current user's name
     return (
       <header>
 
@@ -45,9 +80,10 @@ var Header = React.createClass({
         </div>
 
         <div className="right-container">
-          <div className="dropdown-container">
+          <div className={dropdownContainerClasses} onClick={this.toggleUserDropdown}>
             {this.props.currentUser.name}
             <i className="fa fa-caret-down" />
+            {this.renderUserDropdown()}
           </div>
         </div>
 

@@ -70,13 +70,67 @@ header {
     text-align: right;
 
     .dropdown-container {
-      display: inline-block;
+      position: relative;
+      display: inline;
+      width: 200px;
+      padding: $half-space/2 $half-space;
+
       cursor: pointer;
+      text-align: center;
       color: $white;
       @include transition(color 0.1s ease-in-out);
 
       i {
-        margin-left: $half-space;
+        margin-left: $full-space;
+      }
+
+      ul {
+        @extend %card;
+        z-index: 3;
+        position: absolute;
+        display: block;
+        top: 100%;
+        right: 0;
+        left: 0;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        li {
+          position: relative;
+          display: block;
+          height: 40px;
+          line-height: 30px;
+          padding: $half-space/4 $half-space;
+
+          text-align: left;
+          background-color: inherit;
+          color: inherit;
+          @include transition(background-color 0.1s ease-in-out, color 0.1s ease-in-out);
+
+          i {
+            margin: 0 $half-space/2 0 0;
+            color: $text-grey;
+          }
+
+          a {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+          }
+
+          &:hover {
+            background-color: darken($background-light-grey, 2);;
+            color: $orange;
+          }
+        }
+      }
+
+      &.open {
+        background-color: $white;
+        color: $text-dark-grey !important;
       }
 
       &:hover {
