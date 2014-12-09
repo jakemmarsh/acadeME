@@ -8,22 +8,29 @@ var models = require('../models');
 
 exports.getRecipients = function(req, res) {
 
-  var fetchRecipients = function(currentUserId, courseId) {
+  var fetchEnrollments = function(currentUserId, courseId) {
     var deferred = when.defer();
 
     models.Enrollment.findAll({
       where: { CourseId: courseId }
     }).then(function(enrollments) {
-      models.User.findAll({
-        where: { id: _.pluck(enrollments, 'UserId') }
-      }).then(function(recipients) {
-        // Return all users enrolled in the course except themselves
-        deferred.resolve(_.reject(recipients, function(recipient) {
-          return recipient.id === currentUserId;
-        }));
-      }).catch(function(err) {
-        deferred.reject({ status: 500, body: err });
-      });
+      deferred.resolve(_.reject(enrollments, function(enrollment) {
+        return enrollment.UserId === currentUserId;
+      }));
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
+
+    return deferred.promise;
+  };
+
+  var fetchRecipients = function(enrollments) {
+    var deferred = when.defer();
+
+    models.User.findAll({
+      where: { id: _.pluck(enrollments, 'UserId') }
+    }).then(function(recipients) {
+      deferred.resolve(recipients);
     }).catch(function(err) {
       deferred.reject({ status: 500, body: err });
     });
@@ -33,7 +40,9 @@ exports.getRecipients = function(req, res) {
 
   var userId = 1; // TODO: don't hardcode this, use req.user.id
 
-  fetchRecipients(userId, req.params.courseId).then(function(resp) {
+  fetchEnrollments(userId, req.params.courseId)
+  .then(fetchRecipients)
+  .then(function(resp) {
     res.status(200).json(resp);
   }).catch(function(err) {
     res.status(err.status).json({ error: err.body });
