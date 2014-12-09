@@ -20,7 +20,9 @@ var AuthAPI = {
 
     deferred.resolve({
       id: 4,
+      username: 'jakemmarsh',
       name: 'Jake Marsh',
+      type: 'instructor',
       imageUrl: 'https://scontent-b-lga.xx.fbcdn.net/hphotos-xpf1/t31.0-8/1796992_10151957242618173_179336983_o.jpg'
     });
 

@@ -11,6 +11,7 @@ var UserAvatar = require('./UserAvatar');
 var RecipientList = React.createClass({
 
   propTypes: {
+    currentUser: React.PropTypes.object.isRequired,
     course: React.PropTypes.object.isRequired,
     recipients: React.PropTypes.array.isRequired,
     conversation: React.PropTypes.object.isRequired,
@@ -19,7 +20,10 @@ var RecipientList = React.createClass({
 
   getDefaultProps: function() {
     return {
-      course: {},
+      currentUser: {},
+      course: {
+        instructor: {}
+      },
       recipients: [],
       conversation: {}
     };
@@ -33,11 +37,23 @@ var RecipientList = React.createClass({
     }
   },
 
+  renderInstructorTitle: function() {
+    var element = null;
+
+    if ( this.props.currentUser.id !== this.props.course.instructor.id ) {
+      element = (
+        <li className="title"><h5 className="flush">Instructor</h5></li>
+      );
+    }
+
+    return element;
+  },
+
   renderInstructor: function() {
     var element = null;
     var classes;
 
-    if ( this.props.course && this.props.course.instructor ) {
+    if ( this.props.course && this.props.currentUser.id !== this.props.course.instructor.id ) {
       classes = this.isActive(this.props.course.instructor.id) ? 'active' : '';
 
       element = (
@@ -49,6 +65,19 @@ var RecipientList = React.createClass({
             {this.props.course.instructor.name}
           </div>
         </li>
+      );
+    }
+
+    return element;
+  },
+
+  renderRecipientsTitle: function() {
+    var element = null;
+    var titleString = (this.props.course.instructor.id === this.props.currentUser.id ) ? 'Students' : 'Classmates';
+
+    if ( this.props.recipients && this.props.recipients.length ) {
+      element = (
+        <li className="title"><h5 className="flush">{titleString}</h5></li>
       );
     }
 
@@ -78,11 +107,11 @@ var RecipientList = React.createClass({
     return (
       <ul className="recipient-list">
 
-        <li className="title"><h5 className="flush">Instructor</h5></li>
+        {this.renderInstructorTitle()}
 
         {this.renderInstructor()}
 
-        <li className="title"><h5 className="flush">Classmates</h5></li>
+        {this.renderRecipientsTitle()}
 
         {this.renderRecipients()}
 

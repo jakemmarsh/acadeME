@@ -70,7 +70,7 @@ var App = React.createClass({
     return (
       <div>
 
-        <Header />
+        <Header currentUser={this.state.currentUser} />
 
         <div className="body-container">
           <Sidebar course={this.state.currentCourse} />
