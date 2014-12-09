@@ -35,10 +35,7 @@ function uploadToAWS(file, type, entityId) {
   AWS.putBuffer(file.buffer, path, headers, function(err, response){
     if ( err || response.statusCode !== 200 ) {
       console.error('error streaming image: ', new Date(), err);
-      deferred.reject({
-        status: response.statusCode,
-        error: err
-      });
+      deferred.reject({ status: response.statusCode, error: err });
     } else {
       console.log('File uploaded! Amazon response statusCode: ', response.statusCode);
       deferred.resolve([type, entityId, path]);
@@ -68,22 +65,13 @@ function updateEntity(data) {
       }).then(function(updatedItem) {
         deferred.resolve(updatedItem);
       }).catch(function(err) {
-        deferred.reject({
-          status: 500,
-          error: err
-        });
+        deferred.reject({ status: 500, body: err });
       });
     } else {
-      deferred.reject({
-        status: 404,
-        error: 'Entity could not be found at the ID: ' + id
-      });
+      deferred.reject({ status: 404, body: 'Entity could not be found at the ID: ' + id });
     }
   }).catch(function(err) {
-    deferred.reject({
-      status: 500,
-      error: err
-    });
+    deferred.reject({ status: 500, body: err });
   });
 
   return deferred.promise;
@@ -99,9 +87,7 @@ exports.uploadImage = function(req, res) {
   req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
     // If filename is not truthy it means there's no file
     if ( !filename ) {
-      res.status(400).json({
-        error: 'No file'
-      });
+      res.status(400).json({ error: 'No file' });
       return;
     }
 
@@ -113,9 +99,7 @@ exports.uploadImage = function(req, res) {
 
     file.on('error', function(err) {
       console.log('Error while buffering the stream: ', err);
-      res.status(500).json({
-        error: err
-      });
+      res.status(500).json({ error: err });
     });
 
     file.on('end', function() {
@@ -131,9 +115,7 @@ exports.uploadImage = function(req, res) {
         res.status(200).json('Image successfully uploaded and entity imageUrl updated.');
       }).catch(function(err) {
         console.log('error uploading:', err);
-        res.status(err.status).json({
-          error: err.error
-        });
+        res.status(err.status).json({ error: err.body });
       });
     });
   });

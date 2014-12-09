@@ -21,18 +21,12 @@ exports.get = function(req, res) {
       ]
     }).then(function(quiz) {
       if ( _.isEmpty(quiz) ) {
-        deferred.reject({
-          status: 404,
-          body: 'Quiz could not be found for lessonId: ' + lessonId
-        });
+        deferred.reject({ status: 404, body: 'Quiz could not be found for lessonId: ' + lessonId });
       } else {
         deferred.resolve(quiz);
       }
     }).catch(function(err) {
-      deferred.reject({
-        status: 500,
-        body: err
-      });
+      deferred.reject({ status: 500, body: err });
     });
 
     return deferred.promise;
@@ -41,9 +35,7 @@ exports.get = function(req, res) {
   getQuiz(req.params.id).then(function(quiz) {
     res.status(200).json(quiz);
   }, function(err) {
-    res.status(err.status).json({
-      error: err.body
-    });
+    res.status(err.status).json({ error: err.body });
   });
 
 };
@@ -61,10 +53,7 @@ exports.getQuestion = function(req, res) {
     }).then(function(question) {
       deferred.resolve(question);
     }).catch(function(err) {
-      deferred.reject({
-        status: 500,
-        body: err
-      });
+      deferred.reject({ status: 500, body: err });
     });
 
     return deferred.promise;
@@ -73,9 +62,7 @@ exports.getQuestion = function(req, res) {
   getQuestion(req.params.quizId, req.query.current, req.query.score).then(function(question) {
     res.status(200).json(question);
   }).catch(function(err) {
-    res.status(err.status).json({
-      error: err.body
-    });
+    res.status(err.status).json({ error: err.body });
   });
 
 };
@@ -102,23 +89,16 @@ exports.checkAnswer = function(req, res) {
         deferred.resolve(false);
       }
     }).catch(function(err) {
-      deferred.reject({
-        status: 500,
-        body: err
-      });
+      deferred.reject({ status: 500, body: err });
     });
 
     return deferred.promise;
   };
 
   doCheck(req.params.quizId, req.params.questionId, req.body.answer).then(function(isCorrect) {
-    res.status(200).json({
-      isCorrect: isCorrect
-    });
+    res.status(200).json({ isCorrect: isCorrect });
   }).catch(function(err) {
-    res.status(err.status).json({
-      error: err.body
-    });
+    res.status(err.status).json({ error: err.body });
   });
 
 };

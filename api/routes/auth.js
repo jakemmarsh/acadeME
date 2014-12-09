@@ -12,9 +12,7 @@ exports.isAuthenticated = function(req, res, next) {
   if ( req.isAuthenticated() || (req.session && req.session.user) ) {
     return next();
   } else {
-    return res.status(401).json({
-      error: 'User must be logged in.'
-    });
+    return res.status(401).json({ error: 'User must be logged in.' });
   }
 
 };
@@ -27,9 +25,7 @@ exports.login = function(req, res, next) {
     if ( err ) {
       return next(err);
     } else if ( _.isEmpty(user) ) {
-      return res.status(401).json({
-        error: 'Authentication failed.'
-      });
+      return res.status(401).json({ error: 'Authentication failed.' });
     } else {
       req.login(user, function(err) {
         if ( err ) {
@@ -55,10 +51,7 @@ exports.register = function(req, res) {
       deferred.resolve(savedUser);
     }).catch(function(err) {
       console.log('error creating user:', err);
-      deferred.reject({
-        status: 500,
-        error: err
-      });
+      deferred.reject({ status: 500, body: err });
     });
 
     return deferred.promise;
@@ -67,9 +60,7 @@ exports.register = function(req, res) {
   createUser(req.body).then(function(user) {
     res.status(200).json(user);
   }).catch(function(err) {
-    res.status(err.status).json({
-      error: err.error
-    });
+    res.status(err.status).json({ error: err.body });
   });
 
 };

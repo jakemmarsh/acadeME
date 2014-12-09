@@ -9,7 +9,7 @@ module.exports = function(sequelize) {
         Conversation.belongsTo(models.Course);
         Conversation.belongsTo(models.User, { as: 'UserOne' });
         Conversation.belongsTo(models.User, { as: 'UserTwo' });
-        Conversation.hasMany(models.Message);
+        Conversation.hasMany(models.Message, { onDelete: 'cascade' });
       }
     }
   });

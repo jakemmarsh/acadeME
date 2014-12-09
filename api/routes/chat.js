@@ -22,16 +22,10 @@ exports.getRecipients = function(req, res) {
           return recipient.id === currentUserId;
         }));
       }).catch(function(err) {
-        deferred.reject({
-          status: 500,
-          error: err
-        });
+        deferred.reject({ status: 500, body: err });
       });
     }).catch(function(err) {
-      deferred.reject({
-        status: 500,
-        error: err
-      });
+      deferred.reject({ status: 500, body: err });
     });
 
     return deferred.promise;
@@ -42,9 +36,7 @@ exports.getRecipients = function(req, res) {
   fetchRecipients(userId, req.params.courseId).then(function(resp) {
     res.status(200).json(resp);
   }).catch(function(err) {
-    res.status(err.status).json({
-      error: err.error
-    });
+    res.status(err.status).json({ error: err.body });
   });
 
 };
@@ -61,19 +53,13 @@ exports.getConversation = function(req, res) {
       include: [models.Message]
     }).then(function(conversation) {
       if ( !conversation ) {
-        deferred.reject({
-          status: 404,
-          error: 'That conversation could not be found'
-        });
+        deferred.reject({ status: 404, body: 'That conversation could not be found' });
       } else {
         deferred.resolve(conversation);
       }
     }).catch(function(err) {
       console.log('error finding conversation:', err);
-      deferred.reject({
-        status: 500,
-        error: err
-      });
+      deferred.reject({ status: 500, body: err });
     });
 
     return deferred.promise;
@@ -82,9 +68,7 @@ exports.getConversation = function(req, res) {
   fetchConversation(req.params.courseId, req.query.userOne, req.query.userTwo).then(function(resp) {
     res.status(200).json(resp);
   }).catch(function(err) {
-    res.status(err.status).json({
-      error: err.error
-    });
+    res.status(err.status).json({ error: err.body });
   });
 
 };
