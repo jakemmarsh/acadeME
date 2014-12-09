@@ -1,9 +1,11 @@
+$header-height: 70px;
+
 header {
 
   position: relative;
-  height: 70px;
+  display: table;
+  width: 100%;
   line-height: 70px;
-  padding: 0 $full-space;
   text-align: center;
 
   color: $header-grey;
@@ -16,10 +18,71 @@ header {
   background: linear-gradient(to right,  $header-background-grey 0%,$header-background-light-grey 53%,$header-background-grey 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#718795', endColorstr='#718795',GradientType=1 );
 
-  .logo {
-    position: relative;
-    top: 5%;
-    max-height: 80%;
+  .left-container,
+  .logo-container,
+  .right-container {
+    display: table-cell;
+    height: $header-height;
+    vertical-align: middle;
+  }
+
+  .left-container,
+  .right-container {
+    width: 20%;
+  }
+
+  .left-container {
+    padding-left: $full-space;
+
+    .create-course-button {
+      float: left;
+      width: 40px;
+      height: 40px;
+      padding: $half-space/2;
+      margin-right: $full-space;
+
+      font-size: 24px;
+      line-height: 24px;
+      text-align: center;
+      color: $white;
+      @include transition(color 0.1s ease-in-out);
+
+      &:hover {
+        color: $orange;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .logo-container {
+    width: 60%;
+    text-align: center;
+
+    .logo {
+      position: relative;
+      top: 20%;
+      height: 80%;
+    }
+  }
+
+  .right-container {
+    padding-right: $full-space;
+    text-align: right;
+
+    .dropdown-container {
+      display: inline-block;
+      cursor: pointer;
+      color: $white;
+      @include transition(color 0.1s ease-in-out);
+
+      i {
+        margin-left: $half-space;
+      }
+
+      &:hover {
+        color: $orange;
+      }
+    }
   }
 
   .shadow {
