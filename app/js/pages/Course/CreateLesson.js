@@ -87,13 +87,15 @@ var CreateLesson = React.createClass({
     return (
       <section className="create-lesson nudge">
 
-        <input type="text" valueLink={this.linkState('title')} placeholder="Lesson title" className="lesson-title-input nudge-half--bottom" />
+        <h2 className="page-title">Create a Lesson</h2>
+
+        <input type="text" valueLink={this.linkState('title')} placeholder="Lesson title" className="title-input nudge-half--bottom" />
 
         <textarea valueLink={this.linkState('description')}
-                  className="lesson-description-input nudge-half--bottom"
+                  className="description-input nudge-half--bottom"
                   placeholder="Brief description of the lesson" />
 
-        <FileInput id="imageUrl" accept="image/x-png, image/gif, image/jpeg" processFile={this.updateImage} className="lesson-image-input nudge-half--bottom" />
+        <FileInput id="imageUrl" accept="image/x-png, image/gif, image/jpeg" processFile={this.updateImage} className="image-input nudge-half--bottom" />
 
         <Editor save={this.handleSubmit} />
 

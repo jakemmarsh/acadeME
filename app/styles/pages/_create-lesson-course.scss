@@ -1,6 +1,11 @@
-section.create-lesson {
+section.create-lesson,
+section.create-course {
 
-  .lesson-title-input {
+  .page-title {
+    color: $text-dark-grey;
+  }
+
+  .title-input {
     display: block;
     width: 100%;
     padding: $half-space/2;
@@ -10,7 +15,7 @@ section.create-lesson {
     font-style: italic;
   }
 
-  .lesson-description-input {
+  .description-input {
     display: block;
     width: 100%;
     height: 75px;
@@ -24,7 +29,7 @@ section.create-lesson {
     font-style: italic;
   }
 
-  .lesson-image-input {
+  .image-input {
     display: block;
     width: 100%;
     padding: $half-space/2;

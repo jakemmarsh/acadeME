@@ -75,7 +75,8 @@ var CreateCoursePage = React.createClass({
   handleSubmit: function(evt) {
     var course = {
       title: this.state.title,
-      description: this.state.description
+      description: this.state.description,
+      InstructorId: this.props.currentUser.id // TODO: should this only be added on the server side?
     };
 
     evt.stopPropagation();
@@ -90,15 +91,19 @@ var CreateCoursePage = React.createClass({
     return (
       <section className="create-course nudge">
 
+        <h2 className="page-title">Create a Course</h2>
+
         <form className="create-course-form" id="create-course-form" onSubmit={this.handleSubmit}>
 
-          <input type="text" valueLink={this.linkState('title')} placeholder="Course title" className="course-title-input nudge-half--bottom" />
+          <input type="text" valueLink={this.linkState('title')} placeholder="Course title" className="title-input nudge-half--bottom" />
 
-          <input type="text" valueLink={this.linkState('description')} placeholder="Brief description of the course" className="course-description-input nudge-half--bottom" />
+          <textarea valueLink={this.linkState('description')}
+                  className="description-input nudge-half--bottom"
+                  placeholder="Brief description of the course" />
 
-          <FileInput id="imageUrl" accept="image/x-png, image/gif, image/jpeg" processFile={this.updateImage} />
+          <FileInput id="imageUrl" className="image-input nudge-half--bottom" accept="image/x-png, image/gif, image/jpeg" processFile={this.updateImage} />
 
-          <input type="submit" value="Create Course" />
+          <input type="submit" className="button float-right nudge--bottom" value="Create Course" />
 
         </form>
 

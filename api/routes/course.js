@@ -59,7 +59,8 @@ exports.create = function(req, res) {
     course = {
       title: course.title || course.Title,
       description: course.description || course.Description,
-      imageUrl: course.imageUrl || course.ImageUrl
+      imageUrl: course.imageUrl || course.ImageUrl,
+      InstructorId: course.instructorId || course.InstructorId || req.user.id
     };
 
     models.Course.create(course).then(function(createdCourse) {
