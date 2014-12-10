@@ -6,6 +6,7 @@
 var React         = require('react');
 var _             = require('lodash');
 
+var DocumentTitle = require('../components/DocumentTitle');
 var CourseActions = require('../actions/CourseActions');
 var TopMenu       = require('../components/TopMenu');
 
@@ -13,8 +14,7 @@ var CoursePage = React.createClass({
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired,
-    course: React.PropTypes.object.isRequired,
-    updatePageTitle: React.PropTypes.func
+    course: React.PropTypes.object.isRequired
   },
 
   getDefaultProps: function() {
@@ -27,10 +27,6 @@ var CoursePage = React.createClass({
     if ( _.isEmpty(this.props.course) || this.props.params.courseId !== nextProps.params.courseId ) {
       CourseActions.openCourse(nextProps.params.courseId.toString());
     }
-
-    if ( !_.isEqual(this.props.course, nextProps.course) ) {
-      this.props.updatePageTitle(nextProps.course.title);
-    }
   },
 
   componentWillMount: function() {
@@ -40,6 +36,8 @@ var CoursePage = React.createClass({
   render: function() {
     return (
       <section className="course-page">
+
+        <DocumentTitle title={this.props.course.title} />
 
         <TopMenu currentUser={this.props.currentUser} course={this.props.course} query={this.props.query.q} />
 

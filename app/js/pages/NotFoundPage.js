@@ -3,22 +3,20 @@
  */
 'use strict';
 
-var React = require('react/addons');
+var React         = require('react/addons');
+
+var DocumentTitle = require('../components/DocumentTitle');
 
 var NotFoundPage = React.createClass({
-
-  propTypes: {
-    updatePageTitle: React.PropTypes.func
-  },
-
-  componentDidMount: function() {
-    this.props.updatePageTitle('Not Found');
-  },
 
   render: function() {
     return (
       <section className="not-found-page">
+
+        <DocumentTitle title="Not Found" />
+
         Page Not Found
+
       </section>
     );
   }

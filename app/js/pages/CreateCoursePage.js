@@ -9,6 +9,7 @@ var Navigation    = require('react-router').Navigation;
 
 var awsAPI        = require('../utils/awsAPI');
 var CourseAPI     = require('../utils/CourseAPI');
+var DocumentTitle = require('../components/DocumentTitle');
 var FileInput     = require('../components/FileInput');
 
 var CreateCoursePage = React.createClass({
@@ -33,10 +34,6 @@ var CreateCoursePage = React.createClass({
       description: '',
       image: null
     };
-  },
-
-  componentDidMount: function() {
-    this.props.updatePageTitle('Create Course');
   },
 
   updateImage: function(file) {
@@ -90,6 +87,8 @@ var CreateCoursePage = React.createClass({
   render: function() {
     return (
       <section className="create-course nudge">
+
+        <DocumentTitle title="Create a Course" />
 
         <h2 className="page-title">Create a Course</h2>
 

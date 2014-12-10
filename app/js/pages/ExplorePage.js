@@ -3,13 +3,14 @@
  */
 'use strict';
 
-var React = require('react/addons');
+var React         = require('react/addons');
+
+var DocumentTitle = require('../components/DocumentTitle');
 
 var ExplorePage = React.createClass({
 
   propTypes: {
-    currentUser: React.PropTypes.object.isRequired,
-    updatePageTitle: React.PropTypes.func
+    currentUser: React.PropTypes.object.isRequired
   },
 
   getInitialState: function() {
@@ -28,14 +29,14 @@ var ExplorePage = React.createClass({
     }
   },
 
-  componentDidMount: function() {
-    this.props.updatePageTitle('Explore Courses');
-  },
-
   render: function() {
     return (
       <section className="explore-page">
+
+        <DocumentTitle title="Explore" />
+
         Explore Courses: {this.state.query}
+
       </section>
     );
   }

@@ -54,19 +54,6 @@ var App = React.createClass({
     this.listenTo(CurrentCourseStore, this._onCourseChange);
   },
 
-  updatePageTitle: function(title) {
-    var newPageTitle = '';
-
-    if ( title ) {
-      newPageTitle += title;
-      newPageTitle += ' \u2014 ';
-    }
-
-    newPageTitle += 'acadeME';
-
-    document.title = newPageTitle;
-  },
-
   render: function() {
     return (
       <div>
@@ -77,7 +64,6 @@ var App = React.createClass({
           <Sidebar course={this.state.currentCourse} />
           <div className="content-container">
             <this.props.activeRouteHandler currentUser={this.state.currentUser}
-                                           updatePageTitle={this.updatePageTitle}
                                            course={this.state.currentCourse} />
           </div>
         </div>
