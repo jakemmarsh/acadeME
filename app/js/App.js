@@ -35,9 +35,8 @@ var App = React.createClass({
   },
 
   _onCourseChange: function(err, course) {
-    if ( err && this.isActive('Course') ) {
-      // TODO: somehow show a 404 message instead?
-      this.transitionTo('Explore');
+    if ( err ) {
+      // TODO: handle error
     } else if ( !err ) {
       this.setState({ currentCourse: course });
     }
