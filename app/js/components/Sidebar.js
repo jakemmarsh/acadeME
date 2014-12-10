@@ -71,7 +71,8 @@ var Sidebar = React.createClass({
       <ul>
         <ListLink to="Home">My Curriculum</ListLink>
         <ListLink to="Explore">Explore Courses</ListLink>
-        <ListLink to="Course" params={ {courseId: 1} }>Test Course</ListLink>
+        <ListLink to="Course" params={ {courseId: 1} }>Test Course I</ListLink>
+        <ListLink to="Course" params={ {courseId: 2} }>Test Course II</ListLink>
       </ul>
     );
   },

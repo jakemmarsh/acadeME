@@ -28,6 +28,7 @@ module.exports = function(models) {
     var deferred = when.defer();
     var course = {
       title: 'Human-Computer Interaction',
+      description: 'This course teaches a lot of very cryptic stuff, I don\'t know.',
       InstructorId: instructor.id
     };
 
@@ -126,6 +127,23 @@ module.exports = function(models) {
     return deferred.promise;
   };
 
+  var createCourseCurrentUserTeaches = function(users) {
+    var deferred = when.defer();
+    var course = {
+      title: 'Test Course',
+      description: 'This course is just a test, taught by the current user.',
+      InstructorId: users[0].id // current user's ID
+    };
+
+    models.Course.create(course).then(function() {
+      deferred.resolve(users);
+    }).catch(function(err) {
+      console.log('error creating course taught by current user:', err);
+    });
+
+    return deferred.promise;
+  };
+
   var createConversation = function(users) {
     var currentUser = users[0];
     var otherUsers = users[1];
@@ -177,6 +195,7 @@ module.exports = function(models) {
     .then(createLessons)
     .then(createEnrolledUsers)
     .then(createCurrentUser)
+    .then(createCourseCurrentUserTeaches)
     .then(createConversation)
     .then(createMessages);
 
