@@ -4,7 +4,7 @@
 'use strict';
 
 var React      = require('react/addons');
-var Link       = require('react-router').Link;
+var Link       = React.createFactory(require('react-router').Link);
 
 var UserAvatar = require('./UserAvatar');
 

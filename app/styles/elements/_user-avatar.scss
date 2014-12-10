@@ -5,7 +5,7 @@ div.user-avatar {
   width: 50px;
 
   @include border-radius(100%);
-  background-color: $orange;
+  background-color: $header-background-grey;
   @include background-cover();
 
   a {

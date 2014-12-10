@@ -12,6 +12,10 @@
     @include border-radius(0);
   }
 
+  .st-errors {
+    margin-bottom: $half-space;
+  }
+
   .st-block-controls__top,
   .st-icon--add:after {
     cursor: pointer;
@@ -26,6 +30,16 @@
     .st-text-block {
       font-size: 16px;
       color: $text-dark-grey;
+    }
+
+    ::-moz-selection {
+      background: $teal;
+      color: $white;
+    }
+
+    ::selection {
+      background: $teal;
+      color: $white;
     }
 
     &:hover {
@@ -72,8 +86,18 @@
   }
 
   .st-block__messages {
-    top: -$half-space;
-    left: -$half-space;
+    top: -$half-space/2;
+    left: -$half-space/2;
+  }
+
+}
+
+.st-format-bar {
+
+  /* format button hover */
+  .st-format-btn:hover,
+  .st-format-btn--is-active {
+    color: $orange;
   }
 
 }
