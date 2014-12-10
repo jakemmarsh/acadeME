@@ -46,8 +46,7 @@ var TopMenu = React.createClass({
   renderCreateButton: function() {
     var element = null;
 
-    // TODO: remove true
-    if ( true || this.props.course.instructor.id === this.props.currentUser.id ) {
+    if ( this.props.course.instructor.id === this.props.currentUser.id ) {
       element = (
         <li className="create-lesson-button">
           <i className="fa fa-plus" />

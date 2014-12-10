@@ -5,6 +5,7 @@
 
 var React              = require('react/addons');
 var Reflux             = require('reflux');
+var Navigation         = require('react-router').Navigation;
 var ActiveState        = require('react-router').ActiveState;
 
 var UserActions        = require('./actions/UserActions');
@@ -16,7 +17,7 @@ var Footer             = require('./components/Footer');
 
 var App = React.createClass({
 
-  mixins: [ActiveState, Reflux.ListenerMixin],
+  mixins: [Navigation, ActiveState, Reflux.ListenerMixin],
 
   getInitialState: function() {
     return {
@@ -34,16 +35,17 @@ var App = React.createClass({
   },
 
   _onCourseChange: function(err, course) {
-    if ( err ) {
-      // TODO: handle error
-    } else {
+    if ( err && this.isActive('Course') ) {
+      // TODO: somehow show a 404 message instead?
+      this.transitionTo('Explore');
+    } else if ( !err ) {
       this.setState({ currentCourse: course });
     }
   },
 
   componentWillReceiveProps: function() {
     if ( !this.isActive('Course') ) {
-      this._onCourseChange({});
+      this._onCourseChange(null, null);
     }
   },
 

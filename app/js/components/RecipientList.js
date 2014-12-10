@@ -21,9 +21,7 @@ var RecipientList = React.createClass({
   getDefaultProps: function() {
     return {
       currentUser: {},
-      course: {
-        instructor: {}
-      },
+      course: {},
       recipients: [],
       conversation: {}
     };
@@ -40,7 +38,7 @@ var RecipientList = React.createClass({
   renderInstructorTitle: function() {
     var element = null;
 
-    if ( this.props.currentUser.id !== this.props.course.instructor.id ) {
+    if ( this.props.course && this.props.course.instructor && this.props.currentUser.id !== this.props.course.instructor.id ) {
       element = (
         <li className="title"><h5 className="flush">Instructor</h5></li>
       );
@@ -53,7 +51,7 @@ var RecipientList = React.createClass({
     var element = null;
     var classes;
 
-    if ( this.props.course && this.props.currentUser.id !== this.props.course.instructor.id ) {
+    if ( this.props.course && this.props.course.instructor && this.props.currentUser.id !== this.props.course.instructor.id ) {
       classes = this.isActive(this.props.course.instructor.id) ? 'active' : '';
 
       element = (
@@ -73,9 +71,9 @@ var RecipientList = React.createClass({
 
   renderRecipientsTitle: function() {
     var element = null;
-    var titleString = (this.props.course.instructor.id === this.props.currentUser.id ) ? 'Students' : 'Classmates';
+    var titleString = (this.props.course.instructor && this.props.course.instructor.id === this.props.currentUser.id ) ? 'Students' : 'Classmates';
 
-    if ( this.props.recipients && this.props.recipients.length ) {
+    if ( this.props.course && this.props.recipients ) {
       element = (
         <li className="title"><h5 className="flush">{titleString}</h5></li>
       );

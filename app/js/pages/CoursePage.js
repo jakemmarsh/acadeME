@@ -24,6 +24,10 @@ var CoursePage = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
+    if ( _.isEmpty(this.props.course) || this.props.params.courseId !== nextProps.params.courseId ) {
+      CourseActions.openCourse(nextProps.params.courseId.toString());
+    }
+
     if ( !_.isEqual(this.props.course, nextProps.course) ) {
       this.props.updatePageTitle(nextProps.course.title);
     }
@@ -37,7 +41,7 @@ var CoursePage = React.createClass({
     return (
       <section className="course-page">
 
-        <TopMenu course={this.props.course} query={this.props.query.q} />
+        <TopMenu currentUser={this.props.currentUser} course={this.props.course} query={this.props.query.q} />
 
         <this.props.activeRouteHandler currentUser={this.props.currentUser}
                                        updatePageTitle={this.props.updatePageTitle}
