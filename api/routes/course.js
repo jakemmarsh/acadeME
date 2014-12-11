@@ -25,7 +25,7 @@ exports.get = function(req, res) {
         },
         {
           model: models.Lesson,
-          attributes: ['id', 'title', 'description']
+          attributes: ['id', 'title', 'description', 'imageUrl']
         }
       ]
     }).then(function(course) {

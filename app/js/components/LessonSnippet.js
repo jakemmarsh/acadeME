@@ -23,17 +23,37 @@ var LessonSnippet = React.createClass({
     };
   },
 
+  renderLessonImage: function() {
+    var element = null;
+    var imageStyles;
+
+    if ( this.props.lesson.imageUrl ) {
+      imageStyles = {
+        'backgroundImage': 'url(' + this.props.lesson.imageUrl + ')'
+      };
+
+      element = (
+        <div className="image-container">
+          <div className="lesson-image" style={imageStyles} />
+        </div>
+      );
+    }
+
+    return element;
+  },
+
   render: function() {
     var classes = cx({
       'lesson-snippet': true,
       'completed': this.props.lesson.completed || true // TODO: actual logic for this
     });
-    var element = null;
 
-    if ( !_.isEmpty(this.props.course) ) {
-      element = (
-        <article className={classes}>
+    return (
+      <article className={classes}>
 
+        {this.renderLessonImage()}
+
+        <div className="info-container">
           <Link to="CourseLesson" params={{ courseId: this.props.course.id, lessonId: this.props.lesson.id }}
                                   className="title">
             {this.props.lesson.title}
@@ -51,12 +71,10 @@ var LessonSnippet = React.createClass({
               Take Quiz
             </Link>
           </div>
+        </div>
 
-        </article>
-      );
-    }
-
-    return element;
+      </article>
+    );
   }
 
 });
