@@ -15,7 +15,7 @@ module.exports = function(server) {
   /* ====================================================== */
 
   // Auth endpoints
-  api.put('/auth/register', routes.auth.register);
+  api.post('/auth/register', routes.auth.register);
   api.get('/auth/check', routes.auth.isAuthenticated, function(req, res) {
     res.status(200).json(req.user);
   });
@@ -30,9 +30,9 @@ module.exports = function(server) {
 
   // Course endpoints
   api.get('/course/:identifier', routes.course.get);
-  api.put('/course', routes.course.create);
+  api.post('/course', routes.course.create);
   api.get('/course/:id/search/:query', routes.course.search);
-  api.put('/course/:id/lesson', routes.course.createLesson);
+  api.post('/course/:id/lesson', routes.course.createLesson);
   api.delete('/course/:id', routes.course.delete);
 
   /* ====================================================== */
@@ -50,7 +50,7 @@ module.exports = function(server) {
 
   /* ====================================================== */
 
-  api.put('/upload/:type/:id', routes.aws.uploadImage);
+  api.post('/upload/:type/:id', routes.aws.uploadImage);
 
   /* ====================================================== */
 

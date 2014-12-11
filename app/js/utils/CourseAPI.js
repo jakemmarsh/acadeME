@@ -24,7 +24,7 @@ var CourseAPI = {
   create: function(course) {
     var deferred = when.defer();
 
-    request.put(APIUtils.API_ROOT + 'course', course).end(function(res) {
+    request.post(APIUtils.API_ROOT + 'course', course).end(function(res) {
       if ( !res.ok ) {
         deferred.reject(JSON.parse(res.text));
       } else {
@@ -38,7 +38,7 @@ var CourseAPI = {
   createLesson: function(courseId, lesson) {
     var deferred = when.defer();
 
-    request.put(APIUtils.API_ROOT + 'course/' + courseId + '/lesson', lesson).end(function(res) {
+    request.post(APIUtils.API_ROOT + 'course/' + courseId + '/lesson', lesson).end(function(res) {
       if ( !res.ok ) {
         deferred.reject(JSON.parse(res.text));
       } else {

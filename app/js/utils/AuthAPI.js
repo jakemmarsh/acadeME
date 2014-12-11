@@ -32,7 +32,7 @@ var AuthAPI = {
   register: function(user) {
     var deferred = when.defer();
 
-    request.put(APIUtils.API_ROOT + 'auth/register', user).end(function(res) {
+    request.post(APIUtils.API_ROOT + 'auth/register', user).end(function(res) {
       if ( !res.ok ) {
         deferred.reject(JSON.parse(res.text));
       } else {
