@@ -4,6 +4,7 @@ var Reflux = require('reflux');
 
 var CourseActions = Reflux.createActions([
 
+  'loadAll',
   'openCourse',
   'openLessons',
   'openChat',

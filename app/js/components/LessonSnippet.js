@@ -4,7 +4,6 @@
 'use strict';
 
 var React = require('react/addons');
-var _     = require('lodash');
 var Link  = React.createFactory(require('react-router').Link);
 
 var cx    = React.addons.classSet;

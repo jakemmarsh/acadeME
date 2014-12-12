@@ -43,7 +43,31 @@ exports.get = function(req, res) {
 
   getCourse(req.params.identifier).then(function(course) {
     res.status(200).json(course);
-  }, function(err) {
+  }).catch(function(err) {
+    res.status(err.status).json({ error: err.body });
+  });
+
+};
+
+/* ====================================================== */
+
+exports.getAll = function(req, res) {
+
+  var getCourses = function() {
+    var deferred = when.defer();
+
+    models.Course.findAll({}).then(function(retrievedCourses) {
+      deferred.resolve(retrievedCourses);
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
+
+    return deferred.promise;
+  };
+
+  getCourses().then(function(courses) {
+    res.status(200).json(courses);
+  }).catch(function(err) {
     res.status(err.status).json({ error: err.body });
   });
 
