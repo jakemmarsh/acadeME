@@ -15,3 +15,35 @@ An interactive e-Learning platform for University of Maine's senior Computer Sci
 - Run `gulp prod` from root project directory to generate the `/build` directory (the compiled application)
 - Run `npm start` from the root project directory to begin serving the application to `localhost:3000`
 - Navigate to `localhost:3000` to view/use the application
+
+---
+
+### Sample config.js file
+
+Below is a basic config file (with any actual keys/credentials removed). This same structure can be used to add any extra configuration information you may need.
+
+```
+var config = {};
+
+/* ====================================================== */
+
+config.database = {
+  host: 'DB HOST',
+  port: DB PORT,
+  db: 'DB NAME',
+  user: 'DB USERNAME',
+  password: 'DB PASSWORD'
+};
+
+/* ====================================================== */
+
+config.aws = {
+  bucket: 'BUCKET NAME',
+  key: 'YOUR AWS KEY',
+  secret: 'YOUR AWS SECRET'
+};
+
+/* ====================================================== */
+
+module.exports = config;
+```
