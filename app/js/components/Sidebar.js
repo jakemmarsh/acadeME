@@ -3,13 +3,13 @@
  */
 'use strict';
 
-var React                   = require('react/addons');
-var ReactCSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup);
-var _                       = require('lodash');
-var Link                    = React.createFactory(require('react-router').Link);
+var React                  = require('react/addons');
+var _                      = require('lodash');
+var Link                   = React.createFactory(require('react-router').Link);
 
-var ListLink                = require('./ListLink');
-var ProgressBar             = require('./ProgressBar');
+var TimeoutTransitionGroup = require('./TimeoutTransitionGroup');
+var ListLink               = require('./ListLink');
+var ProgressBar            = require('./ProgressBar');
 
 var Sidebar = React.createClass({
 
@@ -30,7 +30,7 @@ var Sidebar = React.createClass({
   },
 
   renderCourseInfo: function() {
-    var element = [];
+    var element = null;
     var courseTitle;
     var instructorName;
 
@@ -81,9 +81,9 @@ var Sidebar = React.createClass({
     return (
       <nav className="sidebar">
 
-        <ReactCSSTransitionGroup transitionName="course-info-container" component="div">
+        <TimeoutTransitionGroup enterTimeout={500} leaveTimeout={500} transitionName="course-info-container">
           {this.renderCourseInfo()}
-        </ReactCSSTransitionGroup>
+        </TimeoutTransitionGroup>
 
         <div className="links-container">
           {this.renderNavigation()}
