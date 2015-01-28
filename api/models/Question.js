@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         Question.belongsTo(models.Quiz);
-        Question.hasMany(models.Answer);
+        Question.hasMany(models.Answer, { onDelete: 'cascade' });
       }
     }
   });

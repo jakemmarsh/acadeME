@@ -36,10 +36,9 @@ module.exports = function(sequelize, DataTypes) {
     },
     classMethods: {
       associate: function(models) {
-        // TODO: should these cascade on onDelete?
-        User.hasMany(models.Course);
-        User.hasMany(models.Message);
-        User.hasMany(models.Enrollment);
+        User.hasMany(models.Course, { onDelete: 'cascade' });
+        User.hasMany(models.Message, { onDelete: 'cascade' });
+        User.hasMany(models.Enrollment, { onDelete: 'cascade' });
       }
     },
     instanceMethods: {

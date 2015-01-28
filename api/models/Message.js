@@ -10,6 +10,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         Message.belongsTo(models.Conversation);
         Message.belongsTo(models.User);
+        Message.hasOne(models.MessageMedia, { as: 'Media', foreignKey: 'MessageId', onDelete: 'cascade' });
       }
     }
   });
