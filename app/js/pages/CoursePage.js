@@ -37,7 +37,7 @@ var CoursePage = React.createClass({
     return (
       <section className="course-page">
 
-        <DocumentTitle title={this.props.course.title} />
+        <DocumentTitle title={this.props.course ? this.props.course.title : ''} />
 
         <TopMenu currentUser={this.props.currentUser} course={this.props.course} query={this.props.query.q} />
 

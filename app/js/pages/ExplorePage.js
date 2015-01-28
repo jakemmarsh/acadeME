@@ -29,17 +29,14 @@ var ExplorePage = React.createClass({
 
   _onCoursesChange: function(err, courses) {
     if ( err ) {
-      // TODO: handle error
+      this.setState({ error: err.message });
     } else {
-      this.setState({ courses: courses });
+      this.setState({ courses: courses, error: null });
     }
   },
 
-  componentWillMount: function() {
-    CourseActions.loadAll(this._onCoursesChange);
-  },
-
   componentDidMount: function() {
+    CourseActions.loadAll(this._onCoursesChange);
     this.listenTo(AllCoursesStore, this._onCoursesChange);
   },
 
@@ -47,9 +44,7 @@ var ExplorePage = React.createClass({
     var haveNewQuery = this.props.query.q && this.props.query.q.length && prevProps.query.q !== this.props.query.q;
 
     if ( haveNewQuery ) {
-      this.setState({
-        query: this.props.query.q
-      });
+      this.setState({ query: this.props.query.q });
     }
   },
 

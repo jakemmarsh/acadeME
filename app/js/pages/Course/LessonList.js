@@ -25,7 +25,7 @@ var CourseLessonList = React.createClass({
   renderLessons: function() {
     var elements = null;
 
-    if ( !this.props.course.lessons || !this.props.course.lessons.length ) {
+    if ( !_.isEmpty(this.props.course) || _.isEmpty(this.props.course.lessons) ) {
       elements = (
         <h2 className="text-center nudge--top">The instructor has not added any lessons to this course yet!</h2>
       );
