@@ -6,7 +6,8 @@ var _         = require('lodash');
 var Sequelize = require("sequelize");
 var config    = require(__dirname + '/../../config');
 var db        = {};
-var sequelize = new Sequelize(config.database.string, {
+var dbConfig  = process.env.NODE_ENV === 'production' ? config.database.production : config.database.local;
+var sequelize = new Sequelize(dbConfig.string, {
   dialect: 'postgres',
   native: true
 });
