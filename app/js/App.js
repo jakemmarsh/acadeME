@@ -6,7 +6,8 @@
 var React              = require('react/addons');
 var Reflux             = require('reflux');
 var Navigation         = require('react-router').Navigation;
-var ActiveState        = require('react-router').ActiveState;
+var State              = require('react-router').State;
+var RouteHandler       = React.createFactory(require('react-router').RouteHandler);
 
 var UserActions        = require('./actions/UserActions');
 var CurrentUserStore   = require('./stores/CurrentUserStore');
@@ -17,7 +18,7 @@ var Footer             = require('./components/Footer');
 
 var App = React.createClass({
 
-  mixins: [Navigation, ActiveState, Reflux.ListenerMixin],
+  mixins: [Navigation, State, Reflux.ListenerMixin],
 
   getInitialState: function() {
     return {
@@ -63,8 +64,8 @@ var App = React.createClass({
         <div className="body-container">
           <Sidebar course={this.state.currentCourse} />
           <div className="content-container">
-            <this.props.activeRouteHandler currentUser={this.state.currentUser}
-                                           course={this.state.currentCourse} />
+            <RouteHandler currentUser={this.state.currentUser}
+                          course={this.state.currentCourse} />
           </div>
         </div>
 

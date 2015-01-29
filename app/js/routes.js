@@ -3,7 +3,6 @@
  */
 'use strict';
 
-var Routes            = require('react-router').Routes;
 var Route             = require('react-router').Route;
 var DefaultRoute      = require('react-router').DefaultRoute;
 var NotFoundRoute     = require('react-router').NotFoundRoute;
@@ -27,28 +26,26 @@ var CreateLesson      = require('./pages/Course/CreateLesson');
 var NotFoundPage      = require('./pages/NotFoundPage');
 
 module.exports = (
-  <Routes location='history'>
+  <Route path='/' handler={App}>
 
-    <Route path='/' handler={App}>
-      <DefaultRoute handler={HomePage} />
+    <DefaultRoute handler={HomePage} />
 
-      <Route name='Home' path='/' handler={HomePage} />
+    <Route name='Home' path='/' handler={HomePage} />
 
-      <Route name='Explore' path='/explore' handler={ExplorePage} />
+    <Route name='Explore' path='/explore' handler={ExplorePage} />
 
-      <Route name='CreateCourse' path='/create' handler={CreateCoursePage} />
+    <Route name='CreateCourse' path='/create' handler={CreateCoursePage} />
 
-      <Route name='Course' path='/course/:courseId' handler={CoursePage}>
-        <DefaultRoute handler={CourseLessonList} />
-        <Route name='CourseLesson' path='/course/:courseId/lesson/:lessonId' handler={CourseLesson} />
-        <Route name='LessonQuiz' path='/course/:courseId/lesson/:lessonId/quiz' handler={LessonQuiz} />
-        <Route name='CourseSearch' path='/course/:courseId/search' handler={CourseSearch} />
-        <Route name='CourseChat' path='/course/:courseId/chat' handler={CourseChat} />
-        <Route name='CreateLesson' path='/course/:courseId/create' handler={CreateLesson} />
-      </Route>
-
-      <NotFoundRoute handler={NotFoundPage} />
+    <Route name='Course' path='/course/:courseId' handler={CoursePage}>
+      <DefaultRoute handler={CourseLessonList} />
+      <Route name='CourseLesson' path='/course/:courseId/lesson/:lessonId' handler={CourseLesson} />
+      <Route name='LessonQuiz' path='/course/:courseId/lesson/:lessonId/quiz' handler={LessonQuiz} />
+      <Route name='CourseSearch' path='/course/:courseId/search' handler={CourseSearch} />
+      <Route name='CourseChat' path='/course/:courseId/chat' handler={CourseChat} />
+      <Route name='CreateLesson' path='/course/:courseId/create' handler={CreateLesson} />
     </Route>
 
-  </Routes>
+    <NotFoundRoute handler={NotFoundPage} />
+
+  </Route>
 );
