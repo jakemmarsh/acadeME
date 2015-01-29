@@ -62,7 +62,12 @@ exports.getConversation = function(req, res) {
       include: [
         {
           model: models.Message,
-          include: [models.MessageMedia]
+          include: [
+            {
+              model: models.MessageMedia,
+              as: 'Media'
+            }
+          ]
         }
       ]
     }).then(function(conversation) {

@@ -42,24 +42,18 @@ var Chat = React.createClass({
 
   _onRecipientsChange: function(err, recipients) {
     if ( err ) {
-      this.setState({ error: err });
+      this.setState({ error: err.message });
     } else {
-      this.setState({
-        error: null,
-        recipients: recipients
-      });
+      this.setState({ error: null, recipients: recipients });
     }
   },
 
   _onConversationChange: function(err, conversation) {
     if ( err ) {
-      this.setState({ error: err });
+      this.setState({ error: err.message });
     } else {
       console.log('new conversation:', conversation);
-      this.setState({
-        error: null,
-        conversation: conversation
-      });
+      this.setState({ error: null, conversation: conversation || {} });
     }
   },
 

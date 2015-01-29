@@ -17,7 +17,7 @@ var ChatAPI = {
       userTwo: sortedIds[1]
     });
 
-    return APIUtils.get('chat/'+ courseId + 'conversation?' + params);
+    return APIUtils.get('chat/'+ courseId + '/conversation?' + params);
   }
 
 };

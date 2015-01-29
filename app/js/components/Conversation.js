@@ -39,10 +39,13 @@ var Conversation = React.createClass({
   },
 
   componentDidUpdate: function() {
+    var $messagesContainer;
+    var $lastChild;
+    var lastChildBottom;
     if ( this.props.conversation.messages || this.props.newMessages.length ) {
-      var $messagesContainer = $(this.refs.messages.getDOMNode());
-      var $lastChild = $messagesContainer.children('li').last();
-      var lastChildBottom = ($lastChild && $lastChild.position()) ? $lastChild.position().top + $lastChild.outerHeight(true) : 0;
+      $messagesContainer = $(this.refs.messages.getDOMNode());
+      $lastChild = $messagesContainer.children('li').last();
+      lastChildBottom = ($lastChild && $lastChild.position()) ? $lastChild.position().top + $lastChild.outerHeight(true) : 0;
 
       // Keep messages container scrolled to bottom of newest message as new messages are sent
       $messagesContainer.scrollTop(lastChildBottom);
@@ -77,7 +80,9 @@ var Conversation = React.createClass({
     var messageUser;
 
     if ( !_.isEmpty(messages) ) {
-      elements = _.map(messages, function(message, index) {
+      elements = _.chain(messages)
+      .sortBy(function(message) { return message.createdAt; })
+      .map(function(message, index) {
         classes = 'message' + (this.userDidSend(message) ? ' user-sent' : '');
         messageUser = this.userDidSend(message) ? this.props.currentUser : message.user;
 

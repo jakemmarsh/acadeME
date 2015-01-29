@@ -27,6 +27,7 @@ var CurrentConversationStore = Reflux.createStore({
       }.bind(this)).catch(function(err) {
         this.conversation = null;
         cb(err);
+        this.trigger(err);
         console.log('error getting conversation:', err);
       }.bind(this));
     }

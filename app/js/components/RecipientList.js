@@ -60,7 +60,7 @@ var RecipientList = React.createClass({
             <UserAvatar user={this.props.course.instructor} />
           </div>
           <div className="name-container">
-            {this.props.course.instructor.name}
+            {this.props.course.instructor.fullName}
           </div>
         </li>
       );
@@ -94,7 +94,7 @@ var RecipientList = React.createClass({
             <UserAvatar user={recipient} />
           </div>
           <div className="name-container">
-            {recipient.name}
+            {recipient.fullName}
           </div>
         </li>
       );

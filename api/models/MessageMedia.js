@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
   {
     classMethods: {
       associate: function(models) {
-        MessageMedia.belongsTo(models.Message, { as: 'Media' });
+        MessageMedia.belongsTo(models.Message);
       }
     }
   });
