@@ -38,7 +38,7 @@ var Header = React.createClass({
   renderCreateCourseButton: function() {
     var element = null;
 
-    if ( this.props.currentUser.type === 'instructor' ) {
+    if ( !_.isEmpty(this.props.currentUser) && this.props.currentUser.type === 'instructor' ) {
       element = (
         <Link to="CreateCourse" className="create-course-button">
           <i className="fa fa-plus" />
@@ -66,7 +66,7 @@ var Header = React.createClass({
       // TODO: add user avatar next to current user's name
       element = (
         <div className={dropdownContainerClasses} onClick={this.toggleUserDropdown}>
-          {this.props.currentUser.name}
+          {this.props.currentUser.fullName}
           <i className="fa fa-caret-down" />
           {this.renderDropdown()}
         </div>
@@ -84,7 +84,7 @@ var Header = React.createClass({
         <ul>
           <li>
             <i className="fa fa-sign-out" /> Logout
-            <a onClick={UserActions.logout} />
+            <a onClick={UserActions.logout.bind(null, null)} />
           </li>
         </ul>
       );

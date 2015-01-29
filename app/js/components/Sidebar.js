@@ -36,7 +36,7 @@ var Sidebar = React.createClass({
 
     if ( !_.isEmpty(this.props.course) ) {
       courseTitle = this.props.course.title || '';
-      instructorName = this.props.course.instructor ? this.props.course.instructor.name : '';
+      instructorName = this.props.course.instructor ? this.props.course.instructor.fullName : '';
       element = (
         <div className="course-info-container" key={this.props.course.title}>
             <div className="title-container">

@@ -28,18 +28,19 @@ var App = React.createClass({
   },
 
   _onUserChange: function(err, user) {
+    console.log('new user:', user);
     if ( err ) {
-      // handle error
+      this.setState({ error: err.message });
     } else {
-      this.setState({ currentUser: user });
+      this.setState({ currentUser: user || {}, error: null });
     }
   },
 
   _onCourseChange: function(err, course) {
     if ( err ) {
-      // TODO: handle error
+      this.setState({ error: err.message });
     } else if ( !err ) {
-      this.setState({ currentCourse: course });
+      this.setState({ currentCourse: course, error: null });
     }
   },
 
