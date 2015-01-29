@@ -1,19 +1,86 @@
 'use strict';
 
-var humps = require('humps');
+var humps             = require('humps');
+var request           = require('superagent');
+var when              = require('when');
+var normalizeResponse = function(response) {
+  return humps.camelizeKeys(response.body);
+};
 
 var APIUtils = {
 
-  API_ROOT: '/api/',
+  root: '/api/',
 
-  getStreamUrl: function(track) {
-    var streamUrl = this.API_ROOT + 'stream/' + track.source + '/' + encodeURIComponent(track.sourceParam);
+  get: function(path) {
+    var deferred = when.defer();
 
-    return streamUrl;
+    request.get(this.root + path).end(function(res) {
+      if ( !res.ok ) {
+        deferred.reject(normalizeResponse(res));
+      } else {
+        deferred.resolve(normalizeResponse(res));
+      }
+    });
+
+    return deferred.promise;
   },
 
-  normalizeResponse: function(response) {
-    return humps.camelizeKeys(response.body);
+  post: function(path, body) {
+    var deferred = when.defer();
+
+    request.post(this.root + path, body).end(function(res) {
+      if ( !res.ok ) {
+        deferred.reject(normalizeResponse(res));
+      } else {
+        deferred.resolve(normalizeResponse(res));
+      }
+    });
+
+    return deferred.promise;
+  },
+
+  put: function(path, body) {
+    var deferred = when.defer();
+
+    request.put(this.root + path, body).end(function(res) {
+      if ( !res.ok ) {
+        deferred.reject(normalizeResponse(res));
+      } else {
+        deferred.resolve(normalizeResponse(res));
+      }
+    });
+
+    return deferred.promise;
+  },
+
+  del: function(path) {
+    var deferred = when.defer();
+
+    request.del(this.root + path).end(function(res) {
+      if ( !res.ok ) {
+        deferred.reject(normalizeResponse(res));
+      } else {
+        deferred.resolve(normalizeResponse(res));
+      }
+    });
+
+    return deferred.promise;
+  },
+
+  uploadImage: function(path, image) {
+    var deferred = when.defer();
+
+    request.post(path)
+    .attach('image', image)
+    .end(function(res){
+      if ( !res.ok ) {
+        deferred.reject(normalizeResponse(res));
+      } else {
+        deferred.resolve(APIUtils.normalizeResponse(res));
+      }
+    });
+
+    return deferred.promise;
   }
 
 };

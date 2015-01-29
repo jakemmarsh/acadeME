@@ -1,94 +1,31 @@
 'use strict';
 
-var when     = require('when');
-var request  = require('superagent');
-
 var APIUtils = require('./APIUtils');
 
 var CourseAPI = {
 
   get: function(id) {
-    var deferred = when.defer();
-
-    request.get(APIUtils.API_ROOT + 'course/' + id).end(function(res) {
-      if ( !res.ok ) {
-        deferred.reject(JSON.parse(res.text));
-      } else {
-        deferred.resolve(APIUtils.normalizeResponse(res));
-      }
-    });
-
-    return deferred.promise;
+    return APIUtils.get('course/' + id);
   },
 
   getAll: function() {
-    var deferred = when.defer();
-
-    request.get(APIUtils.API_ROOT + 'course').end(function(res) {
-      if ( !res.ok ) {
-        deferred.reject(JSON.parse(res.text));
-      } else {
-        deferred.resolve(APIUtils.normalizeResponse(res));
-      }
-    });
-
-    return deferred.promise;
+    return APIUtils.get('course');
   },
 
   create: function(course) {
-    var deferred = when.defer();
-
-    request.post(APIUtils.API_ROOT + 'course', course).end(function(res) {
-      if ( !res.ok ) {
-        deferred.reject(JSON.parse(res.text));
-      } else {
-        deferred.resolve(APIUtils.normalizeResponse(res));
-      }
-    });
-
-    return deferred.promise;
+    return APIUtils.post('course', course);
   },
 
   createLesson: function(courseId, lesson) {
-    var deferred = when.defer();
-
-    request.post(APIUtils.API_ROOT + 'course/' + courseId + '/lesson', lesson).end(function(res) {
-      if ( !res.ok ) {
-        deferred.reject(JSON.parse(res.text));
-      } else {
-        deferred.resolve(APIUtils.normalizeResponse(res));
-      }
-    });
-
-    return deferred.promise;
+    return APIUtils.post('course/' + courseId + '/lesson', lesson);
   },
 
   search: function(id, query) {
-    var deferred = when.defer();
-
-    request.get(APIUtils.API_ROOT + 'course/' + id + '/search/' + query).end(function(res) {
-      if ( !res.ok ) {
-        deferred.reject(JSON.parse(res.text));
-      } else {
-        deferred.resolve(APIUtils.normalizeResponse(res));
-      }
-    });
-
-    return deferred.promise;
+    return APIUtils.get('course/'+ id + '/search/' + query);
   },
 
   delete: function(id) {
-    var deferred = when.defer();
-
-    request.delete(APIUtils.API_ROOT + 'course/' + id).end(function(res) {
-      if ( !res.ok ) {
-        deferred.reject(JSON.parse(res.text));
-      } else {
-        deferred.resolve(APIUtils.normalizeResponse(res));
-      }
-    });
-
-    return deferred.promise;
+    return APIUtils.del('course/' + id);
   }
 
 };
