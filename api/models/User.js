@@ -6,7 +6,8 @@ module.exports = function(sequelize, DataTypes) {
 
   var User = sequelize.define('User', {
     username:         { type: DataTypes.STRING, unique: true, allowNull: false },
-    name:             { type: DataTypes.STRING },
+    firstName:        { type: DataTypes.STRING, allowNull: false },
+    lastName:         { type: DataTypes.STRING, allowNull: false },
     email: {
       type: DataTypes.STRING,
       unique: true,
@@ -21,16 +22,21 @@ module.exports = function(sequelize, DataTypes) {
     passwordResetKey: { type: DataTypes.STRING },
   },
   {
+    getterMethods: {
+      fullName: function() {
+        return this.getDataValue('firstName') + ' ' + this.getDataValue('lastName');
+      }
+    },
     hooks: {
       beforeValidate: function(user, model, cb) {
-        if ( user.password ) {
-          bcrypt.hash(user.password, 10, function(err, hash) {
+        if ( user.hash ) {
+          bcrypt.hash(user.hash, 10, function(err, hash) {
             if ( err ) { throw err; }
             user.setDataValue('hash', hash);
             cb(null, user);
           });
         } else {
-          cb(null, user);
+          cb('Unable to hash user\'s password.');
         }
       }
     },
@@ -43,9 +49,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     instanceMethods: {
       toJSON: function() {
-        // Delete hash from object before sending to frontend
+        // Delete private values from object before sending to client
         var res = this.values;
         delete res.hash;
+        delete res.activationKey;
+        delete res.passwordResetKey;
         return res;
       },
       verifyPassword: function(password, cb) {

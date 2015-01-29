@@ -6,11 +6,15 @@ var compression    = require('compression');
 var methodOverride = require('method-override');
 var bodyParser     = require('body-parser');
 var busboy         = require('connect-busboy');
+var session        = require('express-session');
+var passport       = require('passport');
 var models         = require('./api/models');
 var api            = require('./api');
 var app            = express();
 var server         = app.listen(process.env.PORT || 3000);
 var populateDb     = require('./populateDb');
+var config         = require('./config');
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 /* ====================================================== */
 
@@ -23,6 +27,17 @@ app.use(bodyParser.urlencoded({
 }));                        // Parses urlencoded req.body, including extended syntax
 app.use(busboy());          // Parse multipart/form-data
 app.set('json spaces', 0);  // Remove superfluous spaces from JSON responses
+app.use(session({
+  secret: config.secret,
+  cookie: {
+    maxAge: 1000*60*30 // only 30 minutes until user logs in
+  },
+  store: new SequelizeStore({ db: models.sequelize }),
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 /* ====================================================== */
 

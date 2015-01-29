@@ -21,17 +21,19 @@ exports.isAuthenticated = function(req, res, next) {
 
 exports.login = function(req, res, next) {
 
-  passport.authenticate('local', function(err, user) {
+  console.log('in login endpoint');
+
+  passport.authenticate('local', function(err, user, info) {
     if ( err ) {
       return next(err);
     } else if ( _.isEmpty(user) ) {
-      return res.status(401).json({ error: 'Authentication failed.' });
+      return res.status(401).json({ status: 401, message: info.message || 'Authentication failed.' });
     } else {
       req.login(user, function(err) {
         if ( err ) {
           return next(err);
         } else {
-          req.session.cookie.maxAge = 1000*60*60*24*7; // seven days
+          req.session.cookie.maxAge = 1000*60*60*24*7*4; // four weeks
           return res.status(200).json(user);
         }
       });

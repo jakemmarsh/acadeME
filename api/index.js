@@ -2,15 +2,20 @@
 
 module.exports = function(server) {
 
-  var path    = require('path');
-  var express = require('express');
-  var api     = express();
-  var routes  = require(path.join(__dirname, 'routes'));
-  var queue   = require('./queue')();
+  var path          = require('path');
+  var express       = require('express');
+  var api           = express();
+  var routes        = require(path.join(__dirname, 'routes'));
+  var queue         = require('./queue')();
+  var setupPassport = require('./passport');
 
   /* ====================================================== */
 
   require('./sockets')(server, queue);
+
+  /* ====================================================== */
+
+  setupPassport();
 
   /* ====================================================== */
 

@@ -22,7 +22,7 @@ module.exports = function() {
           }
         });
       } else {
-        return done(null, false, { message: 'User could not be found at that username.' });
+        return done(null, false, { message: 'No user could be found with that username.' });
       }
     }).catch(function(err) {
       return done(err);

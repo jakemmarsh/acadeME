@@ -10,8 +10,10 @@ module.exports = function(models) {
   var createInstructorUser = function() {
     var deferred = when.defer();
     var user = {
-      username: 'jdoe',
-      name: 'John Doe',
+      username: 'test',
+      hash: 'test',
+      firstName: 'John',
+      lastName: 'Doe',
       imageUrl: 'http://themes.mysitemyway.com/_shared/images/content/john_doe.jpg'
     };
 
@@ -74,12 +76,16 @@ module.exports = function(models) {
     var usersToCreate = [
       {
         username: 'sjobs',
-        name: 'Steve Jobs',
+        hash: 'test',
+        firstName: 'Steve',
+        lastName: 'Jobs',
         imageUrl: 'http://a5.files.biography.com/image/upload/c_fill,dpr_1.0,g_face,h_300,q_80,w_300/MTE5NDg0MDU0NTIzODQwMDE1.jpg'
       },
       {
         username: 'bgates',
-        name: 'Bill Gates',
+        hash: 'test',
+        firstName: 'Bill',
+        lastName: 'Gates',
         imageUrl: 'http://timedotcom.files.wordpress.com/2014/01/bill-gates.jpg?w=1100'
       }
     ];
@@ -113,7 +119,9 @@ module.exports = function(models) {
     var deferred = when.defer();
     var user = {
       username: 'jakemmarsh',
-      name: 'Jake Marsh',
+      hash: 'test',
+      firstName: 'Jake',
+      lastName: 'Marsh',
       type: 'instructor',
       imageUrl: 'https://scontent-b-lga.xx.fbcdn.net/hphotos-xpf1/t31.0-8/1796992_10151957242618173_179336983_o.jpg'
     };
