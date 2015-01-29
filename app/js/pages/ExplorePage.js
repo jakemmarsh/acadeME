@@ -17,7 +17,7 @@ var ExplorePage = React.createClass({
   mixins: [Reflux.ListenerMixin],
 
   propTypes: {
-    currentUser: React.PropTypes.object.isRequired
+    currentUser: React.PropTypes.object
   },
 
   getInitialState: function() {
