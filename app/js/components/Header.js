@@ -3,12 +3,17 @@
  */
 'use strict';
 
-var React      = require('react/addons');
-var Link       = React.createFactory(require('react-router').Link);
+var React           = require('react/addons');
+var _               = require('lodash');
+var Link            = React.createFactory(require('react-router').Link);
 
-var UserAvatar = require('./UserAvatar');
+var LoginModalMixin = require('../mixins/LoginModalMixin');
+var UserAvatar      = require('./UserAvatar');
+var UserActions     = require('../actions/UserActions');
 
 var Header = React.createClass({
+
+  mixins: [LoginModalMixin],
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired
@@ -44,7 +49,34 @@ var Header = React.createClass({
     return element;
   },
 
-  renderUserDropdown: function() {
+  renderUserOptions: function() {
+    var element = null;
+    var dropdownContainerClasses = React.addons.classSet({
+      'dropdown-container': true,
+      'open': this.state.shouldDisplayDropdown
+    });
+
+    if ( _.isEmpty(this.props.currentUser) ) {
+      element = (
+        <div>
+          <a onClick={this.toggleLoginModal}>Sign in</a>
+        </div>
+      );
+    } else {
+      // TODO: add user avatar next to current user's name
+      element = (
+        <div className={dropdownContainerClasses} onClick={this.toggleUserDropdown}>
+          {this.props.currentUser.name}
+          <i className="fa fa-caret-down" />
+          {this.renderDropdown()}
+        </div>
+      );
+    }
+
+    return element;
+  },
+
+  renderDropdown: function() {
     var element = null;
 
     if ( this.state.shouldDisplayDropdown ) {
@@ -52,7 +84,7 @@ var Header = React.createClass({
         <ul>
           <li>
             <i className="fa fa-sign-out" /> Logout
-            <Link to="Explore" />
+            <a onClick={UserActions.logout} />
           </li>
         </ul>
       );
@@ -62,12 +94,6 @@ var Header = React.createClass({
   },
 
   render: function() {
-    var dropdownContainerClasses = React.addons.classSet({
-      'dropdown-container': true,
-      'open': this.state.shouldDisplayDropdown
-    });
-
-    // TODO: add user avatar next to current user's name
     return (
       <header>
 
@@ -80,11 +106,7 @@ var Header = React.createClass({
         </div>
 
         <div className="right-container">
-          <div className={dropdownContainerClasses} onClick={this.toggleUserDropdown}>
-            {this.props.currentUser.name}
-            <i className="fa fa-caret-down" />
-            {this.renderUserDropdown()}
-          </div>
+          {this.renderUserOptions()}
         </div>
 
         <div className="shadow" />
