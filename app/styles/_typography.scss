@@ -78,6 +78,7 @@ a {
   top: 0;
   text-decoration: none;
   color: $teal;
+  cursor: pointer;
 
   @include transition(color 0.1s ease-in-out);
 

@@ -3,13 +3,13 @@
  */
 'use strict';
 
-var React       = require('react/addons');
-var ActiveState = require('react-router').ActiveState;
-var Link        = React.createFactory(require('react-router').Link);
+var React = require('react/addons');
+var State = require('react-router').State;
+var Link  = React.createFactory(require('react-router').Link);
 
 var ListLink = React.createClass({
 
-  mixins: [ActiveState],
+  mixins: [State],
 
   render: function() {
     var isActive = this.isActive(this.props.to, this.props.params, this.props.query);
