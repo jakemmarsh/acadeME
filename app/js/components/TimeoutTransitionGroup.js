@@ -24,7 +24,7 @@ var $ = require('jquery');
 
 var React = require('react/addons');
 
-var ReactTransitionGroup = React.addons.TransitionGroup;
+var ReactTransitionGroup = React.createFactory(React.addons.TransitionGroup);
 
 var TICK = 17;
 

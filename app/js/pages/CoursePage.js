@@ -5,6 +5,7 @@
 
 var React         = require('react');
 var _             = require('lodash');
+var RouteHandler  = React.createFactory(require('react-router').RouteHandler);
 
 var DocumentTitle = require('../components/DocumentTitle');
 var CourseActions = require('../actions/CourseActions');
@@ -19,6 +20,7 @@ var CoursePage = React.createClass({
 
   getDefaultProps: function() {
     return {
+      currentUser: {},
       course: {}
     };
   },
@@ -41,9 +43,11 @@ var CoursePage = React.createClass({
 
         <TopMenu currentUser={this.props.currentUser} course={this.props.course} query={this.props.query.q} />
 
-        <this.props.activeRouteHandler currentUser={this.props.currentUser}
-                                       updatePageTitle={this.props.updatePageTitle}
-                                       course={this.props.course} />
+        <RouteHandler params={this.props.params}
+                      query={this.props.query}
+                      currentUser={this.props.currentUser}
+                      updatePageTitle={this.props.updatePageTitle}
+                      course={this.props.course} />
 
       </section>
     );

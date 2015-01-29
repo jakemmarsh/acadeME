@@ -64,7 +64,9 @@ var App = React.createClass({
         <div className="body-container">
           <Sidebar course={this.state.currentCourse} />
           <div className="content-container">
-            <RouteHandler currentUser={this.state.currentUser}
+            <RouteHandler params={this.props.params}
+                          query={this.props.query}
+                          currentUser={this.state.currentUser}
                           course={this.state.currentCourse} />
           </div>
         </div>
