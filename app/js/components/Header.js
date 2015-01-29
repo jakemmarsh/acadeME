@@ -102,7 +102,7 @@ var Header = React.createClass({
         </div>
 
         <div className="logo-container">
-          <img className="logo" src="../images/logo.png" alt="acadeME logo" />
+          <Link to="Home"><img className="logo" src="../images/logo.png" alt="acadeME logo" /></Link>
         </div>
 
         <div className="right-container">

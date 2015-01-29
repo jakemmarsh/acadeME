@@ -3,27 +3,24 @@
  */
 'use strict';
 
-var Route             = require('react-router').Route;
-var DefaultRoute      = require('react-router').DefaultRoute;
-var NotFoundRoute     = require('react-router').NotFoundRoute;
+var Route            = require('react-router').Route;
+var DefaultRoute     = require('react-router').DefaultRoute;
+var NotFoundRoute    = require('react-router').NotFoundRoute;
 
-var App               = require('./App');
+var App              = require('./App');
 
-var HomePage          = require('./pages/HomePage');
-
-var ExplorePage       = require('./pages/ExplorePage');
-
-var CreateCoursePage  = require('./pages/CreateCoursePage');
-
-var CoursePage        = require('./pages/CoursePage');
-var CourseLessonList  = require('./pages/Course/LessonList');
-var CourseLesson      = require('./pages/Course/Lesson');
-var LessonQuiz        = require('./pages/Course/Quiz');
-var CourseSearch      = require('./pages/Course/Search');
-var CourseChat        = require('./pages/Course/Chat');
-var CreateLesson      = require('./pages/Course/CreateLesson');
-
-var NotFoundPage      = require('./pages/NotFoundPage');
+var HomePage         = require('./pages/HomePage');
+var RegisterPage     = require('./pages/RegisterPage');
+var ExplorePage      = require('./pages/ExplorePage');
+var CreateCoursePage = require('./pages/CreateCoursePage');
+var CoursePage       = require('./pages/CoursePage');
+var CourseLessonList = require('./pages/Course/LessonList');
+var CourseLesson     = require('./pages/Course/Lesson');
+var LessonQuiz       = require('./pages/Course/Quiz');
+var CourseSearch     = require('./pages/Course/Search');
+var CourseChat       = require('./pages/Course/Chat');
+var CreateLesson     = require('./pages/Course/CreateLesson');
+var NotFoundPage     = require('./pages/NotFoundPage');
 
 module.exports = (
   <Route path='/' handler={App}>
@@ -31,6 +28,8 @@ module.exports = (
     <DefaultRoute handler={HomePage} />
 
     <Route name='Home' path='/' handler={HomePage} />
+
+    <Route name='Register' path='/register' handler={RegisterPage} />
 
     <Route name='Explore' path='/explore' handler={ExplorePage} />
 

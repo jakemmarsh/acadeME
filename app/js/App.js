@@ -56,6 +56,22 @@ var App = React.createClass({
     this.listenTo(CurrentCourseStore, this._onCourseChange);
   },
 
+  isInnerPage: function() {
+    return !this.isActive('Register');
+  },
+
+  renderSidebar: function() {
+    var element = null;
+
+    if ( this.isInnerPage() ) {
+      element = (
+        <Sidebar course={this.state.currentCourse} />
+      );
+    }
+
+    return element;
+  },
+
   render: function() {
     return (
       <div>
@@ -63,7 +79,7 @@ var App = React.createClass({
         <Header currentUser={this.state.currentUser} />
 
         <div className="body-container">
-          <Sidebar course={this.state.currentCourse} />
+          {this.renderSidebar()}
           <div className="content-container">
             <RouteHandler params={this.props.params}
                           query={this.props.query}
