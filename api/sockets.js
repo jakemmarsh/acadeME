@@ -41,7 +41,8 @@ module.exports = function(server, queue) {
 
     socket.on('sendMessage', function(data, cb) {
       var message = {
-        body: data.body || data.Body,
+        body: data.body || data.Body || '',
+        attachment: data.attachment || data.Attachment,
         ConversationId: data.conversationId || data.ConversationId,
         UserId: data.userId || data.UserId
       };

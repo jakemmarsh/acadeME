@@ -96,17 +96,66 @@
     }
   }
 
-  input.message-input {
+  .input-container {
     position: absolute;
     bottom: $half-space;
     left: $half-space;
-    display: block;
     width: calc(100% - #{$half-space*2});
     height: 40px;
-    padding: $half-space $half-space/2;
 
-    font-size: 16px;
-    font-family: $serif-family;
+    input.message-input {
+      display: block;
+      width: 100%;
+      height: 40px;
+      padding: $half-space $half-space/2;
+
+      font-size: 16px;
+      font-family: $serif-family;
+    }
+
+    span.file-name {
+      position: absolute;
+      top: 12px;
+      right: $half-space/2 + 40px;
+      color: $text-grey;
+      opacity: 0.5;
+      filter: alpha(opacity = 0.5);
+    }
+
+    label.file-button {
+      position: absolute;
+      top: 0;
+      right: $half-space/2;
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+      text-align: center;
+
+      i {
+        position: relative;
+        top: 9px;
+        font-size: 25px;
+        color: $text-grey;
+        opacity: 0.5;
+        filter: alpha(opacity = 0.5);
+      }
+
+      input#message-attachment {
+        z-index: 999;
+        position: absolute;
+        top: -2px;
+        left: -700px;
+        margin: 0;
+        padding: 0;
+        line-height: 0;
+        font-size: 50px;
+        opacity: 0;
+        filter: alpha(opacity = 0);
+        -ms-filter: "alpha(opacity=0)";
+        cursor: pointer;
+        _cursor: hand;
+      }
+    }
   }
 
 }

@@ -9,6 +9,7 @@ var FileInput = React.createClass({
 
   propTypes: {
     processFile: React.PropTypes.func.isRequired,
+    className: React.PropTypes.string,
     id: React.PropTypes.string,
     accept: React.PropTypes.string
   },

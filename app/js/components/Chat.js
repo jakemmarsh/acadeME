@@ -8,8 +8,8 @@ var Reflux                   = require('reflux');
 var _                        = require('lodash');
 
 var ChatSocketMixin          = require('../mixins/ChatSocketMixin');
+var CurrentConversationStore = require('../stores/CurrentConversationStore'); // Required since not loaded anywhere else
 var CourseRecipientsStore    = require('../stores/CourseRecipientsStore');
-var CurrentConversationStore = require('../stores/CurrentConversationStore');
 var CourseActions            = require('../actions/CourseActions');
 var ChatActions              = require('../actions/ChatActions');
 var RecipientList            = require('./RecipientList');

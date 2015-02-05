@@ -67,16 +67,16 @@ var APIUtils = {
     return deferred.promise;
   },
 
-  uploadImage: function(path, image) {
+  uploadFile: function(path, file) {
     var deferred = when.defer();
 
-    request.post(path)
-    .attach('image', image)
+    request.post(this.root + path)
+    .attach('file', file)
     .end(function(res){
       if ( !res.ok ) {
         deferred.reject(normalizeResponse(res));
       } else {
-        deferred.resolve(APIUtils.normalizeResponse(res));
+        deferred.resolve(normalizeResponse(res));
       }
     });
 

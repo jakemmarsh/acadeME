@@ -34,7 +34,8 @@ exports.saveMessage = function(message) {
   var deferred = when.defer();
 
   message = {
-    body: message.body || message.Body,
+    body: message.body || message.Body || '',
+    attachment: message.attachment || message.Attachment,
     ConversationId: message.conversationId || message.ConversationId,
     UserId: message.userId || message.UserId
   };

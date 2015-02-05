@@ -3,11 +3,14 @@
  */
 'use strict';
 
-var React      = require('react/addons');
-var _          = require('lodash');
-var $          = require('jquery');
+var React     = require('react/addons');
+var _         = require('lodash');
+var $         = require('jquery');
+var when      = require('when');
 
-var UserAvatar = require('./UserAvatar');
+var ChatAPI   = require('../utils/ChatAPI');
+var Message   = require('./Message');
+var FileInput = require('./FileInput');
 
 var Conversation = React.createClass({
 
@@ -34,7 +37,8 @@ var Conversation = React.createClass({
 
   getInitialState: function() {
     return {
-      newMessage: ''
+      newMessage: '',
+      attachment: null
     };
   },
 
@@ -52,16 +56,6 @@ var Conversation = React.createClass({
     }
   },
 
-  submitOnEnter: function(evt) {
-    var keyCode = evt.keyCode || evt.which;
-
-    if ( keyCode === '13' || keyCode === 13 ) {
-      this.props.sendMessage(this.state.newMessage, this.props.conversation, this.props.currentUser, function() {
-        this.setState({ newMessage: '' });
-      }.bind(this));
-    }
-  },
-
   getMessageUser: function(message) {
     if ( message.userId === this.props.currentUser.id ) {
       return this.props.currentUser;
@@ -74,27 +68,88 @@ var Conversation = React.createClass({
     return message.userId === this.props.currentUser.id;
   },
 
+  updateAttachment: function(file) {
+    this.setState({ attachment: file });
+  },
+
+  uploadAttachment: function() {
+    var deferred = when.defer();
+
+    if ( this.state.attachment ) {
+      ChatAPI.uploadAttachment(
+        this.props.conversation.id,
+        this.props.currentUser.id,
+        this.state.attachment
+      ).then(function(resp) {
+        deferred.resolve(resp.fileUrl);
+      }).catch(function(err) {
+        deferred.reject(err);
+      });
+    } else {
+      deferred.resolve(null);
+    }
+
+    return deferred.promise;
+  },
+
+  sendMessage: function(attachmentUrl) {
+    var deferred = when.defer();
+    var attachment = null;
+
+    if ( attachmentUrl ) {
+      attachment = {
+        name: this.state.attachment.name,
+        url: attachmentUrl
+      };
+    }
+
+    this.props.sendMessage(
+      this.state.newMessage || '',
+      this.props.conversation.id,
+      this.props.currentUser.id,
+      attachment,
+      deferred.resolve
+    );
+
+    return deferred.promise;
+  },
+
+  submitOnEnter: function(evt) {
+    var keyCode = evt.keyCode || evt.which;
+
+    if ( keyCode === '13' || keyCode === 13 ) {
+      this.uploadAttachment().then(this.sendMessage).then(function() {
+        this.setState({ newMessage: '', attachment: null });
+      }.bind(this)).catch(function(err) {
+        this.setState({ error: err.message });
+      }.bind(this));
+    }
+  },
+
+  renderMessageAttachment: function(message) {
+    var element = null;
+
+    if ( message.attachment ) {
+      return (
+        <div><a href={message.attachment.url}>{message.attachment.name}</a></div>
+      );
+    }
+
+    return element;
+  },
+
   renderMessages: function(messages) {
     var elements = null;
-    var classes;
-    var messageUser;
 
     if ( !_.isEmpty(messages) ) {
       elements = _.chain(messages)
       .sortBy(function(message) { return message.createdAt; })
       .map(function(message, index) {
-        classes = 'message' + (this.userDidSend(message) ? ' user-sent' : '');
-        messageUser = this.userDidSend(message) ? this.props.currentUser : message.user;
-
         return (
-          <li key={index} className={classes}>
-            <div className="user-container">
-              <UserAvatar user={this.getMessageUser(message)} />
-            </div>
-            <div className="body-container">
-              <div className="body">{message.body}</div>
-            </div>
-          </li>
+          <Message currentUser={this.props.currentUser}
+                   currentRecipient={this.props.currentRecipient}
+                   message={message}
+                   key={index} />
         );
       }.bind(this));
     }
@@ -119,12 +174,23 @@ var Conversation = React.createClass({
 
     if ( !_.isEmpty(this.props.conversation) ) {
       element = (
-        <input type="text"
-               id="new-message"
-               className="message-input"
-               placeholder="Send a message..."
-               valueLink={this.linkState('newMessage')}
-               onKeyPress={this.submitOnEnter}  />
+        <div className="input-container">
+          <input type="text"
+                 id="new-message"
+                 className="message-input"
+                 placeholder="Send a message..."
+                 valueLink={this.linkState('newMessage')}
+                 onKeyPress={this.submitOnEnter}  />
+          <span className="file-name">{this.state.attachment ? this.state.attachment.name : ''}</span>
+          <label className="file-button">
+            <i className="fa fa-paperclip" />
+            <span>
+              <FileInput id="message-attachment"
+                         accept="image/x-png, image/gif, image/jpeg, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.ms-excel, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                         processFile={this.updateAttachment} />
+            </span>
+          </label>
+        </div>
       );
     }
 

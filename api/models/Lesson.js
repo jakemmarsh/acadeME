@@ -9,17 +9,17 @@ module.exports = function(sequelize, DataTypes) {
     imageUrl:     { type: DataTypes.STRING }
   },
   {
+    setterMethods: {
+      bodyElements: function(value) {
+        return this.setDataValue('bodyElements', JSON.stringify(value));
+      }
+    },
     getterMethods: {
       bodyElements: function() {
         if ( this.getDataValue('bodyElements') ) {
           return JSON.parse(this.getDataValue('bodyElements'));
         }
         return null;
-      }
-    },
-    setterMethods: {
-      bodyElements: function(value) {
-        return this.setDataValue('bodyElements', JSON.stringify(value));
       }
     },
     classMethods: {

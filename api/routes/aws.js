@@ -24,17 +24,24 @@ function uploadToAWS(file, type, entityId) {
   var deferred = when.defer();
   var datePrefix = moment().format('YYYY[/]MM');
   var key = crypto.randomBytes(10).toString('hex');
-  var hash = key + '-' + entityId;
-  var path = '/' + type + '_imgs/' + datePrefix + '/' + hash + '.' + mime.extensions[file.mimetype];
   var headers = {
     'Content-Length': file.size,
     'Content-Type': file.mimetype,
     'x-amz-acl': 'public-read'
   };
+  var path = '/';
+
+  if ( type === 'attachment' ) {
+    path += 'attachments/';
+  } else if ( type === 'course' || type === 'lesson' ) {
+    path += type + '_imgs/';
+  }
+
+  path += datePrefix + '/' + key + '.' + mime.extensions[file.mimetype];
 
   AWS.putBuffer(file.buffer, path, headers, function(err, response){
     if ( err || response.statusCode !== 200 ) {
-      console.error('error streaming image: ', new Date(), err);
+      console.error('error streaming file: ', new Date(), err);
       deferred.reject({ status: response.statusCode, error: err });
     } else {
       console.log('File uploaded! Amazon response statusCode: ', response.statusCode);
@@ -53,26 +60,30 @@ function updateEntity(data) {
   var deferred = when.defer();
   var type = data[0];
   var id = data[1];
-  var imagePath = data[2];
+  var filePath = 'https://' + config.aws.bucket + '.s3.amazonaws.com' + data[2];
   var model = (type === 'lesson') ? models.Lesson : models.Course;
 
-  model.find({
-    where: { id: id }
-  }).then(function(item) {
-    if ( !_.isEmpty(item) ) {
-      item.updateAttributes({
-        imageUrl: 'https://' + config.aws.bucket + '.s3.amazonaws.com' + imagePath
-      }).then(function(updatedItem) {
-        deferred.resolve(updatedItem);
-      }).catch(function(err) {
-        deferred.reject({ status: 500, body: err });
-      });
-    } else {
-      deferred.reject({ status: 404, body: 'Entity could not be found at the ID: ' + id });
-    }
-  }).catch(function(err) {
-    deferred.reject({ status: 500, body: err });
-  });
+  if ( type !== 'attachment' ) {
+    model.find({
+      where: { id: id }
+    }).then(function(item) {
+      if ( !_.isEmpty(item) ) {
+        item.updateAttributes({
+          imageUrl: filePath
+        }).then(function() {
+          deferred.resolve(filePath);
+        }).catch(function(err) {
+          deferred.reject({ status: 500, body: err });
+        });
+      } else {
+        deferred.reject({ status: 404, body: 'Entity could not be found at the ID: ' + id });
+      }
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
+  } else {
+    deferred.resolve(filePath);
+  }
 
   return deferred.promise;
 
@@ -80,7 +91,7 @@ function updateEntity(data) {
 
 /* ====================================================== */
 
-exports.uploadImage = function(req, res) {
+exports.uploadFile = function(req, res) {
 
   req.pipe(req.busboy);
 
@@ -111,8 +122,8 @@ exports.uploadImage = function(req, res) {
         mimetype: mimetype
       };
 
-      uploadToAWS(finalFile, req.params.type, req.params.id).then(updateEntity).then(function() {
-        res.status(200).json('Image successfully uploaded and entity imageUrl updated.');
+      uploadToAWS(finalFile, req.params.type, req.params.id).then(updateEntity).then(function(path) {
+        res.status(200).json({ fileUrl: path });
       }).catch(function(err) {
         console.log('error uploading:', err);
         res.status(err.status).json({ error: err.body });

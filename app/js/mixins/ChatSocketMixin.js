@@ -57,15 +57,16 @@ var ChatSocketMixin = {
     return deferred.promise;
   },
 
-  sendMessage: function(message, conversation, currentUser, cb) {
+  sendMessage: function(message, conversationId, currentUserId, attachment, cb) {
     cb = cb || function() {};
 
     console.log('send message:', message);
 
     this.socket.emit('sendMessage', {
-      body: message,
-      ConversationId: conversation.id,
-      UserId: currentUser.id
+      body: message || '',
+      attachment: attachment,
+      ConversationId: conversationId,
+      UserId: currentUserId
     }, cb);
   },
 

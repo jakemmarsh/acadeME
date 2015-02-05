@@ -59,25 +59,14 @@ exports.getConversation = function(req, res) {
 
     models.Conversation.find({
       where: { CourseId: courseId, UserOneId: userOneId, UserTwoId: userTwoId },
-      include: [
-        {
-          model: models.Message,
-          include: [
-            {
-              model: models.MessageMedia,
-              as: 'Media'
-            }
-          ]
-        }
-      ]
+      include: [models.Message]
     }).then(function(conversation) {
-      if ( !conversation ) {
+      if ( _.isEmpty(conversation) ) {
         deferred.reject({ status: 404, body: 'That conversation could not be found' });
       } else {
         deferred.resolve(conversation);
       }
     }).catch(function(err) {
-      console.log('error finding conversation:', err);
       deferred.reject({ status: 500, body: err });
     });
 

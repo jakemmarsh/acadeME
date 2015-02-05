@@ -43,7 +43,8 @@ module.exports = function() {
     console.log('create message job for:', message);
 
     var job = this.jobs.create('message', {
-      Body: message.body || message.Body,
+      body: message.body || message.Body,
+      attachment: message.attachment || message.Attachment,
       ConversationId: message.conversationId || message.ConversationId,
       UserId: message.userId || message.UserId
     }).removeOnComplete(true).save(function(err){

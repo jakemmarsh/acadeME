@@ -18,6 +18,10 @@ var ChatAPI = {
     });
 
     return APIUtils.get('chat/'+ courseId + '/conversation?' + params);
+  },
+
+  uploadAttachment: function(conversationId, currentUserId, file) {
+    return APIUtils.uploadFile('upload/attachment/' + conversationId, file);
   }
 
 };
