@@ -18,6 +18,7 @@ function buildScript(file, watch) {
 
   var bundler = browserify({
     entries: [config.sourceDir + 'js/' + file],
+    debug: true,
     cache: {},
     packageCache: {},
     fullPaths: true
