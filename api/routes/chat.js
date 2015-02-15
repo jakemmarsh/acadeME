@@ -45,7 +45,7 @@ exports.getRecipients = function(req, res) {
   .then(function(resp) {
     res.status(200).json(resp);
   }).catch(function(err) {
-    res.status(err.status).json({ error: err.body });
+    res.status(err.status).json({ status: err.status, message: err.body });
   });
 
 };

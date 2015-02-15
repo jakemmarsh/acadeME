@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
     imageUrl:         { type: DataTypes.STRING },
     hash:             { type: DataTypes.STRING },
     activationKey:    { type: DataTypes.STRING },
-    passwordResetKey: { type: DataTypes.STRING },
+    passwordResetKey: { type: DataTypes.STRING }
   },
   {
     getterMethods: {
