@@ -22,6 +22,10 @@ var ChatAPI = {
 
   uploadAttachment: function(conversationId, currentUserId, file) {
     return APIUtils.uploadFile('upload/attachment/' + conversationId + '/' + file.name, file);
+  },
+
+  getAnnotations: function(attachmentId) {
+    return APIUtils.get('chat/annotations/' + attachmentId);
   }
 
 };

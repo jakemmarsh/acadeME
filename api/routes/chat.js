@@ -59,7 +59,12 @@ exports.getConversation = function(req, res) {
 
     models.Conversation.find({
       where: { CourseId: courseId, UserOneId: userOneId, UserTwoId: userTwoId },
-      include: [models.Message]
+      include: [
+        {
+          model: models.Message,
+          include: [models.Attachment]
+        }
+      ]
     }).then(function(conversation) {
       if ( _.isEmpty(conversation) ) {
         deferred.reject({ status: 404, body: 'That conversation could not be found' });
@@ -76,7 +81,37 @@ exports.getConversation = function(req, res) {
   fetchConversation(req.params.courseId, req.query.userOne, req.query.userTwo).then(function(resp) {
     res.status(200).json(resp);
   }).catch(function(err) {
-    res.status(err.status).json({ error: err.body });
+    res.status(err.status).json({ status: err.status, message: err.body.toString() });
+  });
+
+};
+
+/* ====================================================== */
+
+exports.getAnnotations = function(req, res) {
+
+  var fetchAnnotations = function(attachmentId) {
+    var deferred = when.defer();
+
+    models.Annotation.find({
+      where: { AttachmentId: attachmentId }
+    }).then(function(annotations) {
+      if ( !_.isEmpty(annotations) ) {
+        deferred.resolve(annotations);
+      } else {
+        deferred.resolve([]);
+      }
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
+
+    return deferred.promise;
+  };
+
+  fetchAnnotations(req.params.attachmentId).then(function(resp) {
+    res.status(200).json(resp);
+  }).catch(function(err) {
+    res.status(err.status).json({ status: err.status, message: err.body.toString() });
   });
 
 };

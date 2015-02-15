@@ -63,6 +63,7 @@ module.exports = function(server) {
   // Chat endpoints
   api.get('/chat/:courseId/recipients', routes.chat.getRecipients);
   api.get('/chat/:courseId/conversation', routes.chat.getConversation); // TODO: figure out what other params this needs
+  api.get('/chat/annotations/:attachmentId', routes.chat.getAnnotations);
 
   /* ====================================================== */
 
