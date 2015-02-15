@@ -1,6 +1,7 @@
 'use strict';
 
 var when   = require('when');
+var _      = require('lodash');
 var models = require('../models');
 
 /* ====================================================== */
@@ -29,23 +30,83 @@ exports.upsertConversation = function(courseId, userOneId, userTwoId) {
 
 /* ====================================================== */
 
-exports.saveMessage = function(message) {
+exports.saveMessage = function(data) {
 
-  var deferred = when.defer();
-
-  message = {
-    body: message.body || message.Body || '',
-    attachment: message.attachment || message.Attachment,
-    ConversationId: message.conversationId || message.ConversationId,
-    UserId: message.userId || message.UserId
+  var mainDeferred = when.defer();
+  var attachment = data.attachment || null;
+  var message = {
+    body: data.message.body || data.message.Body || '',
+    ConversationId: data.message.conversationId || data.message.ConversationId,
+    UserId: data.message.userId || data.message.UserId
   };
 
-  models.Message.create(message).then(function(createdMessage) {
-    deferred.resolve(createdMessage);
-  }).catch(function(err) {
-    deferred.reject(err);
-  });
+  var createMessage = function(message, attachment) {
+    var deferred = when.defer();
 
-  return deferred.promise;
+    models.Message.create(message).then(function(createdMessage) {
+      deferred.resolve([createdMessage, attachment]);
+    }).catch(function(err) {
+      deferred.reject(err);
+    });
+
+    return deferred.promise;
+  };
+
+  var updateAttachment = function(data) {
+    var deferred = when.defer();
+    var message = data[0];
+    var attachment = data[1];
+
+    if ( attachment ) {
+      models.Attachment.find({
+        where: { id: attachment.id }
+      }).then(function(retrievedAttachment) {
+        if ( !_.isEmpty(retrievedAttachment) ) {
+          retrievedAttachment.updateAttributes({
+            MessageId: message.id
+          }).then(function(updatedAttachment) {
+            deferred.resolve([message, updatedAttachment]);
+          });
+        } else {
+          deferred.reject();
+        }
+      }).catch(function(err) {
+        deferred.reject(err);
+      });
+    } else {
+      deferred.resolve([message, attachment]);
+    }
+
+    return deferred.promise;
+  };
+
+  var updateMessage = function(data) {
+    var deferred = when.defer();
+    var message = data[0];
+    var attachment = data[1];
+
+    if ( attachment ) {
+      models.Message.find({
+        where: { id: message.id }
+      }).then(function(retrievedMessage) {
+        retrievedMessage.setAttachment(attachment).then(function(updatedMessage) {
+          deferred.resolve(updatedMessage);
+        });
+      }).catch(function(err) {
+        deferred.reject(err);
+      });
+    } else {
+      deferred.resolve(message);
+    }
+
+    return deferred.promise;
+  };
+
+  createMessage(message, attachment)
+  .then(updateAttachment)
+  .then(updateMessage)
+  .then(mainDeferred.resolve);
+
+  return mainDeferred.promise;
 
 };

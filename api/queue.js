@@ -29,6 +29,8 @@ module.exports = function() {
     });
   }
 
+  /* ====================================================== */
+
   Queue.prototype.clearAllJobs = function() {
     kue.Job.rangeByType('message', 'complete', 0, -1, 'asc', function(err, selectedJobs) {
       selectedJobs.forEach(function(job) {
@@ -37,16 +39,20 @@ module.exports = function() {
     });
   };
 
-  Queue.prototype.message = function(message) {
+  /* ====================================================== */
+
+  Queue.prototype.message = function(message, attachment) {
     var deferred = when.defer();
 
     console.log('create message job for:', message);
 
     var job = this.jobs.create('message', {
-      body: message.body || message.Body,
-      attachment: message.attachment || message.Attachment,
-      ConversationId: message.conversationId || message.ConversationId,
-      UserId: message.userId || message.UserId
+      message: {
+        body: message.body || message.Body,
+        ConversationId: message.conversationId || message.ConversationId,
+        UserId: message.userId || message.UserId
+      },
+      attachment: attachment || null
     }).removeOnComplete(true).save(function(err){
       if( err ) {
         console.log('Error saving message job:', err);
@@ -59,6 +65,8 @@ module.exports = function() {
 
     return deferred.promise;
   };
+
+  /* ====================================================== */
 
   return new Queue();
 

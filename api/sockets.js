@@ -29,7 +29,6 @@ module.exports = function(server, queue) {
 
       console.log('join:', socket.room);
 
-      // TODO: create conversation if it doesn't exist?
       chatUtils.upsertConversation(data.courseId, data.userOneId, data.userTwoId).then(function(conversation) {
         socket.conversationId = conversation.id;
         socket.join(socket.room);
@@ -41,17 +40,17 @@ module.exports = function(server, queue) {
 
     socket.on('sendMessage', function(data, cb) {
       var message = {
-        body: data.body || data.Body || '',
-        attachment: data.attachment || data.Attachment,
-        ConversationId: data.conversationId || data.ConversationId,
-        UserId: data.userId || data.UserId
+        body: data.message.body || data.message.Body || '',
+        ConversationId: data.message.conversationId || data.message.ConversationId,
+        UserId: data.message.userId || data.message.UserId
       };
 
       cb = cb || function() {};
 
       console.log('receive message:', data);
 
-      queue.message(message).then(function(queuedMessage) {
+      queue.message(message, data.attachment || null).then(function(queuedMessage) {
+        queuedMessage.attachment = data.attachment || null;
         console.log('message returned after creating job:', humps.camelizeKeys(queuedMessage));
         io.sockets.in(socket.room).emit('updateChat', humps.camelizeKeys(queuedMessage));
         cb(queuedMessage);

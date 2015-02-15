@@ -45,7 +45,7 @@ function uploadToAWS(file, type, entityId) {
       deferred.reject({ status: response.statusCode, error: err });
     } else {
       console.log('File uploaded! Amazon response statusCode: ', response.statusCode);
-      deferred.resolve([type, entityId, path]);
+      deferred.resolve([type, entityId, path, file.name]);
     }
   });
 
@@ -63,27 +63,45 @@ function updateEntity(data) {
   var filePath = 'https://' + config.aws.bucket + '.s3.amazonaws.com' + data[2];
   var model = (type === 'lesson') ? models.Lesson : models.Course;
 
-  if ( type !== 'attachment' ) {
-    model.find({
-      where: { id: id }
-    }).then(function(item) {
-      if ( !_.isEmpty(item) ) {
-        item.updateAttributes({
-          imageUrl: filePath
-        }).then(function() {
-          deferred.resolve(filePath);
-        }).catch(function(err) {
-          deferred.reject({ status: 500, body: err });
-        });
-      } else {
-        deferred.reject({ status: 404, body: 'Entity could not be found at the ID: ' + id });
-      }
-    }).catch(function(err) {
-      deferred.reject({ status: 500, body: err });
-    });
-  } else {
-    deferred.resolve(filePath);
-  }
+  model.find({
+    where: { id: id }
+  }).then(function(item) {
+    if ( !_.isEmpty(item) ) {
+      item.updateAttributes({
+        imageUrl: filePath
+      }).then(function() {
+        deferred.resolve(filePath);
+      }).catch(function(err) {
+        deferred.reject({ status: 500, body: err });
+      });
+    } else {
+      deferred.reject({ status: 404, body: 'Entity could not be found at the ID: ' + id });
+    }
+  }).catch(function(err) {
+    deferred.reject({ status: 500, body: err });
+  });
+
+  return deferred.promise;
+
+}
+
+/* ====================================================== */
+
+function saveAttachment(data) {
+
+  var deferred = when.defer();
+  var filePath = 'https://' + config.aws.bucket + '.s3.amazonaws.com' + data[2];
+  var filename = data[3];
+  var attachment = {
+    url: filePath,
+    name: filename
+  };
+
+  models.Attachment.create(attachment).then(function(savedAttachment) {
+    deferred.resolve(savedAttachment);
+  }).catch(function(err) {
+    deferred.reject({ status: 500, body: err });
+  });
 
   return deferred.promise;
 
@@ -109,7 +127,6 @@ exports.uploadFile = function(req, res) {
     });
 
     file.on('error', function(err) {
-      console.log('Error while buffering the stream: ', err);
       res.status(500).json({ error: err });
     });
 
@@ -118,14 +135,18 @@ exports.uploadFile = function(req, res) {
       var finalFile = {
         buffer: finalBuffer,
         size: finalBuffer.length,
-        filename: filename,
+        name: req.params.filename || filename,
         mimetype: mimetype
       };
+      var updateFunction = req.params.type === 'attachment' ? saveAttachment : updateEntity;
 
-      uploadToAWS(finalFile, req.params.type, req.params.id).then(updateEntity).then(function(path) {
-        res.status(200).json({ fileUrl: path });
+      uploadToAWS(finalFile, req.params.type, req.params.id).then(updateFunction).then(function(data) {
+        if ( typeof data === 'string' ) {
+          res.status(200).json({ url: data });
+        } else {
+          res.status(200).json(data);
+        }
       }).catch(function(err) {
-        console.log('error uploading:', err);
         res.status(err.status).json({ error: err.body });
       });
     });

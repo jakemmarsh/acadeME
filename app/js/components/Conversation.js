@@ -77,11 +77,11 @@ var Conversation = React.createClass({
 
     if ( this.state.attachment ) {
       ChatAPI.uploadAttachment(
-        this.props.conversation.id,
+        this.props.conversation.id, // TODO: this needs to be replaced with message ID, not sure how to retrieve that
         this.props.currentUser.id,
         this.state.attachment
       ).then(function(resp) {
-        deferred.resolve(resp.fileUrl);
+        deferred.resolve(resp);
       }).catch(function(err) {
         deferred.reject(err);
       });
@@ -92,16 +92,10 @@ var Conversation = React.createClass({
     return deferred.promise;
   },
 
-  sendMessage: function(attachmentUrl) {
+  sendMessage: function(attachment) {
     var deferred = when.defer();
-    var attachment = null;
 
-    if ( attachmentUrl ) {
-      attachment = {
-        name: this.state.attachment.name,
-        url: attachmentUrl
-      };
-    }
+    attachment = attachment || null;
 
     this.props.sendMessage(
       this.state.newMessage || '',

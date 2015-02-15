@@ -21,7 +21,7 @@ var ChatAPI = {
   },
 
   uploadAttachment: function(conversationId, currentUserId, file) {
-    return APIUtils.uploadFile('upload/attachment/' + conversationId, file);
+    return APIUtils.uploadFile('upload/attachment/' + conversationId + '/' + file.name, file);
   }
 
 };

@@ -63,10 +63,12 @@ var ChatSocketMixin = {
     console.log('send message:', message);
 
     this.socket.emit('sendMessage', {
-      body: message || '',
-      attachment: attachment,
-      ConversationId: conversationId,
-      UserId: currentUserId
+      message: {
+        body: message || '',
+        ConversationId: conversationId,
+        UserId: currentUserId
+      },
+      attachment: attachment
     }, cb);
   },
 
