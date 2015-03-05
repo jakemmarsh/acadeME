@@ -1,18 +1,18 @@
 'use strict';
 
 var gulp        = require('gulp');
+var shell       = require('gulp-shell');
 var runSequence = require('run-sequence');
 
-gulp.task('dev', ['clean'], function(callback) {
+gulp.task('dev', ['clean'], function() {
 
-  callback = callback || function() {};
+  var startServer = function() {
+    return gulp.src('')
+      .pipe(shell('npm start'));
+  };
 
   global.isProd = false;
 
-  // Run all tasks once
-  runSequence('sass', 'imagemin', 'browserify', 'fonts', 'copyIndex', 'copyIcons', callback);
-
-  // Then, run the watch task to keep tabs on changes
-  gulp.start('watch');
+  return runSequence(['sass', 'imagemin', 'browserify', 'fonts', 'copyIndex', 'copyIcons'], 'watch', startServer);
 
 });
