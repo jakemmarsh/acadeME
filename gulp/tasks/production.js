@@ -9,6 +9,6 @@ gulp.task('prod', ['clean'], function(callback) {
 
   global.isProd = true;
 
-  runSequence('sass', 'imagemin', 'browserify', 'fonts', 'copyIndex', 'copyIcons', 'deploy', callback);
+  return runSequence(['sass', 'imagemin', 'browserify', 'fonts', 'copyIndex', 'copyIcons'], callback);
 
 });
