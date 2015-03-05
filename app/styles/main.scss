@@ -1,6 +1,6 @@
 // Base styles
 @import 'vars';
-@import 'mixins';
+@import 'utils';
 @import 'typography';
 @import 'layout';
 @import 'base';
@@ -19,6 +19,7 @@
 @import 'elements/modal';
 @import 'elements/quiz';
 @import 'elements/sir-trevor';
+@import 'elements/annotorious';
 @import 'elements/user-avatar';
 @import 'elements/recipient-list';
 @import 'elements/conversation';

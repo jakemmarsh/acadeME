@@ -25,6 +25,7 @@
     "body-parser": "^1.6.4",
     "compression": "^1.0.11",
     "browserify": "^5.10.0",
+    "browserify-shim": "^3.7.0",
     "gulp": "^3.8.8",
     "gulp-rename": "^1.2.0",
     "gulp-sass": "^0.7.2",
@@ -66,10 +67,18 @@
     "mime-types": "^2.0.3",
     "express-session": "^1.10.1"
   },
-  "devDependencies": {
-    "supervisor": "^0.6.0"
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browser": {
+    "annotorious": "./app/js/vendor/annotorious.min.js"
+  },
+  "browserify-shim": {
+    "": ""
   },
   "scripts": {
-    "start": "supervisor server.js"
+    "start": "node server.js"
   }
 }

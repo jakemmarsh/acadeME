@@ -3,16 +3,18 @@
  */
 'use strict';
 
+require('annotorious');
+
 var React                   = require('react/addons');
 var Reflux                  = require('reflux');
 var _                       = require('lodash');
+var $                       = require('jquery');
 
 var LayeredComponentMixin   = require('./LayeredComponentMixin');
 var ChatActions             = require('../actions/ChatActions');
 var CurrentAnnotationsStore = require('../stores/CurrentAnnotationsStore');
 var Modal                   = require('../components/Modal');
 var Spinner                 = require('../components/Spinner');
-
 var AttachmentModalMixin = {
 
   mixins: [LayeredComponentMixin, Reflux.ListenerMixin],
@@ -31,7 +33,11 @@ var AttachmentModalMixin = {
     if ( err ) {
       this.setState({ error: err.message });
     } else {
-      this.setState({ annotations: annotations, loading: false, error: null });
+      this.setState({
+        annotations: annotations,
+        loading: false,
+        error: null
+      });
     }
   },
 
@@ -49,6 +55,9 @@ var AttachmentModalMixin = {
     this.setState({
       attachment: attachment,
       showAttachmentModal: true
+    }, function() {
+      var test = window.anno.makeAnnotatable($('#attachment')[0]);
+      console.log(test);
     });
   },
 
@@ -71,16 +80,6 @@ var AttachmentModalMixin = {
     return element;
   },
 
-  renderAttachment: function() {
-    var element = null;
-
-    if ( !_.isEmpty(this.state.attachment) ) {
-      console.log('render attachment:', this.state.attachment);
-    }
-
-    return element;
-  },
-
   renderLayer: function() {
     var element = (<span />);
 
@@ -88,9 +87,7 @@ var AttachmentModalMixin = {
       element = (
         <Modal className="attachment-modal" onRequestClose={this.hideAttachmentModal}>
 
-          attachment
-
-          {this.renderAttachment()}
+          <img src={this.state.attachment.url} id="attachment" className="annotatable" />
 
         </Modal>
       );
