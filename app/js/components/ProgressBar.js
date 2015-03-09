@@ -30,11 +30,12 @@ var ProgressBar = React.createClass({
 
   renderTooltip: function() {
     var element = null;
+    var percentage = isNaN(this.props.percentage) ? 0 : this.props.percentage;
 
     if ( this.state.displayTooltip ) {
       element = (
-        <Tooltip left={this.props.percentage + '%'}
-                 content={this.props.percentage + '%'} />
+        <Tooltip left={percentage + '%'}
+                 content={percentage + '%'} />
       );
     }
 

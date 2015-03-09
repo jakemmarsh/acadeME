@@ -63,9 +63,85 @@ module.exports = function(models) {
     ];
 
     models.Lesson.bulkCreate(lessons).then(function() {
-      deferred.resolve(course);
+      models.Lesson.findAll().then(function(createdLessons) {
+        deferred.resolve([createdLessons, course]);
+      });
     }).catch(function(err) {
       console.log('error creating lesssons:', err);
+    });
+
+    return deferred.promise;
+  };
+
+  var createQuiz = function(data) {
+    var deferred = when.defer();
+    var lesson = data[0][0];
+    var course = data[1];
+    var quiz = {
+      LessonId: lesson.id,
+      title: 'Test Quiz',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus.'
+    };
+
+    models.Quiz.create(quiz).then(function(createdQuiz) {
+      deferred.resolve([createdQuiz, course]);
+    }).catch(function(err) {
+      console.log('error creating quiz:', err);
+    });
+
+    return deferred.promise;
+  };
+
+  var createQuestions = function(data) {
+    var deferred = when.defer();
+    var quiz = data[0];
+    var course = data[1];
+    var questions = [
+      {
+        QuizId: quiz.id,
+        type: 'multi',
+        body: 'What is the capitol of Maine?'
+      }
+    ];
+
+    models.Question.bulkCreate(questions).then(function() {
+      models.Question.findAll().then(function(createdQuestions) {
+        deferred.resolve([createdQuestions, course]);
+      });
+    }).catch(function(err) {
+      console.log('error creating questions:', err);
+    });
+
+    return deferred.promise;
+  };
+
+  var createAnswers = function(data) {
+    var deferred = when.defer();
+    var question = data[0][0];
+    var course = data[1];
+    var answers = [
+      {
+        QuestionId: question.id,
+        body: 'Augusta'
+      },
+      {
+        QuestionId: question.id,
+        body: 'Portland'
+      },
+      {
+        QuestionId: question.id,
+        body: 'Brewer'
+      },
+      {
+        QuestionId: question.id,
+        body: 'Bangor'
+      }
+    ];
+
+    models.Answer.bulkCreate(answers).then(function() {
+      deferred.resolve(course);
+    }).catch(function(err) {
+      console.log('error creating answers:', err);
     });
 
     return deferred.promise;
@@ -201,6 +277,9 @@ module.exports = function(models) {
   createInstructorUser()
     .then(createCourse)
     .then(createLessons)
+    .then(createQuiz)
+    .then(createQuestions)
+    .then(createAnswers)
     .then(createEnrolledUsers)
     .then(createCurrentUser)
     .then(createCourseCurrentUserTeaches)

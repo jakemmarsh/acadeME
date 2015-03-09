@@ -75,8 +75,11 @@ var Quiz = React.createClass({
   },
 
   getNextQuestion: function() {
-    console.log('get next question:', this.state.currentQuestionNumber, this.props.quiz.numQuestions);
-    if ( this.state.currentQuestionNumber < this.props.quiz.numQuestions ) {
+    var numQuestions = this.props.quiz.questions ? this.props.quiz.questions.length : 0;
+
+    console.log('get next question:', this.state.currentQuestionNumber, numQuestions);
+
+    if ( this.state.currentQuestionNumber < numQuestions ) {
       QuizActions.getQuestion(this.props.quiz.id, this.state.currentQuestionNumber, this.state.userScore, this._onQuestionChange);
     } else {
       this.setState({
@@ -88,13 +91,15 @@ var Quiz = React.createClass({
 
   renderIntro: function() {
     var element = null;
+    var numQuestions = this.props.quiz.questions ? this.props.quiz.questions.length : 0;
+    var pluralized = (numQuestions === 0 || numQuestions > 1) ? 'questions' : 'question';
 
     if ( this.state.currentQuestionNumber === 0 ) {
       element = (
         <div className="intro-finish-container soft--sides">
           <div>
             <h1 className="title sans-serif flush--bottom">{this.props.quiz.title}</h1>
-            <h6 className="teal serif italic weight--normal">{this.props.quiz.numQuestions} questions</h6>
+            <h6 className="primary serif italic weight--normal">{numQuestions} {pluralized}</h6>
           </div>
           <div>
             <a className="button soft--sides soft-half--ends" onClick={this.getNextQuestion}>Begin Quiz</a>
@@ -108,7 +113,8 @@ var Quiz = React.createClass({
 
   renderProgressBar: function() {
     var element = null;
-    var percentage = ((this.state.currentQuestionNumber-1)/this.props.quiz.numQuestions)*100;
+    var numQuestions = this.props.quiz.questions ? this.props.quiz.questions.length : 1;
+    var percentage = ((this.state.currentQuestionNumber-1)/numQuestions)*100;
 
     if ( this.state.currentQuestionNumber > 0 ) {
       element = (
@@ -163,7 +169,8 @@ var Quiz = React.createClass({
 
   renderCurrentQuestion: function() {
     var element = null;
-    var isLastQuestion = this.state.currentQuestionNumber === this.props.quiz.numQuestions;
+    var numQuestions = this.props.quiz.questions ? this.props.quiz.questions.length : 0;
+    var isLastQuestion = this.state.currentQuestionNumber === numQuestions;
     var isSubmitDisabled = _.isEmpty(this.state.selectedAnswer);
     var buttonValue = isLastQuestion ? 'Finish Quiz' : 'Next Question';
 
@@ -173,7 +180,7 @@ var Quiz = React.createClass({
           <h2 className="question-body">{this.state.question.body}</h2>
           {this.renderAnswers()}
           <input type="submit"
-                 className="button float-right nudge--right nudge--bottom"
+                 className="button float-right nudge--sides nudge--bottom"
                  onClick={this.submitAnswer}
                  disabled={isSubmitDisabled ? 'true' : ''}
                  value={buttonValue} />
@@ -186,13 +193,14 @@ var Quiz = React.createClass({
 
   renderFinishedScreen: function() {
     var element = null;
+    var numQuestions = this.props.quiz.questions ? this.props.quiz.questions.length : 1;
 
     if ( this.state.quizComplete ) {
       element = (
         <div className="intro-finish-container soft--sides">
           <div>
             <h1 className="title sans-serif flush--bottom">Quiz complete!</h1>
-            <h6 className="teal serif italic weight--normal">Your score: {this.state.userScore}/{this.props.quiz.numQuestions}</h6>
+            <h6 className="primary serif italic weight--normal">Your score: {this.state.userScore}/{numQuestions}</h6>
           </div>
           <div>
             <Link to="CourseLesson"

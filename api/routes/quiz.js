@@ -16,7 +16,7 @@ exports.get = function(req, res) {
       include: [
         {
           model: models.Question,
-          include: [models.Answer]
+          attributes: ['id']
         }
       ]
     }).then(function(quiz) {
@@ -49,7 +49,8 @@ exports.getQuestion = function(req, res) {
 
     // TODO: complete logic for getting next question
     models.Question.find({
-      where: { QuizId: quizId }
+      where: { QuizId: quizId },
+      include: [models.Answer]
     }).then(function(question) {
       deferred.resolve(question);
     }).catch(function(err) {
