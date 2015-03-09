@@ -85,18 +85,18 @@ var Chat = React.createClass({
     return (
       <section className="chat">
 
-        <RecipientList currentUser={this.props.currentUser}
-                       course={this.props.course}
-                       recipients={this.state.recipients}
-                       conversation={this.state.conversation}
-                       openConversation={this.openConversation} />
-
         <Conversation currentUser={this.props.currentUser}
                       currentRecipient={this.state.currentRecipient}
                       course={this.props.course}
                       conversation={this.state.conversation}
                       newMessages={this.state.newMessages}
                       sendMessage={this.sendMessage} />
+
+        <RecipientList currentUser={this.props.currentUser}
+                       course={this.props.course}
+                       recipients={this.state.recipients}
+                       conversation={this.state.conversation}
+                       openConversation={this.openConversation} />
 
       </section>
     );

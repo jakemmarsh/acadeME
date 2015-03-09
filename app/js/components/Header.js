@@ -5,6 +5,7 @@
 
 var React           = require('react/addons');
 var _               = require('lodash');
+var $               = require('jquery');
 var Link            = React.createFactory(require('react-router').Link);
 
 var LoginModalMixin = require('../mixins/LoginModalMixin');
@@ -32,7 +33,13 @@ var Header = React.createClass({
   },
 
   toggleUserDropdown: function() {
-    this.setState({ shouldDisplayDropdown: !this.state.shouldDisplayDropdown });
+    this.setState({ shouldDisplayDropdown: !this.state.shouldDisplayDropdown }, function() {
+      if ( this.state.shouldDisplayDropdown ) {
+        $(document).on('click', this.toggleUserDropdown);
+      } else {
+        $(document).off('click', this.toggleUserDropdown);
+      }
+    }.bind(this));
   },
 
   renderCreateCourseButton: function() {
