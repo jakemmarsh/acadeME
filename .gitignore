@@ -26,4 +26,4 @@ bower_components
 build
 
 # Security credentials, etc
-config.js
+.env

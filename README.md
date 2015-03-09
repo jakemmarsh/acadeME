@@ -1,7 +1,7 @@
 acadeME
 =======
 
-An interactive e-Learning platform for University of Maine's senior Computer Science capstone project. Built using my [react-browserify-gulp-boilerplate](https://github.com/jakemmarsh/react-browserify-gulp-boilerplate).
+An interactive e-Learning platform for University of Maine's senior Computer Science capstone project. Built using my [react-browserify-gulp-boilerplate](https://github.com/jakemmarsh/react-rocket-boilerplate).
 
 ![Screenshot of the user interface](https://raw.githubusercontent.com/jakemmarsh/acadeME/master/screenshot.png)
 
@@ -18,32 +18,24 @@ An interactive e-Learning platform for University of Maine's senior Computer Sci
 
 ---
 
-### Sample config.js file
+### Sample .env configuration file
 
-Below is a basic config file (with any actual keys/credentials removed). This same structure can be used to add any extra configuration information you may need.
+Below is a `.env` file (with any actual keys/credentials removed). This same structure can be used to add any extra configuration information you may need, available at `process.env.*` while running.
 
 ```
-var config = {};
+DB_USER=''
+DB_PASSWORD=''
+DB_HOST=''
+DB_PORT=0
+DB_NAME=''
 
-/* ====================================================== */
+REDIS_PORT=0
+REDIS_HOST='',
+REDIS_AUTH=''
 
-config.database = {
-  host: 'DB HOST',
-  port: DB PORT,
-  db: 'DB NAME',
-  user: 'DB USERNAME',
-  password: 'DB PASSWORD'
-};
+SECRET=''
 
-/* ====================================================== */
-
-config.aws = {
-  bucket: 'BUCKET NAME',
-  key: 'YOUR AWS KEY',
-  secret: 'YOUR AWS SECRET'
-};
-
-/* ====================================================== */
-
-module.exports = config;
+AWS_KEY=''
+AWS_SECRET=''
+S3_BUCKET=''
 ```
