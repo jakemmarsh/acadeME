@@ -13,7 +13,6 @@ var api            = require('./api');
 var app            = express();
 var server         = app.listen(process.env.PORT || 3000);
 var populateDb     = require('./populateDb');
-var config         = require('./config');
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 /* ====================================================== */
@@ -28,7 +27,7 @@ app.use(bodyParser.urlencoded({
 app.use(busboy());          // Parse multipart/form-data
 app.set('json spaces', 0);  // Remove superfluous spaces from JSON responses
 app.use(session({
-  secret: config.secret,
+  secret: process.env.SECRET,
   cookie: {
     maxAge: 1000*60*30 // only 30 minutes until user logs in
   },

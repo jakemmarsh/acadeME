@@ -3,6 +3,7 @@
 var url       = require('url');
 var when      = require('when');
 var kue       = require('kue');
+var _         = require('lodash');
 var chatUtils = require('./utils/chat');
 
 /* ====================================================== */
@@ -32,9 +33,11 @@ module.exports = function() {
 
   Queue.prototype.clearAllJobs = function() {
     kue.Job.rangeByType('message', 'complete', 0, -1, 'asc', function(err, selectedJobs) {
-      selectedJobs.forEach(function(job) {
-        job.remove();
-      });
+      if ( selectedJobs && selectedJobs.length ) {
+        _.each(selectedJobs, function(job) {
+          job.remove();
+        });
+      }
     });
   };
 

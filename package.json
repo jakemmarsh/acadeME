@@ -16,7 +16,7 @@
   ],
   "private": true,
   "engines": {
-    "node": ">=0.10.26"
+    "node": ">=0.12.x"
   },
   "dependencies": {
     "bcrypt": "^0.8.0",
@@ -35,7 +35,7 @@
     "gulp-imagemin": "^2.0.0",
     "gulp-notify": "^1.6.0",
     "gulp-rename": "^1.2.0",
-    "gulp-sass": "^0.7.2",
+    "gulp-sass": "^1.3.x",
     "gulp-shell": "^0.2.11",
     "gulp-streamify": "0.0.5",
     "gulp-uglify": "^1.0.1",
@@ -52,6 +52,7 @@
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
     "pg": "^3.6.3",
+    "pg-hstore": "^2.3.1",
     "react": "^0.12.x",
     "react-marked": "^0.3.1",
     "react-router": "^0.11.x",
@@ -59,7 +60,7 @@
     "reflux": "^0.1.13",
     "run-sequence": "^0.3.6",
     "sequelize": "^2.0.0-rc2",
-    "sir-trevor": "git://github.com/jakemmarsh/sir-trevor-js",
+    "sir-trevor": "jakemmarsh/sir-trevor-js",
     "slug": "^0.8.0",
     "socket.io": "^1.2.1",
     "socket.io-client": "^1.2.1",
