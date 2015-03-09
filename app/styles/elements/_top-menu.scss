@@ -22,7 +22,7 @@ ul.top-menu {
       display: block;
       padding: $half-space;
 
-      color: $text-grey;
+      color: lighten($text-grey, 20);
       @include transition(color 0.1s ease-in-out);
       font-weight: 600;
 
@@ -30,11 +30,13 @@ ul.top-menu {
         margin-right: $half-space/2;
 
         font-size: 18px;
-        color: $teal;
+        color: lighten($primary, 10);
+        @include transition(color 0.1s ease-in-out);
       }
 
       &:hover {
-        color: $orange;
+        color: $text-grey;
+        i { color: $primary; }
       }
     }
 
@@ -42,7 +44,7 @@ ul.top-menu {
       position: relative;
       width: 75px;
 
-      background-color: $orange;
+      background-color: $secondary;
       @include transition(background-color 0.1s ease-in-out);
       color: $white;
 
@@ -55,7 +57,7 @@ ul.top-menu {
       }
 
       &:hover {
-        background-color: lighten($orange, 2);
+        background-color: lighten($secondary, 2);
       }
 
       &:active {

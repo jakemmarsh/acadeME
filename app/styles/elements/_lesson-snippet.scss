@@ -55,13 +55,13 @@ article.lesson-snippet {
 
     border: 10px solid $background-light-grey;
     @include border-radius(100%);
-    background: $orange;
+    background: $secondary;
     color: $background-light-grey;
   }
 
   &.completed:before {
     content: '\f00c'; // fontawesome check mark
-    background: $teal;
+    background: $primary;
   }
 
 }

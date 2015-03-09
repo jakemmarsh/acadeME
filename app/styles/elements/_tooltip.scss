@@ -8,7 +8,7 @@
 
   text-align: center;
   font-size: 14px;
-  background: $orange;
+  background: $secondary;
   color: $white;
 
   &:after {
@@ -21,7 +21,7 @@
     position: absolute;
     pointer-events: none;
     border-color: rgba(255, 255, 255, 0);
-    border-top-color: $orange;
+    border-top-color: $secondary;
     border-width: 10px;
     margin-left: -10px;
   }

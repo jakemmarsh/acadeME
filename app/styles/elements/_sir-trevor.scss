@@ -33,17 +33,17 @@
     }
 
     ::-moz-selection {
-      background: $teal;
+      background: $primary;
       color: $white;
     }
 
     ::selection {
-      background: $teal;
+      background: $primary;
       color: $white;
     }
 
     &:hover {
-      border-color: $teal;
+      border-color: $primary;
     }
   }
 
@@ -54,11 +54,11 @@
 
   .st-block-ui-btn,
   .st-block-control-ui-btn {
-    color: $teal;
+    color: $primary;
     background-color: $white;
     border-style: solid;
     border-width: 2px;
-    border-color: $teal;
+    border-color: $primary;
 
     &:not(:last-child) {
       border-right-width: 0;
@@ -66,22 +66,22 @@
 
     &:hover {
       color: $white;
-      background-color: $teal;
-      border-color: $teal;
+      background-color: $primary;
+      border-color: $primary;
     }
   }
 
   .st-block-controls__top:hover:before,
   .st-block--with-plus:after {
-    color: $orange;
+    color: $secondary;
     background-color: darken($background-light-grey, 2);
   }
 
   .st-block-control {
-    color: $teal;
+    color: $primary;
 
     &:hover {
-      color: $orange;
+      color: $secondary;
     }
   }
 
@@ -97,7 +97,7 @@
   /* format button hover */
   .st-format-btn:hover,
   .st-format-btn--is-active {
-    color: $orange;
+    color: $secondary;
   }
 
 }

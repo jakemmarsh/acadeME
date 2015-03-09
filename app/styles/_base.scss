@@ -32,7 +32,7 @@ input {
   @include transition(border-color 0.1s ease-in-out);
 
   &:active, &:focus {
-    border-color: $teal;
+    border-color: $primary;
   }
 }
 

@@ -6,7 +6,7 @@
   text-transform: uppercase;
   font-weight: 600;
   font-size: 14px;
-  background-color: $teal;
+  background-color: $secondary;
   color: $white;
   border: none;
   @include border-radius(3px);
@@ -22,7 +22,7 @@
   }
 
   &:hover {
-    background-color: $orange;
+    background-color: lighten($secondary, 10);
   }
 
   &:disabled {

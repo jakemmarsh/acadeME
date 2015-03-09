@@ -23,7 +23,7 @@ div.quiz {
 
     background-color: darken($background-light-grey, 10);
 
-    .fill { background-color: $teal; }
+    .fill { background-color: $primary; }
   }
 
   .question-body {
@@ -54,20 +54,20 @@ div.quiz {
       &:hover {
         background-color: darken($background-light-grey, 2);
 
-        color: $orange;
+        color: $secondary;
 
         .choice-indicator {
-          border-color: $orange;
+          border-color: $secondary;
         }
       }
 
       &.selected {
         background-color: darken($background-light-grey, 2);
 
-        color: $teal;
+        color: $primary;
 
         .choice-indicator {
-          border-color: $teal;
+          border-color: $primary;
         }
       }
 

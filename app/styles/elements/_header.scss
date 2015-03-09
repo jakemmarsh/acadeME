@@ -9,14 +9,8 @@ header {
   text-align: center;
 
   color: $header-grey;
-  background: $header-background-grey;
-  background: -moz-linear-gradient(left,  $header-background-grey 0%, $header-background-light-grey 53%, $header-background-grey 100%);
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,$header-background-grey), color-stop(53%,$header-background-light-grey), color-stop(100%,$header-background-grey));
-  background: -webkit-linear-gradient(left,  $header-background-grey 0%,$header-background-light-grey 53%,$header-background-grey 100%);
-  background: -o-linear-gradient(left,  $header-background-grey 0%,$header-background-light-grey 53%,$header-background-grey 100%);
-  background: -ms-linear-gradient(left,  $header-background-grey 0%,$header-background-light-grey 53%,$header-background-grey 100%);
-  background: linear-gradient(to right,  $header-background-grey 0%,$header-background-light-grey 53%,$header-background-grey 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#718795', endColorstr='#718795',GradientType=1 );
+  background: $primary;
+  @include linear-gradient(90deg, $primary 0%, $secondary 100%);
 
   .left-container,
   .logo-container,
@@ -44,7 +38,7 @@ header {
       font-size: 24px;
       line-height: 24px;
       text-align: center;
-      color: $header-background-grey;
+      color: $header-background;
       background-color: $white;
       @include border-radius(3px);
 
@@ -69,6 +63,14 @@ header {
   .right-container {
     padding-right: $full-space;
     text-align: right;
+
+    a {
+      color: $white;
+      opacity: 0.6;
+      @include transition(opacity 0.1s ease-in-out);
+
+      &:hover { opacity: 1; }
+    }
 
     .dropdown-container {
       position: relative;
@@ -126,7 +128,7 @@ header {
 
           &:hover {
             background-color: darken($background-light-grey, 2);;
-            color: $orange;
+            color: $primary;
           }
         }
       }

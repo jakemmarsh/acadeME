@@ -32,7 +32,7 @@ div.modal-backdrop {
     .input-container > label {
       padding-right: $half-space;
 
-      color: $teal;
+      color: $primary;
     }
 
     .close-button {
@@ -44,7 +44,7 @@ div.modal-backdrop {
       line-height: 20px;
       text-align: center;
 
-      background-color: $teal;
+      background-color: $primary;
       color: $white;
       cursor: pointer;
       @include border-radius(100%);

@@ -25,66 +25,40 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
-h1,.alpha {
-  font-size: 36px;
-}
+h1,.alpha { font-size: 36px; }
 
-h2,.beta {
-  font-size: 30px;
-}
+h2,.beta { font-size: 30px; }
 
-h3,.gamma {
-  font-size: 24px;
-}
+h3,.gamma { font-size: 24px; }
 
-h4,.delta {
-  font-size: 20px;
-}
+h4,.delta { font-size: 20px; }
 
-h5,.epsilon {
-  font-size: 18px;
-}
+h5,.epsilon { font-size: 18px; }
 
-h6,.zeta {
-  font-size: 16px;
-}
+h6,.zeta { font-size: 16px; }
 
-.serif {
-  font-family: $serif-family;
-}
+.serif { font-family: $serif-family; }
 
-.sans-serif {
-  font-family: $sans-serif-family;
-}
+.sans-serif { font-family: $sans-serif-family; }
 
-.orange {
-  color: $orange;
-}
+.secondary { color: $secondary; }
 
-.teal {
-  color: $teal;
-}
+.primary { color: $primary; }
 
-.italic {
-  font-style: italic;
-}
+.italic { font-style: italic; }
 
-.weight--normal {
-  font-weight: 300;
-}
+.weight--normal { font-weight: 300; }
 
 a {
   position: relative;
   top: 0;
   text-decoration: none;
-  color: $teal;
+  color: $primary;
   cursor: pointer;
 
   @include transition(color 0.1s ease-in-out);
 
-  &:active {
-    top: 2px;
-  }
+  &:active { top: 2px; }
 }
 
 input {
