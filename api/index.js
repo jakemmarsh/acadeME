@@ -35,6 +35,9 @@ module.exports = function(server) {
 
   // Course endpoints
   api.get('/course', routes.course.getAll);
+  api.get('/course/search/:query', routes.course.searchAll);
+  api.get('/course/newest', routes.course.getNewest);
+  api.get('/course/trending', routes.course.getTrending);
   api.get('/course/:identifier', routes.course.get);
   api.post('/course', routes.course.create);
   api.get('/course/:id/search/:query', routes.course.search);

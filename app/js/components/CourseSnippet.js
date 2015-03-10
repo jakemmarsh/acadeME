@@ -6,6 +6,8 @@
 var React = require('react/addons');
 var Link  = React.createFactory(require('react-router').Link);
 
+var CourseImage = require('./CourseImage');
+
 var CourseSnippet = React.createClass({
 
   propTypes: {
@@ -20,16 +22,10 @@ var CourseSnippet = React.createClass({
 
   renderCourseImage: function() {
     var element = null;
-    var imageStyles;
-
     if ( this.props.course.imageUrl ) {
-      imageStyles = {
-        'backgroundImage': 'url(' + this.props.course.imageUrl + ')'
-      };
-
       element = (
         <div className="image-container">
-          <div className="course-image" style={imageStyles} />
+          <CourseImage course={this.props.course} />
         </div>
       );
     }
@@ -39,7 +35,7 @@ var CourseSnippet = React.createClass({
 
   render: function() {
     return (
-      <article className="course-snippet">
+      <article className="course-snippet islet">
 
         {this.renderCourseImage()}
 
@@ -47,6 +43,12 @@ var CourseSnippet = React.createClass({
           <h3 className="title">{this.props.course.title}</h3>
 
           <p className="description flush">{this.props.course.description}</p>
+        </div>
+
+        <div className="arrow-container text-right">
+          <div className="go-arrow">
+            <i className="fa fa-angle-right" />
+          </div>
         </div>
 
         <Link to="Course" params={{ courseId: this.props.course.id }} />

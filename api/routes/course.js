@@ -1,8 +1,9 @@
 'use strict';
 
-var when   = require('when');
-var _      = require('lodash');
-var models = require('../models');
+var when      = require('when');
+var _         = require('lodash');
+var Sequelize = require('sequelize');
+var models    = require('../models');
 
 /* ====================================================== */
 
@@ -44,7 +45,7 @@ exports.get = function(req, res) {
   getCourse(req.params.identifier).then(function(course) {
     res.status(200).json(course);
   }).catch(function(err) {
-    res.status(err.status).json({ error: err.body });
+    res.status(err.status).json({ status: err.status, message: err.body });
   });
 
 };
@@ -68,7 +69,58 @@ exports.getAll = function(req, res) {
   getCourses().then(function(courses) {
     res.status(200).json(courses);
   }).catch(function(err) {
-    res.status(err.status).json({ error: err.body });
+    res.status(err.status).json({ status: err.status, message: err.body });
+  });
+
+};
+
+/* ====================================================== */
+
+exports.getNewest = function(req, res) {
+  var getNewestCourses = function() {
+    var deferred = when.defer();
+
+    models.Course.findAll({
+      order: ['createdAt'],
+      limit: 20
+    }).then(function(retrievedCourses) {
+      deferred.resolve(retrievedCourses);
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
+
+    return deferred.promise;
+  };
+
+  getNewestCourses().then(function(courses) {
+    res.status(200).json(courses);
+  }).catch(function(err) {
+    res.status(err.status).json({ status: err.status, message: err.body });
+  });
+};
+
+/* ====================================================== */
+
+exports.getTrending = function(req, res) {
+  var getTrendingCourses = function() {
+    var deferred = when.defer();
+
+    models.Course.findAll({
+      order: ['createdAt'],
+      limit: 20
+    }).then(function(retrievedCourses) {
+      deferred.resolve(retrievedCourses);
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
+
+    return deferred.promise;
+  };
+
+  getTrendingCourses().then(function(courses) {
+    res.status(200).json(courses);
+  }).catch(function(err) {
+    res.status(err.status).json({ status: err.status, message: err.body });
   });
 
 };
@@ -99,7 +151,36 @@ exports.create = function(req, res) {
   createCourse(req.body).then(function(createdCourse) {
     res.status(200).json(createdCourse);
   }).catch(function(err) {
-    res.status(err.status).json({ error: err.error });
+    res.status(err.status).json({ status: err.status, message: err.error });
+  });
+
+};
+
+/* ====================================================== */
+
+exports.searchAll = function(req, res) {
+
+  var searchAllCourses = function(query) {
+    var deferred = when.defer();
+
+    models.Course.findAll({
+      where: Sequelize.or(
+        { title: { ilike: '%' + query + '%' } },
+        { description: { ilike: '%' + query + '%' } }
+      )
+    }).then(function(retrievedCourses) {
+      deferred.resolve(retrievedCourses);
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
+
+    return deferred.promise;
+  };
+
+  searchAllCourses(req.params.query).then(function(playlists) {
+    res.status(200).json(playlists);
+  }).catch(function(err) {
+    res.status(err.status).json({ status: err.status, message: err.body.toString() });
   });
 
 };
@@ -119,7 +200,7 @@ exports.search = function(req, res) {
   searchCourse(req.params.id, req.params.query).then(function(results) {
     res.status(200).json(results);
   }).catch(function(err) {
-    res.status(err.status).json({ error: err.body });
+    res.status(err.status).json({ status: err.status, message: err.body });
   });
 
 };
@@ -151,7 +232,7 @@ exports.createLesson = function(req, res) {
   create(req.params.id, req.body).then(function(createdLesson) {
     res.status(200).json(createdLesson);
   }).catch(function(err) {
-    res.status(err.status).json({ error: err.error });
+    res.status(err.status).json({ status: err.status, message: err.error });
   });
 
 };
@@ -175,7 +256,7 @@ exports.delete = function(req, res) {
   deleteCourse(req.params.id).then(function() {
     res.status(200).json('Course successfully deleted.');
   }).catch(function(err) {
-    res.status(err.status).json({ error: err.body });
+    res.status(err.status).json({ status: err.status, message: err.body });
   });
 
 };

@@ -24,8 +24,6 @@ var CurrentTrackStore = Reflux.createStore({
       cb(null, this.user);
       this.trigger(null, this.user);
     }.bind(this)).catch(function(err) {
-      cb(err);
-      this.trigger(err);
       console.log('error checking login status:', err);
     }.bind(this));
   },

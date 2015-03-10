@@ -12,6 +12,18 @@ var CourseAPI = {
     return APIUtils.get('course');
   },
 
+  getNewest: function() {
+    return APIUtils.get('course/newest');
+  },
+
+  getTrending: function() {
+    return APIUtils.get('course/trending');
+  },
+
+  searchAll: function(query) {
+    return APIUtils.get('course/search/' + query);
+  },
+
   create: function(course) {
     return APIUtils.post('course', course);
   },
