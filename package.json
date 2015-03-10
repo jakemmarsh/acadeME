@@ -30,6 +30,7 @@
     "dotenv": "^0.5.1",
     "express": "^4.7.2",
     "express-session": "^1.10.1",
+    "fibers": "^1.0.5",
     "gulp": "^3.8.8",
     "gulp-if": "^1.2.4",
     "gulp-imagemin": "^2.0.0",
@@ -49,19 +50,21 @@
     "mime-types": "^2.0.3",
     "moment": "^2.8.4",
     "morgan": "^1.2.2",
+    "node-jsx": "^0.12.4",
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
     "pg": "^4.3.x",
     "pg-hstore": "^2.3.x",
     "pg-native": "^1.8.x",
     "react": "^0.12.x",
+    "react-async": "^2.0.1",
     "react-marked": "^0.3.1",
     "react-router": "^0.11.x",
     "reactify": "^0.14.0",
     "reflux": "^0.1.13",
     "run-sequence": "^0.3.6",
     "sequelize": "^2.0.x",
-    "sir-trevor": "jakemmarsh/sir-trevor-js",
+    "sir-trevor": "^0.5.0-beta1",
     "slug": "^0.8.0",
     "socket.io": "^1.2.1",
     "socket.io-client": "^1.2.1",
@@ -74,6 +77,7 @@
     "supervisor": "^0.6.0"
   },
   "scripts": {
+    "prestart": "gulp prod",
     "start": "supervisor server.js"
   }
 }

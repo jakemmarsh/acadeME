@@ -2,17 +2,17 @@
 
 module.exports = {
   'scripts': {
-    'src': './app/js/**/*.js',
+    'src': './js/**/*.{js,jsx}',
     'dest': './build/js/'
   },
   'images': {
-    'src': './app/images/**/*.{jpeg,jpg,png}',
+    'src': './public/images/**/*.{jpeg,jpg,png}',
     'dest': './build/images/'
   },
   'styles': {
-    'src': './app/styles/**/*.scss',
+    'src': './public/styles/**/*.scss',
     'dest': './build/css/'
   },
-  'sourceDir': './app/',
+  'sourceDir': './public/',
   'buildDir': './build/'
 };
