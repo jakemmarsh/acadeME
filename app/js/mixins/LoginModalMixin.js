@@ -19,7 +19,7 @@ var LoginModalMixin = {
     return {
       showLoginModal: false,
       loading: false,
-      username: '',
+      email: '',
       password: ''
     };
   },
@@ -30,7 +30,7 @@ var LoginModalMixin = {
 
   handleSubmit: function(evt) {
     var user = {
-      username: this.state.username,
+      email: this.state.email,
       password: this.state.password
     };
 
@@ -47,7 +47,7 @@ var LoginModalMixin = {
         this.setState({ error: err.message, loading: false });
       } else {
         console.log('successfully logged in, closing modal');
-        this.toggleLoginModal();
+        this.setState(this.getInitialState());
       }
     }.bind(this));
   },
@@ -87,16 +87,16 @@ var LoginModalMixin = {
 
           <div className="table full-width">
             <div className="login-container td half-width island">
-              <form id="login-form"onSubmit={this.handleSubmit}>
+              <form id="login-form" onSubmit={this.handleSubmit}>
                 <input type="text"
-                       id="username"
+                       id="email"
                        className="nudge-quarter--bottom"
-                       valueLink={this.linkState('username')}
-                       placeholder="Username"
+                       valueLink={this.linkState('email')}
+                       placeholder="Email Address"
                        required />
                 <input type="password"
                        id="password"
-                       className="nudge-quarter--bottom"
+                       className="nudge--bottom"
                        valueLink={this.linkState('password')}
                        placeholder="Password"
                        required />

@@ -14,7 +14,9 @@ var APIUtils = {
   get: function(path) {
     var deferred = when.defer();
 
-    request.get(this.root + path).end(function(res) {
+    request.get(this.root + path)
+    .withCredentials()
+    .end(function(res) {
       if ( !res.ok ) {
         deferred.reject(normalizeResponse(res));
       } else {
@@ -28,7 +30,9 @@ var APIUtils = {
   post: function(path, body) {
     var deferred = when.defer();
 
-    request.post(this.root + path, body).end(function(res) {
+    request.post(this.root + path, body)
+    .withCredentials()
+    .end(function(res) {
       if ( !res.ok ) {
         deferred.reject(normalizeResponse(res));
       } else {
@@ -42,7 +46,9 @@ var APIUtils = {
   put: function(path, body) {
     var deferred = when.defer();
 
-    request.put(this.root + path, body).end(function(res) {
+    request.put(this.root + path, body)
+    .withCredentials()
+    .end(function(res) {
       if ( !res.ok ) {
         deferred.reject(normalizeResponse(res));
       } else {
@@ -56,7 +62,9 @@ var APIUtils = {
   del: function(path) {
     var deferred = when.defer();
 
-    request.del(this.root + path).end(function(res) {
+    request.del(this.root + path)
+    .withCredentials()
+    .end(function(res) {
       if ( !res.ok ) {
         deferred.reject(normalizeResponse(res));
       } else {

@@ -9,9 +9,12 @@ var models        = require('./models');
 
 module.exports = function() {
 
-  passport.use(new LocalStrategy(function(username, password, done) {
+  passport.use(new LocalStrategy({
+    usernameField: 'email'
+  }, function(username, password, done) {
     models.User.find({
-      where: { username: username }
+      where: { email: username },
+      include: [models.Course]
     }).then(function(retrievedUser) {
       if ( !_.isEmpty(retrievedUser) ) {
         retrievedUser.verifyPassword(password, function(err, result) {
@@ -22,7 +25,7 @@ module.exports = function() {
           }
         });
       } else {
-        return done(null, false, { message: 'No user could be found with that username.' });
+        return done(null, false, { message: 'No user could be found with that email.' });
       }
     }).catch(function(err) {
       return done(err);
@@ -30,12 +33,12 @@ module.exports = function() {
   }));
 
   passport.serializeUser(function(user, done) {
-    done(null, user.username);
+    done(null, user.email);
   });
 
-  passport.deserializeUser(function(username, done) {
+  passport.deserializeUser(function(email, done) {
     models.User.find({
-      where: { username: username }
+      where: { email: email }
     }).then(function(user) {
       done(null, user);
     }).catch(function(err) {

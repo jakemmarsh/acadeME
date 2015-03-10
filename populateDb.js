@@ -10,7 +10,7 @@ module.exports = function(models) {
   var createInstructorUser = function() {
     var deferred = when.defer();
     var user = {
-      username: 'test',
+      email: 'test@test.com',
       hash: 'test',
       firstName: 'John',
       lastName: 'Doe',
@@ -151,25 +151,25 @@ module.exports = function(models) {
     var deferred = when.defer();
     var usersToCreate = [
       {
-        username: 'sjobs',
+        email: 'sjobs@apple.com',
         hash: 'test',
         firstName: 'Steve',
         lastName: 'Jobs',
         imageUrl: 'http://a5.files.biography.com/image/upload/c_fill,dpr_1.0,g_face,h_300,q_80,w_300/MTE5NDg0MDU0NTIzODQwMDE1.jpg'
       },
       {
-        username: 'bgates',
+        email: 'bgates@microsoft.com',
         hash: 'test',
         firstName: 'Bill',
         lastName: 'Gates',
         imageUrl: 'http://timedotcom.files.wordpress.com/2014/01/bill-gates.jpg?w=1100'
       }
     ];
-    var usernames = _.pluck(usersToCreate, 'username');
+    var emails = _.pluck(usersToCreate, 'email');
 
     models.User.bulkCreate(usersToCreate).then(function() {
       models.User.findAll({
-        where: { username: usernames }
+        where: { email: emails }
       }).then(function(users) {
         var enrollments = _.map(users, function(user) {
           return {
@@ -194,7 +194,7 @@ module.exports = function(models) {
   var createCurrentUser = function(otherUsers) {
     var deferred = when.defer();
     var user = {
-      username: 'jakemmarsh',
+      email: 'jakemmarsh@gmail.com',
       hash: 'test',
       firstName: 'Jake',
       lastName: 'Marsh',
