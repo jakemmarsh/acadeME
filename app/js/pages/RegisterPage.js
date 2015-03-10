@@ -9,8 +9,10 @@ var when          = require('when');
 var Navigation    = require('react-router').Navigation;
 
 var AuthAPI       = require('../utils/AuthAPI');
+var awsAPI        = require('../utils/awsAPI');
 var UserActions   = require('../actions/UserActions');
 var DocumentTitle = require('../components/DocumentTitle');
+var FileInput     = require('../components/FileInput');
 
 var RegisterPage = React.createClass({
 
@@ -52,6 +54,10 @@ var RegisterPage = React.createClass({
     this.setState({ submitDisabled: !formIsValid });
   },
 
+  updateImage: function(file) {
+    this.setState({ image: file });
+  },
+
   createUser: function() {
     var deferred = when.defer();
     var user = {
@@ -74,7 +80,7 @@ var RegisterPage = React.createClass({
     var deferred = when.defer();
 
     if ( this.state.image ) {
-      console.log('should upload image here');
+      awsAPI.uploadUserImage(this.state.image, user.id);
     }
 
     deferred.resolve(user);
@@ -147,6 +153,7 @@ var RegisterPage = React.createClass({
                    valueLink={this.linkState('lastName')}
                    placeholder="Last Name"
                    required />
+            <FileInput id="image-url" accept="image/x-png, image/gif, image/jpeg" processFile={this.updateImage} />
             <input type="password"
                    id="password"
                    className="nudge-half--bottom"

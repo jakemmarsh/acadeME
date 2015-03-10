@@ -30,13 +30,15 @@ function uploadToAWS(file, type, entityId) {
   };
   var path = '/';
 
-  if ( type === 'attachment' ) {
-    path += 'attachments/';
-  } else if ( type === 'course' || type === 'lesson' ) {
-    path += type + '_imgs/';
+  switch ( type ) {
+    case 'attachment':
+      path += 'attachments/';
+      break;
+    default:
+      path += type + '_imgs/';
   }
 
-  path += datePrefix + '/' + key + '.' + mime.extensions[file.mimetype];
+  path += datePrefix + '/' + key + '.' + mime.extensions[file.mimetype][0];
 
   AWS.putBuffer(file.buffer, path, headers, function(err, response){
     if ( err || response.statusCode !== 200 ) {
@@ -60,7 +62,19 @@ function updateEntity(data) {
   var type = data[0];
   var id = data[1];
   var filePath = 'https://' + process.env.S3_BUCKET + '.s3.amazonaws.com' + data[2];
-  var model = (type === 'lesson') ? models.Lesson : models.Course;
+  var model;
+
+  switch ( type ) {
+    case 'lesson':
+      model = models.Lesson;
+      break;
+    case 'course':
+      model = models.Course;
+      break;
+    case 'user':
+      model = models.User;
+      break;
+  }
 
   model.find({
     where: { id: id }
