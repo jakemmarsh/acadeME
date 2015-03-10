@@ -2,7 +2,7 @@
   position: relative;
   height: 5px;
 
-  background: $darkest-teal;
+  background: darken($sidebar-dark-grey, 10);
 
   .fill {
     position: absolute;

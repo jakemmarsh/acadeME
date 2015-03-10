@@ -1,17 +1,15 @@
-.modal.login-modal {
+$card-width: 600px;
+$input-width: $card-width - $full-space*2;
 
-  $modal-width: 700px;
-  $input-width: $modal-width/2 - $half-space*2;
+section.register-page {
 
-  .td.login-container {
-    border-right: 1px solid darken($background-light-grey, 10);
-  }
+  div.form-container {
+    @extend %card;
+    @extend .island;
+    display: block;
+    width: $card-width;
+    margin: $full-space auto;
 
-  .td.register-container {
-    background-color: $sidebar-background-grey;
-  }
-
-  form {
     input:not([type=submit]) {
       display: block;
       width: $input-width;

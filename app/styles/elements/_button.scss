@@ -25,7 +25,9 @@
   }
 
   &:disabled {
+    cursor: default;
     background-color: darken($background-light-grey, 10);
+    &:hover { background-color: darken($background-light-grey, 10); }
   }
 
 }

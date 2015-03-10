@@ -17,7 +17,7 @@ div.modal-backdrop {
     width: 700px;
 
     color: $text-grey;
-    background-color: $background-light-grey;
+    background-color: $white;
     @include box-shadow(0px 2px 55px rgba(0, 0, 0, 0.3));
 
     div.header {
@@ -26,14 +26,6 @@ div.modal-backdrop {
       background: $primary;
       @include linear-gradient(90deg, $primary 0%, $secondary 100%);
     }
-
-    input:not([type=submit]) {
-      background-color: $white;
-      border: none;
-      outline: none;
-    }
-
-    input[type=submit]:disabled { background-color: $text-dark-grey; }
 
     .input-container > label {
       padding-right: $half-space;

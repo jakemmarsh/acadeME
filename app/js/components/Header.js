@@ -66,6 +66,7 @@ var Header = React.createClass({
     if ( _.isEmpty(this.props.currentUser) ) {
       element = (
         <div>
+          <Link to="Register" className="nudge-half--right">Register</Link>
           <a onClick={this.toggleLoginModal}>Sign in</a>
         </div>
       );
