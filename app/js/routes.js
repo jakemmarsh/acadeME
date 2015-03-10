@@ -3,6 +3,7 @@
  */
 'use strict';
 
+var React            = require('react/addons');
 var Route            = require('react-router').Route;
 var DefaultRoute     = require('react-router').DefaultRoute;
 var NotFoundRoute    = require('react-router').NotFoundRoute;

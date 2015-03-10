@@ -48,9 +48,9 @@ var CurrentTrackStore = Reflux.createStore({
 
     console.log('logout user');
 
-    AuthAPI.logout(this.user).then(function() {
+    AuthAPI.logout().then(function() {
       this.user = null;
-      cb(null, null);
+      cb(null, this.user);
       this.trigger(null, this.user);
     }.bind(this)).catch(function(err) {
       cb(err);
