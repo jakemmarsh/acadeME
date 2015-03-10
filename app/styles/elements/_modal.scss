@@ -14,12 +14,18 @@ div.modal-backdrop {
     z-index: 4;
     position: relative;
     margin: 150px auto 0 auto;
-    padding: $half-space;
-    width: 600px;
+    width: 700px;
 
     color: $text-grey;
     background-color: $background-light-grey;
     @include box-shadow(0px 2px 55px rgba(0, 0, 0, 0.3));
+
+    div.header {
+      padding: $half-space $full-space;
+      color: $white;
+      background: $primary;
+      @include linear-gradient(90deg, $primary 0%, $secondary 100%);
+    }
 
     input:not([type=submit]) {
       background-color: $white;

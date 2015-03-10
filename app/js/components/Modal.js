@@ -9,6 +9,7 @@ var Modal = React.createClass({
 
   propTypes: {
     onRequestClose: React.PropTypes.func.isRequired,
+    title: React.PropTypes.string,
     className: React.PropTypes.string
   },
 
@@ -24,6 +25,20 @@ var Modal = React.createClass({
     this.props.onRequestClose();
   },
 
+  renderHeader: function() {
+    var element = null;
+
+    if ( this.props.title ) {
+      element = (
+        <div className="header">
+          <h3 className="flush text-left sans-serif">{this.props.title}</h3>
+        </div>
+      );
+    }
+
+    return element;
+  },
+
   render: function() {
     var modalClasses = 'modal' + (this.props.className ? ' ' + this.props.className : '');
 
@@ -31,6 +46,7 @@ var Modal = React.createClass({
       <div className="modal-backdrop" onClick={this.handleCloseClick}>
         <div className="modal-container">
           <div className={modalClasses} onClick={this.killClick}>
+            {this.renderHeader()}
             {this.props.children}
             <div className="close-button" onClick={this.handleCloseClick}>
               <i className="fa fa-remove" />

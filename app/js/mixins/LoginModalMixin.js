@@ -69,7 +69,7 @@ var LoginModalMixin = {
 
     if ( this.state.error ) {
       element = (
-        <div className="error-container">
+        <div className="error-container nudge-quarter--bottom">
           {this.state.error}
         </div>
       );
@@ -83,24 +83,39 @@ var LoginModalMixin = {
 
     if ( this.state.showLoginModal ) {
       element = (
-        <Modal className="login-modal" onRequestClose={this.toggleLoginModal}>
+        <Modal className="login-modal" title="Login" onRequestClose={this.toggleLoginModal}>
 
-          <form id="login-form" className="island" onSubmit={this.handleSubmit}>
-            <input type="text" id="username" valueLink={this.linkState('username')} placeholder="Username" required />
-            <br />
-            <input type="password" id="password" valueLink={this.linkState('password')} placeholder="Password" required />
-            <br />
-            {this.renderError()}
-            <br />
-            <input type="submit" value="Login" />
-          </form>
+          <div className="table full-width">
+            <div className="login-container td half-width island">
+              <form id="login-form"onSubmit={this.handleSubmit}>
+                <input type="text"
+                       id="username"
+                       className="nudge-quarter--bottom"
+                       valueLink={this.linkState('username')}
+                       placeholder="Username"
+                       required />
+                <input type="password"
+                       id="password"
+                       className="nudge-quarter--bottom"
+                       valueLink={this.linkState('password')}
+                       placeholder="Password"
+                       required />
+                {this.renderError()}
+                <div className="table full-width">
+                  <div className="td half-width text-left">
+                    <a>Forgot your password?</a>
+                  </div>
+                  <div className="td half-width text-right">
+                    <input type="submit" className="btn" value="Login" />
+                  </div>
+                </div>
+              </form>
+            </div>
 
-          <div className="text-center nudge-half--top">
-            <a>Forgot your password?</a>
-          </div>
-
-          <div className="text-center nudge-quarter--top">
-            Don't have an account? <a href="/register">Sign up</a>
+            <div className="register-container td half-width island text-center">
+              <h3 className="primary">Don't have an account?</h3>
+              <a href="/register" className="btn soft-half--ends soft--sides inline-block">Sign up</a>
+            </div>
           </div>
 
         </Modal>
