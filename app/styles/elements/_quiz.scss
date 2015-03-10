@@ -51,30 +51,6 @@ div.quiz {
       background-color: transparent;
       @include transition(background-color 0.1s ease-in-out, color 0.1s ease-in-out);
 
-      &:hover {
-        background-color: darken($background-light-grey, 2);
-
-        color: $secondary;
-
-        .choice-indicator {
-          border-color: $secondary;
-        }
-      }
-
-      &.selected {
-        background-color: darken($background-light-grey, 2);
-
-        color: $primary;
-
-        .choice-indicator {
-          border-color: $primary;
-        }
-      }
-
-      &:not(:last-child) {
-        border-bottom: 1px solid darken($background-light-grey, 5);
-      }
-
       & > * {
         display: table-cell;
         vertical-align: middle;
@@ -97,6 +73,30 @@ div.quiz {
 
       span {
         padding-left: $half-space;
+      }
+
+      &:hover {
+        background-color: darken($background-light-grey, 2);
+
+        color: $secondary;
+
+        .choice-indicator {
+          border-color: $secondary;
+        }
+      }
+
+      &.selected {
+        background-color: darken($background-light-grey, 2);
+
+        color: $primary;
+
+        .choice-indicator {
+          border-color: $primary;
+        }
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid darken($background-light-grey, 5);
       }
     }
   }
