@@ -22,7 +22,7 @@ var CurrentQuizStore = Reflux.createStore({
     LessonAPI.getQuiz(lessonId).then(function(quiz) {
       this.quiz = quiz;
       cb(null, this.quiz);
-      this.trigger(this.quiz);
+      this.trigger(null, this.quiz);
     }.bind(this)).catch(function(err) {
       cb(err);
       console.log('error getting quiz:', err);

@@ -27,6 +27,11 @@ exports.get = function(req, res) {
         {
           model: models.Lesson,
           attributes: ['id', 'title', 'description', 'imageUrl']
+        },
+        {
+          model: models.Enrollment,
+          as: 'Enrollments',
+          attributes: ['UserId']
         }
       ]
     }).then(function(course) {
@@ -67,6 +72,48 @@ exports.getAll = function(req, res) {
   };
 
   getCourses().then(function(courses) {
+    res.status(200).json(courses);
+  }).catch(function(err) {
+    res.status(err.status).json({ status: err.status, message: err.body });
+  });
+
+};
+
+/* ====================================================== */
+
+exports.getForUser = function(req, res) {
+
+  var getEnrollments = function(userId) {
+    var deferred = when.defer();
+
+    models.Enrollment.findAll({
+      where: { UserId: userId }
+    }).then(function(retrievedEnrollments) {
+      deferred.resolve(retrievedEnrollments);
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
+
+    return deferred.promise;
+  };
+
+  var getCourses = function(enrollments) {
+    var deferred = when.defer();
+
+    models.Course.findAll({
+      where: { id: _.pluck(enrollments, 'CourseId') }
+    }).then(function(retrievedCourses) {
+      deferred.resolve(retrievedCourses);
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
+
+    return deferred.promise;
+  };
+
+  getEnrollments(req.params.userId)
+  .then(getCourses)
+  .then(function(courses) {
     res.status(200).json(courses);
   }).catch(function(err) {
     res.status(err.status).json({ status: err.status, message: err.body });
@@ -152,6 +199,79 @@ exports.create = function(req, res) {
     res.status(200).json(createdCourse);
   }).catch(function(err) {
     res.status(err.status).json({ status: err.status, message: err.error });
+  });
+
+};
+
+/* ====================================================== */
+
+exports.enroll = function(req, res) {
+
+  var enrollUser = function(courseId, userId) {
+    var deferred = when.defer();
+    var enrollment = {
+      CourseId: courseId,
+      UserId: userId
+    };
+
+    models.Enrollment.create(enrollment).then(function() {
+      deferred.resolve(courseId);
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
+
+    return deferred.promise;
+  };
+
+  var getCourse = function(courseId) {
+    var deferred = when.defer();
+
+    models.Course.find({
+      where: { id: courseId }
+    }).then(function(retrievedCourse) {
+      deferred.resolve(retrievedCourse);
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
+
+    return deferred.promise;
+  };
+
+  enrollUser(req.params.id, req.user.id)
+  .then(getCourse)
+  .then(function(course) {
+    res.status(200).json(course);
+  }).catch(function(err) {
+    res.status(err.status).json({ status: err.status, message: err.error });
+  });
+
+};
+
+/* ====================================================== */
+
+exports.unEnroll = function(req, res) {
+
+  var unEnrollUser = function(courseId, userId) {
+    var deferred = when.defer();
+
+    models.Enrollment.destroy({
+      where: {
+        CourseId: courseId,
+        UserId: userId
+      }
+    }).then(function(resp) {
+      deferred.resolve(resp);
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
+
+    return deferred.promise;
+  };
+
+  unEnrollUser(req.params.id, req.user.id).then(function(resp) {
+    res.status(200).json(resp);
+  }).catch(function(err) {
+    res.status(err.status).json({ status: err.status, message: err.body.toString() });
   });
 
 };
@@ -244,7 +364,9 @@ exports.delete = function(req, res) {
   var deleteCourse = function(courseId) {
     var deferred = when.defer();
 
-    models.Course.destroy({ id: courseId }).then(function() {
+    models.Course.destroy({
+      where: { id: courseId }
+    }).then(function() {
       deferred.resolve(courseId);
     }).catch(function(err) {
       deferred.reject({ status: 500, body: err });

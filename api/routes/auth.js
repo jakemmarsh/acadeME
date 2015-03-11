@@ -21,8 +21,6 @@ exports.isAuthenticated = function(req, res, next) {
 
 exports.login = function(req, res, next) {
 
-  console.log('in login endpoint');
-
   passport.authenticate('local', function(err, user, info) {
     if ( err ) {
       return next(err);

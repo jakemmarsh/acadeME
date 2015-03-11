@@ -12,7 +12,7 @@ var LessonQuiz = React.createClass({
 
   statics: {
     willTransitionFrom: function(transition, component) {
-      if ( !component.state.quizComplete ) {
+      if ( !component.state.quizComplete && component.state.quizStarted ) {
         if( !window.confirm('You haven\'t yet finished this quiz! Are you sure you want to leave and lose all progress?') ) {
           transition.abort();
         }
@@ -38,32 +38,31 @@ var LessonQuiz = React.createClass({
     LessonActions.openQuiz(this.props.params.lessonId.toString(), function(err, quiz) {
       cb(null, {
         quiz: quiz,
-        quizComplete: false
+        quizComplete: false,
+        quizStarted: false,
+        error: null
       });
     });
   },
 
-  getInitialState: function() {
-    return {
-      quiz: {},
-      quizComplete: false
-    };
-  },
-
-  _onQuizChange: function(quiz) {
-    this.setState({
-      quiz: quiz
-    });
+  _onQuizChange: function(err, quiz) {
+    if ( err ) {
+      this.setState({ error: err.message });
+    } else {
+      this.setState({ quiz: quiz, error: null });
+    }
   },
 
   componentDidMount: function() {
     this.listenTo(CurrentQuizStore, this._onQuizChange);
   },
 
+  beginQuiz: function() {
+    this.setState({ quizStarted: true });
+  },
+
   flagQuizComplete: function() {
-    this.setState({
-      quizComplete: true
-    });
+    this.setState({ quizComplete: true });
   },
 
   render: function() {
@@ -71,6 +70,7 @@ var LessonQuiz = React.createClass({
       <Quiz currentUser={this.props.currentUser}
             lessonId={parseInt(this.props.params.lessonId)}
             quiz={this.state.quiz}
+            beginQuiz={this.beginQuiz}
             flagQuizComplete={this.flagQuizComplete} />
     );
   }

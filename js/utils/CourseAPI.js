@@ -12,6 +12,10 @@ var CourseAPI = {
     return APIUtils.get('course');
   },
 
+  getForUser: function(userId) {
+    return APIUtils.get('course/user/' + userId);
+  },
+
   getNewest: function() {
     return APIUtils.get('course/newest');
   },
@@ -22,6 +26,14 @@ var CourseAPI = {
 
   searchAll: function(query) {
     return APIUtils.get('course/search/' + query);
+  },
+
+  enroll: function(id) {
+    return APIUtils.post('course/' + id + '/enroll');
+  },
+
+  unEnroll: function(id) {
+    return APIUtils.del('course/' + id + '/enroll');
   },
 
   create: function(course) {

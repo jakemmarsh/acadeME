@@ -93,7 +93,7 @@ app.use('*/fonts', express.static(__dirname + '/build/fonts'));
 app.use('/api', api(server));
 
 // Serve React app for all main routes
-app.get('*' ,function(req,res) {
+app.get('/*' ,function(req,res) {
   Router.run(Routes, req.path, function(Handler, state) {
     var title = DocumentTitle.rewind();
     var HandlerComponent = React.createElement(Handler, { params: state.params, query: state.query });

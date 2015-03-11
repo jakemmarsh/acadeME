@@ -39,27 +39,30 @@ module.exports = function(server) {
   api.get('/course/newest', routes.course.getNewest);
   api.get('/course/trending', routes.course.getTrending);
   api.get('/course/:identifier', routes.course.get);
-  api.post('/course', routes.course.create);
+  api.get('/course/user/:userId', routes.auth.isAuthenticated, routes.course.getForUser);
+  api.post('/course', routes.auth.isAuthenticated, routes.course.create);
+  api.post('/course/:id/enroll', routes.auth.isAuthenticated, routes.course.enroll);
+  api.delete('/course/:id/enroll', routes.auth.isAuthenticated, routes.course.unEnroll);
   api.get('/course/:id/search/:query', routes.course.search);
-  api.post('/course/:id/lesson', routes.course.createLesson);
-  api.delete('/course/:id', routes.course.delete);
+  api.post('/course/:id/lesson', routes.auth.isAuthenticated, routes.course.createLesson);
+  api.delete('/course/:id', routes.auth.isAuthenticated, routes.course.delete);
 
   /* ====================================================== */
 
   // Lesson endpoints
   api.get('/lesson/:identifier', routes.lesson.get);
   api.get('/lesson/:id/quiz', routes.quiz.get);
-  api.delete('/lesson/:id', routes.lesson.delete);
+  api.delete('/lesson/:id', routes.auth.isAuthenticated, routes.lesson.delete);
 
   /* ====================================================== */
 
   // Quiz endpoints
-  api.post('/quiz/:quizId/check/:questionId', routes.quiz.checkAnswer);
+  api.post('/quiz/:quizId/check/:questionId', routes.auth.isAuthenticated, routes.quiz.checkAnswer);
   api.get('/quiz/:quizId/question', routes.quiz.getQuestion);
 
   /* ====================================================== */
 
-  api.post('/upload/:type/:id/:filename?', routes.aws.uploadFile);
+  api.post('/upload/:type/:id/:filename?', routes.auth.isAuthenticated, routes.aws.uploadFile);
 
   /* ====================================================== */
 

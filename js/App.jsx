@@ -10,7 +10,6 @@ var RouteHandler       = require('react-router').RouteHandler;
 
 var UserActions        = require('./actions/UserActions');
 var CurrentUserStore   = require('./stores/CurrentUserStore');
-var CurrentCourseStore = require('./stores/CurrentCourseStore');
 var Header             = require('./components/Header.jsx');
 var Sidebar            = require('./components/Sidebar.jsx');
 var Footer             = require('./components/Footer.jsx');
@@ -30,7 +29,7 @@ var App = React.createClass({
       console.log('user after async state call:', user);
       cb(null, {
         currentUser: user || {},
-        course: {}
+        currentCourse: {}
       });
     });
   },
@@ -43,23 +42,18 @@ var App = React.createClass({
     }
   },
 
-  _onCourseChange: function(err, course) {
-    if ( err ) {
-      this.setState({ error: err.message });
-    } else if ( !err ) {
-      this.setState({ currentCourse: course, error: null });
-    }
-  },
-
   componentWillReceiveProps: function() {
     if ( !this.isActive('Course') ) {
-      this._onCourseChange(null, null);
+      this.setCourse({});
     }
   },
 
   componentDidMount: function() {
     this.listenTo(CurrentUserStore, this._onUserChange);
-    this.listenTo(CurrentCourseStore, this._onCourseChange);
+  },
+
+  setCourse: function(course) {
+    this.setState({ currentCourse: course });
   },
 
   isInnerPage: function() {
@@ -91,7 +85,7 @@ var App = React.createClass({
                 <RouteHandler params={this.props.params}
                               query={this.props.query}
                               currentUser={this.state.currentUser}
-                              course={this.state.currentCourse} />
+                              setCourse={this.setCourse} />
               </Preloaded>
             </div>
           </div>

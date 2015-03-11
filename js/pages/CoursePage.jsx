@@ -1,40 +1,55 @@
 'use strict';
 
-var React         = require('react');
-var ReactAsync    = require('react-async');
-var Preloaded     = ReactAsync.Preloaded;
-var _             = require('lodash');
-var RouteHandler  = require('react-router').RouteHandler;
-var Link          = require('react-router').Link;
-var DocumentTitle = require('react-document-title');
+var React              = require('react');
+var Reflux             = require('reflux');
+var ReactAsync         = require('react-async');
+var Preloaded          = ReactAsync.Preloaded;
+var _                  = require('lodash');
+var RouteHandler       = require('react-router').RouteHandler;
+var Link               = require('react-router').Link;
+var DocumentTitle      = require('react-document-title');
 
-var CourseActions = require('../actions/CourseActions');
-var ListLink      = require('../components/ListLink.jsx');
-var TopMenu       = require('../components/TopMenu.jsx');
+var CourseActions      = require('../actions/CourseActions');
+var CurrentCourseStore = require('../stores/CurrentCourseStore');
+var ListLink           = require('../components/ListLink.jsx');
+var TopMenu            = require('../components/TopMenu.jsx');
 
 var CoursePage = React.createClass({
 
-  mixins: [ReactAsync.Mixin, React.addons.LinkedStateMixin],
+  mixins: [ReactAsync.Mixin, React.addons.LinkedStateMixin, Reflux.ListenerMixin],
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired,
-    course: React.PropTypes.object.isRequired
+    setCourse: React.PropTypes.func.isRequired
   },
 
   getDefaultProps: function() {
     return {
       currentUser: {},
-      course: {}
+      setUser: function() {}
     };
   },
 
   getInitialStateAsync: function(cb) {
     console.log('get initial state async CoursePage.jsx');
-    CourseActions.openCourse(this.props.params.courseId.toString(), function() {
+    CourseActions.openCourse(this.props.params.courseId.toString(), function(err, course) {
+      this.props.setCourse(course || {});
       cb(null, {
-        query: this.props.query.q ? this.props.query.q.replace(/(\+)|(%20)/gi, ' ') : ''
+        query: this.props.query.q ? this.props.query.q.replace(/(\+)|(%20)/gi, ' ') : '',
+        userIsEnrolled: this.userIsEnrolled(),
+        course: course || {}
       });
     }.bind(this));
+  },
+
+  _onCourseChange: function(err, course) {
+    if ( err ) {
+      this.setState({ error: err.message });
+    } else if ( !err ) {
+      this.setState({ course: course || {}, error: null }, function() {
+        this.props.setCourse(course || {});
+      }.bind(this));
+    }
   },
 
   componentWillReceiveProps: function(nextProps) {
@@ -43,32 +58,70 @@ var CoursePage = React.createClass({
     }
   },
 
+  componentDidMount: function() {
+    this.listenTo(CurrentCourseStore, this._onCourseChange);
+  },
+
+  userIsEnrolled: function() {
+    if ( !_.isEmpty(this.state.course) ) {
+      _.some(this.state.course.enrollments, function(enrollment) {
+        return !_.isEmpty(this.props.currentUser) && enrollment.userId === this.props.currentUser.id;
+      }.bind(this));
+    } else {
+      return false;
+    }
+  },
+
+  enroll: function() {
+    CourseActions.enroll(this.state.course.id, function() {
+      this.setState({ userIsEnrolled: true });
+    }.bind(this));
+  },
+
+  unEnroll: function() {
+    CourseActions.unEnroll(this.state.course.id, function() {
+      this.setState({ userIsEnrolled: false });
+    }.bind(this));
+  },
+
   submitOnEnter: function(evt) {
     var keyCode = evt.keyCode || evt.which;
 
-    if ( (keyCode === '13' || keyCode === 13) && !_.isEmpty(this.props.course) ) {
-      this.transitionTo('CourseSearch', { courseId: this.props.course.id }, { q: this.state.query });
+    if ( (keyCode === '13' || keyCode === 13) && !_.isEmpty(this.state.course) ) {
+      this.transitionTo('CourseSearch', { courseId: this.state.course.id }, { q: this.state.query });
     }
   },
 
   renderCreateButton: function() {
-    var element = null;
+    var userIsInstructor = this.state.course.instructor.id === this.props.currentUser.id;
+    var iconClasses = '';
+    var linkElement = null;
 
-    if ( !_.isEmpty(this.props.course) && this.props.course.instructor.id === this.props.currentUser.id ) {
-      element = (
-        <li className="create-lesson-button">
-          <i className="fa fa-plus" />
-          <Link to="CreateLesson" params={{ courseId: this.props.course.id }} />
-        </li>
-      );
+    if ( userIsInstructor ) {
+      iconClasses = 'fa fa-plus';
+      linkElement = (<Link to="CreateLesson" params={{ courseId: this.state.course.id }} />);
+    } else if ( this.state.userIsEnrolled ) {
+      iconClasses = 'fa fa-bookmark-o';
+      linkElement = (<a onClick={this.unEnroll} />);
+    } else if ( !this.state.userIsEnrolled ) {
+      iconClasses = 'fa fa-bookmark';
+      linkElement = (<a onClick={this.enroll} />);
     }
 
-    return element;
+    return (
+      <li className="special-action-button">
+        <i className={iconClasses} />
+        {linkElement}
+      </li>
+    );
   },
 
   render: function() {
+    var haveUser = !_.isEmpty(this.props.currentUser);
+    var haveCourse = !_.isEmpty(this.state.course);
+
     return (
-      <DocumentTitle title={this.props.course ? this.props.course.title : 'acadeME'}>
+      <DocumentTitle title={haveCourse ? this.state.course.title || 'acadeME' : 'acadeMe' }>
         <section className="course-page">
 
           <TopMenu>
@@ -88,7 +141,7 @@ var CoursePage = React.createClass({
               <i className="fa fa-comments" />
               Chat
             </ListLink>
-            {this.renderCreateButton()}
+            {haveUser && haveCourse ? this.renderCreateButton() : null}
           </TopMenu>
 
           <Preloaded>
@@ -96,7 +149,7 @@ var CoursePage = React.createClass({
                           query={this.props.query}
                           currentUser={this.props.currentUser}
                           updatePageTitle={this.props.updatePageTitle}
-                          course={this.props.course} />
+                          course={haveCourse ? this.state.course : {}} />
           </Preloaded>
 
         </section>

@@ -45,18 +45,6 @@ var ExplorePage = React.createClass({
     }
   },
 
-  getInitialState: function() {
-    return {
-      loading: false,
-      query: this.props.query.q ? this.props.query.q.replace(/(\+)|(%20)/gi, ' ') : '',
-      courses: {
-        newest: [],
-        trending: [],
-        results: []
-      }
-    };
-  },
-
   _onCoursesChange: function(err, courses) {
     if ( err ) {
       this.setState({ loading: false, error: err.message });
@@ -80,7 +68,7 @@ var ExplorePage = React.createClass({
   componentDidMount: function() {
     if ( this.state.query && !this.state.courses.results ) {
       PageActions.searchAllCourses(this.props.query.q, this._onCoursesChange);
-    } else if ( !this.state.courses.newest || !this.state.courses.trending ) {
+    } else if ( _.isEmpty(this.state.courses) || !this.state.courses.newest || !this.state.courses.trending ) {
       PageActions.openExplore(this._onCoursesChange);
     }
     this.listenTo(ExplorePageStore, this._onCoursesChange);
@@ -134,17 +122,19 @@ var ExplorePage = React.createClass({
 
   renderInitialCourses: function() {
     var element = null;
+    var newestCourses = this.state.courses && this.state.courses.newest ? this.state.courses.newest : [];
+    var trendingCourses = this.state.courses && this.state.courses.trending ? this.state.courses.trending : [];
 
     if ( !this.props.query.q ) {
       element = (
         <div>
           <h2 className="page-title nudge--top nudge-half--bottom">Newest Courses</h2>
           <div className="card">
-            {this.renderCourses(this.state.courses.newest)}
+            {this.renderCourses(newestCourses)}
           </div>
           <h2 className="page-title nudge--top nudge-half--bottom">Trending Courses</h2>
           <div className="card">
-            {this.renderCourses(this.state.courses.trending)}
+            {this.renderCourses(trendingCourses)}
           </div>
         </div>
       );
@@ -155,13 +145,14 @@ var ExplorePage = React.createClass({
 
   renderSearchResults: function() {
     var element = null;
+    var courses = this.state.courses && this.state.courses.results ? this.state.courses.results : [];
 
     if ( this.props.query.q ) {
       element = (
         <div>
           <h2 className="page-title nudge--top nudge-half--bottom">Results for {this.props.query.q.replace(/(\+)|(%20)/gi, ' ')}</h2>
           <div className="card">
-            {this.renderCourses(this.state.courses.results)}
+            {this.renderCourses(courses)}
           </div>
         </div>
       );

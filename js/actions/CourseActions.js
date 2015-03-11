@@ -8,7 +8,9 @@ var CourseActions = Reflux.createActions([
   'openCourse',
   'openLessons',
   'openChat',
-  'createLesson'
+  'createLesson',
+  'enroll',
+  'unEnroll'
 
 ]);
 

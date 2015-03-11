@@ -52,7 +52,11 @@ var Quiz = React.createClass({
         question: question,
         currentQuestionNumber: this.state.currentQuestionNumber + 1,
         selectedAnswer: {}
-      });
+      }, function() {
+        if ( this.state.currentQuestionNumber === 1 ) {
+          this.props.beginQuiz();
+        }
+      }.bind(this));
     }
   },
 
