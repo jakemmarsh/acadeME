@@ -6,8 +6,8 @@ module.exports = function(sequelize) {
   {
     methods: {
       associate: function(models) {
-        Enrollment.belongsTo(models.User);
-        Enrollment.belongsTo(models.Course);
+        Enrollment.belongsTo(models.Course, { as: 'Enrollments' });
+        Enrollment.belongsTo(models.User, { as: 'User' });
       }
     }
   });

@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         Course.belongsTo(models.User, { as: 'Instructor' });
         Course.hasMany(models.Lesson, { onDelete: 'cascade' });
-        Course.hasMany(models.Enrollment, { onDelete: 'cascade' });
+        Course.hasMany(models.Enrollment, { as: 'Enrollments', foreignKey: 'CourseId', onDelete: 'cascade' });
       }
     }
   });

@@ -37,7 +37,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         User.hasMany(models.Course, { onDelete: 'cascade' });
         User.hasMany(models.Message, { onDelete: 'cascade' });
-        User.hasMany(models.Enrollment, { onDelete: 'cascade' });
+        User.hasMany(models.Enrollment, { foreignKey: 'UserId', onDelete: 'cascade' });
       }
     },
     instanceMethods: {
