@@ -1,6 +1,8 @@
 'use strict';
 
 var React         = require('react');
+var ReactAsync    = require('react-async');
+var Preloaded     = ReactAsync.Preloaded;
 var _             = require('lodash');
 var RouteHandler  = React.createFactory(require('react-router').RouteHandler);
 var Link          = React.createFactory(require('react-router').Link);
@@ -12,7 +14,7 @@ var TopMenu       = require('../components/TopMenu.jsx');
 
 var CoursePage = React.createClass({
 
-  mixins: [React.addons.LinkedStateMixin],
+  mixins: [ReactAsync.Mixin, React.addons.LinkedStateMixin],
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired,
@@ -26,20 +28,19 @@ var CoursePage = React.createClass({
     };
   },
 
-  getInitialState: function() {
-    return {
-      query: this.props.query.q ? this.props.query.q.replace(/(\+)|(%20)/gi, ' ') : ''
-    };
+  getInitialStateAsync: function(cb) {
+    console.log('get initial state async CoursePage.jsx');
+    CourseActions.openCourse(this.props.params.courseId.toString(), function() {
+      cb(null, {
+        query: this.props.query.q ? this.props.query.q.replace(/(\+)|(%20)/gi, ' ') : ''
+      });
+    }.bind(this));
   },
 
   componentWillReceiveProps: function(nextProps) {
-    if ( _.isEmpty(this.props.course) || this.props.params.courseId !== nextProps.params.courseId ) {
+    if ( this.props.params.courseId && this.props.params.courseId !== nextProps.params.courseId ) {
       CourseActions.openCourse(nextProps.params.courseId.toString());
     }
-  },
-
-  componentWillMount: function() {
-    CourseActions.openCourse(this.props.params.courseId.toString());
   },
 
   submitOnEnter: function(evt) {
@@ -90,11 +91,13 @@ var CoursePage = React.createClass({
             {this.renderCreateButton()}
           </TopMenu>
 
-          <RouteHandler params={this.props.params}
-                        query={this.props.query}
-                        currentUser={this.props.currentUser}
-                        updatePageTitle={this.props.updatePageTitle}
-                        course={this.props.course} />
+          <Preloaded>
+            <RouteHandler params={this.props.params}
+                          query={this.props.query}
+                          currentUser={this.props.currentUser}
+                          updatePageTitle={this.props.updatePageTitle}
+                          course={this.props.course} />
+          </Preloaded>
 
         </section>
       </DocumentTitle>

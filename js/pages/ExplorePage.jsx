@@ -1,6 +1,7 @@
 'use strict';
 
 var React            = require('react/addons');
+var ReactAsync       = require('react-async');
 var Reflux           = require('reflux');
 var _                = require('lodash');
 var Navigation       = require('react-router').Navigation;
@@ -13,10 +14,35 @@ var CourseSnippet    = require('../components/CourseSnippet.jsx');
 
 var ExplorePage = React.createClass({
 
-  mixins: [React.addons.LinkedStateMixin, Reflux.ListenerMixin, Navigation],
+  mixins: [ReactAsync.Mixin, React.addons.LinkedStateMixin, Reflux.ListenerMixin, Navigation],
 
   propTypes: {
     currentUser: React.PropTypes.object
+  },
+
+  getInitialStateAsync: function(cb) {
+    console.log('get initial state in ExplorePage.jsx');
+    if ( this.props.query.q && this.props.query.q.length ) {
+      PageActions.searchAllCourses(this.props.query.q, function(err, results) {
+        cb(null, {
+          loading: false,
+          query: this.props.query.q.replace(/(\+)|(%20)/gi, ' '),
+          courses: {
+            newest: [],
+            trending: [],
+            results: results
+          }
+        });
+      }.bind(this));
+    } else {
+      PageActions.openExplore(function(err, courses) {
+        cb(null, {
+          loading: false,
+          query: '',
+          courses: courses
+        });
+      });
+    }
   },
 
   getInitialState: function() {
@@ -52,12 +78,10 @@ var ExplorePage = React.createClass({
   },
 
   componentDidMount: function() {
-    if ( this.state.query.length ) {
-      this._doSearch();
-    } else {
-      this.setState({ loading: true }, function() {
-        PageActions.openExplore(this._onCoursesChange);
-      }.bind(this));
+    if ( this.state.query && !this.state.courses.results ) {
+      PageActions.searchAllCourses(this.props.query.q, this._onCoursesChange);
+    } else if ( !this.state.courses.newest || !this.state.courses.trending ) {
+      PageActions.openExplore(this._onCoursesChange);
     }
     this.listenTo(ExplorePageStore, this._onCoursesChange);
   },

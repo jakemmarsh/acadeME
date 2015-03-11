@@ -2,6 +2,7 @@
 
 var React              = require('react/addons');
 var ReactAsync         = require('react-async');
+var Preloaded          = ReactAsync.Preloaded;
 var Reflux             = require('reflux');
 var Navigation         = require('react-router').Navigation;
 var State              = require('react-router').State;
@@ -20,20 +21,13 @@ var App = React.createClass({
 
   propTypes: {
     params: React.PropTypes.object,
-    query: React.PropTypes.object,
-    title: React.PropTypes.string
-  },
-
-  getDefaultProps: function() {
-    return {
-      title: ''
-    };
+    query: React.PropTypes.object
   },
 
   getInitialStateAsync: function(cb) {
-    console.log('inside get initial state async');
+    console.log('get initial state in app.jsx');
     UserActions.check(function(err, user) {
-      console.log('after check, about to call cb');
+      console.log('user after async state call:', user);
       cb(null, {
         currentUser: user || {},
         course: {}
@@ -42,7 +36,6 @@ var App = React.createClass({
   },
 
   _onUserChange: function(err, user) {
-    console.log('new user:', user);
     if ( err ) {
       this.setState({ error: err.message });
     } else {
@@ -60,14 +53,13 @@ var App = React.createClass({
 
   componentWillReceiveProps: function() {
     if ( !this.isActive('Course') ) {
-      this._onCourseChangxe(null, null);
+      this._onCourseChange(null, null);
     }
   },
 
   componentDidMount: function() {
     this.listenTo(CurrentUserStore, this._onUserChange);
     this.listenTo(CurrentCourseStore, this._onCourseChange);
-    console.log('app did mount');
   },
 
   isInnerPage: function() {
@@ -87,40 +79,26 @@ var App = React.createClass({
   },
 
   render: function() {
-
-    console.log('will render app');
     return (
-      <html className="no-js" lang="">
-        <head>
-            <meta charSet="utf-8" />
-            <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-            <meta name="description" content="" />
-            <meta name="viewport" content="width=device-width" />
-
-            <title>{this.props.title || 'acadeME'}</title>
-
-            <link rel="stylesheet" href="css/main.css" />
-        </head>
-        <body>
+      <div>
 
           <Header currentUser={this.state.currentUser} />
 
           <div className="body-container">
             {this.renderSidebar()}
             <div className="content-container">
-              <RouteHandler params={this.props.params}
-                            query={this.props.query}
-                            currentUser={this.state.currentUser}
-                            course={this.state.currentCourse} />
+              <Preloaded>
+                <RouteHandler params={this.props.params}
+                              query={this.props.query}
+                              currentUser={this.state.currentUser}
+                              course={this.state.currentCourse} />
+              </Preloaded>
             </div>
           </div>
 
           <Footer />
 
-          <script src="js/main.js"></script>
-
-        </body>
-      </html>
+      </div>
     );
   }
 

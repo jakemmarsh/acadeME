@@ -1,6 +1,7 @@
 'use strict';
 
 var React              = require('react/addons');
+var ReactAsync         = require('react-async');
 var Reflux             = require('reflux');
 var _                  = require('lodash');
 var marked             = require('react-marked');
@@ -11,30 +12,40 @@ var LessonActions      = require('../../actions/LessonActions');
 
 var CourseLesson = React.createClass({
 
-  mixins: [Reflux.ListenerMixin],
+  mixins: [ReactAsync.Mixin, Reflux.ListenerMixin],
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired,
-    lesson: React.PropTypes.object.isRequired
+    params: React.PropTypes.object,
+    query: React.PropTypes.object
+  },
+
+  getDefaultProps: function() {
+    return {
+      currentUser: {}
+    };
+  },
+
+  getInitialStateAsync: function(cb) {
+    LessonActions.openLesson(this.props.params.lessonId.toString(), function(err, lesson) {
+      cb(null, {
+        lesson: lesson || {}
+      });
+    });
   },
 
   getInitialState: function() {
     return {
-      currentUser: {},
       lesson: {}
     };
   },
 
   _onLessonChange: function(err, lesson) {
     if ( err ) {
-      // TODO: handle error
+      this.setState({ erorr: err.message });
     } else {
-      this.setState({ lesson: lesson });
+      this.setState({ lesson: lesson || {}, error: null });
     }
-  },
-
-  componentWillMount: function() {
-    LessonActions.openLesson(this.props.params.lessonId.toString());
   },
 
   componentDidMount: function() {
@@ -104,7 +115,7 @@ var CourseLesson = React.createClass({
     if ( !_.isEmpty(this.state.lesson) ) {
       element = (
         <Link to="LessonQuiz"
-              params={{ courseId: this.props.course.id, lessonId: this.state.lesson.id }}
+              params={{ courseId: this.props.params.courseId, lessonId: this.props.params.lessonId }}
               className="button inline-block">
           Take Quiz
         </Link>

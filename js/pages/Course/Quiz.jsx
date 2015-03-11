@@ -1,6 +1,7 @@
 'use strict';
 
 var React            = require('react/addons');
+var ReactAsync       = require('react-async');
 var Reflux           = require('reflux');
 
 var CurrentQuizStore = require('../../stores/CurrentQuizStore');
@@ -19,7 +20,7 @@ var LessonQuiz = React.createClass({
     }
   },
 
-  mixins: [Reflux.ListenerMixin],
+  mixins: [ReactAsync.Mixin, Reflux.ListenerMixin],
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired,
@@ -33,6 +34,15 @@ var LessonQuiz = React.createClass({
     };
   },
 
+  getInitialStateAsync: function(cb) {
+    LessonActions.openQuiz(this.props.params.lessonId.toString(), function(err, quiz) {
+      cb(null, {
+        quiz: quiz,
+        quizComplete: false
+      });
+    });
+  },
+
   getInitialState: function() {
     return {
       quiz: {},
@@ -44,10 +54,6 @@ var LessonQuiz = React.createClass({
     this.setState({
       quiz: quiz
     });
-  },
-
-  componentWillMount: function() {
-    LessonActions.openQuiz(this.props.params.lessonId.toString());
   },
 
   componentDidMount: function() {

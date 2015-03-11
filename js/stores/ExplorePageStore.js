@@ -24,11 +24,9 @@ var ExplorePageStory = Reflux.createStore({
     console.log('retrieve initial courses');
 
     CourseAPI.getNewest().then(function(newestCourses) {
-      this.courses.newest = newestCourses || [];
-      cb(null, this.courses);
-      this.trigger(null, this.courses);
       CourseAPI.getTrending().then(function(trendingCourses) {
-        this.courses.trending = trendingCourses;
+        this.courses.newest = newestCourses || [];
+        this.courses.trending = trendingCourses || [];
         cb(null, this.courses);
         this.trigger(null, this.courses);
       }.bind(this));
