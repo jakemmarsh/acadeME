@@ -17,7 +17,7 @@ var Html = React.createClass({
   },
 
   render: function() {
-    var title = this.props.title ? this.props.title += ' \u2014 acadeME' : 'acadeME';
+    var title = this.props.title ? this.props.title + ' \u2014 acadeME' : 'acadeME';
 
     return (
       <html className="no-js" lang="">

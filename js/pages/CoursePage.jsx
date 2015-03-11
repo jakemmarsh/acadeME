@@ -68,7 +68,7 @@ var CoursePage = React.createClass({
 
   render: function() {
     return (
-      <DocumentTitle title={this.props.course ? this.props.course.title : ''}>
+      <DocumentTitle title={this.props.course ? this.props.course.title : 'acadeME'}>
         <section className="course-page">
 
           <TopMenu>
