@@ -2,7 +2,7 @@
 
 var React                  = require('react/addons');
 var _                      = require('lodash');
-var Link                   = React.createFactory(require('react-router').Link);
+var Link                   = require('react-router').Link;
 
 var TimeoutTransitionGroup = require('./TimeoutTransitionGroup.jsx');
 var ListLink               = require('./ListLink.jsx');
@@ -94,4 +94,4 @@ var Sidebar = React.createClass({
 
 });
 
-module.exports = React.createFactory(Sidebar);
+module.exports = Sidebar;

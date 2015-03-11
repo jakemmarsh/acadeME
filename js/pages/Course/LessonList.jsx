@@ -47,4 +47,4 @@ var CourseLessonList = React.createClass({
 
 });
 
-module.exports = React.createFactory(CourseLessonList);
+module.exports = CourseLessonList;

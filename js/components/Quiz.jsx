@@ -2,7 +2,7 @@
 
 var React       = require('react/addons');
 var _           = require('lodash');
-var Link        = React.createFactory(require('react-router').Link);
+var Link        = require('react-router').Link;
 
 var QuizActions = require('../actions/QuizActions');
 var ProgressBar = require('./ProgressBar.jsx');
@@ -232,4 +232,4 @@ var Quiz = React.createClass({
 
 });
 
-module.exports = React.createFactory(Quiz);
+module.exports = Quiz;

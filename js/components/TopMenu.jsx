@@ -16,4 +16,4 @@ var TopMenu = React.createClass({
 
 });
 
-module.exports = React.createFactory(TopMenu);
+module.exports = TopMenu;

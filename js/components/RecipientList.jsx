@@ -118,4 +118,4 @@ var RecipientList = React.createClass({
 
 });
 
-module.exports = React.createFactory(RecipientList);
+module.exports = RecipientList;

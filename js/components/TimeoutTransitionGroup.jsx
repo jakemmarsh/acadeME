@@ -21,7 +21,7 @@ var $ = require('jquery');
 
 var React = require('react/addons');
 
-var ReactTransitionGroup = React.createFactory(React.addons.TransitionGroup);
+var ReactTransitionGroup = React.addons.TransitionGroup;
 
 var TICK = 17;
 
@@ -210,4 +210,4 @@ var TimeoutTransitionGroup = React.createClass({
     }
 });
 
-module.exports = React.createFactory(TimeoutTransitionGroup);
+module.exports = TimeoutTransitionGroup;

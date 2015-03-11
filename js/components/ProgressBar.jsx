@@ -1,7 +1,7 @@
 'use strict';
 
 var React                   = require('react/addons');
-var ReactCSSTransitionGroup = React.createFactory(React.addons.CSSTransitionGroup);
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var Tooltip                 = require('./Tooltip.jsx');
 
@@ -57,4 +57,4 @@ var ProgressBar = React.createClass({
 
 });
 
-module.exports = React.createFactory(ProgressBar);
+module.exports = ProgressBar;

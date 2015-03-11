@@ -4,8 +4,8 @@ var React         = require('react');
 var ReactAsync    = require('react-async');
 var Preloaded     = ReactAsync.Preloaded;
 var _             = require('lodash');
-var RouteHandler  = React.createFactory(require('react-router').RouteHandler);
-var Link          = React.createFactory(require('react-router').Link);
+var RouteHandler  = require('react-router').RouteHandler;
+var Link          = require('react-router').Link;
 var DocumentTitle = require('react-document-title');
 
 var CourseActions = require('../actions/CourseActions');
@@ -106,4 +106,4 @@ var CoursePage = React.createClass({
 
 });
 
-module.exports = React.createFactory(CoursePage);
+module.exports = CoursePage;

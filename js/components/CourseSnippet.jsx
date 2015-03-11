@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
-var Link  = React.createFactory(require('react-router').Link);
+var Link  = require('react-router').Link;
 
 var CourseImage = require('./CourseImage.jsx');
 
@@ -56,4 +56,4 @@ var CourseSnippet = React.createClass({
 
 });
 
-module.exports = React.createFactory(CourseSnippet);
+module.exports = CourseSnippet;

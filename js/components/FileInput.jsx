@@ -35,4 +35,4 @@ var FileInput = React.createClass({
 
 });
 
-module.exports = React.createFactory(FileInput);
+module.exports = FileInput;

@@ -42,4 +42,4 @@ var CourseSearch = React.createClass({
 
 });
 
-module.exports = React.createFactory(CourseSearch);
+module.exports = CourseSearch;

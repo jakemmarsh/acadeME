@@ -197,4 +197,4 @@ var ExplorePage = React.createClass({
 
 });
 
-module.exports = React.createFactory(ExplorePage);
+module.exports = ExplorePage;

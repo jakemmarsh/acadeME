@@ -3,7 +3,7 @@
 var React           = require('react/addons');
 var _               = require('lodash');
 var $               = require('jquery');
-var Link            = React.createFactory(require('react-router').Link);
+var Link            = require('react-router').Link;
 
 var LoginModalMixin = require('../mixins/LoginModalMixin.jsx');
 var UserActions     = require('../actions/UserActions');
@@ -122,4 +122,4 @@ var Header = React.createClass({
 
 });
 
-module.exports = React.createFactory(Header);
+module.exports = Header;

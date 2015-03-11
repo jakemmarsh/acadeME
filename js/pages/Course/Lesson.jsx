@@ -5,7 +5,7 @@ var ReactAsync         = require('react-async');
 var Reflux             = require('reflux');
 var _                  = require('lodash');
 var marked             = require('react-marked');
-var Link               = React.createFactory(require('react-router').Link);
+var Link               = require('react-router').Link;
 
 var CurrentLessonStore = require('../../stores/CurrentLessonStore');
 var LessonActions      = require('../../actions/LessonActions');
@@ -139,4 +139,4 @@ var CourseLesson = React.createClass({
 
 });
 
-module.exports = React.createFactory(CourseLesson);
+module.exports = CourseLesson;

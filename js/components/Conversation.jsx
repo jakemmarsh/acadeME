@@ -206,4 +206,4 @@ var Conversation = React.createClass({
 
 });
 
-module.exports = React.createFactory(Conversation);
+module.exports = Conversation;

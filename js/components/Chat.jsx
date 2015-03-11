@@ -101,4 +101,4 @@ var Chat = React.createClass({
 
 });
 
-module.exports = React.createFactory(Chat);
+module.exports = Chat;

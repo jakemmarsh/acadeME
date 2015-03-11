@@ -77,4 +77,4 @@ var LessonQuiz = React.createClass({
 
 });
 
-module.exports = React.createFactory(LessonQuiz);
+module.exports = LessonQuiz;

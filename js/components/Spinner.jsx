@@ -12,4 +12,4 @@ var Spinner = React.createClass({
 
 });
 
-module.exports = React.createFactory(Spinner);
+module.exports = Spinner;

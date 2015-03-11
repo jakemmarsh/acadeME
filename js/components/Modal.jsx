@@ -56,4 +56,4 @@ var Modal = React.createClass({
 
 });
 
-module.exports = React.createFactory(Modal);
+module.exports = Modal;

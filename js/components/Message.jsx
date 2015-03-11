@@ -80,4 +80,4 @@ var Message = React.createClass({
 
 });
 
-module.exports = React.createFactory(Message);
+module.exports = Message;

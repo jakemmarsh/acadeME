@@ -29,4 +29,4 @@ var HomePage = React.createClass({
 
 });
 
-module.exports = React.createFactory(HomePage);
+module.exports = HomePage;

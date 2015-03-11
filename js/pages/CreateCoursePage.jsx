@@ -109,4 +109,4 @@ var CreateCoursePage = React.createClass({
 
 });
 
-module.exports = React.createFactory(CreateCoursePage);
+module.exports = CreateCoursePage;

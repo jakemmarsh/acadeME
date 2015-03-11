@@ -29,4 +29,4 @@ var UserAvatar = React.createClass({
 
 });
 
-module.exports = React.createFactory(UserAvatar);
+module.exports = UserAvatar;

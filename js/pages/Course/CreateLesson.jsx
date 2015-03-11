@@ -102,4 +102,4 @@ var CreateLesson = React.createClass({
 
 });
 
-module.exports = React.createFactory(CreateLesson);
+module.exports = CreateLesson;

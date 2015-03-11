@@ -29,4 +29,4 @@ var CourseImage = React.createClass({
 
 });
 
-module.exports = React.createFactory(CourseImage);
+module.exports = CourseImage;

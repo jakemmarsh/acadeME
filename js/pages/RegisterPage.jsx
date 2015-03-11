@@ -180,4 +180,4 @@ var RegisterPage = React.createClass({
 
 });
 
-module.exports = React.createFactory(RegisterPage);
+module.exports = RegisterPage;

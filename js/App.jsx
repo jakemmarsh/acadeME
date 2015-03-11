@@ -6,7 +6,7 @@ var Preloaded          = ReactAsync.Preloaded;
 var Reflux             = require('reflux');
 var Navigation         = require('react-router').Navigation;
 var State              = require('react-router').State;
-var RouteHandler       = React.createFactory(require('react-router').RouteHandler);
+var RouteHandler       = require('react-router').RouteHandler;
 
 var UserActions        = require('./actions/UserActions');
 var CurrentUserStore   = require('./stores/CurrentUserStore');
@@ -104,4 +104,4 @@ var App = React.createClass({
 
 });
 
-module.exports = React.createFactory(App);
+module.exports = App;
