@@ -47,7 +47,7 @@
     }
 
     &.active {
-      background-color: darken($background-light-grey, 2);
+      background-color: lighten($sidebar-background-grey, 10);
       color: $primary;
       border-right-width: 5px;
     }

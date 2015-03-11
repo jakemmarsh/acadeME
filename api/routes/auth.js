@@ -12,7 +12,7 @@ exports.isAuthenticated = function(req, res, next) {
   if ( req.isAuthenticated() || (req.session && req.session.user) ) {
     return next();
   } else {
-    return res.status(401).json({ error: 'User must be logged in.' });
+    return res.status(401).json({ status: 401, message: 'User must be logged in to access that endpoint.' });
   }
 
 };

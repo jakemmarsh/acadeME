@@ -5,7 +5,7 @@ var Reflux      = require('reflux');
 var PageActions = require('../actions/PageActions');
 var CourseAPI   = require('../utils/CourseAPI');
 
-var ExplorePageStory = Reflux.createStore({
+var ExplorePageStore = Reflux.createStore({
 
   init: function() {
     this.courses = {
@@ -54,4 +54,4 @@ var ExplorePageStory = Reflux.createStore({
 
 });
 
-module.exports = ExplorePageStory;
+module.exports = ExplorePageStore;

@@ -99,8 +99,7 @@ app.get('*' ,function(req,res) {
     var HandlerComponent = React.createElement(Handler, { params: state.params, query: state.query });
     var HtmlComponent;
 
-    ReactAsync.renderToStringAsync(HandlerComponent, function(err, markup, data) {
-      console.log('LOOK HERE:', err, markup, data);
+    ReactAsync.renderToStringAsync(HandlerComponent, function(err, markup/*, data*/) {
       if ( err ) {
         res.status(500).json({ status: 500, message: err });
       } else {
