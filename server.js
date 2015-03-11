@@ -11,6 +11,7 @@ var passport       = require('passport');
 var nodeJSX        = require('node-jsx');
 var React          = require('react');
 var Router         = require('react-router');
+var DocumentTitle  = require('react-document-title');
 var ReactAsync     = require('react-async');
 var models         = require('./api/models');
 var api            = require('./api');
@@ -92,7 +93,8 @@ app.use('/api', api(server));
 // Serve React app for all main routes
 app.get('*' ,function(req,res) {
   Router.run(Routes, req.path, function(Handler, state) {
-    var HandlerComponent = React.createElement(Handler, { params: state.params, query: state.query });
+    var title = DocumentTitle.rewind();
+    var HandlerComponent = React.createElement(Handler, { title: title, params: state.params, query: state.query });
     console.log('right before async render to string call');
     ReactAsync.renderToStringAsync(HandlerComponent, function(err, markup, data) {
       console.log('LOOK HERE:', err, markup, data);

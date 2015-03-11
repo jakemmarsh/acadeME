@@ -7,11 +7,11 @@ var React         = require('react/addons');
 var _             = require('lodash');
 var when          = require('when');
 var Navigation    = require('react-router').Navigation;
+var DocumentTitle = require('react-document-title');
 
 var AuthAPI       = require('../utils/AuthAPI');
 var awsAPI        = require('../utils/awsAPI');
 var UserActions   = require('../actions/UserActions');
-var DocumentTitle = require('../components/DocumentTitle.jsx');
 var FileInput     = require('../components/FileInput.jsx');
 
 var RegisterPage = React.createClass({
@@ -128,53 +128,56 @@ var RegisterPage = React.createClass({
 
   render: function() {
     return (
-      <section className="register-page">
+      <DocumentTitle title="Register">
+        <section className="register-page">
 
-        <DocumentTitle title="Register" />
+          <div className="form-container">
+            <h3 className="text-center">Register for acadeME</h3>
+            <form id="register-form" onSubmit={this.handleSubmit}>
+              <input type="email"
+                     id="email"
+                     className="nudge-half--bottom"
+                     valueLink={this.linkState('email')}
+                     placeholder="Email"
+                     required />
+              <input type="text"
+                     id="firstName"
+                     className="nudge-half--bottom"
+                     valueLink={this.linkState('firstName')}
+                     placeholder="First Name"
+                     required />
+              <input type="text"
+                     id="lastName"
+                     className="nudge-half--bottom"
+                     valueLink={this.linkState('lastName')}
+                     placeholder="Last Name"
+                     required />
+              <FileInput id="image-url"
+                         className="nudge-half--bottom"
+                         accept="image/x-png, image/gif, image/jpeg"
+                         processFile={this.updateImage} />
+              <input type="password"
+                     id="password"
+                     className="nudge-half--bottom"
+                     valueLink={this.linkState('password')}
+                     placeholder="Password"
+                     required />
+              <input type="password"
+                     id="confirmPassword"
+                     className="nudge--bottom"
+                     valueLink={this.linkState('confirmPassword')}
+                     placeholder="Confirm Password"
+                     required />
+              {this.renderError()}
+              <input type="submit"
+                     className="btn block full-width"
+                     value="Register"
+                     disabled={this.state.loading || this.state.submitDisabled ? 'true' : ''} />
+            </form>
+          </div>
 
-        <div className="form-container">
-          <h3 className="text-center">Register for acadeME</h3>
-          <form id="register-form" onSubmit={this.handleSubmit}>
-            <input type="email"
-                   id="email"
-                   className="nudge-half--bottom"
-                   valueLink={this.linkState('email')}
-                   placeholder="Email"
-                   required />
-            <input type="text"
-                   id="firstName"
-                   className="nudge-half--bottom"
-                   valueLink={this.linkState('firstName')}
-                   placeholder="First Name"
-                   required />
-            <input type="text"
-                   id="lastName"
-                   className="nudge-half--bottom"
-                   valueLink={this.linkState('lastName')}
-                   placeholder="Last Name"
-                   required />
-            <FileInput id="image-url" accept="image/x-png, image/gif, image/jpeg" processFile={this.updateImage} />
-            <input type="password"
-                   id="password"
-                   className="nudge-half--bottom"
-                   valueLink={this.linkState('password')}
-                   placeholder="Password"
-                   required />
-            <input type="password"
-                   id="confirmPassword"
-                   className="nudge--bottom"
-                   valueLink={this.linkState('confirmPassword')}
-                   placeholder="Confirm Password"
-                   required />
-            {this.renderError()}
-            <input type="submit"
-                   className="btn block full-width"
-                   value="Register"
-                   disabled={this.state.loading || this.state.submitDisabled ? 'true' : ''} />
-          </form>
-        </div>
-
-      </section>
+        </section>
+      </DocumentTitle>
     );
   }
 

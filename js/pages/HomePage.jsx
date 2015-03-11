@@ -4,20 +4,19 @@
 'use strict';
 
 var React         = require('react/addons');
-
-var DocumentTitle = require('../components/DocumentTitle.jsx');
+var DocumentTitle = require('react-document-title');
 
 var HomePage = React.createClass({
 
   render: function() {
     return (
-      <section className="home-page">
+      <DocumentTitle title="My Curriculum">
+        <section className="home-page">
 
-        <DocumentTitle title="My Curriculum" />
+          Home
 
-        Home
-
-      </section>
+        </section>
+      </DocumentTitle>
     );
   }
 

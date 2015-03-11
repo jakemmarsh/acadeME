@@ -7,8 +7,8 @@ var React            = require('react/addons');
 var Reflux           = require('reflux');
 var _                = require('lodash');
 var Navigation       = require('react-router').Navigation;
+var DocumentTitle    = require('react-document-title');
 
-var DocumentTitle    = require('../components/DocumentTitle.jsx');
 var PageActions      = require('../actions/PageActions');
 var ExplorePageStore = require('../stores/ExplorePageStore');
 var TopMenu          = require('../components/TopMenu.jsx');
@@ -151,26 +151,26 @@ var ExplorePage = React.createClass({
 
   render: function() {
     return (
-      <section className="explore-page">
+      <DocumentTitle title="Explore">
+        <section className="explore-page">
 
-        <DocumentTitle title="Explore" />
+          <TopMenu>
+            <li className="search-container">
+              <i className="fa fa-search" />
+              <input type="text"
+                     className="search"
+                     placeholder="Search for courses..."
+                     valueLink={this.linkState('query')}
+                     onKeyPress={this.submitOnEnter} />
+            </li>
+          </TopMenu>
 
-        <TopMenu>
-          <li className="search-container">
-            <i className="fa fa-search" />
-            <input type="text"
-                   className="search"
-                   placeholder="Search for courses..."
-                   valueLink={this.linkState('query')}
-                   onKeyPress={this.submitOnEnter} />
-          </li>
-        </TopMenu>
+          <div className="courses-container soft--sides soft--bottom">
+            {this.props.query.q ? this.renderSearchResults() : this.renderInitialCourses()}
+          </div>
 
-        <div className="courses-container soft--sides soft--bottom">
-          {this.props.query.q ? this.renderSearchResults() : this.renderInitialCourses()}
-        </div>
-
-      </section>
+        </section>
+      </DocumentTitle>
     );
   }
 

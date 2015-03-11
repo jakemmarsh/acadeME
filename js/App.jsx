@@ -21,6 +21,18 @@ var App = React.createClass({
 
   mixins: [ReactAsync.Mixin, Navigation, State, Reflux.ListenerMixin],
 
+  propTypes: {
+    params: React.PropTypes.object,
+    query: React.PropTypes.object,
+    title: React.PropTypes.string
+  },
+
+  getDefaultProps: function() {
+    return {
+      title: ''
+    };
+  },
+
   getInitialStateAsync: function(cb) {
     console.log('inside get initial state async');
     UserActions.check(function(err, user) {
@@ -81,14 +93,14 @@ var App = React.createClass({
 
     console.log('will render app');
     return (
-      <html class="no-js" lang="">
+      <html className="no-js" lang="">
         <head>
-            <meta charset="utf-8" />
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta charSet="utf-8" />
+            <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
             <meta name="description" content="" />
             <meta name="viewport" content="width=device-width" />
 
-            <title>acadeME</title>
+            <title>{this.props.title || 'acadeME'}</title>
 
             <link rel="stylesheet" href="css/main.css" />
         </head>

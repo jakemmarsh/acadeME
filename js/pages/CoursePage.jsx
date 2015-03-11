@@ -7,8 +7,8 @@ var React         = require('react');
 var _             = require('lodash');
 var RouteHandler  = React.createFactory(require('react-router').RouteHandler);
 var Link          = React.createFactory(require('react-router').Link);
+var DocumentTitle = require('react-document-title');
 
-var DocumentTitle = require('../components/DocumentTitle.jsx');
 var CourseActions = require('../actions/CourseActions');
 var ListLink      = require('../components/ListLink.jsx');
 var TopMenu       = require('../components/TopMenu.jsx');
@@ -70,37 +70,37 @@ var CoursePage = React.createClass({
 
   render: function() {
     return (
-      <section className="course-page">
+      <DocumentTitle title={this.props.course ? this.props.course.title : ''}>
+        <section className="course-page">
 
-        <DocumentTitle title={this.props.course ? this.props.course.title : ''} />
+          <TopMenu>
+            <li className="search-container">
+              <i className="fa fa-search" />
+              <input type="text"
+                     className="search"
+                     placeholder="Search in course..."
+                     valueLink={this.linkState('query')}
+                     onKeyPress={this.submitOnEnter} />
+            </li>
+            <ListLink to="Course" params={ {courseId: this.props.course.id || 0} }>
+              <i className="fa fa-book" />
+              Lessons
+            </ListLink>
+            <ListLink to="CourseChat" params={ {courseId: this.props.course.id || 0} }>
+              <i className="fa fa-comments" />
+              Chat
+            </ListLink>
+            {this.renderCreateButton()}
+          </TopMenu>
 
-        <TopMenu>
-          <li className="search-container">
-            <i className="fa fa-search" />
-            <input type="text"
-                   className="search"
-                   placeholder="Search in course..."
-                   valueLink={this.linkState('query')}
-                   onKeyPress={this.submitOnEnter} />
-          </li>
-          <ListLink to="Course" params={ {courseId: this.props.course.id || 0} }>
-            <i className="fa fa-book" />
-            Lessons
-          </ListLink>
-          <ListLink to="CourseChat" params={ {courseId: this.props.course.id || 0} }>
-            <i className="fa fa-comments" />
-            Chat
-          </ListLink>
-          {this.renderCreateButton()}
-        </TopMenu>
+          <RouteHandler params={this.props.params}
+                        query={this.props.query}
+                        currentUser={this.props.currentUser}
+                        updatePageTitle={this.props.updatePageTitle}
+                        course={this.props.course} />
 
-        <RouteHandler params={this.props.params}
-                      query={this.props.query}
-                      currentUser={this.props.currentUser}
-                      updatePageTitle={this.props.updatePageTitle}
-                      course={this.props.course} />
-
-      </section>
+        </section>
+      </DocumentTitle>
     );
   }
 

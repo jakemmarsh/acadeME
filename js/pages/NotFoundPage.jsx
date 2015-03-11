@@ -4,20 +4,19 @@
 'use strict';
 
 var React         = require('react/addons');
-
-var DocumentTitle = require('../components/DocumentTitle.jsx');
+var DocumentTitle = require('react-document-title');
 
 var NotFoundPage = React.createClass({
 
   render: function() {
     return (
-      <section className="not-found-page">
+      <DocumentTitle title="Not Found">
+        <section className="not-found-page">
 
-        <DocumentTitle title="Not Found" />
+          Page Not Found
 
-        Page Not Found
-
-      </section>
+        </section>
+      </DocumentTitle>
     );
   }
 

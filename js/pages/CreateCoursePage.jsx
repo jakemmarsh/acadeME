@@ -6,10 +6,10 @@
 var React         = require('react/addons');
 var when          = require('when');
 var Navigation    = require('react-router').Navigation;
+var DocumentTitle = require('react-document-title');
 
 var awsAPI        = require('../utils/awsAPI');
 var CourseAPI     = require('../utils/CourseAPI');
-var DocumentTitle = require('../components/DocumentTitle.jsx');
 var FileInput     = require('../components/FileInput.jsx');
 
 var CreateCoursePage = React.createClass({
@@ -86,27 +86,27 @@ var CreateCoursePage = React.createClass({
 
   render: function() {
     return (
-      <section className="create-course nudge">
+      <DocumentTitle title="Create a Course">
+        <section className="create-course nudge">
 
-        <DocumentTitle title="Create a Course" />
+          <h2 className="page-title">Create a Course</h2>
 
-        <h2 className="page-title">Create a Course</h2>
+          <form className="create-course-form" id="create-course-form" onSubmit={this.handleSubmit}>
 
-        <form className="create-course-form" id="create-course-form" onSubmit={this.handleSubmit}>
+            <input type="text" valueLink={this.linkState('title')} placeholder="Course title" className="title-input nudge-half--bottom" />
 
-          <input type="text" valueLink={this.linkState('title')} placeholder="Course title" className="title-input nudge-half--bottom" />
+            <textarea valueLink={this.linkState('description')}
+                    className="description-input nudge-half--bottom"
+                    placeholder="Brief description of the course" />
 
-          <textarea valueLink={this.linkState('description')}
-                  className="description-input nudge-half--bottom"
-                  placeholder="Brief description of the course" />
+            <FileInput id="imageUrl" className="image-input nudge-half--bottom" accept="image/x-png, image/gif, image/jpeg" processFile={this.updateImage} />
 
-          <FileInput id="imageUrl" className="image-input nudge-half--bottom" accept="image/x-png, image/gif, image/jpeg" processFile={this.updateImage} />
+            <input type="submit" className="button float-right nudge--bottom" value="Create Course" />
 
-          <input type="submit" className="button float-right nudge--bottom" value="Create Course" />
+          </form>
 
-        </form>
-
-      </section>
+        </section>
+      </DocumentTitle>
     );
   }
 
