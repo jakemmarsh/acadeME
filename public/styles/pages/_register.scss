@@ -26,6 +26,10 @@ section.register-page {
         @include transition(all 0.3s ease-in-out);
       }
 
+      &[type=file] {
+        background-position: -$input-width 0 !important;
+      }
+
       &:focus, &:valid {
         box-shadow: none;
         outline: none;

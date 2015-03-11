@@ -8,7 +8,7 @@ gulp.task('dev', ['clean'], function() {
 
   var startServer = function() {
     return gulp.src('')
-      .pipe(shell('npm start'));
+      .pipe(shell('supervisor server.js'));
   };
 
   global.isProd = false;
