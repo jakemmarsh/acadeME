@@ -1,8 +1,9 @@
 {
   "name": "acadeME",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "author": "Jake Marsh <jakemmarsh@gmail.com>",
   "description": "A new approach to elearning to promote collaboration and feedback.",
+  "main": "server.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/jakemmarsh/academe.git"
@@ -65,7 +66,7 @@
     "reflux": "^0.1.13",
     "run-sequence": "^0.3.6",
     "sequelize": "^2.0.x",
-    "sir-trevor": "^0.5.0-beta1",
+    "sir-trevor": "^0.5.0-beta3",
     "slug": "^0.8.0",
     "socket.io": "^1.2.1",
     "socket.io-client": "^1.2.1",

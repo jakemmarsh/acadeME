@@ -10,26 +10,26 @@ var Editor = React.createClass({
     save: React.PropTypes.func.isRequired
   },
 
-  // componentDidMount: function() {
-  //   var options = {
-  //     el: $(this.refs.textarea.getDOMNode()),
-  //     defaultType: 'Text',
-  //     required: ['Text'],
-  //     blockTypes: ['Text', 'Image', 'Video', /*'List',*/ 'Heading', 'Quote']
-  //   };
+  componentDidMount: function() {
+    // var options = {
+    //   el: $(this.refs.textarea.getDOMNode()),
+    //   defaultType: 'Text',
+    //   required: ['Text'],
+    //   blockTypes: ['Text', 'Image', 'Video', /*'List',*/ 'Heading', 'Quote']
+    // };
 
-  //   new SirTrevor.Editor(options);
-  // },
+    // new SirTrevor.Editor(options);
+  },
 
-  // saveForm: function() {
-  //   var instance = SirTrevor.getInstance(0);
+  saveForm: function() {
+    // var instance = SirTrevor.getInstance(0);
 
-  //   // Run validations and serialize data
-  //   instance.onFormSubmit();
+    // // Run validations and serialize data
+    // instance.onFormSubmit();
 
-  //   // Retrieve data and pass to function
-  //   this.props.save(instance.dataStore.data);
-  // },
+    // // Retrieve data and pass to function
+    // this.props.save(instance.dataStore.data);
+  },
 
   render: function() {
     return (
