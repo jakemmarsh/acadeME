@@ -13,6 +13,6 @@ gulp.task('dev', ['clean'], function() {
 
   global.isProd = false;
 
-  return runSequence(['sass', 'imagemin', 'browserify', 'fonts', 'copyIndex', 'copyIcons'], 'watch', startServer);
+  return runSequence(['sass', 'imagemin', 'browserify', 'fonts', 'copyIcons'], 'watch', startServer);
 
 });
