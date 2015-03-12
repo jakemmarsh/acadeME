@@ -36,8 +36,8 @@ var CoursePage = React.createClass({
       this.props.setCourse(course || {});
       cb(null, {
         query: this.props.query.q ? this.props.query.q.replace(/(\+)|(%20)/gi, ' ') : '',
-        userIsEnrolled: this.userIsEnrolled(),
-        course: course || {}
+        course: course || {},
+        userIsEnrolled: false
       });
     }.bind(this));
   },
@@ -63,8 +63,8 @@ var CoursePage = React.createClass({
   },
 
   userIsEnrolled: function() {
-    if ( !_.isEmpty(this.state.course) ) {
-      _.some(this.state.course.enrollments, function(enrollment) {
+    if ( !_.isEmpty(this.state) && !_.isEmpty(this.state.course) ) {
+      return this.state.userIsEnrolled || _.some(this.state.course.enrollments, function(enrollment) {
         return !_.isEmpty(this.props.currentUser) && enrollment.userId === this.props.currentUser.id;
       }.bind(this));
     } else {
@@ -94,16 +94,17 @@ var CoursePage = React.createClass({
 
   renderCreateButton: function() {
     var userIsInstructor = this.state.course.instructor.id === this.props.currentUser.id;
+    var userIsEnrolled = this.userIsEnrolled();
     var iconClasses = '';
     var linkElement = null;
 
     if ( userIsInstructor ) {
       iconClasses = 'fa fa-plus';
       linkElement = (<Link to="CreateLesson" params={{ courseId: this.state.course.id }} />);
-    } else if ( this.state.userIsEnrolled ) {
+    } else if ( userIsEnrolled ) {
       iconClasses = 'fa fa-bookmark-o';
       linkElement = (<a onClick={this.unEnroll} />);
-    } else if ( !this.state.userIsEnrolled ) {
+    } else if ( !userIsEnrolled ) {
       iconClasses = 'fa fa-bookmark';
       linkElement = (<a onClick={this.enroll} />);
     }
