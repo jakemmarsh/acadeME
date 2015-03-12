@@ -7,6 +7,56 @@ var models    = require('../models');
 
 /* ====================================================== */
 
+function addUserCompletion(courses, currentUser) {
+
+  var mainDeferred = when.defer();
+  var shouldReturnArray = true;
+  var promises = [];
+
+  var processCourse = function(course) {
+    var deferred = when.defer();
+
+    course = course.toJSON();
+
+    if ( _.isEmpty(currentUser) ) {
+      course.percentageCompleted = 0;
+      deferred.resolve(course);
+    } else {
+      // TODO: DB query logic here to determine completion based off lesson/quiz completion (new model/table necessary)
+      course.percentageCompleted = 50;
+      deferred.resolve(course);
+    }
+
+    return deferred.promise;
+  };
+
+  if ( !_.isEmpty(courses) ) {
+    if ( courses.constructor !== Array ) {
+      courses = [courses];
+      shouldReturnArray = false;
+    }
+
+    _.each(courses, function(course) {
+      if ( !_.isEmpty(course) ) {
+        promises.push(processCourse(course));
+      }
+    });
+
+    when.all(promises).then(function(processed) {
+      processed = shouldReturnArray ? processed : processed[0];
+      mainDeferred.resolve(processed);
+    }).catch(function() {
+      mainDeferred.resolve(courses); // Still resolve if error
+    });
+  } else {
+    mainDeferred.resolve(courses);
+  }
+
+  return mainDeferred.promise;
+}
+
+/* ====================================================== */
+
 exports.get = function(req, res) {
 
   var getCourse = function(identifier) {
@@ -38,7 +88,7 @@ exports.get = function(req, res) {
       if ( _.isEmpty(course) ) {
         deferred.reject({ status: 404, body: 'Course could not be found at identifier: ' + identifier });
       } else {
-        deferred.resolve(course);
+        deferred.resolve(addUserCompletion(course, req.user));
       }
     }).catch(function(err) {
       deferred.reject({ status: 500, body: err });
@@ -63,7 +113,7 @@ exports.getAll = function(req, res) {
     var deferred = when.defer();
 
     models.Course.findAll({}).then(function(retrievedCourses) {
-      deferred.resolve(retrievedCourses);
+      deferred.resolve(addUserCompletion(retrievedCourses, req.user));
     }).catch(function(err) {
       deferred.reject({ status: 500, body: err });
     });
@@ -103,7 +153,7 @@ exports.getForUser = function(req, res) {
     models.Course.findAll({
       where: { id: _.pluck(enrollments, 'CourseId') }
     }).then(function(retrievedCourses) {
-      deferred.resolve(retrievedCourses);
+      deferred.resolve(addUserCompletion(retrievedCourses, req.user));
     }).catch(function(err) {
       deferred.reject({ status: 500, body: err });
     });
@@ -131,7 +181,7 @@ exports.getNewest = function(req, res) {
       order: ['createdAt'],
       limit: 20
     }).then(function(retrievedCourses) {
-      deferred.resolve(retrievedCourses);
+      deferred.resolve(addUserCompletion(retrievedCourses, req.user));
     }).catch(function(err) {
       deferred.reject({ status: 500, body: err });
     });
@@ -156,7 +206,7 @@ exports.getTrending = function(req, res) {
       order: ['createdAt'],
       limit: 20
     }).then(function(retrievedCourses) {
-      deferred.resolve(retrievedCourses);
+      deferred.resolve(addUserCompletion(retrievedCourses, req.user));
     }).catch(function(err) {
       deferred.reject({ status: 500, body: err });
     });
@@ -289,7 +339,7 @@ exports.searchAll = function(req, res) {
         { description: { ilike: '%' + query + '%' } }
       )
     }).then(function(retrievedCourses) {
-      deferred.resolve(retrievedCourses);
+      deferred.resolve(addUserCompletion(retrievedCourses, req.user));
     }).catch(function(err) {
       deferred.reject({ status: 500, body: err });
     });
