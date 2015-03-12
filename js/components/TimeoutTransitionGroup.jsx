@@ -51,7 +51,7 @@ var EVENT_NAME_MAP = {
 var endEvents = [];
 
 (function detectEvents() {
-    if (typeof window === "undefined") {
+    if (typeof window === "undefined" || typeof document === "undefined") {
         return;
     }
 
