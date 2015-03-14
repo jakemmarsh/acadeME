@@ -103,3 +103,31 @@ exports.checkAnswer = function(req, res) {
   });
 
 };
+
+/* ====================================================== */
+
+exports.markComplete = function(req, res) {
+
+  var createCompletion = function(userId, quizId) {
+    var deferred = when.defer();
+    var completion = {
+      UserId: userId,
+      QuizId: quizId
+    };
+
+    models.QuizCompletion.create(completion).then(function() {
+      deferred.resolve();
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
+
+    return deferred.promise;
+  };
+
+  createCompletion(req.user.id, req.params.id).then(function() {
+    res.status(200).json({ status: 200, message: 'Quiz successfully marked as complete.' });
+  }).catch(function(err) {
+    res.status(err.status).json({ status: err.status, message: err.body });
+  });
+
+};

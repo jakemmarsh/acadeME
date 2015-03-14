@@ -13,6 +13,42 @@ function addUserCompletion(courses, currentUser) {
   var shouldReturnArray = true;
   var promises = [];
 
+  var countQuizzes = function(courseId, userId) {
+    var deferred = when.defer();
+
+    models.Lesson.count({
+      where: { id: courseId }
+    }).then(function(count) {
+      deferred.resolve([courseId, userId, count]);
+    }).catch(function(err) {
+      deferred.reject(err);
+    });
+
+    return deferred.promise;
+  };
+
+  var countCompletions = function(data) {
+    var deferred = when.defer();
+    var courseId = data[0];
+    var userId = data[1];
+    var numQuizzes = data[2];
+    var percentage;
+
+    models.QuizCompletion.count({
+      where: {
+        CourseId: courseId,
+        UserId: userId
+      }
+    }).then(function(count) {
+      percentage = count ? Math.round((count/numQuizzes)*100) : 0;
+      deferred.resolve(percentage);
+    }).catch(function(err) {
+      deferred.reject(err);
+    });
+
+    return deferred.promise;
+  };
+
   var processCourse = function(course) {
     var deferred = when.defer();
 
@@ -22,9 +58,14 @@ function addUserCompletion(courses, currentUser) {
       course.percentageCompleted = 0;
       deferred.resolve(course);
     } else {
-      // TODO: DB query logic here to determine completion based off lesson/quiz completion (new model/table necessary)
-      course.percentageCompleted = 50;
-      deferred.resolve(course);
+      countQuizzes(course.id, currentUser.id)
+      .then(countCompletions)
+      .then(function(percentage) {
+        course.percentageCompleted = percentage;
+        deferred.resolve(course);
+      }).catch(function(err) {
+        deferred.reject({ status: 500, body: err });
+      });
     }
 
     return deferred.promise;
@@ -45,8 +86,9 @@ function addUserCompletion(courses, currentUser) {
     when.all(promises).then(function(processed) {
       processed = shouldReturnArray ? processed : processed[0];
       mainDeferred.resolve(processed);
-    }).catch(function() {
-      mainDeferred.resolve(courses); // Still resolve if error
+    }).catch(function(err) {
+      mainDeferred.reject({ status: 500, body: err });
+      //mainDeferred.resolve(courses); // Still resolve if error
     });
   } else {
     mainDeferred.resolve(courses);

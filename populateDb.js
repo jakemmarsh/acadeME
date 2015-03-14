@@ -78,6 +78,7 @@ module.exports = function(models) {
     var lesson = data[0][0];
     var course = data[1];
     var quiz = {
+      CourseId: course.id,
       LessonId: lesson.id,
       title: 'Test Quiz',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus.'

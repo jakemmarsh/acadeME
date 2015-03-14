@@ -59,6 +59,7 @@ module.exports = function(server) {
   // Quiz endpoints
   api.post('/quiz/:quizId/check/:questionId', routes.auth.isAuthenticated, routes.quiz.checkAnswer);
   api.get('/quiz/:quizId/question', routes.quiz.getQuestion);
+  api.post('/quiz/:quizId/complete', routes.quiz.markComplete);
 
   /* ====================================================== */
 

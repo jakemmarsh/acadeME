@@ -4,6 +4,7 @@ var React            = require('react/addons');
 var ReactAsync       = require('react-async');
 var Reflux           = require('reflux');
 
+var QuizActions      = require('../../actions/QuizActions');
 var CurrentQuizStore = require('../../stores/CurrentQuizStore');
 var LessonActions    = require('../../actions/LessonActions');
 var Quiz             = require('../../components/Quiz.jsx');
@@ -62,7 +63,7 @@ var LessonQuiz = React.createClass({
   },
 
   flagQuizComplete: function() {
-    this.setState({ quizComplete: true });
+    this.setState({ quizComplete: true }, QuizActions.markComplete);
   },
 
   render: function() {

@@ -12,6 +12,7 @@ var CurrentQuizStore = Reflux.createStore({
     this.listenTo(LessonActions.openQuiz, this.loadQuizFor);
     this.listenTo(QuizActions.getQuestion, this.loadQuestion);
     this.listenTo(QuizActions.checkAnswer, this.checkAnswer);
+    this.listenTo(QuizActions.markComplete, this.markComplete);
   },
 
   loadQuizFor: function(lessonId, cb) {
@@ -52,6 +53,19 @@ var CurrentQuizStore = Reflux.createStore({
     }.bind(this)).catch(function(err) {
       cb(err);
       console.log('error checking answer:', err);
+    }.bind(this));
+  },
+
+  markComplete: function(cb) {
+    cb = cb || function() {};
+
+    console.log('mark quiz complete:', this.quiz.id);
+
+    QuizAPI.markComplete(this.quiz.id).then(function(result) {
+      cb(null, result);
+    }.bind(this)).catch(function(err) {
+      cb(err);
+      console.log('error marking complete:', err);
     }.bind(this));
   }
 

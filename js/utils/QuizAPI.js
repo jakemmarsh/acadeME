@@ -43,6 +43,10 @@ var QuizAPI = {
     return APIUtils.post('quiz/'+ quizId + '/check/' + questionId, answer);
 
     // deferred.resolve(true);
+  },
+
+  markComplete: function(quizId) {
+    return APIUtils.post('quiz/' + quizId + '/complete');
   }
 
 };

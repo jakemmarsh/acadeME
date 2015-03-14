@@ -38,6 +38,7 @@ module.exports = function(sequelize, DataTypes) {
         User.hasMany(models.Course, { onDelete: 'cascade' });
         User.hasMany(models.Message, { onDelete: 'cascade' });
         User.hasMany(models.Enrollment, { foreignKey: 'UserId', onDelete: 'cascade' });
+        User.hasMany(models.QuizCompletion, { onDelete: 'cascade' });
       }
     },
     instanceMethods: {
