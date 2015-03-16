@@ -19,21 +19,18 @@ var CoursePage = React.createClass({
   mixins: [ReactAsync.Mixin, React.addons.LinkedStateMixin, Reflux.ListenerMixin],
 
   propTypes: {
-    currentUser: React.PropTypes.object.isRequired,
-    setCourse: React.PropTypes.func.isRequired
+    currentUser: React.PropTypes.object.isRequired
   },
 
   getDefaultProps: function() {
     return {
-      currentUser: {},
-      setUser: function() {}
+      currentUser: {}
     };
   },
 
   getInitialStateAsync: function(cb) {
     console.log('get initial state async CoursePage.jsx');
     CourseActions.openCourse(this.props.params.courseId.toString(), function(err, course) {
-      this.props.setCourse(course || {});
       cb(null, {
         query: this.props.query.q ? this.props.query.q.replace(/(\+)|(%20)/gi, ' ') : '',
         course: course || {},
@@ -46,9 +43,7 @@ var CoursePage = React.createClass({
     if ( err ) {
       this.setState({ error: err.message });
     } else if ( !err ) {
-      this.setState({ course: course || {}, error: null }, function() {
-        this.props.setCourse(course || {});
-      }.bind(this));
+      this.setState({ course: course || {}, error: null });
     }
   },
 
