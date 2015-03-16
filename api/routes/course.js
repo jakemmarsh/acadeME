@@ -32,16 +32,18 @@ function addUserCompletion(courses, currentUser) {
     var courseId = data[0];
     var userId = data[1];
     var numQuizzes = data[2];
+    var lessons;
     var percentage;
 
-    models.QuizCompletion.count({
+    models.QuizCompletion.findAll({
       where: {
         CourseId: courseId,
         UserId: userId
       }
-    }).then(function(count) {
-      percentage = count ? Math.round((count/numQuizzes)*100) : 0;
-      deferred.resolve(percentage);
+    }).then(function(completions) {
+      lessons = completions && completions.length ? _.pluck(completions, 'LessonId') : [];
+      percentage = completions && completions.length ? Math.round((completions.length/numQuizzes)*100) : 0;
+      deferred.resolve([lessons, percentage]);
     }).catch(function(err) {
       deferred.reject(err);
     });
@@ -55,13 +57,15 @@ function addUserCompletion(courses, currentUser) {
     course = course.toJSON();
 
     if ( _.isEmpty(currentUser) ) {
+      course.lessonsCompleted = [];
       course.percentageCompleted = 0;
       deferred.resolve(course);
     } else {
       countQuizzes(course.id, currentUser.id)
       .then(countCompletions)
-      .then(function(percentage) {
-        course.percentageCompleted = percentage;
+      .then(function(data) {
+        course.lessonsCompleted = data[0];
+        course.percentageCompleted = data[1];
         deferred.resolve(course);
       }).catch(function(err) {
         deferred.reject({ status: 500, body: err });

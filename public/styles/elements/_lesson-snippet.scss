@@ -42,7 +42,7 @@ article.lesson-snippet {
 
   &:before {
     font: normal normal normal 14px/1 FontAwesome;
-    content: '';
+    content: '\f00d'; // fontawesome x mark
     position: absolute;
     top: -($icon-size + $border-size)/2;
     left: 50%;
@@ -55,7 +55,7 @@ article.lesson-snippet {
 
     border: 10px solid $background-light-grey;
     @include border-radius(100%);
-    background: $secondary;
+    background: $red;
     color: $background-light-grey;
   }
 

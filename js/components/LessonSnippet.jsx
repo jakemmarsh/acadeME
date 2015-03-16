@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react/addons');
+var _     = require('lodash');
 var Link  = require('react-router').Link;
 
 var cx    = React.addons.classSet;
@@ -8,8 +9,8 @@ var cx    = React.addons.classSet;
 var LessonSnippet = React.createClass({
 
   propTypes: {
-    lesson: React.PropTypes.object,
-    course: React.PropTypes.object
+    lesson: React.PropTypes.object.isRequired,
+    course: React.PropTypes.object.isRequired
   },
 
   getDefaultProps: function() {
@@ -41,7 +42,7 @@ var LessonSnippet = React.createClass({
   render: function() {
     var classes = cx({
       'lesson-snippet': true,
-      'completed': this.props.lesson.completed || true // TODO: actual logic for this
+      'completed': _.some(this.props.course.lessonsCompleted, function(lessonId) { return lessonId === this.props.lesson.id; })
     });
 
     return (

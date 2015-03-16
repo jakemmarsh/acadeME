@@ -63,7 +63,9 @@ var LessonQuiz = React.createClass({
   },
 
   flagQuizComplete: function() {
-    this.setState({ quizComplete: true }, QuizActions.markComplete);
+    this.setState({ quizComplete: true }, function() {
+      QuizActions.markComplete(this.props.params.lessonId, this.state.quiz.id);
+    }.bind(this));
   },
 
   render: function() {

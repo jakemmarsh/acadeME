@@ -45,8 +45,8 @@ var QuizAPI = {
     // deferred.resolve(true);
   },
 
-  markComplete: function(quizId) {
-    return APIUtils.post('quiz/' + quizId + '/complete');
+  markComplete: function(lessonId, quizId) {
+    return APIUtils.post('lesson/' + lessonId + '/quiz/' + quizId + '/complete');
   }
 
 };

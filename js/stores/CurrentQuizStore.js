@@ -56,12 +56,12 @@ var CurrentQuizStore = Reflux.createStore({
     }.bind(this));
   },
 
-  markComplete: function(cb) {
+  markComplete: function(lessonId, quizId, cb) {
     cb = cb || function() {};
 
-    console.log('mark quiz complete:', this.quiz.id);
+    console.log('mark quiz complete:', quizId);
 
-    QuizAPI.markComplete(this.quiz.id).then(function(result) {
+    QuizAPI.markComplete(lessonId, quizId).then(function(result) {
       cb(null, result);
     }.bind(this)).catch(function(err) {
       cb(err);
