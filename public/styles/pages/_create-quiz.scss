@@ -1,0 +1,122 @@
+section.create-quiz {
+
+  .start-container {
+    display: table;
+    width: 100%;
+    padding: 150px 0;
+
+    & > *:first-child {
+      display: table-cell;
+      vertical-align: middle;
+      width: 100%;
+    }
+
+    .title-input {
+      display: block;
+      width: 100%;
+      padding: $half-space/2;
+
+      font-family: $serif-family;
+      font-size: 20px;
+      font-style: italic;
+    }
+  }
+
+  ul.question-list {
+    list-style: none;
+    margin: 0 0 $full-space;
+    padding: 0;
+
+    @extend %card;
+    border: 1px solid darken($background-light-grey, 5);
+
+    & > li {
+      display: table;
+      width: 100%;
+      padding: $half-space;
+
+      cursor: pointer;
+
+      font-size: 20px;
+      color: inherit;
+      background-color: transparent;
+      @include transition(background-color 0.1s ease-in-out, color 0.1s ease-in-out);
+
+      & > * {
+        display: table-cell;
+        vertical-align: middle;
+      }
+
+      .check-container {
+        width: 80px;
+
+        .check-circle {
+          width: 80px;
+          height: 80px;
+          @include border-radius(100%);
+          border-style: solid;
+          border-width: 4px;
+          border-color: $text-grey;
+
+          @include transition(border-color 0.1s ease-in-out);
+
+          text-align: center;
+          text-transform: uppercase;
+          font-weight: 600;
+          font-size: 45px;
+          line-height: 75px;
+
+          i.hidden {
+            display: none !important;
+          }
+        }
+      }
+
+      ul.answer-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          padding: $half-space/4 0;
+          font-size: 14px;
+          line-height: 14px;
+
+          &:first-child {
+            padding-top: 0;
+          }
+
+          &:last-child {
+            padding-bottom: 0;
+          }
+        }
+      }
+
+      &:hover {
+        background-color: darken($background-light-grey, 2);
+
+        color: $secondary;
+
+        .choice-indicator {
+          border-color: $secondary;
+        }
+      }
+
+      &.selected {
+        background-color: darken($background-light-grey, 2);
+
+        &:hover { color: $text-grey; }
+
+        .check-circle {
+          color: $primary;
+          border-color: $primary;
+        }
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid darken($background-light-grey, 5);
+      }
+    }
+  }
+
+}

@@ -44,6 +44,10 @@ var CourseAPI = {
     return APIUtils.post('course/' + courseId + '/lesson', lesson);
   },
 
+  createQuiz: function(quiz, courseId, lessonId) {
+    return APIUtils.post('course/' + courseId + '/lesson/' + lessonId + '/quiz', quiz);
+  },
+
   search: function(id, query) {
     return APIUtils.get('course/'+ id + '/search/' + query);
   },

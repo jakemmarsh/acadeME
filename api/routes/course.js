@@ -122,7 +122,11 @@ exports.get = function(req, res) {
         },
         {
           model: models.Lesson,
-          attributes: ['id', 'title', 'description', 'imageUrl']
+          attributes: ['id', 'title', 'description', 'imageUrl'],
+          include: {
+            model: models.Quiz,
+            attributes: ['id']
+          }
         },
         {
           model: models.Enrollment,

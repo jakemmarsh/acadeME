@@ -6,6 +6,22 @@ var APIUtils = require('./APIUtils');
 
 var QuizAPI = {
 
+  getQuestionSuggestions: function(tags) {
+    var query = {
+      tags: tags.join(',')
+    };
+
+    return APIUtils.get('quiz/suggestions?' + qs.stringify(query));
+  },
+
+  saveQuestion: function(quizId, question) {
+    return APIUtils.post('quiz/' + quizId + '/question', question);
+  },
+
+  saveAnswers: function(quizId, questionId, answers) {
+    return APIUtils.post('quiz/' + quizId + '/question/' + questionId + '/answers', answers);
+  },
+
   getQuestion: function(quizId, currentQuestionNumber, userScore) {
     var params = qs.stringify({
       current: currentQuestionNumber,

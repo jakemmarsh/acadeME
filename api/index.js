@@ -45,6 +45,7 @@ module.exports = function(server) {
   api.delete('/course/:id/enroll', routes.auth.isAuthenticated, routes.course.unEnroll);
   api.get('/course/:id/search/:query', routes.course.search);
   api.post('/course/:id/lesson', routes.auth.isAuthenticated, routes.course.createLesson);
+  api.post('/course/:id/lesson/:lessonId/quiz', routes.quiz.create);
   api.delete('/course/:id', routes.auth.isAuthenticated, routes.course.delete);
 
   /* ====================================================== */
@@ -60,7 +61,9 @@ module.exports = function(server) {
   // Quiz endpoints
   api.post('/quiz/:quizId/check/:questionId', routes.auth.isAuthenticated, routes.quiz.checkAnswer);
   api.get('/quiz/:quizId/question', routes.quiz.getQuestion);
-  api.post('/quiz/:quizId/complete', routes.quiz.markComplete);
+  api.get('/quiz/suggestions', routes.quiz.suggestQuestions);
+  api.post('/quiz/:quizId/question', routes.quiz.createQuestion);
+  api.post('/quiz/:quizId/question/:questionId/answers', routes.quiz.createAnswers);
 
   /* ====================================================== */
 

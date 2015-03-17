@@ -7,7 +7,7 @@ var NotFoundRoute    = require('react-router').NotFoundRoute;
 
 var App              = require('./App.jsx');
 
-var HomePage         = require('./pages/HomePage.jsx');
+var CurriculumPage   = require('./pages/CurriculumPage.jsx');
 var RegisterPage     = require('./pages/RegisterPage.jsx');
 var ExplorePage      = require('./pages/ExplorePage.jsx');
 var CreateCoursePage = require('./pages/CreateCoursePage.jsx');
@@ -18,14 +18,15 @@ var LessonQuiz       = require('./pages/Course/Quiz.jsx');
 var CourseSearch     = require('./pages/Course/Search.jsx');
 var CourseChat       = require('./pages/Course/Chat.jsx');
 var CreateLesson     = require('./pages/Course/CreateLesson.jsx');
+var CreateQuiz       = require('./pages/Course/CreateQuiz.jsx');
 var NotFoundPage     = require('./pages/NotFoundPage.jsx');
 
 module.exports = (
   <Route path='/' handler={App}>
 
-    <DefaultRoute handler={HomePage} />
+    <DefaultRoute handler={ExplorePage} />
 
-    <Route name='Home' path='/' handler={HomePage} />
+    <Route name='Home' path='/' handler={CurriculumPage} />
 
     <Route name='Register' path='/register' handler={RegisterPage} />
 
@@ -40,6 +41,7 @@ module.exports = (
       <Route name='CourseSearch' path='/course/:courseId/search' handler={CourseSearch} />
       <Route name='CourseChat' path='/course/:courseId/chat' handler={CourseChat} />
       <Route name='CreateLesson' path='/course/:courseId/create' handler={CreateLesson} />
+      <Route name='CreateQuiz' path='/course/:courseId/lesson/:lessonId/quiz/create' handler={CreateQuiz} />
     </Route>
 
     <NotFoundRoute handler={NotFoundPage} />

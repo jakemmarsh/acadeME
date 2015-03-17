@@ -10,7 +10,7 @@ var PageActions         = require('../actions/PageActions');
 var UserCurriculumStore = require('../stores/UserCurriculumStore');
 var CourseSnippet       = require('../components/CourseSnippet.jsx');
 
-var HomePage = React.createClass({
+var CurriculumPage = React.createClass({
 
   mixins: [ReactAsync.Mixin, Reflux.ListenerMixin],
 
@@ -25,7 +25,7 @@ var HomePage = React.createClass({
   },
 
   getInitialStateAsync: function(cb) {
-    console.log('get initial state in HomePage.jsx');
+    console.log('get initial state in CurriculumPage.jsx');
     PageActions.openCurriculum(function(courses) {
       cb(null, {
         courses: courses || {}
@@ -78,4 +78,4 @@ var HomePage = React.createClass({
 
 });
 
-module.exports = HomePage;
+module.exports = CurriculumPage;

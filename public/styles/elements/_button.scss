@@ -12,6 +12,11 @@
 
   @include transition(background-color 0.1s ease-in-out);
 
+  &.highlight {
+    background-color: $primary;
+    &:hover { background-color: lighten($primary, 10); }
+  }
+
   &.inline-block {
     display: inline-block;
   }

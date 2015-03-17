@@ -65,7 +65,8 @@ var App = React.createClass({
 
     if ( this.isInnerPage() ) {
       element = (
-        <Sidebar course={this.state.currentCourse} />
+        <Sidebar currentUser={this.state.currentUser}
+                 course={this.state.currentCourse} />
       );
     }
 

@@ -25,11 +25,13 @@
 @import 'elements/recipient-list';
 @import 'elements/conversation';
 @import 'elements/chat';
+@import 'elements/tag-input';
 @import 'elements/footer';
 
 // Pages
 @import 'pages/register';
 @import 'pages/create-lesson-course';
+@import 'pages/create-quiz';
 
 // Third-party libraries
 @import 'vendor/font-awesome/font-awesome';

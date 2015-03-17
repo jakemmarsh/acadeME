@@ -1,29 +1,56 @@
 'use strict';
 
 var React                  = require('react/addons');
+var Reflux                 = require('reflux');
 var _                      = require('lodash');
 var Link                   = require('react-router').Link;
 
+var CurrentCourseStore     = require('../stores/CurrentCourseStore');
 var TimeoutTransitionGroup = require('./TimeoutTransitionGroup.jsx');
 var ListLink               = require('./ListLink.jsx');
 var ProgressBar            = require('./ProgressBar.jsx');
 
 var Sidebar = React.createClass({
 
+  mixins: [Reflux.ListenerMixin],
+
   propTypes: {
+    currentUser: React.PropTypes.object.isRequired,
     course: React.PropTypes.object
   },
 
   getDefaultProps: function() {
     return {
-        course: {}
+      currentUser: {},
+      course: {}
     };
   },
 
   getInitialState: function() {
     return {
-      displayCourseInfo: true
+      course: {}
     };
+  },
+
+  _onCourseChange: function(err, course) {
+    if ( !err ) {
+      this.setState({ course: course || {} });
+    }
+  },
+
+  componentDidMount: function() {
+    console.log('sidebar did mount');
+
+    // TODO: figure out why CurrentCourseStore.course isnt defined when fetched server-side
+    if ( !_.isEmpty(CurrentCourseStore.course) ) {
+      this.setState({ course: CurrentCourseStore.course });
+    }
+
+    this.listenTo(CurrentCourseStore, this._onCourseChange);
+  },
+
+  componentWillReceiveProps: function() {
+    console.log('will receive props');
   },
 
   renderCourseInfo: function() {
@@ -31,13 +58,13 @@ var Sidebar = React.createClass({
     var courseTitle;
     var instructorName;
 
-    if ( !_.isEmpty(this.props.course) ) {
-      courseTitle = this.props.course.title || '';
-      instructorName = this.props.course.instructor ? this.props.course.instructor.fullName : '';
+    if ( !_.isEmpty(this.state.course) ) {
+      courseTitle = this.state.course.title || '';
+      instructorName = this.state.course.instructor ? this.state.course.instructor.fullName : '';
       element = (
-        <div className="course-info-container" key={this.props.course.title}>
+        <div className="course-info-container" key={this.state.course.title}>
             <div className="title-container">
-              <Link to="Course" params={{ courseId: this.props.course.id }} className="title">{courseTitle}</Link>
+              <Link to="Course" params={{ courseId: this.state.course.id }} className="title">{courseTitle}</Link>
               <span>Taught by</span>
               <h4 className="instructor flush">{instructorName}</h4>
             </div>
@@ -54,9 +81,21 @@ var Sidebar = React.createClass({
   renderProgressBar: function() {
     var element = null;
 
-    if ( !_.isEmpty(this.props.course) && this.props.course.percentageComplete ) {
+    if ( !_.isEmpty(this.state.course) && !_.isUndefined(this.state.course.percentageCompleted) ) {
       element = (
-        <ProgressBar percentage={this.props.course.percentageComplete} />
+        <ProgressBar percentage={this.state.course.percentageCompleted} />
+      );
+    }
+
+    return element;
+  },
+
+  renderCurriculumLink: function() {
+    var element = null;
+
+    if ( !_.isEmpty(this.props.currentUser) ) {
+      element = (
+        <ListLink to="Home">My Curriculum</ListLink>
       );
     }
 
@@ -66,7 +105,7 @@ var Sidebar = React.createClass({
   renderNavigation: function() {
     return (
       <ul>
-        <ListLink to="Home">My Curriculum</ListLink>
+        {this.renderCurriculumLink()}
         <ListLink to="Explore">Explore Courses</ListLink>
         <ListLink to="Course" params={ {courseId: 1} }>Test Course I</ListLink>
         <ListLink to="Course" params={ {courseId: 2} }>Test Course II</ListLink>

@@ -29,7 +29,10 @@ var CourseLessonList = React.createClass({
     } else if ( !_.isEmpty(this.props.course) && this.props.course.lessons ) {
       elements =  this.props.course.lessons.map(function(lesson, index) {
         return (
-          <LessonSnippet course={this.props.course} lesson={lesson} key={index} />
+          <LessonSnippet currentUser={this.props.currentUser}
+                         course={this.props.course}
+                         lesson={lesson}
+                         key={index} />
         );
       }.bind(this));
     }
