@@ -135,9 +135,9 @@ exports.createAnswers = function(req, res) {
     return deferred.promise;
   };
 
+  // TODO: are answers saved for the wrong question?
   saveAnswers(req.params.quizId, req.params.questionId, req.body).then(function() {
-    console.log('did save');
-    res.status(200).json({ status: 200, message: 'Answers successfully saved for question: ' + req.params.quizId });
+    res.status(200).json({ status: 200, message: 'Answers successfully saved for question: ' + req.params.questionId });
   }).catch(function(err) {
     res.status(err.status).json({ status: err.status, message: err.body });
   });
@@ -151,19 +151,24 @@ exports.get = function(req, res) {
   var getQuiz = function(lessonId) {
     var deferred = when.defer();
 
-    models.Quiz.find({
-      where: { LessonId: lessonId },
+    models.Lesson.find({
+      where: { id: lessonId },
       include: [
         {
-          model: models.Question,
-          attributes: ['id']
+          model: models.Quiz,
+          include: [{
+            model: models.Question,
+            attributes: ['id']
+          }]
         }
       ]
-    }).then(function(quiz) {
-      if ( _.isEmpty(quiz) ) {
+    }).then(function(lesson) {
+      lesson = lesson.toJSON();
+
+      if ( _.isEmpty(lesson.Quiz) ) {
         deferred.reject({ status: 404, body: 'Quiz could not be found for lessonId: ' + lessonId });
       } else {
-        deferred.resolve(quiz);
+        deferred.resolve(_.assign({ lessonTitle: lesson.title }, lesson.Quiz));
       }
     }).catch(function(err) {
       deferred.reject({ status: 500, body: err });

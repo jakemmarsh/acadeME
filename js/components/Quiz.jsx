@@ -11,13 +11,16 @@ var Quiz = React.createClass({
 
   propTypes: {
     lessonId: React.PropTypes.number.isRequired,
+    lessonTitle: React.PropTypes.string.isRequired,
     quiz: React.PropTypes.object.isRequired,
     flagQuizComplete: React.PropTypes.func.isRequired
   },
 
   getDefaultProps: function() {
     return {
-      quiz: {}
+      lessonTitle: '',
+      quiz: {},
+      flagQuizComplete: function() {}
     };
   },
 
@@ -99,7 +102,7 @@ var Quiz = React.createClass({
       element = (
         <div className="intro-finish-container soft--sides">
           <div>
-            <h1 className="title sans-serif flush--bottom">{this.props.quiz.title}</h1>
+            <h1 className="title sans-serif flush--bottom">{this.props.quiz.lessonTitle}</h1>
             <h6 className="primary serif italic weight--normal">{numQuestions} {pluralized}</h6>
           </div>
           <div>
