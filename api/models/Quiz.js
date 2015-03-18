@@ -1,20 +1,17 @@
 'use strict';
 
+var _ = require('lodash');
+
 module.exports = function(sequelize, DataTypes) {
 
   var Quiz = sequelize.define('Quiz', {
     description: { type: DataTypes.TEXT },
-    tags:        { type: DataTypes.STRING }
+    tags:        { type: DataTypes.ARRAY(DataTypes.STRING), defaultValue: [] }
   },
   {
     setterMethods: {
       tags: function(v) {
-        return this.setDataValue('tags', v.join(','));
-      }
-    },
-    getterMethods: {
-      tags: function() {
-        return this.getDataValue('tags') ? this.getDataValue('tags').split(',') : null;
+        return this.setDataValue('tags', _.map(v, function(tag) { return tag.toLowerCase(); }));
       }
     },
     classMethods: {

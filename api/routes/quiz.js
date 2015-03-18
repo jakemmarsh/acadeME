@@ -46,7 +46,7 @@ exports.suggestQuestions = function(req, res) {
 
     models.Quiz.findAll({
       where: Sequelize.or(
-        { tags: { ilike: '%' + tags + '%' }}
+        { tags: { $contains: tags }}
       ),
       include: [
         {
