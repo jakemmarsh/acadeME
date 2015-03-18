@@ -14,7 +14,7 @@ var LessonQuiz = React.createClass({
   statics: {
     willTransitionFrom: function(transition, component) {
       if ( !component.state.quizComplete && component.state.quizStarted ) {
-        if( !window.confirm('You haven\'t yet finished this quiz! Are you sure you want to leave and lose all progress?') ) {
+        if( !window.confirm('You haven\'t finished this quiz! Are you sure you want to leave and lose all progress?') ) {
           transition.abort();
         }
       }

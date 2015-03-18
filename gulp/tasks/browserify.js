@@ -38,6 +38,9 @@ function buildScript(file, watch) {
     var stream = bundler.bundle();
     return stream.on('error', handleErrors)
     .pipe(source(file))
+    .pipe(gulpif(global.isProd, streamify(uglify({
+      compress: { drop_console: true }
+    }))))
     .pipe(gulpif(global.isProd, streamify(uglify())))
     .pipe(streamify(rename({
       dirname: './',

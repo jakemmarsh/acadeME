@@ -46,10 +46,6 @@ var LessonSnippet = React.createClass({
     var userIsInstructor = !_.isEmpty(this.props.currentUser) && this.props.course.instructorId === this.props.currentUser.id;
     var quizExists = this.props.lesson.quiz && _.isNumber(this.props.lesson.quiz.id);
 
-    console.log('current user id:', this.props.currentUser.id);
-    console.log('course instructor id:', this.props.course.instructorId);
-    console.log('user is instructor:', userIsInstructor);
-
     if ( userIsInstructor && !quizExists ) {
       element = (
         <Link to="CreateQuiz"
