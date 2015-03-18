@@ -4,6 +4,7 @@ var React      = require('react/addons');
 var when       = require('when');
 var _          = require('lodash');
 var Navigation = require('react-router').Navigation;
+var Link       = require('react-router').Link;
 
 var CourseAPI  = require('../../utils/CourseAPI');
 var QuizAPI    = require('../../utils/QuizAPI');
@@ -32,12 +33,10 @@ var CreateLesson = React.createClass({
       suggestedQuestions: [],
       questions: [],
       questionBody: '',
-      answers: {
-        a: '',
-        b: '',
-        c: '',
-        d: ''
-      },
+      answerA: '',
+      answerB: '',
+      answerC: '',
+      answerD: '',
       loading: false,
       error: null,
       userHasEnteredTags: false,
@@ -152,12 +151,13 @@ var CreateLesson = React.createClass({
       type: 'multi',
       answers: []
     };
+    var answers = [this.state.answerA, this.state.answerB, this.state.answerC, this.state.answerD];
 
     if ( evt ) {
       evt.preventDefault();
     }
 
-    _.forOwn(this.state.answers, function(answer) {
+    _.each(answers, function(answer) {
       if ( answer && answer.length ) {
         question.answers.push(answer);
       }
@@ -167,12 +167,10 @@ var CreateLesson = React.createClass({
 
     this.setState({
       questionBody: '',
-      answers: {
-        a: '',
-        b: '',
-        c: '',
-        d: ''
-      },
+      answerA: '',
+      answerB: '',
+      answerC: '',
+      answerD: '',
       questions: questionsCopy
     });
   },
@@ -265,18 +263,18 @@ var CreateLesson = React.createClass({
           {renderQuestions()}
         </ul>
 
-        <button className="btn float-right" onClick={markSuggestionsAsViewed}>Next Step</button>
+        <button className="btn float-right nudge-half--bottom" onClick={markSuggestionsAsViewed}>Next Step</button>
       </div>
     );
   },
 
   renderQuestionForm: function() {
     var hasQuestionBody = this.state.questionBody && this.state.questionBody.length;
-    var numAnswers = _.chain(this.state.answers)
-      .forOwn()
-      .filter(function(answer) {
-        return answer && answer.length;
-      });
+    var answers = [this.state.answerA, this.state.answerB, this.state.answerC, this.state.answerD];
+    var numAnswers = _.filter(answers, function(answer) {
+      return answer && answer.length;
+    }).length;
+    console.log(numAnswers, this.state.answerA, this.state.answerB, this.state.answerC, this.state.answerD);
     var hasMultipleAnswers = numAnswers > 1;
     var isSubmitDisabled = !hasQuestionBody || !hasMultipleAnswers;
     var renderAnswerInputs = function() {
@@ -284,14 +282,17 @@ var CreateLesson = React.createClass({
       var valueLink;
 
       return _.map(letters, function(letter) {
-        valueLink = 'answers.' + letter;
+        valueLink = 'answer' + letter.toUpperCase();
 
         return (
           <li>
             <div className="choice-indicator">
               {letter.toUpperCase()}
             </div>
-            <input type="text" valueLink={this.linkState(valueLink)} placeholder="Possible answer..." />
+            <input type="text"
+                   className="nudge-half--left"
+                   valueLink={this.linkState(valueLink)}
+                   placeholder="Possible answer..." />
           </li>
         );
       }.bind(this));
@@ -300,12 +301,17 @@ var CreateLesson = React.createClass({
     return (
       <form className="question-form" onSubmit={this.handleQuestionSubmit}>
 
-        <ul className="multiple-choice">
+        <input type="text"
+               className="large-input nudge-half--ends"
+               valueLink={this.linkState('questionBody')}
+               placeholder="Question..." />
+
+        <ul className="multiple-choice nudge-half--top nudge--bottom">
           {renderAnswerInputs()}
         </ul>
 
         <input type="submit"
-                 className="button float-right nudge--sides nudge--bottom"
+                 className="btn float-right nudge-half--bottom"
                  disabled={isSubmitDisabled ? 'true' : ''}
                  value="Save Question" />
 
@@ -316,11 +322,11 @@ var CreateLesson = React.createClass({
   renderGlobalSubmitButton: function() {
     var element = null;
     var hasQuestions = this.state.questions && this.state.questions.length;
-    var isDisabled = !this.state.userHasEnteredTags || !hasQuestions;
+    var isDisabled = !hasQuestions;
 
-    if ( !this.state.quizCreated && this.state.userHasEnteredTags ) {
+    if ( !this.state.quizCreated /*&& this.state.userHasEnteredTags*/ ) {
       element = (
-        <button className="btn highlight"
+        <button className="btn highlight nudge-half--bottom"
                 onClick={this.handleGlobalSubmit}
                 disabled={isDisabled ? 'true' : ''}>Create Quiz</button>
       );
@@ -331,8 +337,9 @@ var CreateLesson = React.createClass({
 
   renderSuccessMessage: function() {
     return (
-      <div>
-        success
+      <div className="nudge-half--top">
+        <h3 className="text-center nudge-half--bottom">Quiz successfully created!</h3>
+        <Link to="Course" params={{ courseId: this.props.params.courseId }} className="btn">Back to Course</Link>
       </div>
     );
   },
