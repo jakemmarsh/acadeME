@@ -1,18 +1,19 @@
 'use strict';
 
-var React              = require('react/addons');
-var ReactAsync         = require('react-async');
-var Preloaded          = ReactAsync.Preloaded;
-var Reflux             = require('reflux');
-var Navigation         = require('react-router').Navigation;
-var State              = require('react-router').State;
-var RouteHandler       = require('react-router').RouteHandler;
+var React            = require('react/addons');
+var ReactAsync       = require('react-async');
+var Preloaded        = ReactAsync.Preloaded;
+var Reflux           = require('reflux');
+var Navigation       = require('react-router').Navigation;
+var State            = require('react-router').State;
+var RouteHandler     = require('react-router').RouteHandler;
 
-var UserActions        = require('./actions/UserActions');
-var CurrentUserStore   = require('./stores/CurrentUserStore');
-var Header             = require('./components/Header.jsx');
-var Sidebar            = require('./components/Sidebar.jsx');
-var Footer             = require('./components/Footer.jsx');
+var UserActions      = require('./actions/UserActions');
+var CurrentUserStore = require('./stores/CurrentUserStore');
+var Header           = require('./components/Header.jsx');
+var Sidebar          = require('./components/Sidebar.jsx');
+var Footer           = require('./components/Footer.jsx');
+
 
 var App = React.createClass({
 

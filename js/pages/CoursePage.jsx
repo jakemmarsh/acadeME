@@ -5,8 +5,10 @@ var Reflux             = require('reflux');
 var ReactAsync         = require('react-async');
 var Preloaded          = ReactAsync.Preloaded;
 var _                  = require('lodash');
-var RouteHandler       = require('react-router').RouteHandler;
-var Link               = require('react-router').Link;
+var Router             = require('react-router');
+var RouteHandler       = Router.RouteHandler;
+var Link               = Router.Link;
+var Navigation         = Router.Navigation;
 var DocumentTitle      = require('react-document-title');
 
 var CourseActions      = require('../actions/CourseActions');
@@ -16,7 +18,7 @@ var TopMenu            = require('../components/TopMenu.jsx');
 
 var CoursePage = React.createClass({
 
-  mixins: [ReactAsync.Mixin, React.addons.LinkedStateMixin, Reflux.ListenerMixin],
+  mixins: [ReactAsync.Mixin, React.addons.LinkedStateMixin, Reflux.ListenerMixin, Navigation],
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired

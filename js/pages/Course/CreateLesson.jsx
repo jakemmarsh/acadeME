@@ -11,7 +11,7 @@ var Editor        = require('../../components/Editor.jsx');
 
 var CreateLesson = React.createClass({
 
-  mixins: [Navigation, React.addons.LinkedStateMixin],
+  mixins: [React.addons.LinkedStateMixin, Navigation],
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired,
