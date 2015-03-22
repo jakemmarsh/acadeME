@@ -8,7 +8,7 @@ module.exports = {
   },
 
   'images': {
-    'src': './public/images/**/*.{jpeg,jpg,png}',
+    'src': './public/images/**/*.{jpeg,jpg,png,svg,gif}',
     'dest': './build/images/'
   },
 
