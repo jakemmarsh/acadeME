@@ -8,7 +8,7 @@ var streamify    = require('gulp-streamify');
 var rename       = require('gulp-rename');
 var watchify     = require('watchify');
 var browserify   = require('browserify');
-var reactify     = require('reactify');
+var babelify     = require('babelify');
 var uglify       = require('gulp-uglify');
 var handleErrors = require('../util/handle-errors');
 var config       = require('../config');
@@ -17,7 +17,7 @@ var config       = require('../config');
 function buildScript(file, watch) {
 
   var bundler = browserify({
-    entries: [config.sourceDir + 'js/' + file],
+    entries: [file],
     debug: true,
     cache: {},
     packageCache: {},
@@ -32,14 +32,18 @@ function buildScript(file, watch) {
     });
   }
 
-  bundler.transform(reactify);
+  bundler.transform(babelify);
 
   function rebundle() {
     var stream = bundler.bundle();
     return stream.on('error', handleErrors)
     .pipe(source(file))
+    .pipe(gulpif(global.isProd, streamify(uglify({
+      compress: { drop_console: true }
+    }))))
     .pipe(gulpif(global.isProd, streamify(uglify())))
     .pipe(streamify(rename({
+      dirname: './',
       basename: 'main'
     })))
     .pipe(gulp.dest(config.scripts.dest));
@@ -52,6 +56,6 @@ function buildScript(file, watch) {
 gulp.task('browserify', function() {
 
   // Only run watchify if NOT production
-  return buildScript('index.js', !global.isProd);
+  return buildScript('./js/index.js', !global.isProd);
 
 });

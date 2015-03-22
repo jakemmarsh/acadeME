@@ -5,16 +5,9 @@ var bcrypt = require('bcrypt');
 module.exports = function(sequelize, DataTypes) {
 
   var User = sequelize.define('User', {
-    username:         { type: DataTypes.STRING, unique: true, allowNull: false },
+    email:            { type: DataTypes.STRING, unique: true, validate: { isEmail: true } },
     firstName:        { type: DataTypes.STRING, allowNull: false },
     lastName:         { type: DataTypes.STRING, allowNull: false },
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
-      validate: {
-        isEmail: true
-      }
-    },
     type:             { type: DataTypes.ENUM('student', 'instructor'), defaultValue: 'student' },
     imageUrl:         { type: DataTypes.STRING },
     hash:             { type: DataTypes.STRING },
@@ -44,7 +37,8 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         User.hasMany(models.Course, { onDelete: 'cascade' });
         User.hasMany(models.Message, { onDelete: 'cascade' });
-        User.hasMany(models.Enrollment, { onDelete: 'cascade' });
+        User.hasMany(models.Enrollment, { foreignKey: 'UserId', onDelete: 'cascade' });
+        User.hasMany(models.QuizCompletion, { onDelete: 'cascade' });
       }
     },
     instanceMethods: {

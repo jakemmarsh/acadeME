@@ -6,6 +6,6 @@ var del    = require('del');
 
 gulp.task('clean', function() {
 
-  del([config.buildDir]);
+  return del([config.buildDir]);
 
 });

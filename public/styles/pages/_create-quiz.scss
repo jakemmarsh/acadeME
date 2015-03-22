@@ -1,0 +1,197 @@
+section.create-quiz {
+
+  .start-container {
+    display: table;
+    width: 100%;
+    padding: 150px 0;
+
+    & > *:first-child {
+      display: table-cell;
+      vertical-align: middle;
+      width: 100%;
+    }
+  }
+
+  .large-input {
+    display: block;
+    width: 100%;
+    padding: $half-space/2;
+
+    font-family: $serif-family;
+    font-size: 20px;
+    font-style: italic;
+  }
+
+  ul.question-list {
+    list-style: none;
+    margin: 0 0 $full-space;
+    padding: 0;
+
+    @extend %card;
+    border: 1px solid darken($background-light-grey, 5);
+
+    & > li {
+      display: table;
+      width: 100%;
+      padding: $half-space;
+
+      font-size: 20px;
+      color: inherit;
+      background-color: transparent;
+      @include transition(background-color 0.1s ease-in-out, color 0.1s ease-in-out);
+
+      & > * {
+        display: table-cell;
+        vertical-align: middle;
+      }
+
+      .check-container {
+        width: 80px;
+
+        .check-circle {
+          width: 80px;
+          height: 80px;
+          @include border-radius(100%);
+          border-style: solid;
+          border-width: 4px;
+          border-color: $text-grey;
+
+          @include transition(border-color 0.1s ease-in-out);
+
+          text-align: center;
+          text-transform: uppercase;
+          font-weight: 600;
+          font-size: 45px;
+          line-height: 75px;
+
+          i {
+            opacity: 1;
+            @include transition(opacity 0.1s ease-in-out);
+            &.hidden {
+              opacity: 0 !important;
+            }
+          }
+        }
+      }
+
+      ul.answer-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          padding: $half-space/4 0;
+          font-size: 14px;
+          line-height: 14px;
+
+          &:first-child {
+            padding-top: 0;
+          }
+
+          &:last-child {
+            padding-bottom: 0;
+          }
+        }
+      }
+
+      &:hover {
+        background-color: darken($background-light-grey, 2);
+
+        color: $secondary;
+
+        .choice-indicator {
+          border-color: $secondary;
+        }
+      }
+
+      &.selected {
+        background-color: darken($background-light-grey, 2);
+
+        &:hover { color: $text-grey; }
+
+        .check-circle {
+          color: $primary;
+          border-color: $primary;
+        }
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid darken($background-light-grey, 5);
+      }
+    }
+  }
+
+  ul.multiple-choice {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    @extend %card;
+    border: 1px solid darken($background-light-grey, 5);
+
+    li {
+      display: table;
+      width: 100%;
+      padding: $half-space;
+
+      cursor: pointer;
+
+      font-size: 20px;
+      color: inherit;
+      background-color: transparent;
+
+      & > * {
+        display: table-cell;
+        vertical-align: middle;
+      }
+
+      .choice-indicator {
+        width: 50px;
+        height: 50px;
+        @include border-radius(100%);
+        border: 4px solid $text-grey;
+
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+
+      $input-width: 800px;
+
+      input[type=text] {
+        display: block;
+        width: $input-width;
+        padding: $half-space*0.75;
+        border: none;
+        border-bottom: solid 1px $primary;
+        @include transition(all 0.3s ease);
+        @include linear-gradient(to bottom, rgba(255,255,255,0) 95%, $primary 5%);
+        background-position: -$input-width 0;
+        background-size: $input-width 100%;
+        background-repeat: no-repeat;
+
+        &::-webkit-input-placeholder {
+          @include transition(all 0.3s ease-in-out);
+        }
+
+        &:focus {
+          box-shadow: none;
+          outline: none;
+          background-position: 0 0;
+
+          &::-webkit-input-placeholder {
+            color: $primary;
+            font-size: 11px;
+            transform: translateY(-20px);
+            visibility: visible !important;
+          }
+        }
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid darken($background-light-grey, 5);
+      }
+    }
+  }
+
+}

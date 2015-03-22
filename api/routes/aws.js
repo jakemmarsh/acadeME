@@ -6,15 +6,14 @@ var Knox   = require('knox');
 var crypto = require('crypto');
 var moment = require('moment');
 var mime   = require('mime-types');
-var config = require('../../config');
 var models = require('../models');
 
 /* ====================================================== */
 
 var AWS = Knox.createClient({
-  key: config.aws.key,
-  secret: config.aws.secret,
-  bucket: config.aws.bucket
+  key: process.env.AWS_KEY,
+  secret: process.env.AWS_SECRET,
+  bucket: process.env.S3_BUCKET
 });
 
 /* ====================================================== */
@@ -31,13 +30,15 @@ function uploadToAWS(file, type, entityId) {
   };
   var path = '/';
 
-  if ( type === 'attachment' ) {
-    path += 'attachments/';
-  } else if ( type === 'course' || type === 'lesson' ) {
-    path += type + '_imgs/';
+  switch ( type ) {
+    case 'attachment':
+      path += 'attachments/';
+      break;
+    default:
+      path += type + '_imgs/';
   }
 
-  path += datePrefix + '/' + key + '.' + mime.extensions[file.mimetype];
+  path += datePrefix + '/' + key + '.' + mime.extensions[file.mimetype][0];
 
   AWS.putBuffer(file.buffer, path, headers, function(err, response){
     if ( err || response.statusCode !== 200 ) {
@@ -60,8 +61,20 @@ function updateEntity(data) {
   var deferred = when.defer();
   var type = data[0];
   var id = data[1];
-  var filePath = 'https://' + config.aws.bucket + '.s3.amazonaws.com' + data[2];
-  var model = (type === 'lesson') ? models.Lesson : models.Course;
+  var filePath = 'https://' + process.env.S3_BUCKET + '.s3.amazonaws.com' + data[2];
+  var model;
+
+  switch ( type ) {
+    case 'lesson':
+      model = models.Lesson;
+      break;
+    case 'course':
+      model = models.Course;
+      break;
+    case 'user':
+      model = models.User;
+      break;
+  }
 
   model.find({
     where: { id: id }
@@ -90,7 +103,7 @@ function updateEntity(data) {
 function saveAttachment(data) {
 
   var deferred = when.defer();
-  var filePath = 'https://' + config.aws.bucket + '.s3.amazonaws.com' + data[2];
+  var filePath = 'https://' + process.env.S3_BUCKET + '.s3.amazonaws.com' + data[2];
   var filename = data[3];
   var attachment = {
     url: filePath,

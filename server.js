@@ -8,13 +8,26 @@ var bodyParser     = require('body-parser');
 var busboy         = require('connect-busboy');
 var session        = require('express-session');
 var passport       = require('passport');
+var nodeJSX        = require('node-jsx');
+var React          = require('react');
+var Router         = require('react-router');
+var DocumentTitle  = require('react-document-title');
+var ReactAsync     = require('react-async');
 var models         = require('./api/models');
 var api            = require('./api');
 var app            = express();
 var server         = app.listen(process.env.PORT || 3000);
 var populateDb     = require('./populateDb');
-var config         = require('./config');
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
+var Routes;
+var Html;
+
+/* ====================================================== */
+
+// Require JSX files as node modules
+nodeJSX.install({ extension: '.jsx' });
+Routes = require('./js/Routes.jsx');
+Html = require('./js/Html.jsx');
 
 /* ====================================================== */
 
@@ -28,7 +41,7 @@ app.use(bodyParser.urlencoded({
 app.use(busboy());          // Parse multipart/form-data
 app.set('json spaces', 0);  // Remove superfluous spaces from JSON responses
 app.use(session({
-  secret: config.secret,
+  secret: process.env.SECRET,
   cookie: {
     maxAge: 1000*60*30 // only 30 minutes until user logs in
   },
@@ -79,7 +92,20 @@ app.use('*/fonts', express.static(__dirname + '/build/fonts'));
 // Mount the API
 app.use('/api', api(server));
 
-// Serve index.html for all main routes to leave routing up to react-router
-app.all('/*', function(req, res) {
-    res.sendFile('index.html', { root: 'build' });
+// Serve React app for all main routes
+app.get('/*' ,function(req,res) {
+  Router.run(Routes, req.path, function(Handler, state) {
+    var title = DocumentTitle.rewind();
+    var HandlerComponent = React.createElement(Handler, { params: state.params, query: state.query });
+    var HtmlComponent;
+
+    ReactAsync.renderToStringAsync(HandlerComponent, function(err, markup/*, data*/) {
+      if ( err ) {
+        res.status(500).json({ status: 500, message: err });
+      } else {
+        HtmlComponent = React.createElement(Html, { title: title, markup: markup });
+        res.send('<!DOCTYPE html>\n' + React.renderToString(HtmlComponent));
+      }
+    });
+  });
 });

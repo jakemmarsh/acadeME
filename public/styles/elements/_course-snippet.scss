@@ -1,0 +1,62 @@
+article.course-snippet {
+
+  position: relative;
+  display: table;
+  width: 100%;
+  padding: $half-space;
+
+  background-color: $white;
+  @include transition(0.1s ease-in-out background-color);
+
+  & > * {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .go-arrow {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    @include border-radius(100%);
+    border-style: solid;
+    border-width: 4px;
+    border-color: $text-grey;
+    color: $text-grey;
+
+    @include transition(border-color 0.1s ease-in-out, color 0.1s ease-in-out);
+
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 32px;
+    letter-spacing: -4px;
+  }
+
+  a {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid darken($background-light-grey, 5);
+  }
+
+  &:hover {
+    background-color: darken($background-light-grey, 2);
+
+    .go-arrow {
+      border-color: $secondary;
+      color: $secondary;
+    }
+  }
+
+}
+
+.courses-container .card {
+  @extend %card;
+  border: 1px solid darken($background-light-grey, 5);
+}

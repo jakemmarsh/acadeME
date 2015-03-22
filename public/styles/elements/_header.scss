@@ -1,0 +1,165 @@
+$header-height: 70px;
+
+header {
+
+  position: relative;
+  display: table;
+  width: 100%;
+  line-height: 70px;
+  text-align: center;
+
+  color: $header-grey;
+  background: $primary;
+  @include linear-gradient(90deg, $primary 0%, $secondary 100%);
+
+  .left-container,
+  .logo-container,
+  .right-container {
+    display: table-cell;
+    height: $header-height;
+    vertical-align: middle;
+  }
+
+  .left-container,
+  .right-container {
+    width: 20%;
+  }
+
+  .left-container {
+    padding-left: $full-space;
+
+    .create-course-button {
+      float: left;
+      width: 40px;
+      height: 40px;
+      padding: $half-space/2;
+      margin-right: $full-space;
+
+      font-size: 24px;
+      line-height: 24px;
+      text-align: center;
+      color: $header-background;
+      background-color: $white;
+      @include border-radius(3px);
+
+      opacity: 0.6;
+      @include transition(opacity 0.1s ease-in-out);
+
+      &:hover { opacity: 1; }
+    }
+  }
+
+  .logo-container {
+    width: 60%;
+    text-align: center;
+
+    .logo {
+      position: relative;
+      top: 20%;
+      height: 80%;
+    }
+  }
+
+  .right-container {
+    padding-right: $full-space;
+    text-align: right;
+
+    a {
+      color: $white;
+      opacity: 0.6;
+      @include transition(opacity 0.1s ease-in-out);
+
+      &:hover { opacity: 1; }
+    }
+
+    .dropdown-container {
+      position: relative;
+      display: inline;
+      width: 200px;
+      padding: $half-space/2 $half-space;
+
+      cursor: pointer;
+      text-align: center;
+      color: $white;
+
+      opacity: 0.6;
+      @include transition(opacity 0.1s ease-in-out);
+
+      i {
+        margin-left: $full-space;
+      }
+
+      ul {
+        @extend %card;
+        z-index: 3;
+        position: absolute;
+        display: block;
+        top: 100%;
+        right: 0;
+        left: 0;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        li {
+          position: relative;
+          display: block;
+          height: 40px;
+          line-height: 30px;
+          padding: $half-space/4 $half-space;
+
+          text-align: left;
+          background-color: inherit;
+          color: inherit;
+          @include transition(background-color 0.1s ease-in-out, color 0.1s ease-in-out);
+
+          i {
+            margin: 0 $half-space/2 0 0;
+            color: $text-grey;
+          }
+
+          a {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+          }
+
+          &:hover {
+            background-color: darken($background-light-grey, 2);;
+            color: $primary;
+          }
+        }
+      }
+
+      &.open {
+        background-color: $white;
+        color: $text-dark-grey !important;
+      }
+
+      &:hover, &.open {
+        opacity: 1;
+      }
+    }
+  }
+
+  .shadow {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+
+    opacity: 0.2;
+
+    background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65)));
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+    background: -o-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+    background: -ms-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+    background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 );
+  }
+
+}

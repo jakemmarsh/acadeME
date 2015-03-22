@@ -3,7 +3,7 @@
 var url       = require('url');
 var when      = require('when');
 var kue       = require('kue');
-var config    = require('../config');
+var _         = require('lodash');
 var chatUtils = require('./utils/chat');
 
 /* ====================================================== */
@@ -15,9 +15,9 @@ module.exports = function() {
 
     this.jobs = kue.createQueue({
       redis: {
-        port: redisUrl.port || config.redis.port,
-        host: redisUrl.hostname || config.redis.host,
-        auth: redisUrl.auth || config.redis.auth
+        port: redisUrl.port || process.env.REDIS_PORT,
+        host: redisUrl.hostname || process.env.REDIS_HOST,
+        auth: redisUrl.auth || process.env.REDIS_AUTH
       }
     });
 
@@ -33,9 +33,11 @@ module.exports = function() {
 
   Queue.prototype.clearAllJobs = function() {
     kue.Job.rangeByType('message', 'complete', 0, -1, 'asc', function(err, selectedJobs) {
-      selectedJobs.forEach(function(job) {
-        job.remove();
-      });
+      if ( selectedJobs && selectedJobs.length ) {
+        _.each(selectedJobs, function(job) {
+          job.remove();
+        });
+      }
     });
   };
 

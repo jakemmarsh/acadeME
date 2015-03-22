@@ -1,0 +1,20 @@
+div.user-avatar {
+
+  position: relative;
+  height: 50px;
+  width: 50px;
+
+  @include border-radius(100%);
+  background-color: $header-background;
+  @include background-cover();
+
+  a {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+}

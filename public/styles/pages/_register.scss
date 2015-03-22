@@ -1,0 +1,48 @@
+$card-width: 600px;
+$input-width: $card-width - $full-space*2;
+
+section.register-page {
+
+  div.form-container {
+    @extend %card;
+    @extend .island;
+    display: block;
+    width: $card-width;
+    margin: $full-space auto;
+
+    input:not([type=submit]) {
+      display: block;
+      width: $input-width;
+      padding: $half-space;
+      border: none;
+      border-bottom: solid 1px $primary;
+      @include transition(all 0.3s ease);
+      @include linear-gradient(to bottom, rgba(255,255,255,0) 95%, $primary 5%);
+      background-position: -$input-width 0;
+      background-size: $input-width 100%;
+      background-repeat: no-repeat;
+
+      &::-webkit-input-placeholder {
+        @include transition(all 0.3s ease-in-out);
+      }
+
+      &[type=file] {
+        background-position: -$input-width 0 !important;
+      }
+
+      &:focus, &:valid {
+        box-shadow: none;
+        outline: none;
+        background-position: 0 0;
+
+        &::-webkit-input-placeholder {
+          color: $primary;
+          font-size: 11px;
+          transform: translateY(-20px);
+          visibility: visible !important;
+        }
+      }
+    }
+  }
+
+}

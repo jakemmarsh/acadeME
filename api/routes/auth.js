@@ -12,7 +12,7 @@ exports.isAuthenticated = function(req, res, next) {
   if ( req.isAuthenticated() || (req.session && req.session.user) ) {
     return next();
   } else {
-    return res.status(401).json({ error: 'User must be logged in.' });
+    return res.status(401).json({ status: 401, message: 'User must be logged in to access that endpoint.' });
   }
 
 };
@@ -20,8 +20,6 @@ exports.isAuthenticated = function(req, res, next) {
 /* ====================================================== */
 
 exports.login = function(req, res, next) {
-
-  console.log('in login endpoint');
 
   passport.authenticate('local', function(err, user, info) {
     if ( err ) {
@@ -46,10 +44,33 @@ exports.login = function(req, res, next) {
 
 exports.register = function(req, res) {
 
+  var checkEmail = function(user) {
+    var deferred = when.defer();
+    var email = user.email || user.Email;
+
+    models.User.find({
+      where: { email: email }
+    }).then(function(retrievedUser) {
+      if ( !_.isEmpty(retrievedUser) ) {
+        deferred.reject({ status: 400, body: 'That email address is already registered.' });
+      } else {
+        deferred.resolve(user);
+      }
+    });
+
+    return deferred.promise;
+  };
+
   var createUser = function(user) {
     var deferred = when.defer();
+    var newUser = {
+      email: user.email || user.Email,
+      firstName: user.firstName || user.FirstName,
+      lastName: user.lastName || user.LastName,
+      hash: user.password || user.Password || user.hash || user.Hash
+    };
 
-    models.User.create(user).then(function(savedUser) {
+    models.User.create(newUser).then(function(savedUser) {
       deferred.resolve(savedUser);
     }).catch(function(err) {
       console.log('error creating user:', err);
@@ -59,7 +80,9 @@ exports.register = function(req, res) {
     return deferred.promise;
   };
 
-  createUser(req.body).then(function(user) {
+  checkEmail(req.body)
+  .then(createUser)
+  .then(function(user) {
     res.status(200).json(user);
   }).catch(function(err) {
     res.status(err.status).json({ error: err.body });

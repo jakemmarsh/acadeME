@@ -1,0 +1,17 @@
+.progress-bar {
+  position: relative;
+  height: 5px;
+
+  background: #1a1d22;
+
+  .fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+
+    background: $white;
+
+    @include transition(width 0.1s ease-in-out);
+  }
+}

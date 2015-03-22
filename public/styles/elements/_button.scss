@@ -1,0 +1,38 @@
+.button, .btn {
+
+  padding: $half-space/2;
+
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 14px;
+  background-color: $secondary;
+  color: $white;
+  border: none;
+  @include border-radius(3px);
+
+  @include transition(background-color 0.1s ease-in-out);
+
+  &.highlight {
+    background-color: $primary;
+    &:hover { background-color: lighten($primary, 10); }
+  }
+
+  &.inline-block {
+    display: inline-block;
+  }
+
+  &.block {
+    display: block;
+  }
+
+  &:hover {
+    background-color: lighten($secondary, 10);
+  }
+
+  &:disabled {
+    cursor: default;
+    background-color: darken($background-light-grey, 10);
+    &:hover { background-color: darken($background-light-grey, 10); }
+  }
+
+}

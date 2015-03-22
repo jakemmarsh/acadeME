@@ -1,0 +1,125 @@
+nav.sidebar {
+
+  position: relative;
+  display: table-cell;
+  height: 100%;
+  width: 325px;
+
+  background: $sidebar-background-grey;
+
+  .course-info-container {
+    opacity: 1;
+    max-height: 1000px;
+
+    .title-container {
+      padding: $full-space;
+
+      background: $sidebar-dark-grey;
+      color: $primary;
+
+      .title, .instructor {
+        font-family: $sans-serif-family;
+        color: $white;
+      }
+
+      .title {
+        display: block;
+        @extend h3;
+        text-transform: uppercase;
+        color: $primary;
+
+        &:hover {
+          color: $sidebar-link-grey;
+          text-decoration: none;
+        }
+      }
+
+      span {
+        font-family: $serif-family;
+        font-style: italic;
+        color: $sidebar-link-grey;
+      }
+    }
+
+    .progress-container {
+      padding: $full-space;
+
+      background: darken($sidebar-dark-grey, 2);
+    }
+  }
+
+  /* React CSS Transition Group styles */
+  .course-info-container-enter {
+    opacity: 0.01;
+    max-height: 1px;
+    @include transition(opacity 0.5s ease-in-out, max-height 0.5s ease-in-out);
+  }
+
+  .course-info-container-enter-active {
+    opacity: 1;
+    max-height: 1000px;
+  }
+
+  .course-info-container-leave {
+    opacity: 1;
+    max-height: 1000px;
+    @include transition(opacity 0.5s ease-in-out, max-height 0.5s ease-in-out);
+  }
+
+  .course-info-container-leave-active {
+    opacity: 0.01;
+    max-height: 1px;
+  }
+
+  .links-container {
+    padding: $full-space;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      border-left: 3px solid #1a1d22;
+
+      li {
+        margin: 0 0 $half-space (-$half-space/6);
+
+        border-left: 3px solid transparent;
+
+        color: $sidebar-link-grey;
+        text-transform: uppercase;
+
+        a {
+          display: block;
+          padding: $half-space/4 $half-space;
+
+          color: $sidebar-link-grey;
+          font-weight: 600;
+        }
+
+        &.active {
+          a {
+            color: $white;
+          }
+
+          border-color: $secondary;
+        }
+
+        &:hover a {
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .shadow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 5px;
+
+    @include linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%);
+  }
+
+}

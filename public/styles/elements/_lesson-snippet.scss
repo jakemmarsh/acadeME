@@ -1,0 +1,67 @@
+$icon-size: 45px;
+$border-size: 8px;
+
+article.lesson-snippet {
+
+  position: relative;
+  display: table;
+  width: calc(100% - #{$full-space*2}); // take margin-left and margin-right into account
+  margin: $full-space;
+  padding: $full-space;
+
+  @extend %card;
+
+  & > div {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .image-container {
+    width: 150px;
+    padding-right: $full-space;
+
+    .lesson-image {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  .info-container .title {
+    display: inline-block;
+    @extend h2;
+    color: $text-dark-grey;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 0;
+  }
+
+  &:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: '\f00d'; // fontawesome x mark
+    position: absolute;
+    top: -($icon-size + $border-size)/2;
+    left: 50%;
+    margin-left: -($icon-size + $border-size)/2;
+    width: $icon-size;
+    height: $icon-size;
+
+    line-height: 25px;
+    text-align: center;
+
+    border: 10px solid $background-light-grey;
+    @include border-radius(100%);
+    background: $red;
+    color: $background-light-grey;
+  }
+
+  &.completed:before {
+    content: '\f00c'; // fontawesome check mark
+    background: $primary;
+  }
+
+}

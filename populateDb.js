@@ -10,7 +10,7 @@ module.exports = function(models) {
   var createInstructorUser = function() {
     var deferred = when.defer();
     var user = {
-      username: 'test',
+      email: 'test@test.com',
       hash: 'test',
       firstName: 'John',
       lastName: 'Doe',
@@ -63,9 +63,87 @@ module.exports = function(models) {
     ];
 
     models.Lesson.bulkCreate(lessons).then(function() {
-      deferred.resolve(course);
+      models.Lesson.findAll().then(function(createdLessons) {
+        deferred.resolve([createdLessons, course]);
+      });
     }).catch(function(err) {
       console.log('error creating lesssons:', err);
+    });
+
+    return deferred.promise;
+  };
+
+  var createQuiz = function(data) {
+    var deferred = when.defer();
+    var lesson = data[0][0];
+    var course = data[1];
+    var quiz = {
+      CourseId: course.id,
+      LessonId: lesson.id,
+      title: 'Test Quiz',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus.',
+      tags: ['test', 'lorem', 'ipsum']
+    };
+
+    models.Quiz.create(quiz).then(function(createdQuiz) {
+      deferred.resolve([createdQuiz, course]);
+    }).catch(function(err) {
+      console.log('error creating quiz:', err);
+    });
+
+    return deferred.promise;
+  };
+
+  var createQuestions = function(data) {
+    var deferred = when.defer();
+    var quiz = data[0];
+    var course = data[1];
+    var questions = [
+      {
+        QuizId: quiz.id,
+        type: 'multi',
+        body: 'What is the capitol of Maine?'
+      }
+    ];
+
+    models.Question.bulkCreate(questions).then(function() {
+      models.Question.findAll().then(function(createdQuestions) {
+        deferred.resolve([createdQuestions, course]);
+      });
+    }).catch(function(err) {
+      console.log('error creating questions:', err);
+    });
+
+    return deferred.promise;
+  };
+
+  var createAnswers = function(data) {
+    var deferred = when.defer();
+    var question = data[0][0];
+    var course = data[1];
+    var answers = [
+      {
+        QuestionId: question.id,
+        body: 'Augusta'
+      },
+      {
+        QuestionId: question.id,
+        body: 'Portland'
+      },
+      {
+        QuestionId: question.id,
+        body: 'Brewer'
+      },
+      {
+        QuestionId: question.id,
+        body: 'Bangor'
+      }
+    ];
+
+    models.Answer.bulkCreate(answers).then(function() {
+      deferred.resolve(course);
+    }).catch(function(err) {
+      console.log('error creating answers:', err);
     });
 
     return deferred.promise;
@@ -75,25 +153,25 @@ module.exports = function(models) {
     var deferred = when.defer();
     var usersToCreate = [
       {
-        username: 'sjobs',
+        email: 'sjobs@apple.com',
         hash: 'test',
         firstName: 'Steve',
         lastName: 'Jobs',
         imageUrl: 'http://a5.files.biography.com/image/upload/c_fill,dpr_1.0,g_face,h_300,q_80,w_300/MTE5NDg0MDU0NTIzODQwMDE1.jpg'
       },
       {
-        username: 'bgates',
+        email: 'bgates@microsoft.com',
         hash: 'test',
         firstName: 'Bill',
         lastName: 'Gates',
         imageUrl: 'http://timedotcom.files.wordpress.com/2014/01/bill-gates.jpg?w=1100'
       }
     ];
-    var usernames = _.pluck(usersToCreate, 'username');
+    var emails = _.pluck(usersToCreate, 'email');
 
     models.User.bulkCreate(usersToCreate).then(function() {
       models.User.findAll({
-        where: { username: usernames }
+        where: { email: emails }
       }).then(function(users) {
         var enrollments = _.map(users, function(user) {
           return {
@@ -118,7 +196,7 @@ module.exports = function(models) {
   var createCurrentUser = function(otherUsers) {
     var deferred = when.defer();
     var user = {
-      username: 'jakemmarsh',
+      email: 'jakemmarsh@gmail.com',
       hash: 'test',
       firstName: 'Jake',
       lastName: 'Marsh',
@@ -201,6 +279,9 @@ module.exports = function(models) {
   createInstructorUser()
     .then(createCourse)
     .then(createLessons)
+    .then(createQuiz)
+    .then(createQuestions)
+    .then(createAnswers)
     .then(createEnrolledUsers)
     .then(createCurrentUser)
     .then(createCourseCurrentUserTeaches)

@@ -1,0 +1,103 @@
+.st-outer {
+
+  *, *:before, *:after {
+    @include transition(background-color 0.1s ease-in-out, border-color 0.1s ease-in-out, color 0.1s ease-in-out);
+  }
+
+  .st-block-controls__top,
+  .st-block__inner,
+  .st-icon--add:after {
+    @extend %card;
+    margin-bottom: $half-space;
+    @include border-radius(0);
+  }
+
+  .st-errors {
+    margin-bottom: $half-space;
+  }
+
+  .st-block-controls__top,
+  .st-icon--add:after {
+    cursor: pointer;
+  }
+
+  .st-block__inner {
+    padding: $half-space/2;
+    border-style: solid;
+    border-width: 2px;
+    border-color: $white;
+
+    .st-text-block {
+      font-size: 16px;
+      color: $text-dark-grey;
+    }
+
+    ::-moz-selection {
+      background: $primary;
+      color: $white;
+    }
+
+    ::selection {
+      background: $primary;
+      color: $white;
+    }
+
+    &:hover {
+      border-color: $primary;
+    }
+  }
+
+  .st-block__ui, .st-block__ui-delete-controls {
+    bottom: -2px; /* width of border */
+    right: -2px;
+  }
+
+  .st-block-ui-btn,
+  .st-block-control-ui-btn {
+    color: $primary;
+    background-color: $white;
+    border-style: solid;
+    border-width: 2px;
+    border-color: $primary;
+
+    &:not(:last-child) {
+      border-right-width: 0;
+    }
+
+    &:hover {
+      color: $white;
+      background-color: $primary;
+      border-color: $primary;
+    }
+  }
+
+  .st-block-controls__top:hover:before,
+  .st-block--with-plus:after {
+    color: $secondary;
+    background-color: darken($background-light-grey, 2);
+  }
+
+  .st-block-control {
+    color: $primary;
+
+    &:hover {
+      color: $secondary;
+    }
+  }
+
+  .st-block__messages {
+    top: -$half-space/2;
+    left: -$half-space/2;
+  }
+
+}
+
+.st-format-bar {
+
+  /* format button hover */
+  .st-format-btn:hover,
+  .st-format-btn--is-active {
+    color: $secondary;
+  }
+
+}
