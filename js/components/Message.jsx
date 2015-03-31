@@ -36,8 +36,16 @@ var Message = React.createClass({
     return this.props.message.userId === this.props.currentUser.id;
   },
 
-  openAttachmentModal: function() {
-    this.showAttachmentModal(this.props.message.attachment);
+  handleAttachmentClick: function(evt) {
+    var annotatableRegex = new RegExp('\.(pdf|png|jpg|jpeg|gif|bmp)', 'i');
+
+    // Only show modal if it is an annotatable attachment,
+    // otherwise continue on to the link
+    if ( annotatableRegex.test(this.props.message.attachment.name) ) {
+      evt.preventDefault();
+      evt.stopPropagation();
+      this.showAttachmentModal(this.props.message.attachment);
+    }
   },
 
   renderMessageAttachment: function() {
@@ -50,7 +58,7 @@ var Message = React.createClass({
     if ( this.props.message.attachment ) {
       return (
         <div className={classes}>
-          <a onClick={this.openAttachmentModal}>
+          <a onClick={this.handleAttachmentClick} href={this.props.message.attachment.url} target="_blank">
             {this.props.message.attachment.name}
           </a>
           <i className="fa fa-paperclip nudge-quarter--left" />
