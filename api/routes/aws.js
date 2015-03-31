@@ -18,9 +18,45 @@ var AWS = Knox.createClient({
 
 /* ====================================================== */
 
-function uploadToAWS(file, type, entityId) {
+function convertPdfToImage(file, type, entityId) {
 
   var deferred = when.defer();
+  var extension = mime.extensions[file.mimetype][0];
+  // var bufs = [];
+
+  // if ( extension === 'pdf' ) {
+  //   gm(file.buffer, file.name + '.jpeg').stream(function(err, stdout) {
+  //     if ( err ) {
+  //       deferred.reject({ status: 500, body: err });
+  //     } else {
+  //       extension = 'jpg';
+
+  //       stdout.on('data', function(d) { bufs.push(d); });
+
+  //       stdout.on('end', function() {
+  //         file.buffer = Buffer.concat(bufs);
+  //         file.size = _.reduce(bufs, function(sum, buf) { return sum + buf.length; });
+  //         deferred.resolve([file, type, entityId, extension]);
+  //       });
+  //     }
+  //   });
+  // } else {
+    deferred.resolve([file, type, entityId, extension]);
+  // }
+
+  return deferred.promise;
+
+}
+
+/* ====================================================== */
+
+function uploadToAWS(data) {
+
+  var deferred = when.defer();
+  var file = data[0];
+  var type = data[1];
+  var entityId = data[2];
+  var extension = data[3];
   var datePrefix = moment().format('YYYY[/]MM');
   var key = crypto.randomBytes(10).toString('hex');
   var headers = {
@@ -38,11 +74,11 @@ function uploadToAWS(file, type, entityId) {
       path += type + '_imgs/';
   }
 
-  path += datePrefix + '/' + key + '.' + mime.extensions[file.mimetype][0];
+  path += datePrefix + '/' + key + '.' + extension;
 
   AWS.putBuffer(file.buffer, path, headers, function(err, response){
     if ( err || response.statusCode !== 200 ) {
-      console.error('error streaming file: ', new Date(), err);
+      console.error('error putting buffer: ', new Date(), err);
       deferred.reject({ status: response.statusCode, error: err });
     } else {
       console.log('File uploaded! Amazon response statusCode: ', response.statusCode);
@@ -61,7 +97,7 @@ function updateEntity(data) {
   var deferred = when.defer();
   var type = data[0];
   var id = data[1];
-  var filePath = 'https://' + process.env.S3_BUCKET + '.s3.amazonaws.com' + data[2];
+  var filePath = 'http://' + process.env.S3_BUCKET + '.s3.amazonaws.com' + data[2];
   var model;
 
   switch ( type ) {
@@ -103,7 +139,7 @@ function updateEntity(data) {
 function saveAttachment(data) {
 
   var deferred = when.defer();
-  var filePath = 'https://' + process.env.S3_BUCKET + '.s3.amazonaws.com' + data[2];
+  var filePath = 'http://' + process.env.S3_BUCKET + '.s3.amazonaws.com' + data[2];
   var filename = data[3];
   var attachment = {
     url: filePath,
@@ -153,7 +189,9 @@ exports.uploadFile = function(req, res) {
       };
       var updateFunction = req.params.type === 'attachment' ? saveAttachment : updateEntity;
 
-      uploadToAWS(finalFile, req.params.type, req.params.id).then(updateFunction).then(function(data) {
+      convertPdfToImage(finalFile, req.params.type, req.params.id)
+      .then(uploadToAWS)
+      .then(updateFunction).then(function(data) {
         if ( typeof data === 'string' ) {
           res.status(200).json({ url: data });
         } else {
