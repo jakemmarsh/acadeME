@@ -17,7 +17,11 @@ exports.get = function(req, res) {
     }
 
     models.Lesson.find({
-      where: query
+      where: query,
+      include: {
+        model: models.Quiz,
+        attributes: ['id']
+      }
     }).then(function(lesson) {
       if ( _.isEmpty(lesson) ) {
         deferred.reject({ status: 404, body: 'Lesson could not be found at identifier: ' + identifier });

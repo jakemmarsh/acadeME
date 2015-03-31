@@ -101,6 +101,7 @@ app.get('/*' ,function(req,res) {
 
     ReactAsync.renderToStringAsync(HandlerComponent, function(err, markup/*, data*/) {
       if ( err ) {
+        console.trace('error rendering to string:', err);
         res.status(500).json({ status: 500, message: err });
       } else {
         HtmlComponent = React.createElement(Html, { title: title, markup: markup });
