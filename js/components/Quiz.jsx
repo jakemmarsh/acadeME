@@ -30,7 +30,9 @@ var Quiz = React.createClass({
       userScore: 0,
       currentQuestionNumber: 0,
       quizComplete: false,
-      selectedAnswer: {}
+      selectedAnswer: {},
+      loading: false,
+      error: null
     };
   },
 
@@ -49,9 +51,11 @@ var Quiz = React.createClass({
 
   _onQuestionChange: function(err, question) {
     if ( err ) {
-      // TODO: handle error
+      this.setState({ error: err.message, loading: false });
     } else if ( question ) {
       this.setState({
+        error: null,
+        loading: false,
         question: question,
         currentQuestionNumber: this.state.currentQuestionNumber + 1,
         selectedAnswer: {}

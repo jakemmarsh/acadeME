@@ -69,8 +69,7 @@ var CreateCoursePage = React.createClass({
   handleSubmit: function(evt) {
     var course = {
       title: this.state.title,
-      description: this.state.description,
-      InstructorId: this.props.currentUser.id // TODO: should this only be added on the server side?
+      description: this.state.description
     };
 
     evt.stopPropagation();

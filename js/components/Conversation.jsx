@@ -74,7 +74,7 @@ var Conversation = React.createClass({
 
     if ( this.state.attachment ) {
       ChatAPI.uploadAttachment(
-        this.props.conversation.id, // TODO: this needs to be replaced with message ID, not sure how to retrieve that
+        this.props.conversation.id,
         this.props.currentUser.id,
         this.state.attachment
       ).then(function(resp) {

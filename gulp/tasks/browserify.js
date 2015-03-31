@@ -41,7 +41,6 @@ function buildScript(file, watch) {
     .pipe(gulpif(global.isProd, streamify(uglify({
       compress: { drop_console: true }
     }))))
-    .pipe(gulpif(global.isProd, streamify(uglify())))
     .pipe(streamify(rename({
       dirname: './',
       basename: 'main'

@@ -16,9 +16,9 @@ function createRequest(verb, path, body) {
   var req;
 
   if ( typeof window !== 'undefined' ) {
-    req =  request[verb](path, body).withCredentials();
+    req = request[verb](path, body).withCredentials();
   } else {
-    req =  request[verb](path, body);
+    req = request[verb](path, body);
   }
 
   return req;

@@ -111,8 +111,7 @@ var CourseLesson = React.createClass({
   renderQuizLink: function() {
     var element = null;
 
-    // TODO: check if
-    if ( !_.isEmpty(this.state.lesson) ) {
+    if ( !_.isEmpty(this.state.lesson) && this.state.lesson.quiz && _.isNumber(this.state.lesson.quiz.id) ) {
       element = (
         <Link to="LessonQuiz"
               params={{ courseId: this.props.params.courseId, lessonId: this.props.params.lessonId }}
