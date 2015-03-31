@@ -9,6 +9,7 @@ module.exports = function(sequelize, DataTypes) {
   {
     classMethods: {
       associate: function(models) {
+        Attachment.belongsTo(models.Message);
         Attachment.hasMany(models.Annotation, { onDelete: 'cascade' });
       }
     }

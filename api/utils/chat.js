@@ -80,31 +80,8 @@ exports.saveMessage = function(data) {
     return deferred.promise;
   };
 
-  var updateMessage = function(data) {
-    var deferred = when.defer();
-    var message = data[0];
-    var attachment = data[1];
-
-    if ( attachment ) {
-      models.Message.find({
-        where: { id: message.id }
-      }).then(function(retrievedMessage) {
-        retrievedMessage.setAttachment(attachment).then(function(updatedMessage) {
-          deferred.resolve(updatedMessage);
-        });
-      }).catch(function(err) {
-        deferred.reject(err);
-      });
-    } else {
-      deferred.resolve(message);
-    }
-
-    return deferred.promise;
-  };
-
   createMessage(message, attachment)
   .then(updateAttachment)
-  .then(updateMessage)
   .then(mainDeferred.resolve);
 
   return mainDeferred.promise;
