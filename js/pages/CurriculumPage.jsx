@@ -1,18 +1,19 @@
 'use strict';
 
-var React               = require('react/addons');
-var ReactAsync          = require('react-async');
-var Reflux              = require('reflux');
-var _                   = require('lodash');
-var DocumentTitle       = require('react-document-title');
+var React                   = require('react/addons');
+var ReactAsync              = require('react-async');
+var Reflux                  = require('reflux');
+var _                       = require('lodash');
+var DocumentTitle           = require('react-document-title');
 
-var PageActions         = require('../actions/PageActions');
-var UserCurriculumStore = require('../stores/UserCurriculumStore');
-var CourseSnippet       = require('../components/CourseSnippet.jsx');
+var PageActions             = require('../actions/PageActions');
+var UserCurriculumStore     = require('../stores/UserCurriculumStore');
+var AuthenticatedRouteMixin = require('../mixins/AuthenticatedRouteMixin');
+var CourseSnippet           = require('../components/CourseSnippet.jsx');
 
 var CurriculumPage = React.createClass({
 
-  mixins: [ReactAsync.Mixin, Reflux.ListenerMixin],
+  mixins: [ReactAsync.Mixin, Reflux.ListenerMixin, AuthenticatedRouteMixin],
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired

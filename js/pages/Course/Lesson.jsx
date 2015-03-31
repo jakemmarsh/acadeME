@@ -34,12 +34,6 @@ var CourseLesson = React.createClass({
     });
   },
 
-  getInitialState: function() {
-    return {
-      lesson: {}
-    };
-  },
-
   _onLessonChange: function(err, lesson) {
     if ( err ) {
       this.setState({ erorr: err.message });
