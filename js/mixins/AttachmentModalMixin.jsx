@@ -21,7 +21,7 @@ var AttachmentModalMixin = {
       attachment: {},
       showAttachmentModal: false,
       loading: false,
-      annotations: [],
+      attachmentAnnotations: [],
       error: null
     };
   },
@@ -31,7 +31,7 @@ var AttachmentModalMixin = {
       this.setState({ error: err.message });
     } else {
       this.setState({
-        annotations: annotations,
+        attachmentAnnotations: annotations,
         loading: false,
         error: null
       });
