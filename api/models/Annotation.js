@@ -3,9 +3,9 @@
 module.exports = function(sequelize, DataTypes) {
 
   var Annotation = sequelize.define('Annotation', {
-    body: { type: DataTypes.TEXT, allowNull: false },
-    xPos: { type: DataTypes.INTEGER },
-    yPos: { type: DataTypes.INTEGER }
+    text: { type: DataTypes.TEXT, allowNull: false },
+    xPos: { type: DataTypes.FLOAT },
+    yPos: { type: DataTypes.FLOAT }
   },
   {
     classMethods: {

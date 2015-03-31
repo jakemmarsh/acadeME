@@ -5,7 +5,8 @@ var Reflux = require('reflux');
 var ChatActions = Reflux.createActions([
 
   'openConversation',
-  'openAttachment'
+  'openAttachment',
+  'saveAnnotation'
 
 ]);
 

@@ -37,19 +37,31 @@ var AttachmentModalMixin = {
         loading: false,
         error: null
       }, function() {
-        // TODO: does format need to be changed at all before passing to mixin?
         this.setAnnotations(this.state.attachmentAnnotations);
       }.bind(this));
     }
   },
 
+  _saveAnnotationToDb: function(annotation) {
+    ChatActions.saveAnnotation(annotation, this.state.attachment.id);
+  },
   componentDidMount: function() {
     this.listenTo(CurrentAnnotationsStore, this._onAnnotationsChange);
+    this.setAddCallback(this._saveAnnotationToDb);
   },
 
   componentWillUpdate: function(nextProps, nextState) {
     if ( !_.isEmpty(nextState.attachment) && !_.isEqual(this.state.attachment, nextState.attachment) ) {
       ChatActions.openAttachment(nextState.attachment.id, this._onAnnotationsChange);
+    }
+  },
+
+  componentDidUpdate: function(prevProps, prevState) {
+    var haveNewAttachment = !_.isEmpty(this.state.attachment) && !_.isEqual(prevState.attachment, this.state.attachment);
+    var pdfRegex = new RegExp('\.pdf', 'i');
+
+    if ( haveNewAttachment ) {
+      this.setAddCallback(this._saveAnnotationToDb);
     }
   },
 
@@ -79,6 +91,29 @@ var AttachmentModalMixin = {
     return element;
   },
 
+  renderAttachment: function() {
+    var element = null;
+    var haveAttachment = !_.isEmpty(this.state.attachment);
+    var imageRegex = new RegExp('\.(png|jpg|jpeg|gif|bmp)', 'gi');
+    var pdfRegex = new RegExp('\.pdf', 'gi');
+    var styles = {
+      'maxWidth': '100%',
+      'maxHeight': 600
+    };
+
+    if ( haveAttachment && imageRegex.test(this.state.attachment.name) ) {
+      element = (
+        <img src={this.state.attachment.url} id="attachment-image" className="attachment" style={styles} />
+      );
+    } else if ( haveAttachment && pdfRegex.test(this.state.attachment.name) ) {
+      element = (
+        <canvas id="attachment-canvas" className="attachment" style={styles} />
+      );
+    }
+
+    return element;
+  },
+
   renderLayer: function() {
     var element = (<span />);
 
@@ -86,7 +121,7 @@ var AttachmentModalMixin = {
       element = (
         <Modal className="attachment-modal" onRequestClose={this.hideAttachmentModal}>
 
-          <img src={this.state.attachment.url} id="attachment" />
+          {this.renderAttachment()}
 
           {this.renderAnnotationIndicators()}
 

@@ -26,6 +26,10 @@ var ChatAPI = {
 
   getAnnotations: function(attachmentId) {
     return APIUtils.get('chat/annotations/' + attachmentId);
+  },
+
+  saveAnnotation: function(annotation, attachmentId) {
+    return APIUtils.post('chat/annotations/' + attachmentId, annotation);
   }
 
 };

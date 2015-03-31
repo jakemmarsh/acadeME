@@ -11,6 +11,7 @@ var CourseRecipientsStore = Reflux.createStore({
     this.annotations = null;
 
     this.listenTo(ChatActions.openAttachment, this.loadAnnotations);
+    this.listenTo(ChatActions.saveAnnotation, this.saveAnnotation);
   },
 
   loadAnnotations: function(attachmentId, cb) {
@@ -26,7 +27,22 @@ var CourseRecipientsStore = Reflux.createStore({
       cb(err);
       this.trigger(err);
     }.bind(this));
+  },
+
+  saveAnnotation: function(annotation, attachmentId, cb) {
+    cb = cb || function() {};
+
+    console.log('save annotation:', annotation);
+
+    ChatAPI.saveAnnotation(annotation, attachmentId).then(function(annotation) {
+      this.annotations.push(annotation);
+      cb(null, this.annotations);
+      this.trigger(null, this.annotations);
+    }.bind(this)).catch(function(err) {
+      cb(err);
+    });
   }
+
 });
 
 module.exports = CourseRecipientsStore;

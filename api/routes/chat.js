@@ -93,7 +93,7 @@ exports.getAnnotations = function(req, res) {
   var fetchAnnotations = function(attachmentId) {
     var deferred = when.defer();
 
-    models.Annotation.find({
+    models.Annotation.findAll({
       where: { AttachmentId: attachmentId }
     }).then(function(annotations) {
       if ( !_.isEmpty(annotations) ) {
@@ -109,6 +109,38 @@ exports.getAnnotations = function(req, res) {
   };
 
   fetchAnnotations(req.params.attachmentId).then(function(resp) {
+    res.status(200).json(resp);
+  }).catch(function(err) {
+    res.status(err.status).json({ status: err.status, message: err.body.toString() });
+  });
+
+};
+
+/* ====================================================== */
+
+exports.addAnnotation = function(req, res) {
+
+  var saveAnnotation = function(annotation, attachmentId) {
+    var deferred = when.defer();
+
+    annotation = {
+      text: annotation.Text || annotation.text,
+      xPos: annotation.xpos || annotation.xPos,
+      yPos: annotation.ypos || annotation.yPos,
+      AttachmentId: attachmentId,
+      UserId: req.user.id
+    };
+
+    models.Annotation.create(annotation).then(function(createdAnnotation) {
+      deferred.resolve(createdAnnotation);
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
+
+    return deferred.promise;
+  };
+
+  saveAnnotation(req.body, req.params.attachmentId).then(function(resp) {
     res.status(200).json(resp);
   }).catch(function(err) {
     res.status(err.status).json({ status: err.status, message: err.body.toString() });

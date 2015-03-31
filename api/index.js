@@ -75,6 +75,7 @@ module.exports = function(server) {
   api.get('/chat/:courseId/recipients', routes.chat.getRecipients);
   api.get('/chat/:courseId/conversation', routes.chat.getConversation); // TODO: figure out what other params this needs
   api.get('/chat/annotations/:attachmentId', routes.chat.getAnnotations);
+  api.post('/chat/annotations/:attachmentId', routes.chat.addAnnotation);
 
   /* ====================================================== */
 
