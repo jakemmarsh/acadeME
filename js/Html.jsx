@@ -31,6 +31,7 @@ var Html = React.createClass({
           <title>{title}</title>
 
           <link rel="stylesheet" href="css/main.css" />
+          <script src="lib/pdfjs/build/pdf.js"></script>
           <script src="js/main.js"></script>
         </head>
 

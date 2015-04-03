@@ -84,6 +84,7 @@ app.use(function (req, res, next) {
 
 // serve all asset files from necessary directories
 // TODO: find a way to get rid of these wildcards?
+app.use('*/lib', express.static(__dirname + '/lib'));
 app.use('*/js', express.static(__dirname + '/build/js'));
 app.use('*/images', express.static(__dirname + '/build/images'));
 app.use('*/css', express.static(__dirname + '/build/css'));

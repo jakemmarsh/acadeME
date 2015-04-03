@@ -3,6 +3,7 @@
 var React                   = require('react/addons');
 var Reflux                  = require('reflux');
 var _                       = require('lodash');
+var request                 = require('request');
 var ReactAnnotatorMixin     = require('../../../react-annotator').Mixin;
 
 var LayeredComponentMixin   = require('./LayeredComponentMixin');
@@ -11,7 +12,7 @@ var CurrentAnnotationsStore = require('../stores/CurrentAnnotationsStore');
 var Modal                   = require('../components/Modal.jsx');
 var Spinner                 = require('../components/Spinner.jsx');
 var annotatorSettings       = {
-  element: '#attachment'
+  element: '.attachment'
 };
 
 var AttachmentModalMixin = {
@@ -45,6 +46,32 @@ var AttachmentModalMixin = {
   _saveAnnotationToDb: function(annotation) {
     ChatActions.saveAnnotation(annotation, this.state.attachment.id);
   },
+
+  _initPdf: function() {
+    var canvas = document.getElementById('attachment-canvas');
+    var context = canvas.getContext('2d');
+    var viewport;
+
+    if ( window ) {
+      this.setState({ loading: true });
+      window.PDFJS.getDocument(this.state.attachment.url).then(function(pdf) {
+        pdf.getPage(1).then(function(page) {
+          viewport = page.getViewport(1);
+
+          canvas.height = 500;
+          canvas.width = 500;
+
+          this.setState({ loading: false });
+
+          page.render({
+            canvasContext: context,
+            viewport: viewport
+          });
+        }.bind(this));
+      }.bind(this));
+    }
+  },
+
   componentDidMount: function() {
     this.listenTo(CurrentAnnotationsStore, this._onAnnotationsChange);
     this.setAddCallback(this._saveAnnotationToDb);
@@ -62,6 +89,11 @@ var AttachmentModalMixin = {
 
     if ( haveNewAttachment ) {
       this.setAddCallback(this._saveAnnotationToDb);
+
+      // Retrieve and render new PDF if necessary
+      if ( pdfRegex.test(this.state.attachment.name) ) {
+        this._initPdf();
+      }
     }
   },
 
@@ -123,7 +155,7 @@ var AttachmentModalMixin = {
 
           {this.renderAttachment()}
 
-          {this.renderAnnotationIndicators()}
+          {this.state.loadingg ? null : this.renderAnnotationIndicators()}
 
         </Modal>
       );
