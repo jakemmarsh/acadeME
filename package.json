@@ -68,7 +68,7 @@
     "reflux": "^0.1.13",
     "run-sequence": "^0.3.6",
     "sequelize": "^2.0.x",
-    "sir-trevor": "^0.5.0-beta3",
+    "sir-trevor": "https://github.com/madebymany/sir-trevor-js/archive/v0.4.3.tar.gz",
     "slug": "^0.8.0",
     "socket.io": "^1.2.1",
     "socket.io-client": "^1.2.1",

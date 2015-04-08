@@ -1,5 +1,6 @@
 .button, .btn {
 
+  display: inline-block;
   padding: $half-space/2;
 
   cursor: pointer;
@@ -11,6 +12,11 @@
   @include border-radius(3px);
 
   @include transition(background-color 0.1s ease-in-out);
+
+  & > i.fa-spinner {
+    color: $white;
+    margin-right: $half-space;
+  }
 
   &.highlight {
     background-color: $primary;

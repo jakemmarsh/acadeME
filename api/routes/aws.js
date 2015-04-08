@@ -204,3 +204,44 @@ exports.uploadFile = function(req, res) {
   });
 
 };
+
+/* ====================================================== */
+
+exports.uploadSirTrevorFile = function(req, res) {
+
+  req.pipe(req.busboy);
+
+  req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+    if ( !filename ) {
+      res.status(400).json({ error: 'No file' });
+      return;
+    }
+
+    file.fileRead = [];
+
+    file.on('data', function(chunk) {
+      this.fileRead.push(chunk);
+    });
+
+    file.on('error', function(err) {
+      res.status(500).json({ error: err });
+    });
+
+    file.on('end', function() {
+      var finalBuffer = Buffer.concat(this.fileRead);
+      var finalFile = {
+        buffer: finalBuffer,
+        size: finalBuffer.length,
+        name: req.params.filename || filename,
+        mimetype: mimetype
+      };
+
+      uploadToAWS([finalFile, 'lesson_body', null, mime.extensions[mimetype][0]]).then(function(data) {
+        res.status(200).json({ path: 'http://' + process.env.S3_BUCKET + '.s3.amazonaws.com' + data[2] });
+      }).catch(function(err) {
+        res.status(err.status).json({ error: err.body });
+      });
+    });
+  });
+
+};

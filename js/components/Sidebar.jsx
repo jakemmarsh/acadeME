@@ -39,18 +39,11 @@ var Sidebar = React.createClass({
   },
 
   componentDidMount: function() {
-    console.log('sidebar did mount');
-
-    // TODO: figure out why CurrentCourseStore.course isnt defined when fetched server-side
     if ( !_.isEmpty(CurrentCourseStore.course) ) {
       this.setState({ course: CurrentCourseStore.course });
     }
 
     this.listenTo(CurrentCourseStore, this._onCourseChange);
-  },
-
-  componentWillReceiveProps: function() {
-    console.log('will receive props');
   },
 
   renderCourseInfo: function() {

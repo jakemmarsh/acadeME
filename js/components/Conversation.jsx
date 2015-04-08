@@ -166,7 +166,7 @@ var Conversation = React.createClass({
 
   renderInput: function() {
     var element = null;
-    var attachmentElement = this.state.loading ? <Spinner /> : <i className="fa fa-paperclip" />;
+    var attachmentElement = this.state.loading ? <Spinner loading={this.state.loading} /> : <i className="fa fa-paperclip" />;
 
     console.log('is loading:', this.state.loading);
     console.log('attachment element:', attachmentElement);

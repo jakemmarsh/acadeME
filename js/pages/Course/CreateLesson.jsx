@@ -57,12 +57,12 @@ var CreateLesson = React.createClass({
 
     if ( this.state.image ) {
       awsAPI.uploadLessonImage(this.state.image, lesson.id).then(function() {
-        deferred.resolve();
+        deferred.resolve(lesson);
       }).catch(function(err) {
         console.log('error uploading lesson image:', err);
       });
     } else {
-      deferred.resolve();
+      deferred.resolve(lesson);
     }
 
     return deferred.promise;
@@ -75,8 +75,8 @@ var CreateLesson = React.createClass({
       bodyElements: data || []
     };
 
-    this.createLesson(lesson).then(this.uploadImage).then(function() {
-      this.transitionTo('Course', { courseId: this.props.course.id });
+    this.createLesson(lesson).then(this.uploadImage).then(function(createdLesson) {
+      this.transitionTo('CourseLesson', { courseId: this.props.course.id, lessonId: createdLesson.id });
     }.bind(this));
   },
 
@@ -91,6 +91,8 @@ var CreateLesson = React.createClass({
         <textarea valueLink={this.linkState('description')}
                   className="description-input nudge-half--bottom"
                   placeholder="Brief description of the lesson" />
+
+        <h4 className="flush--bottom">Cover Image</h4>
 
         <FileInput id="imageUrl" accept="image/x-png, image/gif, image/jpeg" processFile={this.updateImage} className="image-input nudge-half--bottom" />
 

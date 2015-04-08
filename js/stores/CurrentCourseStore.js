@@ -11,7 +11,17 @@ var CurrentCourseStore = Reflux.createStore({
     this.course = null;
 
     this.listenTo(CourseActions.openCourse, this.openCourse);
+    this.listenTo(CourseActions.setCourse, this.setCourse);
     this.listenTo(CourseActions.createLesson, this.createLesson);
+  },
+
+  setCourse: function(course, cb) {
+    cb = cb || function() {};
+
+    this.course = course;
+    console.log('set course:', course);
+    cb(null, this.course);
+    this.trigger(null, this.course);
   },
 
   openCourse: function(courseId, cb) {
@@ -20,9 +30,7 @@ var CurrentCourseStore = Reflux.createStore({
     console.log('retrieve course for:', courseId);
 
     CourseAPI.get(courseId).then(function(course) {
-      this.course = course;
-      cb(null, this.course);
-      this.trigger(null, this.course);
+      this.setCourse(course, cb);
     }.bind(this)).catch(function(err) {
       console.log('error retrieving course:', err);
       this.course = null;

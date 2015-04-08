@@ -16,6 +16,7 @@ var CourseLesson = React.createClass({
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired,
+    course: React.PropTypes.object.isRequired,
     params: React.PropTypes.object,
     query: React.PropTypes.object
   },
@@ -57,21 +58,24 @@ var CourseLesson = React.createClass({
   renderImageElement: function(element, index) {
     return (
       <div className="element image" key={index}>
+        <img src={element.data.path} />
       </div>
     );
   },
 
   renderVideoElement: function(element, index) {
+    // TODO: this setup will currently only work for YouTube videos
+    var srcUrl = '//www.' + element.data.source + '.com/embed/' + element.data.remoteId;
+
     return (
-      <div className="element video" key={index}>
-      </div>
+      <iframe width="600" height="375" src={srcUrl} frameborder="0" key={index} allowfullscreen />
     );
   },
 
   renderHeadingElement: function(element, index) {
     return (
       <div className="element heading" key={index}>
-        <h1>{marked(element.data.text)}</h1>
+        <h2>{marked(element.data.text)}</h2>
       </div>
     );
   },
@@ -86,30 +90,43 @@ var CourseLesson = React.createClass({
   },
 
   renderLessonBody: function() {
-    return _.map(this.state.lesson.bodyElements, function(element, index) {
-      switch ( element.type ) {
-        case 'text':
-          return this.renderTextElement(element, index);
-        case 'image':
-          return this.renderImageElement(element, index);
-        case 'video':
-          return this.renderVideoElement(element, index);
-        case 'heading':
-          return this.renderHeadingElement(element, index);
-        case 'quote':
-          return this.renderQuoteElement(element, index);
-      }
-    }.bind(this));
+    if ( !_.isEmpty(this.state.lesson) ) {
+      return _.map(this.state.lesson.bodyElements, function(element, index) {
+        switch ( element.type ) {
+          case 'text':
+            return this.renderTextElement(element, index);
+          case 'image':
+            return this.renderImageElement(element, index);
+          case 'video':
+            return this.renderVideoElement(element, index);
+          case 'heading':
+            return this.renderHeadingElement(element, index);
+          case 'quote':
+            return this.renderQuoteElement(element, index);
+        }
+      }.bind(this));
+    }
   },
 
   renderQuizLink: function() {
     var element = null;
+    var haveLesson = !_.isEmpty(this.state.lesson);
+    var userIsInstructor = !_.isEmpty(this.props.currentUser) && this.props.course.instructorId === this.props.currentUser.id;
+    var quizExists = haveLesson && !_.isEmpty(this.state.lesson.quiz);
 
-    if ( !_.isEmpty(this.state.lesson) && this.state.lesson.quiz && _.isNumber(this.state.lesson.quiz.id) ) {
+    if ( haveLesson && userIsInstructor && !quizExists ) {
+      element = (
+        <Link to="CreateQuiz"
+              params={{ courseId: this.props.course.id, lessonId: this.state.lesson.id }}
+              className="button highlight block full-width text-center">
+          Create Quiz
+        </Link>
+      );
+    } else if ( haveLesson && quizExists && !userIsInstructor ) {
       element = (
         <Link to="LessonQuiz"
-              params={{ courseId: this.props.params.courseId, lessonId: this.props.params.lessonId }}
-              className="button inline-block">
+              params={{ courseId: this.props.course.id, lessonId: this.state.lesson.id }}
+              className="button block full-width text-center">
           Take Quiz
         </Link>
       );
@@ -121,7 +138,7 @@ var CourseLesson = React.createClass({
   render: function() {
     return (
       <div>
-        <h2 className="nudge nudge-half--bottom">{this.state.lesson.title}</h2>
+        <h1 className="nudge--sides nudge-half--ends">{!_.isEmpty(this.state.lesson) ? this.state.lesson.title : ''}</h1>
         <div className="lesson islet nudge flush--top">
           {this.renderLessonBody()}
           {this.renderQuizLink()}

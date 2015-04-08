@@ -6,6 +6,7 @@ var CourseActions = Reflux.createActions([
 
   'loadAll',
   'openCourse',
+  'setCourse',
   'openLessons',
   'openChat',
   'createLesson',

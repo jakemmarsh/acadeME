@@ -33,17 +33,23 @@
     }
 
     ::-moz-selection {
-      background: $primary;
+      background: lighten($primary, 10);
       color: $white;
     }
 
     ::selection {
-      background: $primary;
+      background: lighten($primary, 10);
       color: $white;
     }
 
     &:hover {
       border-color: $primary;
+    }
+  }
+
+  .st-block__upload-container {
+    &:hover .st-upload-btn {
+      background: $primary;
     }
   }
 
@@ -86,8 +92,14 @@
   }
 
   .st-block__messages {
-    top: -$half-space/2;
-    left: -$half-space/2;
+    top: 0;
+    left: 0;
+    border-top: 2px solid $primary;
+    border-right: 2px solid $primary;
+    border-bottom: 2px solid $primary;
+    border-left: 2px solid $primary;
+    max-width: none;
+    margin-bottom: $half-space/2;
   }
 
 }

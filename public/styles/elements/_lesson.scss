@@ -2,12 +2,64 @@ div.lesson {
 
   @extend %card;
 
-  p:first-child {
+  & > *:first-child {
     margin-top: 0;
   }
 
-  p:last-child {
+  & > *:last-child {
     margin-bottom: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    & > p {
+      margin: 0;
+    }
+  }
+
+  iframe {
+    display: block;
+    margin: 0 auto $half-space;
+    border: none;
+  }
+
+  .element:not(:last-child) {
+    margin-bottom: $half-space;
+  }
+
+  .element.image {
+    img {
+      display: block;
+      margin: 0 auto;
+      max-width: 90%;
+    }
+  }
+
+  .element.quote {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: $half-space/2 $half-space;
+    border-left: 5px solid $background-light-grey;
+
+    blockquote {
+      margin: 0 0 $half-space/2;
+      font-size: 24px;
+      font-style: italic;
+      color: $primary;
+
+      & > p {
+        margin: 0;
+      }
+    }
+
+    & > p {
+      margin: 0;
+
+      &:before {
+        content: '-';
+        margin-right: 5px;
+      }
+    }
   }
 
 }

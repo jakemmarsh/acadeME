@@ -14,6 +14,7 @@ module.exports = function(models) {
       hash: 'test',
       firstName: 'John',
       lastName: 'Doe',
+      type: 'instructor',
       imageUrl: 'http://themes.mysitemyway.com/_shared/images/content/john_doe.jpg'
     };
 

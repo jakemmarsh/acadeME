@@ -43,7 +43,8 @@ var LessonSnippet = React.createClass({
 
   renderQuizButton: function() {
     var element = null;
-    var userIsInstructor = !_.isEmpty(this.props.currentUser) && this.props.course.instructorId === this.props.currentUser.id;
+    var haveUser = !_.isEmpty(this.props.currentUser);
+    var userIsInstructor = haveUser && this.props.course.instructorId === this.props.currentUser.id;
     var quizExists = this.props.lesson.quiz && _.isNumber(this.props.lesson.quiz.id);
 
     if ( userIsInstructor && !quizExists ) {
@@ -54,7 +55,7 @@ var LessonSnippet = React.createClass({
           Create Quiz
         </Link>
       );
-    } else if ( quizExists && !userIsInstructor ) {
+    } else if ( quizExists && haveUser && !userIsInstructor ) {
       element = (
         <Link to="LessonQuiz"
               params={{ courseId: this.props.course.id, lessonId: this.props.lesson.id }}

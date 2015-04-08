@@ -6,7 +6,6 @@ var Reflux                = require('reflux');
 var UserActions           = require('../actions/UserActions');
 var LayeredComponentMixin = require('./LayeredComponentMixin');
 var Modal                 = require('../components/Modal.jsx');
-var Spinner               = require('../components/Spinner.jsx');
 
 var LoginModalMixin = {
 
@@ -47,18 +46,6 @@ var LoginModalMixin = {
         this.setState(this.getInitialState());
       }
     }.bind(this));
-  },
-
-  renderSpinner: function() {
-    var element = null;
-
-    if ( this.state.loading ) {
-      element = (
-        <Spinner size={10} />
-      );
-    }
-
-    return element;
   },
 
   renderError: function() {

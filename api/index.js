@@ -68,6 +68,7 @@ module.exports = function(server) {
   /* ====================================================== */
 
   api.post('/upload/:type/:id/:filename?', routes.auth.isAuthenticated, routes.aws.uploadFile);
+  api.post('/upload/sir-trevor', routes.auth.isAuthenticated, routes.aws.uploadSirTrevorFile);
 
   /* ====================================================== */
 

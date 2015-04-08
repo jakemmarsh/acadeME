@@ -49,6 +49,16 @@ var CoursePage = React.createClass({
     }
   },
 
+  _checkCourseStore: function() {
+    var hasCourse = !_.isEmpty(this.state.course);
+    var storeHasCourse = !_.isEmpty(CurrentCourseStore.course);
+    var coursesNotEqual = !_.isEqual(this.state.course, CurrentCourseStore.course);
+
+    if ( hasCourse && (!storeHasCourse || coursesNotEqual) ) {
+      CourseActions.setCourse(this.state.course);
+    }
+  },
+
   componentWillReceiveProps: function(nextProps) {
     if ( this.props.params.courseId && this.props.params.courseId !== nextProps.params.courseId ) {
       CourseActions.openCourse(nextProps.params.courseId.toString());
@@ -57,6 +67,11 @@ var CoursePage = React.createClass({
 
   componentDidMount: function() {
     this.listenTo(CurrentCourseStore, this._onCourseChange);
+    this._checkCourseStore();
+  },
+
+  componentDidUpdate: function() {
+    this._checkCourseStore();
   },
 
   userIsEnrolled: function() {
