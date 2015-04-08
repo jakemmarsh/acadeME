@@ -8,6 +8,7 @@ var when      = require('when');
 var ChatAPI   = require('../utils/ChatAPI');
 var Message   = require('./Message.jsx');
 var FileInput = require('./FileInput.jsx');
+var Spinner   = require('./Spinner.jsx');
 
 var Conversation = React.createClass({
 
@@ -35,7 +36,8 @@ var Conversation = React.createClass({
   getInitialState: function() {
     return {
       newMessage: '',
-      attachment: null
+      attachment: null,
+      loading: false
     };
   },
 
@@ -71,6 +73,8 @@ var Conversation = React.createClass({
 
   uploadAttachment: function() {
     var deferred = when.defer();
+
+    this.setState({ loading: true });
 
     if ( this.state.attachment ) {
       ChatAPI.uploadAttachment(
@@ -108,9 +112,9 @@ var Conversation = React.createClass({
   submitOnEnter: function(evt) {
     var keyCode = evt.keyCode || evt.which;
 
-    if ( keyCode === '13' || keyCode === 13 ) {
+    if ( (keyCode === '13' || keyCode === 13) && !this.state.loading ) {
       this.uploadAttachment().then(this.sendMessage).then(function() {
-        this.setState({ newMessage: '', attachment: null });
+        this.setState({ newMessage: '', attachment: null, loading: false });
       }.bind(this)).catch(function(err) {
         this.setState({ error: err.message });
       }.bind(this));
@@ -162,6 +166,10 @@ var Conversation = React.createClass({
 
   renderInput: function() {
     var element = null;
+    var attachmentElement = this.state.loading ? <Spinner /> : <i className="fa fa-paperclip" />;
+
+    console.log('is loading:', this.state.loading);
+    console.log('attachment element:', attachmentElement);
 
     if ( !_.isEmpty(this.props.conversation) ) {
       element = (
@@ -174,7 +182,7 @@ var Conversation = React.createClass({
                  onKeyPress={this.submitOnEnter}  />
           <span className="file-name">{this.state.attachment ? this.state.attachment.name : ''}</span>
           <label className="file-button">
-            <i className="fa fa-paperclip" />
+            {attachmentElement}
             <span>
               <FileInput id="message-attachment"
                          accept="image/x-png, image/gif, image/jpeg, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.ms-excel, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"

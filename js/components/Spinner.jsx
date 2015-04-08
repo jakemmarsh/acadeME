@@ -6,7 +6,7 @@ var Spinner = React.createClass({
 
   render: function() {
     return (
-      <div className="spinner" />
+      <i className="fa fa-spinner fa-spin" />
     );
   }
 

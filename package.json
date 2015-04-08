@@ -60,6 +60,7 @@
     "pg-hstore": "^2.3.x",
     "pg-native": "^1.8.x",
     "react": "^0.12.x",
+    "react-annotator": "0.0.1",
     "react-async": "^2.0.1",
     "react-document-title": "^1.0.2",
     "react-marked": "^0.3.1",

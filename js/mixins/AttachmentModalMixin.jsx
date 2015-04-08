@@ -3,8 +3,7 @@
 var React                   = require('react/addons');
 var Reflux                  = require('reflux');
 var _                       = require('lodash');
-var request                 = require('request');
-var ReactAnnotatorMixin     = require('../../../react-annotator').Mixin;
+var ReactAnnotatorMixin     = require('react-annotator').Mixin;
 
 var LayeredComponentMixin   = require('./LayeredComponentMixin');
 var ChatActions             = require('../actions/ChatActions');
@@ -58,8 +57,8 @@ var AttachmentModalMixin = {
         pdf.getPage(1).then(function(page) {
           viewport = page.getViewport(1);
 
-          canvas.height = 500;
-          canvas.width = 500;
+          canvas.height = 800;
+          canvas.width = 650;
 
           this.setState({ loading: false });
 
@@ -155,7 +154,7 @@ var AttachmentModalMixin = {
 
           {this.renderAttachment()}
 
-          {this.state.loadingg ? null : this.renderAnnotationIndicators()}
+          {this.state.loading ? null : this.renderAnnotationIndicators()}
 
         </Modal>
       );
