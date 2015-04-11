@@ -99,6 +99,6 @@
     "prestart": "gulp prod",
     "start": "supervisor server.js",
     "test": "jest",
-    "test-api": "mocha \"__tests__/**/*.js\""
+    "test-api": "mocha \"api/__tests__/**/*.js\""
   }
 }

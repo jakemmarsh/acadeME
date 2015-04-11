@@ -9,7 +9,7 @@ before(function(done) {
   require('should');
 
   // Start and configure the server
-  require('../server');
+  require('../../server');
 
   // Wait 3 seconds before calling "done" to ensure
   // that DB is connected and populated
