@@ -22,6 +22,8 @@ module.exports = {
     'dest': './build/fonts/'
   },
 
+  'tests': './js/__tests__/**/*',
+
   'sourceDir': './public/',
 
   'buildDir': './build/'

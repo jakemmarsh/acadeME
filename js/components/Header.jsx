@@ -7,7 +7,6 @@ var Link            = require('react-router').Link;
 
 var LoginModalMixin = require('../mixins/LoginModalMixin.jsx');
 var UserActions     = require('../actions/UserActions');
-var UserAvatar      = require('./UserAvatar.jsx');
 
 var Header = React.createClass({
 
@@ -68,7 +67,6 @@ var Header = React.createClass({
         </div>
       );
     } else {
-      // TODO: add user avatar next to current user's name
       element = (
         <div className={dropdownContainerClasses} onClick={this.toggleUserDropdown}>
           {this.props.currentUser.fullName}
