@@ -25,6 +25,7 @@ module.exports = function(server) {
     res.status(200).json(req.user);
   });
   api.post('/auth/login', routes.auth.login);
+  api.post('/auth/logout', routes.auth.isAuthenticated, routes.auth.logout);
 
   /* ====================================================== */
 

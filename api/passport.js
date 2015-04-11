@@ -9,9 +9,7 @@ var models        = require('./models');
 
 module.exports = function() {
 
-  passport.use(new LocalStrategy({
-    usernameField: 'email'
-  }, function(username, password, done) {
+  passport.use(new LocalStrategy({ usernameField: 'email' }, function(username, password, done) {
     models.User.find({
       where: { email: username },
       include: [models.Course]

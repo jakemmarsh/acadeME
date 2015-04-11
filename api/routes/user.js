@@ -13,12 +13,12 @@ exports.get = function(req, res) {
     var query = { id: identifier };
 
     if ( isNaN(parseInt(identifier)) ) {
-      query = { username: identifier };
+      query = { email: identifier };
     }
 
     models.User.find({
       where: query,
-      include: [models.Playlist]
+      include: [models.Course]
     }).then(function(user) {
       if ( _.isEmpty(user) ) {
         deferred.reject({ status: 404, body: 'User could not be found at identifier: ' + identifier });

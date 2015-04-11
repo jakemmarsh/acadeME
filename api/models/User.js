@@ -44,7 +44,7 @@ module.exports = function(sequelize, DataTypes) {
     instanceMethods: {
       toJSON: function() {
         // Delete private values from object before sending to client
-        var res = this.values;
+        var res = this.get();
         delete res.hash;
         delete res.activationKey;
         delete res.passwordResetKey;

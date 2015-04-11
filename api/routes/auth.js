@@ -9,10 +9,12 @@ var models   = require('../models');
 
 exports.isAuthenticated = function(req, res, next) {
 
-  if ( req.isAuthenticated() || (req.session && req.session.user) ) {
+  console.log('req user:', req.user);
+
+  if ( req.user || req.isAuthenticated() || (req.session && req.session.user) ) {
     return next();
   } else {
-    return res.status(401).json({ status: 401, message: 'User must be logged in to access that endpoint.' });
+    return res.status(401).json({ status: 401, message: 'User must be logged in.' });
   }
 
 };
@@ -85,9 +87,16 @@ exports.register = function(req, res) {
   .then(function(user) {
     res.status(200).json(user);
   }).catch(function(err) {
-    res.status(err.status).json({ error: err.body });
+    res.status(err.status).json({ status: err.status, error: err.body });
   });
 
 };
 
 /* ====================================================== */
+
+exports.logout = function(req, res) {
+
+  req.logout();
+  res.status(200).json({ status: 200, message: 'User successfully logged out.' });
+
+};
