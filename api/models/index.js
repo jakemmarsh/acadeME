@@ -17,7 +17,7 @@ connectString = 'postgres://' + process.env.DB_USER + ':' + process.env.DB_PASSW
 
 sequelize = new Sequelize(connectString, {
   dialect: 'postgres',
-  native: true
+  native: false
 });
 
 /* ====================================================== */

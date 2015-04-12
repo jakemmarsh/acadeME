@@ -20,7 +20,7 @@
   ],
   "private": true,
   "engines": {
-    "node": ">=0.10.x"
+    "node": "^0.10.x"
   },
   "dependencies": {
     "babelify": "^5.0.4",
@@ -59,24 +59,24 @@
     "node-jsx": "^0.12.4",
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
-    "pg": "^3.6.x",
-    "pg-hstore": "^2.3.x",
-    "react": "^0.12.x",
+    "pg": "^4.3.0",
+    "pg-hstore": "^2.3.1",
+    "react": "^0.12.2",
     "react-annotator": "0.0.1",
     "react-async": "^2.0.1",
     "react-document-title": "^1.0.2",
     "react-marked": "^0.3.1",
-    "react-router": "^0.11.x",
+    "react-router": "^0.11.6",
     "reflux": "^0.1.13",
     "run-sequence": "^0.3.6",
-    "sequelize": "^2.0.x",
+    "sequelize": "^2.0.4",
     "sir-trevor": "https://github.com/madebymany/sir-trevor-js/archive/v0.4.3.tar.gz",
     "slug": "^0.8.0",
     "socket.io": "^1.2.1",
     "socket.io-client": "^1.2.1",
     "superagent": "^0.21.0",
     "vinyl-source-stream": "^0.1.1",
-    "watchify": "^2.4.x",
+    "watchify": "^2.6.2",
     "when": "^3.6.1"
   },
   "devDependencies": {
@@ -84,16 +84,28 @@
     "jest-cli": "^0.4.0",
     "mocha": "^2.2.4",
     "react-tools": "^0.13.1",
-    "should": "^5.2.0"
+    "should": "^5.2.0",
+    "supertest": "^0.15.0"
   },
   "jest": {
     "rootDir": ".",
     "scriptPreprocessor": "spec/support/preprocessor.js",
-    "testPathDirs": ["<rootDir>/js/"],
+    "testPathDirs": [
+      "<rootDir>/js/"
+    ],
     "testDirectoryName": "__tests__",
-    "testFileExtensions": ["spec.js", "spec.jsx"],
-    "testPathIgnorePatterns": ["node_modules", "spec/support"],
-    "unmockedModulePathPatterns": ["react", "spec/support/stubRouterContext.jsx"]
+    "testFileExtensions": [
+      "spec.js",
+      "spec.jsx"
+    ],
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "spec/support"
+    ],
+    "unmockedModulePathPatterns": [
+      "react",
+      "spec/support/stubRouterContext.jsx"
+    ]
   },
   "scripts": {
     "prestart": "gulp prod",
