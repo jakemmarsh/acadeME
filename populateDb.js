@@ -103,7 +103,8 @@ module.exports = function(models) {
       {
         QuizId: quiz.id,
         type: 'multi',
-        body: 'What is the capitol of Maine?'
+        body: 'What is the capitol of Maine?',
+        difficulty: 5
       }
     ];
 

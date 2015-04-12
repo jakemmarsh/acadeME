@@ -88,6 +88,7 @@ exports.createQuestion = function(req, res) {
 
     question = {
       QuizId: quizId,
+      difficulty: question.difficulty || question.Difficulty,
       body: question.body || question.Body
     };
 
