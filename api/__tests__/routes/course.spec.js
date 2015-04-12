@@ -147,13 +147,17 @@ require('../../../spec/support/createAuthenticatedSuite')('course routes', funct
     });
   });
 
-  it('should search within a specific course', function(done) {
-    var req = request(url).get('course/1/search/interaction');
+  it('should search for lessons within a specific course', function(done) {
+    var req = request(url).get('course/1/search/prototyping');
 
     req.cookies = global.cookies;
 
-    req.end(function() {
-      // TODO: finish this logic once endpoint logic is finished
+    req.end(function(err, res) {
+      res.status.should.be.equal(200);
+      res.body.should.be.instanceof(Array);
+      res.body[0].should.have.property('title');
+      res.body[0].should.have.property('bodyElements');
+      res.body[0].should.have.property('description');
       done();
     });
   });

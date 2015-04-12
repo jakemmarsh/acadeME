@@ -412,8 +412,19 @@ exports.search = function(req, res) {
   var searchCourse = function(courseId, query) {
     var deferred = when.defer();
 
-    // TODO: search course logic
-    deferred.resolve([]);
+    models.Lesson.findAll({
+      where: Sequelize.and(
+        { CourseId: courseId },
+        Sequelize.or(
+          { title: { ilike: '%' + query + '%' } },
+          { description: { ilike: '%' + query + '%' } }
+        )
+      )
+    }).then(function(retrievedLessons) {
+      deferred.resolve(retrievedLessons);
+    }).catch(function(err) {
+      deferred.reject({ status: 500, body: err });
+    });
 
     return deferred.promise;
   };
