@@ -9,8 +9,6 @@ var models   = require('../models');
 
 exports.isAuthenticated = function(req, res, next) {
 
-  console.log('req user:', req.user);
-
   if ( req.user || req.isAuthenticated() || (req.session && req.session.user) ) {
     return next();
   } else {

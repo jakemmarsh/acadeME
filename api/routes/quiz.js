@@ -137,7 +137,6 @@ exports.createAnswers = function(req, res) {
     return deferred.promise;
   };
 
-  // TODO: are answers saved for the wrong question?
   saveAnswers(req.params.quizId, req.params.questionId, req.body).then(function() {
     res.status(200).json({ status: 200, message: 'Answers successfully saved for question: ' + req.params.questionId });
   }).catch(function(err) {

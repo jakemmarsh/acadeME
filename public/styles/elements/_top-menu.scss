@@ -44,7 +44,7 @@ ul.top-menu {
       position: relative;
       width: 75px;
 
-      background-color: $secondary;
+      background-color: $primary;
       @include transition(background-color 0.1s ease-in-out);
       color: $white;
 
@@ -57,7 +57,7 @@ ul.top-menu {
       }
 
       &:hover {
-        background-color: lighten($secondary, 2);
+        background-color: lighten($primary, 2);
       }
 
       &:active {
