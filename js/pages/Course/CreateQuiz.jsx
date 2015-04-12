@@ -29,7 +29,7 @@ var CreateLesson = React.createClass({
 
   getInitialState: function() {
     return {
-      numQuestions: '0',
+      numQuestions: 1,
       tags: [],
       suggestedQuestions: [],
       questions: [],
@@ -161,40 +161,44 @@ var CreateLesson = React.createClass({
       difficulty: this.state.questionDifficulty,
       answers: []
     };
-    var answers = [
-      {
-        body: this.state.answerA,
-        isCorrect: this.state.correctAnswer === 'a'
-      },
-      {
-        body: this.state.answerB,
-        isCorrect: this.state.correctAnswer === 'b'
-      },
-      {
-        body: this.state.answerC,
-        isCorrect: this.state.correctAnswer === 'c'
-      },
-      {
-        body: this.state.answerD,
-        isCorrect: this.state.correctAnswer === 'd'
-      }
-    ];
 
     if ( evt ) {
       evt.preventDefault();
     }
 
-    _.each(answers, function(answer) {
-      if ( answer && answer.length ) {
-        question.answers.push(answer);
-      }
-    });
+    if ( this.state.answerA && this.state.answerA.length ) {
+      question.answers.push({
+        body: this.state.answerA,
+        isCorrect: this.state.correctAnswer === 'a'
+      });
+    }
+    if ( this.state.answerB && this.state.answerB.length ) {
+      question.answers.push({
+        body: this.state.answerB,
+        isCorrect: this.state.correctAnswer === 'b'
+      });
+    }
+    if ( this.state.answerC && this.state.answerC.length ) {
+      question.answers.push({
+        body: this.state.answerC,
+        isCorrect: this.state.correctAnswer === 'c'
+      });
+    }
+    if ( this.state.answerD && this.state.answerD.length ) {
+      question.answers.push({
+        body: this.state.answerD,
+        isCorrect: this.state.correctAnswer === 'd'
+      });
+    }
+
+    console.log('new question:', question);
 
     questionsCopy.push(question);
 
     this.setState({
       questionBody: '',
       questionDifficulty: 5,
+      correctAnswer: 'a',
       answerA: '',
       answerB: '',
       answerC: '',
@@ -230,6 +234,8 @@ var CreateLesson = React.createClass({
                     addTag={this.addTag}
                     removeTag={this.removeTag}
                     placeholder="Playlist tags" />
+
+          <p>How many questions do you want this quiz to consist of? <strong>Note: it is recommended that this number be lower than the number of questions you actually write, in order for students to be algorithmically posed questions of appropriate difficulty.</strong></p>
 
           <input type="number"
                  min="1"
@@ -317,11 +323,11 @@ var CreateLesson = React.createClass({
       var letters = ['a', 'b', 'c', 'd'];
       var valueLink;
 
-      return _.map(letters, function(letter) {
+      return _.map(letters, function(letter, index) {
         valueLink = 'answer' + letter.toUpperCase();
 
         return (
-          <li>
+          <li key={index}>
             <div className="choice-indicator">
               {letter.toUpperCase()}
             </div>
@@ -347,17 +353,23 @@ var CreateLesson = React.createClass({
                valueLink={this.linkState('questionBody')}
                placeholder="Question..." />
 
+        <p className="text-center">In order to designate the correct answer, check the box to the right of that answer.</p>
+
+        <ul className="multiple-choice nudge-half--top nudge--bottom">
+          {renderAnswerInputs()}
+        </ul>
+
+        <p className="nudge-half--bottom text-center">How difficult do you consider this question to be, on a scale of 1-10?</p>
+
+        <h2 className="text-center primary">{this.state.questionDifficulty}</h2>
+
         <input type="range"
-               className="large-input nudge-half--ends"
+               className="full-width nudge--bottom"
                min="0"
                max="10"
                step="1"
                valueLink={this.linkState('questionDifficulty')}
                placeholder="How difficult is this question, on a scale of 1-10?" />
-
-        <ul className="multiple-choice nudge-half--top nudge--bottom">
-          {renderAnswerInputs()}
-        </ul>
 
         <input type="submit"
                  className="btn float-right nudge-half--bottom"
@@ -370,8 +382,7 @@ var CreateLesson = React.createClass({
 
   renderGlobalSubmitButton: function() {
     var element = null;
-    var hasQuestions = this.state.questions && this.state.questions.length;
-    var isDisabled = !hasQuestions;
+    var isDisabled = this.state.questions.length < this.state.numQuestions;
 
     if ( !this.state.quizCreated && this.state.userHasEnteredTags ) {
       element = (

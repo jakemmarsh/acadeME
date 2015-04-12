@@ -1,0 +1,105 @@
+$slider-size: 20px;
+
+input[type=range] {
+  -webkit-appearance: none;
+  margin: 10px 0;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+
+input[type=range]:focus {
+  outline: none;
+  border: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 12px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: none;
+  background: darken($background-light-grey, 5);
+  @include border-radius(25px);
+  border: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: none;
+  border: none;
+  height: $slider-size;
+  width: $slider-size;
+  @include border-radius(100%);
+  background: $secondary;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -3.6px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: darken($background-light-grey, 5);
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 12px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: none;
+  background: darken($background-light-grey, 5);
+  @include border-radius(25px);
+  border: none;
+}
+
+input[type=range]::-moz-range-thumb {
+  box-shadow: none;
+  border: none;
+  height: $slider-size;
+  width: $slider-size;
+  @include border-radius(100%);
+  background: #65001c;
+  cursor: pointer;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 12px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  border-width: $slider-size 0;
+  color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+  background: darken($background-light-grey, 5);
+  border: none;
+  @include border-radius(50px);
+  box-shadow: none;
+}
+
+input[type=range]::-ms-fill-upper {
+  background: darken($background-light-grey, 5);
+  border: none;
+  @include border-radius(50px);
+  box-shadow: none;
+}
+
+input[type=range]::-ms-thumb {
+  box-shadow: none;
+  border: none;
+  height: $slider-size;
+  width: $slider-size;
+  @include border-radius(100%);
+  background: #65001c;
+  cursor: pointer;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+  background: darken($background-light-grey, 5);
+}
+
+input[type=range]:focus::-ms-fill-upper {
+  background: darken($background-light-grey, 5);
+}
