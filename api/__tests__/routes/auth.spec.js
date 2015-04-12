@@ -4,11 +4,11 @@ var request = require('supertest');
 
 describe('auth routes', function() {
 
-  var url = 'http://localhost:3000';
+  var url = 'http://localhost:3000/api/';
 
   it('should return an error on initial check', function(done) {
     request(url)
-    .get('/api/auth/check')
+    .get('auth/check')
     .end(function(err, res) {
       res.status.should.be.equal(401);
       done();
@@ -24,7 +24,7 @@ describe('auth routes', function() {
     };
 
     request(url)
-    .post('/api/auth/register')
+    .post('auth/register')
     .send(profile)
     .end(function(err, res) {
       res.status.should.be.equal(200);
@@ -42,7 +42,7 @@ describe('auth routes', function() {
     };
 
     request(url)
-    .post('/api/auth/login')
+    .post('auth/login')
     .send(user)
     .end(function(err, res) {
       res.status.should.be.equal(200);
@@ -55,7 +55,7 @@ describe('auth routes', function() {
   });
 
   it('should receive a user when checking after log in', function(done) {
-    var req = request(url).get('/api/auth/check');
+    var req = request(url).get('auth/check');
 
     req.cookies = global.cookies;
 
@@ -70,7 +70,7 @@ describe('auth routes', function() {
   });
 
   it('should log a user out', function(done) {
-    var req = request(url).post('/api/auth/logout');
+    var req = request(url).post('auth/logout');
 
     req.cookies = global.cookies;
 

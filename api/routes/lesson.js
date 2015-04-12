@@ -50,7 +50,9 @@ exports.delete = function(req, res) {
   var deleteLesson = function(id) {
     var deferred = when.defer();
 
-    models.Lesson.destroy({ id: id }).then(function() {
+    models.Lesson.destroy({
+      where: { id: id }
+    }).then(function() {
       deferred.resolve();
     }).catch(function(err) {
       deferred.reject({ status: 500, body: err });
@@ -60,9 +62,9 @@ exports.delete = function(req, res) {
   };
 
   deleteLesson(req.params.id).then(function() {
-    res.status(200).json('Lesson successfully deleted.');
+    res.status(200).json({ status: 200, message: 'Lesson successfully deleted.' });
   }, function(err) {
-    res.status(err.status).json({ error: err.body });
+    res.status(err.status).json({ status: err.status, error: err.body });
   });
 
 };

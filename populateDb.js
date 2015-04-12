@@ -81,7 +81,6 @@ module.exports = function(models) {
     var quiz = {
       CourseId: course.id,
       LessonId: lesson.id,
-      title: 'Test Quiz',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus.',
       tags: ['test', 'lorem', 'ipsum'],
       numQuestions: 5
@@ -279,6 +278,51 @@ module.exports = function(models) {
     });
   };
 
+  var createAttachment = function() {
+    var deferred = when.defer();
+    var attachment = {
+      MessageId: 1,
+      name: 'test-attachment.png',
+      url: 'https://academe-assets.s3.amazonaws.com/attachments/2015/03/e81090c24f246f8e4c24.png'
+    };
+
+    models.Attachment.create(attachment).then(function() {
+      deferred.resolve();
+    }).catch(function(err) {
+      console.log('error creating attachment:', err);
+    });
+
+    return deferred.promise;
+  };
+
+  var createAnnotations = function() {
+    var deferred = when.defer();
+    var annotations = [
+      {
+        AttachmentId: 1,
+        UserId: 2,
+        text: 'This is an annotation.',
+        xPos: 150,
+        yPos: 300
+      },
+      {
+        AttachmentId: 1,
+        UserId: 4,
+        text: 'This is another annotation.',
+        xPos: 120,
+        yPos: 250
+      },
+    ];
+
+    models.Annotation.bulkCreate(annotations).then(function() {
+      deferred.resolve();
+    }).catch(function(err) {
+      console.log('error creating annotations:', err);
+    });
+
+    return deferred.promise;
+  };
+
   createInstructorUser()
     .then(createCourse)
     .then(createLessons)
@@ -289,6 +333,8 @@ module.exports = function(models) {
     .then(createCurrentUser)
     .then(createCourseCurrentUserTeaches)
     .then(createConversation)
-    .then(createMessages);
+    .then(createMessages)
+    .then(createAttachment)
+    .then(createAnnotations);
 
 };

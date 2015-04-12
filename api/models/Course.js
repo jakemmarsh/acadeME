@@ -11,10 +11,17 @@ module.exports = function(sequelize, DataTypes) {
     imageUrl:    { type: DataTypes.STRING }
   },
   {
-    setterMethods: {
-      title: function(value) {
-        this.setDataValue('title', value);
-        this.setDataValue('slug', slug(value));
+    hooks: {
+      beforeValidate: function(course, model, cb) {
+        var titleSlug = slug(course.title).toLowerCase();
+
+        Course.count({
+          where: { title: { ilike: course.title } }
+        }).then(function(c) {
+          if ( c > 0 ) { titleSlug += '-' + c; }
+          course.setDataValue('slug', titleSlug);
+          cb(null, course);
+        });
       }
     },
     classMethods: {

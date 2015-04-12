@@ -4,11 +4,11 @@ var request = require('supertest');
 
 require('../../../spec/support/createAuthenticatedSuite')('quiz routes', function() {
 
-  var url = 'http://localhost:3000';
+  var url = 'http://localhost:3000/api/';
 
   it('should suggest questions', function(done) {
     request(url)
-    .get('/api/quiz/suggestions?tags=test,lorem,ipsum')
+    .get('quiz/suggestions?tags=test,lorem,ipsum')
     .end(function(err, res) {
       res.status.should.be.equal(200);
       res.body.should.be.instanceof(Array);
@@ -21,11 +21,12 @@ require('../../../spec/support/createAuthenticatedSuite')('quiz routes', functio
   it('should save a new question', function(done) {
     var question = {
       type: 'multi',
-      body: 'This is the body of a question?'
+      body: 'This is the body of a question?',
+      difficulty: 5
     };
 
     request(url)
-    .post('/api/quiz/1/question')
+    .post('quiz/1/question')
     .send(question)
     .end(function(err, res) {
       res.status.should.be.equal(200);
@@ -52,7 +53,7 @@ require('../../../spec/support/createAuthenticatedSuite')('quiz routes', functio
     ];
 
     request(url)
-    .post('/api/quiz/1/question/2/answers')
+    .post('quiz/1/question/2/answers')
     .send(answers)
     .end(function(err, res) {
       res.status.should.be.equal(200);
@@ -62,7 +63,7 @@ require('../../../spec/support/createAuthenticatedSuite')('quiz routes', functio
 
   it('should mark a quiz as started', function(done) {
     request(url)
-    .post('/api/quiz/1/begin')
+    .post('quiz/1/begin')
     .end(function(err, res) {
       res.status.should.be.equal(200);
       res.body.quiz.should.be.instanceOf(Object); // Ensure quiz has been set in session
@@ -72,7 +73,7 @@ require('../../../spec/support/createAuthenticatedSuite')('quiz routes', functio
   });
 
   it('should recognize a correct answer and increment user\'s score', function(done) {
-    var req = request(url).post('/api/quiz/1/check/1');
+    var req = request(url).post('quiz/1/check/1');
 
     req.cookies = global.cookies;
 
@@ -85,7 +86,7 @@ require('../../../spec/support/createAuthenticatedSuite')('quiz routes', functio
   });
 
   it('should retrieve the next question when prompted', function(done) {
-    var req = request(url).get('/api/quiz/1/question');
+    var req = request(url).get('quiz/1/question');
 
     req.cookies = global.cookies;
 
@@ -99,7 +100,7 @@ require('../../../spec/support/createAuthenticatedSuite')('quiz routes', functio
   });
 
   it('should recognize an incorrect answer and decrement user\'s score', function(done) {
-    var req = request(url).post('/api/quiz/1/check/1');
+    var req = request(url).post('quiz/1/check/1');
 
     req.cookies = global.cookies;
 
@@ -112,7 +113,7 @@ require('../../../spec/support/createAuthenticatedSuite')('quiz routes', functio
   });
 
   it('should mark a quiz as complete', function(done) {
-    var req = request(url).post('/api/quiz/1/complete/lesson/1');
+    var req = request(url).post('quiz/1/complete/lesson/1');
 
     req.cookies = global.cookies;
 

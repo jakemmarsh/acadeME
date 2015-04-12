@@ -179,16 +179,16 @@ require('../../../spec/support/createAuthenticatedSuite')('course routes', funct
   });
 
   it('should create a new quiz', function(done) {
+    var req = request(url).post('course/1/lesson/1/quiz');
     var quiz = {
       description: 'This is a description of a quiz.',
       tags: ['foo', 'bar', 'buzz'],
       numQuestions: 10
     };
 
-    request(url)
-    .post('course/1/lesson/1/quiz')
-    .send(quiz)
-    .end(function(err, res) {
+    req.cookies = global.cookies;
+
+    req.send(quiz).end(function(err, res) {
       res.status.should.be.equal(200);
       res.body.should.have.property('description');
       res.body.should.have.property('tags');
