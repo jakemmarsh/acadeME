@@ -65,7 +65,7 @@ require('../../../spec/support/createAuthenticatedSuite')('quiz routes', functio
     .post('/api/quiz/1/begin')
     .end(function(err, res) {
       res.status.should.be.equal(200);
-      res.body.quiz.should.be.an.instanceOf(Object); // Ensure quiz has been set in session
+      res.body.quiz.should.be.instanceOf(Object); // Ensure quiz has been set in session
       global.cookies = res.headers['set-cookie'].pop().split(';')[0];
       done();
     });

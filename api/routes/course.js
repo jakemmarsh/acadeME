@@ -413,6 +413,7 @@ exports.search = function(req, res) {
     var deferred = when.defer();
 
     // TODO: search course logic
+    deferred.resolve([]);
 
     return deferred.promise;
   };
