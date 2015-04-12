@@ -5,8 +5,9 @@ var _ = require('lodash');
 module.exports = function(sequelize, DataTypes) {
 
   var Quiz = sequelize.define('Quiz', {
-    description: { type: DataTypes.TEXT },
-    tags:        { type: DataTypes.ARRAY(DataTypes.STRING), defaultValue: [] }
+    description:  { type: DataTypes.TEXT },
+    tags:         { type: DataTypes.ARRAY(DataTypes.STRING), defaultValue: [] },
+    numQuestions: { type: DataTypes.INTEGER, allowNull: false }
   },
   {
     setterMethods: {

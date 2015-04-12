@@ -69,7 +69,8 @@ var CreateLesson = React.createClass({
       var answer = when.defer();
       var answers = _.map(currentAnswers, function(answer) {
         return {
-          body: _.isObject(answer) ? answer.body : answer
+          body: _.isObject(answer) ? answer.body : answer,
+          isCorrect: _.isObject(answer) ? answer.isCorrect : false // TODO: logic for when this should actually be 'true'
         };
       });
 

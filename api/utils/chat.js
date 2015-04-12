@@ -17,7 +17,7 @@ exports.upsertConversation = function(courseId, userOneId, userTwoId) {
 
   models.Conversation.findOrCreate({
     where: { CourseId: courseId, UserOneId: userOneId, UserTwoId: userTwoId },
-    defaults: defaultConversation // TODO: should this be passed as defaults?
+    defaults: defaultConversation
   }).spread(function(conversation) {
     deferred.resolve(conversation);
   }).catch(function(err) {

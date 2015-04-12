@@ -22,47 +22,20 @@ var QuizAPI = {
     return APIUtils.post('quiz/' + quizId + '/question/' + questionId + '/answers', answers);
   },
 
-  getQuestion: function(quizId, currentQuestionNumber, userScore) {
-    var params = qs.stringify({
-      current: currentQuestionNumber,
-      score: userScore
-    });
+  markStarted: function(quizId) {
+    return APIUtils.post('quiz/' + quizId + '/begin');
+  },
 
-    return APIUtils.get('quiz/' + quizId + '/question?' + params);
-
-    // deferred.resolve({
-    //   id: 0,
-    //   body: 'What is the capitol of Maine?',
-    //   type: 'multi',
-    //   answers: [
-    //     {
-    //       id: 1,
-    //       body: 'Augusta'
-    //     },
-    //     {
-    //       id: 2,
-    //       body: 'Portland'
-    //     },
-    //     {
-    //       id: 3,
-    //       body: 'Brewer'
-    //     },
-    //     {
-    //       id: 4,
-    //       body: 'Bangor'
-    //     }
-    //   ]
-    // });
+  getQuestion: function(quizId) {
+    return APIUtils.get('quiz/' + quizId + '/question');
   },
 
   checkAnswer: function(quizId, questionId, answer) {
     return APIUtils.post('quiz/'+ quizId + '/check/' + questionId, answer);
-
-    // deferred.resolve(true);
   },
 
   markComplete: function(lessonId, quizId) {
-    return APIUtils.post('lesson/' + lessonId + '/quiz/' + quizId + '/complete');
+    return APIUtils.post('quiz/' + quizId + '/complete/' + 'lesson/' + lessonId);
   }
 
 };

@@ -2,11 +2,11 @@
 
 var request = require('supertest');
 
-describe('user routes', function() {
+require('../../../spec/support/createAuthenticatedSuite')('user routes', function() {
 
   var url = 'http://localhost:3000';
 
-  it('should retrieve a single user', function(done) {
+  it('should retrieve a single user by identifier', function(done) {
     request(url)
     .get('/api/user/1')
     .end(function(err, res) {

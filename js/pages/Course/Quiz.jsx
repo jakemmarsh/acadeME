@@ -60,6 +60,7 @@ var LessonQuiz = React.createClass({
 
   beginQuiz: function() {
     this.setState({ quizStarted: true });
+    QuizActions.begin(this.state.quiz.id);
   },
 
   flagQuizComplete: function() {

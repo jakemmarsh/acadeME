@@ -13,6 +13,6 @@ before(function(done) {
 
   // Wait 3 seconds before calling "done" to ensure
   // that DB is connected and populated
-  setTimeout(done, 3000);
+  setTimeout(done, 2000);
 
 });

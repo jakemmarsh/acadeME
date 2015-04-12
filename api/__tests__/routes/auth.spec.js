@@ -5,7 +5,6 @@ var request = require('supertest');
 describe('auth routes', function() {
 
   var url = 'http://localhost:3000';
-  var cookies;
 
   it('should return an error on initial check', function(done) {
     request(url)
@@ -50,7 +49,22 @@ describe('auth routes', function() {
       res.body.should.have.property('email');
       res.body.should.have.property('firstName');
       res.body.should.have.property('lastName');
-      cookies = res.headers['set-cookie'].pop().split(';')[0];
+      global.cookies = res.headers['set-cookie'].pop().split(';')[0];
+      done();
+    });
+  });
+
+  it('should receive a user when checking after log in', function(done) {
+    var req = request(url).get('/api/auth/check');
+
+    req.cookies = global.cookies;
+
+    req.end(function(err, res) {
+      res.status.should.be.equal(200);
+      res.body.should.have.property('email');
+      res.body.should.have.property('firstName');
+      res.body.should.have.property('lastName');
+      global.cookies = res.headers['set-cookie'].pop().split(';')[0];
       done();
     });
   });
@@ -58,7 +72,7 @@ describe('auth routes', function() {
   it('should log a user out', function(done) {
     var req = request(url).post('/api/auth/logout');
 
-    req.cookies = cookies;
+    req.cookies = global.cookies;
 
     req.end(function(err, res) {
       res.status.should.be.equal(200);

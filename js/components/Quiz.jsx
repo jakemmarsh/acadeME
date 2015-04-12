@@ -36,19 +36,6 @@ var Quiz = React.createClass({
     };
   },
 
-  _onAnswerCheck: function(result) {
-    var newScore = this.state.userScore;
-
-    // TODO: more complex algorithm for scoring
-    if ( true || result ) {
-      newScore++;
-    } else {
-      newScore--;
-    }
-
-    this.setState({ userScore: newScore }, this.getNextQuestion);
-  },
-
   _onQuestionChange: function(err, question) {
     if ( err ) {
       this.setState({ error: err.message, loading: false });
@@ -67,28 +54,39 @@ var Quiz = React.createClass({
     }
   },
 
-  // componentDidUpdate: function(prevProps) {
-  //   console.log('did update:', this.props.quiz);
-  //   if ( !_.isEmpty(this.props.quiz) && this.props.quiz.id !== prevProps.quiz.id ) {
-  //     this.getNextQuestion();
-  //   }
-  // },
+  _onAnswerCheck: function(err, result) {
+    if ( err ) {
+      this.setState({ error: err.message, loading: false });
+    } else {
+      this.setState({
+        loading: false,
+        userScore: result.score
+      }, this.getNextQuestion);
+    }
+  },
+
+  componentDidUpdate: function(prevProps) {
+    if ( !_.isEmpty(this.props.quiz) && this.props.quiz.id !== prevProps.quiz.id ) {
+      this.setState(this.getInitialState());
+    }
+  },
 
   selectAnswer: function(answer) {
     this.setState({ selectedAnswer: answer });
   },
 
   submitAnswer: function() {
+    this.setState({ loading: true });
     QuizActions.checkAnswer(this.state.question.id, this.state.selectedAnswer, this._onAnswerCheck);
   },
 
   getNextQuestion: function() {
-    var numQuestions = this.props.quiz.questions ? this.props.quiz.questions.length : 0;
+    var numQuestions = this.props.quiz.questions ? this.props.quiz.questions.length : this.props.quiz.numQuestions;
 
     console.log('get next question:', this.state.currentQuestionNumber, numQuestions);
 
     if ( this.state.currentQuestionNumber < numQuestions ) {
-      QuizActions.getQuestion(this.props.quiz.id, this.state.currentQuestionNumber, this.state.userScore, this._onQuestionChange);
+      QuizActions.getQuestion(this.props.quiz.id, this._onQuestionChange);
     } else {
       this.setState({
         currentQuestionNumber: this.state.currentQuestionNumber + 1,
@@ -99,15 +97,14 @@ var Quiz = React.createClass({
 
   renderIntro: function() {
     var element = null;
-    var numQuestions = this.props.quiz.questions ? this.props.quiz.questions.length : 0;
-    var pluralized = (numQuestions === 0 || numQuestions > 1) ? 'questions' : 'question';
+    var pluralized = (this.props.quiz.numQuestions === 0 || this.props.quiz.numQuestions > 1) ? 'questions' : 'question';
 
     if ( this.state.currentQuestionNumber === 0 ) {
       element = (
         <div className="intro-finish-container soft--sides">
           <div>
             <h1 className="title sans-serif flush--bottom">{this.props.quiz.lessonTitle}</h1>
-            <h6 className="primary serif italic weight--normal">{numQuestions} {pluralized}</h6>
+            <h6 className="primary serif italic weight--normal">{this.props.quiz.numQuestions} {pluralized}</h6>
           </div>
           <div>
             <a className="button soft--sides soft-half--ends" onClick={this.getNextQuestion}>Begin Quiz</a>
@@ -121,8 +118,7 @@ var Quiz = React.createClass({
 
   renderProgressBar: function() {
     var element = null;
-    var numQuestions = this.props.quiz.questions ? this.props.quiz.questions.length : 1;
-    var percentage = ((this.state.currentQuestionNumber-1)/numQuestions)*100;
+    var percentage = ((this.state.currentQuestionNumber-1)/this.props.quiz.numQuestions)*100;
 
     if ( this.state.currentQuestionNumber > 0 ) {
       element = (
@@ -177,7 +173,7 @@ var Quiz = React.createClass({
 
   renderCurrentQuestion: function() {
     var element = null;
-    var numQuestions = this.props.quiz.questions ? this.props.quiz.questions.length : 0;
+    var numQuestions = this.props.quiz.questions ? this.props.quiz.questions.length : this.props.quiz.numQuestions;
     var isLastQuestion = this.state.currentQuestionNumber === numQuestions;
     var isSubmitDisabled = _.isEmpty(this.state.selectedAnswer);
     var buttonValue = isLastQuestion ? 'Finish Quiz' : 'Next Question';
@@ -201,14 +197,13 @@ var Quiz = React.createClass({
 
   renderFinishedScreen: function() {
     var element = null;
-    var numQuestions = this.props.quiz.questions ? this.props.quiz.questions.length : 1;
 
     if ( this.state.quizComplete ) {
       element = (
         <div className="intro-finish-container soft--sides">
           <div>
             <h1 className="title sans-serif flush--bottom">Quiz complete!</h1>
-            <h6 className="primary serif italic weight--normal">Your score: {this.state.userScore}/{numQuestions}</h6>
+            <h6 className="primary serif italic weight--normal">Your score: {this.state.userScore}/{this.props.quiz.numQuestions}</h6>
           </div>
           <div>
             <Link to="CourseLesson"

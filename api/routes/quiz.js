@@ -14,8 +14,9 @@ exports.create = function(req, res) {
     var newQuiz = {
       LessonId: lessonId,
       CourseId: courseId,
-      body: quiz.body || quiz.Body,
-      type: quiz.type || quiz.Type
+      description: quiz.description || quiz.Description,
+      tags: (typeof quiz.tags === 'string') ? quiz.tags.split(',') : quiz.tags,
+      numQuestions: quiz.numQuestions || quiz.NumQuestions
     };
 
     models.Quiz.create(newQuiz).then(function(createdQuiz) {
@@ -187,17 +188,16 @@ exports.get = function(req, res) {
 
 /* ====================================================== */
 
-exports.getQuestion = function(req, res) {
+exports.begin = function(req, res) {
 
-  var getQuestion = function(quizId, currentQuestionNumber, userScore) {
+  var setQuiz = function(quizId) {
     var deferred = when.defer();
 
-    // TODO: complete logic for getting next question
-    models.Question.find({
-      where: { QuizId: quizId },
-      include: [models.Answer]
-    }).then(function(question) {
-      deferred.resolve(question);
+    models.Quiz.find({
+      where: { id: quizId }
+    }).then(function(quiz) {
+      req.session.quiz = quiz.toJSON();
+      deferred.resolve(quiz);
     }).catch(function(err) {
       deferred.reject({ status: 500, body: err });
     });
@@ -205,7 +205,63 @@ exports.getQuestion = function(req, res) {
     return deferred.promise;
   };
 
-  getQuestion(req.params.quizId, req.query.current, req.query.score).then(function(question) {
+  setQuiz(req.params.quizId).then(function() {
+    req.session.save();
+    res.status(200).json({ quiz: req.session.quiz });
+  }).catch(function(err) {
+    res.status(err.status).json({ status: err.status, message: err.body });
+  });
+
+};
+
+/* ====================================================== */
+
+exports.getQuestion = function(req, res) {
+
+  var getQuestion = function(quizId) {
+    var deferred = when.defer();
+    var currentQuestionNumber;
+    var userScore;
+
+    if ( !_.isEmpty(req.session.quiz) ) {
+      userScore = req.session.quiz.score;
+
+      if ( _.isNumber(req.session.quiz.currentQuestionNumber) ) {
+        currentQuestionNumber = req.session.quiz.currentQuestionNumber + 1;
+      } else {
+        currentQuestionNumber = 1;
+      }
+
+      // Create an array of previously answered questions (if not already created)
+      if ( !(req.session.quiz.answeredQuestions instanceof Array) ) {
+        req.session.quiz.answeredQuestions = [];
+      }
+
+      // Store current question before retrieving and updating
+      if ( req.session.quiz.currentQuestion ) {
+        req.session.quiz.answeredQuestions.push(req.session.quiz.currentQuestion);
+      }
+
+      // TODO: complete logic for getting next question
+      models.Question.find({
+        where: { QuizId: quizId },
+        include: [models.Answer]
+      }).then(function(question) {
+        req.session.quiz.currentQuestion = question;
+        req.session.quiz.currentQuestionNumber = currentQuestionNumber;
+        deferred.resolve(question);
+      }).catch(function(err) {
+        deferred.reject({ status: 500, body: err });
+      });
+    } else {
+      deferred.reject({ status: 400, body: 'No quiz currently in progress.' });
+    }
+
+    return deferred.promise;
+  };
+
+  getQuestion(req.params.quizId).then(function(question) {
+    req.session.save();
     res.status(200).json(question);
   }).catch(function(err) {
     res.status(err.status).json({ error: err.body });
@@ -219,30 +275,40 @@ exports.checkAnswer = function(req, res) {
 
   var answerMatches = function(userAnswer, questionAnswers) {
     return !!_.filter(questionAnswers, function(possibleAnswer) {
-      return userAnswer.trim().toLowerCase() === possibleAnswer.trim().toLowerCase();
+      return userAnswer.trim().toLowerCase() === possibleAnswer.body.trim().toLowerCase();
     }).length;
   };
 
   var doCheck = function(quizId, questionId, userAnswer) {
     var deferred = when.defer();
 
-    models.Answer.findAll({
-      where: { QuizId: quizId }
-    }).then(function(answers) {
-      if ( answerMatches(userAnswer, answers) ) {
-        deferred.resolve(true);
-      } else {
-        deferred.resolve(false);
-      }
-    }).catch(function(err) {
-      deferred.reject({ status: 500, body: err });
-    });
+    if ( !_.isEmpty(req.session.quiz) ) {
+      models.Answer.findAll({
+        where: {
+          QuestionId: questionId,
+          isCorrect: true
+        }
+      }).then(function(answers) {
+        if ( answerMatches(userAnswer, answers) ) {
+          req.session.quiz.score = _.isNumber(req.session.quiz.score) ? req.session.quiz.score + 1 : 1; // TODO: more complex logic
+          deferred.resolve(true);
+        } else {
+          req.session.quiz.score = _.isNumber(req.session.quiz.score) ? req.session.quiz.score - 1 : -1; // TODO: more complex logic
+          deferred.resolve(false);
+        }
+      }).catch(function(err) {
+        deferred.reject({ status: 500, body: err });
+      });
+    } else {
+      deferred.reject({ status: 400, body: 'No quiz currently in progress.' });
+    }
 
     return deferred.promise;
   };
 
-  doCheck(req.params.quizId, req.params.questionId, req.body.answer).then(function(isCorrect) {
-    res.status(200).json({ isCorrect: isCorrect });
+  doCheck(req.params.quizId, req.params.questionId, req.body.answer).then(function(result) {
+    req.session.save();
+    res.status(200).json({ isCorrect: result, score: req.session.quiz.score });
   }).catch(function(err) {
     res.status(err.status).json({ error: err.body });
   });
@@ -261,16 +327,26 @@ exports.markComplete = function(req, res) {
       QuizId: quizId
     };
 
-    models.QuizCompletion.create(completion).then(function() {
-      deferred.resolve();
-    }).catch(function(err) {
-      deferred.reject({ status: 500, body: err });
-    });
+    if ( !_.isEmpty(req.session.quiz) ) {
+      models.QuizCompletion.findOrCreate({
+        where: completion,
+        defaults: completion
+      }).then(function() {
+        req.session.quiz = null;
+        deferred.resolve();
+      }).catch(function(err) {
+        console.log('error marking complete:', err);
+        deferred.reject({ status: 500, body: err });
+      });
+    } else {
+      deferred.reject({ status: 400, body: 'No quiz currently in progress.' });
+    }
 
     return deferred.promise;
   };
 
   createCompletion(req.user.id, req.params.lessonId, req.params.quizId).then(function() {
+    req.session.save();
     res.status(200).json({ status: 200, message: 'Quiz successfully marked as complete.' });
   }).catch(function(err) {
     res.status(err.status).json({ status: err.status, message: err.body });

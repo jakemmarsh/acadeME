@@ -30,6 +30,14 @@ var CurrentQuizStore = Reflux.createStore({
     }.bind(this));
   },
 
+  beginQuiz: function(quizId, cb) {
+    cb = cb || function() {};
+
+    console.log('begin quiz:', quizId);
+
+    QuizAPI.markStarted(quizId);
+  },
+
   loadQuestion: function(quizId, numQuestions, userScore, cb) {
     cb = cb || function() {};
 
@@ -48,7 +56,6 @@ var CurrentQuizStore = Reflux.createStore({
 
     console.log('checking answer for question:', questionId);
 
-    // TODO: figure out why this.quiz is undefined when set asynchronously
     QuizAPI.checkAnswer(this.quiz.id, questionId, answer).then(function(result) {
       cb(null, result);
     }.bind(this)).catch(function(err) {

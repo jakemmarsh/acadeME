@@ -38,9 +38,7 @@ exports.getRecipients = function(req, res) {
     return deferred.promise;
   };
 
-  var userId = 1; // TODO: don't hardcode this, use req.user.id
-
-  fetchEnrollments(userId, req.params.courseId)
+  fetchEnrollments(req.user ? req.user.id : 1, req.params.courseId)
   .then(fetchRecipients)
   .then(function(resp) {
     res.status(200).json(resp);

@@ -42,6 +42,7 @@ app.use(busboy());          // Parse multipart/form-data
 app.set('json spaces', 0);  // Remove superfluous spaces from JSON responses
 app.use(session({
   secret: process.env.SECRET,
+  rolling: true,
   cookie: {
     maxAge: 1000*60*30 // only 30 minutes until user logs in
   },

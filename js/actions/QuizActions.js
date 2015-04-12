@@ -4,6 +4,7 @@ var Reflux = require('reflux');
 
 var QuizActions = Reflux.createActions([
 
+  'begin',
   'getQuestion',
   'checkAnswer',
   'markComplete'
