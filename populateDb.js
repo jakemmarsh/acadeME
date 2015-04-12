@@ -105,6 +105,12 @@ module.exports = function(models) {
         type: 'multi',
         body: 'What is the capitol of Maine?',
         difficulty: 5
+      },
+      {
+        QuizId: quiz.id,
+        type: 'multi',
+        body: 'What is the capitol of Maine?',
+        difficulty: 6
       }
     ];
 
@@ -121,24 +127,42 @@ module.exports = function(models) {
 
   var createAnswers = function(data) {
     var deferred = when.defer();
-    var question = data[0][0];
+    var questionOne = data[0][0];
+    var questionTwo = data[0][1];
     var course = data[1];
     var answers = [
       {
-        QuestionId: question.id,
+        QuestionId: questionOne.id,
         body: 'Augusta',
         isCorrect: true
       },
       {
-        QuestionId: question.id,
+        QuestionId: questionOne.id,
         body: 'Portland'
       },
       {
-        QuestionId: question.id,
+        QuestionId: questionOne.id,
         body: 'Brewer'
       },
       {
-        QuestionId: question.id,
+        QuestionId: questionOne.id,
+        body: 'Bangor'
+      },
+      {
+        QuestionId: questionTwo.id,
+        body: 'Augusta',
+        isCorrect: true
+      },
+      {
+        QuestionId: questionTwo.id,
+        body: 'Portland'
+      },
+      {
+        QuestionId: questionTwo.id,
+        body: 'Brewer'
+      },
+      {
+        QuestionId: questionTwo.id,
         body: 'Bangor'
       }
     ];

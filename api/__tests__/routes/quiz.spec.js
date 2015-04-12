@@ -68,22 +68,9 @@ require('../../../spec/support/createAuthenticatedSuite')('quiz routes', functio
       res.status.should.be.equal(200);
       res.body.quiz.should.be.instanceOf(Object); // Ensure quiz has been set in session
       global.cookies = res.headers['set-cookie'].pop().split(';')[0];
-      done();
+      setTimeout(done, 500);
     });
   });
-
-  // it('should recognize a correct answer and increment user\'s score', function(done) {
-  //   var req = request(url).post('quiz/1/check/1');
-
-  //   req.cookies = global.cookies;
-
-  //   req.send({ answer: 'Augusta' }).end(function(err, res) {
-  //     res.status.should.be.equal(200);
-  //     res.body.score.should.be.above(50); // Ensure quiz has been incremented in session
-  //     global.cookies = res.headers['set-cookie'].pop().split(';')[0];
-  //     done();
-  //   });
-  // });
 
   it('should retrieve the next question when prompted', function(done) {
     var req = request(url).get('quiz/1/question');
@@ -95,7 +82,35 @@ require('../../../spec/support/createAuthenticatedSuite')('quiz routes', functio
       res.body.should.have.property('body');
       res.body.Answers.should.be.instanceof(Array);
       global.cookies = res.headers['set-cookie'].pop().split(';')[0];
-      setTimeout(done, 1000); // Wait to ensure that req.session.quiz.currentQuestion is updated before next test
+      setTimeout(done, 500); // Wait to ensure that req.session.quiz.currentQuestion is updated before next test
+    });
+  });
+
+  it('should recognize a correct answer and increment user\'s score', function(done) {
+    var req = request(url).post('quiz/1/check/1');
+
+    req.cookies = global.cookies;
+
+    req.send({ answer: 'Augusta' }).end(function(err, res) {
+      res.status.should.be.equal(200);
+      res.body.score.should.be.above(50); // Ensure quiz has been incremented in session
+      global.cookies = res.headers['set-cookie'].pop().split(';')[0];
+      setTimeout(done, 500);
+    });
+  });
+
+  it('should retrieve a harder question after a correct answer', function(done) {
+    var req = request(url).get('quiz/1/question');
+
+    req.cookies = global.cookies;
+
+    req.end(function(err, res) {
+      res.status.should.be.equal(200);
+      res.body.should.have.property('body');
+      res.body.Answers.should.be.instanceof(Array);
+      res.body.difficulty.should.be.above(5);
+      global.cookies = res.headers['set-cookie'].pop().split(';')[0];
+      setTimeout(done, 500); // Wait to ensure that req.session.quiz.currentQuestion is updated before next test
     });
   });
 
@@ -108,7 +123,7 @@ require('../../../spec/support/createAuthenticatedSuite')('quiz routes', functio
       res.status.should.be.equal(200);
       res.body.score.should.be.below(50); // Ensure score has been decremented in session (50 is starting score)
       global.cookies = res.headers['set-cookie'].pop().split(';')[0];
-      done();
+      setTimeout(done, 500);
     });
   });
 
@@ -116,6 +131,8 @@ require('../../../spec/support/createAuthenticatedSuite')('quiz routes', functio
     var req = request(url).post('quiz/1/complete/lesson/1');
 
     req.cookies = global.cookies;
+
+    // TODO: figure out why this is always hitting a 401, no req.user
 
     req.end(function(err, res) {
       res.status.should.be.equal(200);
