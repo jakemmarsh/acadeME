@@ -10,6 +10,7 @@ var CurrentQuizStore = Reflux.createStore({
 
   init: function() {
     this.listenTo(LessonActions.openQuiz, this.loadQuizFor);
+    this.listenTo(QuizActions.begin, this.beginQuiz);
     this.listenTo(QuizActions.getQuestion, this.loadQuestion);
     this.listenTo(QuizActions.checkAnswer, this.checkAnswer);
     this.listenTo(QuizActions.markComplete, this.markComplete);
@@ -35,15 +36,18 @@ var CurrentQuizStore = Reflux.createStore({
 
     console.log('begin quiz:', quizId);
 
-    QuizAPI.markStarted(quizId);
+    QuizAPI.markStarted(quizId).then(function(res) {
+      this.quiz = res.quiz;
+      cb();
+    }.bind(this));
   },
 
-  loadQuestion: function(quizId, numQuestions, userScore, cb) {
+  loadQuestion: function(quizId, cb) {
     cb = cb || function() {};
 
     console.log('load question for quiz:', quizId);
 
-    QuizAPI.getQuestion(quizId, numQuestions, userScore).then(function(question) {
+    QuizAPI.getQuestion(quizId).then(function(question) {
       cb(null, question);
     }.bind(this)).catch(function(err) {
       cb(err);

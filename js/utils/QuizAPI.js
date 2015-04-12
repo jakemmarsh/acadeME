@@ -31,7 +31,7 @@ var QuizAPI = {
   },
 
   checkAnswer: function(quizId, questionId, answer) {
-    return APIUtils.post('quiz/'+ quizId + '/check/' + questionId, answer);
+    return APIUtils.post('quiz/'+ quizId + '/check/' + questionId, { answer: answer });
   },
 
   markComplete: function(lessonId, quizId) {

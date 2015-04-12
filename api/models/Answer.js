@@ -11,6 +11,14 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         Answer.belongsTo(models.Question);
       }
+    },
+    instanceMethods: {
+      toJSON: function() {
+        // Delete private values from object before sending to client
+        var res = this.get();
+        delete res.isCorrect;
+        return res;
+      }
     }
   });
 

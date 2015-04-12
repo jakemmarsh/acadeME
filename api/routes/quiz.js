@@ -331,7 +331,8 @@ exports.markComplete = function(req, res) {
     var completion = {
       UserId: userId,
       LessonId: lessonId,
-      QuizId: quizId
+      QuizId: quizId,
+      score: req.session.quiz.score // TODO: should this be based on number of questions answered correctly, regardless of difficulty?
     };
 
     if ( !_.isEmpty(req.session.quiz) ) {

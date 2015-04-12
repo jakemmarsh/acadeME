@@ -46,11 +46,7 @@ var Quiz = React.createClass({
         question: question,
         currentQuestionNumber: this.state.currentQuestionNumber + 1,
         selectedAnswer: {}
-      }, function() {
-        if ( this.state.currentQuestionNumber === 1 ) {
-          this.props.beginQuiz();
-        }
-      }.bind(this));
+      });
     }
   },
 
@@ -71,8 +67,13 @@ var Quiz = React.createClass({
     }
   },
 
+  beginQuiz: function(evt) {
+    evt.preventDefault();
+    this.props.beginQuiz(this.getNextQuestion);
+  },
+
   selectAnswer: function(answer) {
-    this.setState({ selectedAnswer: answer });
+    this.setState({ selectedAnswer: answer.body });
   },
 
   submitAnswer: function() {
@@ -80,15 +81,15 @@ var Quiz = React.createClass({
     QuizActions.checkAnswer(this.state.question.id, this.state.selectedAnswer, this._onAnswerCheck);
   },
 
-  getNextQuestion: function() {
-    var numQuestions = this.props.quiz.questions ? this.props.quiz.questions.length : this.props.quiz.numQuestions;
+  getNextQuestion: function() {console.log('get next question');
 
-    console.log('get next question:', this.state.currentQuestionNumber, numQuestions);
+    this.setState({ loading: true });
 
-    if ( this.state.currentQuestionNumber < numQuestions ) {
+    if ( this.state.currentQuestionNumber < this.props.quiz.numQuestions ) {
       QuizActions.getQuestion(this.props.quiz.id, this._onQuestionChange);
     } else {
       this.setState({
+        loading: false,
         currentQuestionNumber: this.state.currentQuestionNumber + 1,
         quizComplete: true
       }, this.props.flagQuizComplete);
@@ -107,7 +108,7 @@ var Quiz = React.createClass({
             <h6 className="primary serif italic weight--normal">{this.props.quiz.numQuestions} {pluralized}</h6>
           </div>
           <div>
-            <a className="button soft--sides soft-half--ends" onClick={this.getNextQuestion}>Begin Quiz</a>
+            <a className="button soft--sides soft-half--ends" onClick={this.beginQuiz}>Begin Quiz</a>
           </div>
         </div>
       );
@@ -136,7 +137,7 @@ var Quiz = React.createClass({
     var answerClass;
 
     return _.map(this.state.question.answers, function(answer, index) {
-      answerClass = this.state.selectedAnswer.id === answer.id ? 'selected' : '';
+      answerClass = this.state.selectedAnswer === answer.body ? 'selected' : '';
       return (
         <li key={index} className={answerClass} onClick={this.selectAnswer.bind(null, answer)}>
           <div className="choice-indicator">
@@ -173,8 +174,7 @@ var Quiz = React.createClass({
 
   renderCurrentQuestion: function() {
     var element = null;
-    var numQuestions = this.props.quiz.questions ? this.props.quiz.questions.length : this.props.quiz.numQuestions;
-    var isLastQuestion = this.state.currentQuestionNumber === numQuestions;
+    var isLastQuestion = this.state.currentQuestionNumber === this.props.quiz.numQuestions;
     var isSubmitDisabled = _.isEmpty(this.state.selectedAnswer);
     var buttonValue = isLastQuestion ? 'Finish Quiz' : 'Next Question';
 
@@ -203,7 +203,7 @@ var Quiz = React.createClass({
         <div className="intro-finish-container soft--sides">
           <div>
             <h1 className="title sans-serif flush--bottom">Quiz complete!</h1>
-            <h6 className="primary serif italic weight--normal">Your score: {this.state.userScore}/{this.props.quiz.numQuestions}</h6>
+            <h6 className="primary serif italic weight--normal">Your score: {this.state.userScore}%</h6>
           </div>
           <div>
             <Link to="CourseLesson"
@@ -220,7 +220,6 @@ var Quiz = React.createClass({
   },
 
   render: function() {
-    console.log('quiz:', this.props.quiz);
     return (
       <div className="quiz">
 

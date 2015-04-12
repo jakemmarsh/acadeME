@@ -83,7 +83,7 @@ module.exports = function(models) {
       LessonId: lesson.id,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus.',
       tags: ['test', 'lorem', 'ipsum'],
-      numQuestions: 5
+      numQuestions: 2
     };
 
     models.Quiz.create(quiz).then(function(createdQuiz) {

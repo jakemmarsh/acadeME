@@ -58,9 +58,9 @@ var LessonQuiz = React.createClass({
     this.listenTo(CurrentQuizStore, this._onQuizChange);
   },
 
-  beginQuiz: function() {
+  beginQuiz: function(cb) {
     this.setState({ quizStarted: true });
-    QuizActions.begin(this.state.quiz.id);
+    QuizActions.begin(this.state.quiz.id, cb);
   },
 
   flagQuizComplete: function() {
