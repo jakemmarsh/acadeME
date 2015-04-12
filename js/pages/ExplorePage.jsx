@@ -150,7 +150,9 @@ var ExplorePage = React.createClass({
     if ( this.props.query.q ) {
       element = (
         <div>
-          <h2 className="page-title nudge--top nudge-half--bottom">Results for {this.props.query.q.replace(/(\+)|(%20)/gi, ' ')}</h2>
+          <h2 className="page-title nudge--top nudge-half--bottom">
+            Results for: {this.props.query.q.replace(/(\+)|(%20)/gi, ' ')}
+          </h2>
           <div className="card">
             {this.renderCourses(courses)}
           </div>

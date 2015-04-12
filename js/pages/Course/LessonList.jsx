@@ -27,7 +27,7 @@ var CourseLessonList = React.createClass({
         <h2 className="text-center nudge--top">The instructor has not added any lessons to this course yet!</h2>
       );
     } else if ( !_.isEmpty(this.props.course) && this.props.course.lessons ) {
-      elements =  this.props.course.lessons.map(function(lesson, index) {
+      elements = _.map(this.props.course.lessons, function(lesson, index) {
         return (
           <LessonSnippet currentUser={this.props.currentUser}
                          course={this.props.course}

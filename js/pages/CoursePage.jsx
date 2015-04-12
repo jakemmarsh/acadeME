@@ -68,10 +68,18 @@ var CoursePage = React.createClass({
   componentDidMount: function() {
     this.listenTo(CurrentCourseStore, this._onCourseChange);
     this._checkCourseStore();
+
+    if ( this.props.query.q && this.props.query.q.length ) {
+      this.setState({ query: this.props.query.q });
+    }
   },
 
-  componentDidUpdate: function() {
+  componentDidUpdate: function(prevProps) {
     this._checkCourseStore();
+
+    if ( this.props.query.q !== prevProps.query.q ) {
+      this.setState({ query: this.props.query.q });
+    }
   },
 
   userIsEnrolled: function() {
@@ -159,7 +167,7 @@ var CoursePage = React.createClass({
 
           <Preloaded>
             <RouteHandler params={this.props.params}
-                          query={this.props.query}
+                          query={_.assign({ q: this.state.query }, this.props.query)}
                           currentUser={this.props.currentUser}
                           updatePageTitle={this.props.updatePageTitle}
                           course={haveCourse ? this.state.course : {}} />
