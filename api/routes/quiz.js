@@ -248,7 +248,7 @@ exports.getQuestion = function(req, res) {
         where: {
           QuizId: quizId,
           difficulty: {
-            gt: normalizedScore - 2,
+            gte: normalizedScore,
             lt: normalizedScore + 2
           }
         },
