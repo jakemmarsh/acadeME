@@ -29,14 +29,17 @@ var CreateLesson = React.createClass({
 
   getInitialState: function() {
     return {
+      numQuestions: '0',
       tags: [],
       suggestedQuestions: [],
       questions: [],
       questionBody: '',
+      questionDifficulty: 5,
       answerA: '',
       answerB: '',
       answerC: '',
       answerD: '',
+      correctAnswer: 'a',
       loading: false,
       error: null,
       userHasEnteredTags: false,
@@ -48,6 +51,7 @@ var CreateLesson = React.createClass({
   _saveQuiz: function() {
     var deferred = when.defer();
     var quiz = {
+      numQuestions: parseInt(this.state.numQuestions) || 0,
       tags: this.state.tags
     };
 
@@ -69,8 +73,8 @@ var CreateLesson = React.createClass({
       var answer = when.defer();
       var answers = _.map(currentAnswers, function(answer) {
         return {
-          body: _.isObject(answer) ? answer.body : answer,
-          isCorrect: _.isObject(answer) ? answer.isCorrect : false // TODO: logic for when this should actually be 'true'
+          body: answer.body,
+          isCorrect: answer.isCorrect
         };
       });
 
@@ -84,7 +88,7 @@ var CreateLesson = React.createClass({
     var saveQuestion = function(question) {
       var deferred = when.defer();
 
-      QuizAPI.saveQuestion(quiz.id, { body: question.body })
+      QuizAPI.saveQuestion(quiz.id, question)
       .then(saveAnswers)
       .then(deferred.resolve)
       .catch(deferred.reject);
@@ -112,6 +116,10 @@ var CreateLesson = React.createClass({
 
   removeTag: function(tag) {
     this.setState({ tags: _.without(this.state.tags, tag) });
+  },
+
+  setCorrectAnswer: function(letter) {
+    this.setState({ correctAnswer: letter });
   },
 
   handleStartSubmit: function(evt) {
@@ -150,9 +158,27 @@ var CreateLesson = React.createClass({
     var question = {
       body: this.state.questionBody,
       type: 'multi',
+      difficulty: this.state.questionDifficulty,
       answers: []
     };
-    var answers = [this.state.answerA, this.state.answerB, this.state.answerC, this.state.answerD];
+    var answers = [
+      {
+        body: this.state.answerA,
+        isCorrect: this.state.correctAnswer === 'a'
+      },
+      {
+        body: this.state.answerB,
+        isCorrect: this.state.correctAnswer === 'b'
+      },
+      {
+        body: this.state.answerC,
+        isCorrect: this.state.correctAnswer === 'c'
+      },
+      {
+        body: this.state.answerD,
+        isCorrect: this.state.correctAnswer === 'd'
+      }
+    ];
 
     if ( evt ) {
       evt.preventDefault();
@@ -168,6 +194,7 @@ var CreateLesson = React.createClass({
 
     this.setState({
       questionBody: '',
+      questionDifficulty: 5,
       answerA: '',
       answerB: '',
       answerC: '',
@@ -195,20 +222,28 @@ var CreateLesson = React.createClass({
 
     return (
       <form className="start-container" onSubmit={this.handleStartSubmit}>
-
         <div>
+
           <p>Enter up to five (5) tags that are relevant to the topic of the quiz you are about to create.</p>
+
           <TagInput ref="tagInput"
                     addTag={this.addTag}
                     removeTag={this.removeTag}
                     placeholder="Playlist tags" />
+
+          <input type="number"
+                 min="1"
+                 className="large-input nudge-half--ends"
+                 valueLink={this.linkState('numQuestions')}
+                 placeholder="How many questions will this quiz be?" />
+
           <button className="btn float-right nudge-half--top"
                   type="submit"
                   disabled={isSubmitDisabled ? 'true' : ''}>
             Next Step
           </button>
-        </div>
 
+        </div>
       </form>
     );
   },
@@ -294,6 +329,11 @@ var CreateLesson = React.createClass({
                    className="nudge-half--left"
                    valueLink={this.linkState(valueLink)}
                    placeholder="Possible answer..." />
+            <div>
+              <input type="checkbox"
+                     checked={this.state.correctAnswer === letter}
+                     onChange={this.setCorrectAnswer.bind(this, letter)} />
+            </div>
           </li>
         );
       }.bind(this));
@@ -306,6 +346,14 @@ var CreateLesson = React.createClass({
                className="large-input nudge-half--ends"
                valueLink={this.linkState('questionBody')}
                placeholder="Question..." />
+
+        <input type="range"
+               className="large-input nudge-half--ends"
+               min="0"
+               max="10"
+               step="1"
+               valueLink={this.linkState('questionDifficulty')}
+               placeholder="How difficult is this question, on a scale of 1-10?" />
 
         <ul className="multiple-choice nudge-half--top nudge--bottom">
           {renderAnswerInputs()}
@@ -325,7 +373,7 @@ var CreateLesson = React.createClass({
     var hasQuestions = this.state.questions && this.state.questions.length;
     var isDisabled = !hasQuestions;
 
-    if ( !this.state.quizCreated /*&& this.state.userHasEnteredTags*/ ) {
+    if ( !this.state.quizCreated && this.state.userHasEnteredTags ) {
       element = (
         <button className="btn highlight nudge-half--bottom"
                 onClick={this.handleGlobalSubmit}

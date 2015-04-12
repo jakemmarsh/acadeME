@@ -198,6 +198,7 @@ exports.begin = function(req, res) {
       where: { id: quizId }
     }).then(function(quiz) {
       req.session.quiz = quiz.toJSON();
+      req.session.quiz.score = 50;
       deferred.resolve(quiz);
     }).catch(function(err) {
       deferred.reject({ status: 500, body: err });
@@ -221,12 +222,10 @@ exports.getQuestion = function(req, res) {
 
   var getQuestion = function(quizId) {
     var deferred = when.defer();
+    var normalizedScore = Math.ceil(req.session.quiz.score/10);
     var currentQuestionNumber;
-    var userScore;
 
     if ( !_.isEmpty(req.session.quiz) ) {
-      userScore = req.session.quiz.score;
-
       if ( _.isNumber(req.session.quiz.currentQuestionNumber) ) {
         currentQuestionNumber = req.session.quiz.currentQuestionNumber + 1;
       } else {
@@ -243,9 +242,16 @@ exports.getQuestion = function(req, res) {
         req.session.quiz.answeredQuestions.push(req.session.quiz.currentQuestion);
       }
 
-      // TODO: complete logic for getting next question
+      // TODO: does this need recursion or something to ENSURE that we get a question?
+      // (if first difficulty range returns no questions)
       models.Question.find({
-        where: { QuizId: quizId },
+        where: {
+          QuizId: quizId,
+          difficulty: {
+            gt: normalizedScore - 2,
+            lt: normalizedScore + 2
+          }
+        },
         include: [models.Answer]
       }).then(function(question) {
         req.session.quiz.currentQuestion = question;
@@ -291,10 +297,10 @@ exports.checkAnswer = function(req, res) {
         }
       }).then(function(answers) {
         if ( answerMatches(userAnswer, answers) ) {
-          req.session.quiz.score = _.isNumber(req.session.quiz.score) ? req.session.quiz.score + 1 : 1; // TODO: more complex logic
+          req.session.quiz.score += req.session.quiz.currentQuestion.difficulty;
           deferred.resolve(true);
         } else {
-          req.session.quiz.score = _.isNumber(req.session.quiz.score) ? req.session.quiz.score - 1 : -1; // TODO: more complex logic
+          req.session.quiz.score -= req.session.quiz.currentQuestion.difficulty;
           deferred.resolve(false);
         }
       }).catch(function(err) {
