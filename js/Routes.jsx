@@ -1,9 +1,10 @@
 'use strict';
 
 var React            = require('react/addons');
-var Route            = require('react-router').Route;
-var DefaultRoute     = require('react-router').DefaultRoute;
-var NotFoundRoute    = require('react-router').NotFoundRoute;
+var Router           = require('react-router');
+var Route            = Router.Route;
+var DefaultRoute     = Router.DefaultRoute;
+var NotFoundRoute    = Router.NotFoundRoute;
 
 var App              = require('./App.jsx');
 
@@ -34,14 +35,15 @@ module.exports = (
 
     <Route name='CreateCourse' path='/create' handler={CreateCoursePage} />
 
-    <Route name='Course' path='/course/:courseId' handler={CoursePage}>
-      <DefaultRoute handler={CourseLessonList} />
+    <Route name='Course' handler={CoursePage}>
+      <Route name='CourseLessonList' path='/course/:courseId' handler={CourseLessonList} />
       <Route name='CourseLesson' path='/course/:courseId/lesson/:lessonId' handler={CourseLesson} />
       <Route name='LessonQuiz' path='/course/:courseId/lesson/:lessonId/quiz' handler={LessonQuiz} />
       <Route name='CourseSearch' path='/course/:courseId/search' handler={CourseSearch} />
       <Route name='CourseChat' path='/course/:courseId/chat' handler={CourseChat} />
       <Route name='CreateLesson' path='/course/:courseId/create' handler={CreateLesson} />
       <Route name='CreateQuiz' path='/course/:courseId/lesson/:lessonId/quiz/create' handler={CreateQuiz} />
+      <DefaultRoute handler={CourseLessonList} />
     </Route>
 
     <NotFoundRoute handler={NotFoundPage} />

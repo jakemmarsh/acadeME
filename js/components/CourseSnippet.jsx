@@ -48,7 +48,7 @@ var CourseSnippet = React.createClass({
           </div>
         </div>
 
-        <Link to="Course" params={{ courseId: this.props.course.id }} />
+        <Link to="CourseLessonList" params={{ courseId: this.props.course.id }} />
 
       </article>
     );

@@ -399,7 +399,7 @@ var CreateLesson = React.createClass({
     return (
       <div className="nudge-half--top">
         <h3 className="text-center nudge-half--bottom">Quiz successfully created!</h3>
-        <Link to="Course" params={{ courseId: this.props.params.courseId }} className="btn">Back to Course</Link>
+        <Link to="CourseLessonList" params={{ courseId: this.props.params.courseId }} className="btn">Back to Course</Link>
       </div>
     );
   },

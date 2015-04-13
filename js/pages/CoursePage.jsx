@@ -154,7 +154,7 @@ var CoursePage = React.createClass({
                      valueLink={this.linkState('query')}
                      onKeyPress={this.submitOnEnter} />
             </li>
-            <ListLink to="Course" params={{ courseId: this.props.params.courseId }}>
+            <ListLink to="CourseLessonList" params={{ courseId: this.props.params.courseId }}>
               <i className="fa fa-book" />
               Lessons
             </ListLink>

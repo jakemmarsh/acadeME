@@ -57,7 +57,7 @@ var Sidebar = React.createClass({
       element = (
         <div className="course-info-container" key={this.state.course.title}>
             <div className="title-container">
-              <Link to="Course" params={{ courseId: this.state.course.id }} className="title">{courseTitle}</Link>
+              <Link to="CourseLessonList" params={{ courseId: this.state.course.id }} className="title">{courseTitle}</Link>
               <span>Taught by</span>
               <h4 className="instructor flush">{instructorName}</h4>
             </div>
@@ -100,8 +100,8 @@ var Sidebar = React.createClass({
       <ul>
         {this.renderCurriculumLink()}
         <ListLink to="Explore">Explore Courses</ListLink>
-        <ListLink to="Course" params={ {courseId: 1} }>Test Course I</ListLink>
-        <ListLink to="Course" params={ {courseId: 2} }>Test Course II</ListLink>
+        <ListLink to="CourseLessonList" params={ {courseId: 1} }>Test Course I</ListLink>
+        <ListLink to="CourseLessonList" params={ {courseId: 2} }>Test Course II</ListLink>
       </ul>
     );
   },
