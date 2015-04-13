@@ -20,7 +20,7 @@
   ],
   "private": true,
   "engines": {
-    "node": "^0.10.x"
+    "node": "^0.10.38"
   },
   "dependencies": {
     "babelify": "^5.0.4",
@@ -66,7 +66,7 @@
     "react-async": "^2.0.1",
     "react-document-title": "^1.0.2",
     "react-marked": "^0.3.1",
-    "react-router": "^0.11.6",
+    "react-router": "^0.12.4",
     "reflux": "^0.1.13",
     "run-sequence": "^0.3.6",
     "sequelize": "^2.0.4",
@@ -80,37 +80,23 @@
     "when": "^3.6.1"
   },
   "devDependencies": {
-    "gulp-jest": "^0.4.0",
-    "jest-cli": "^0.4.0",
+    "gulp-jsx-coverage": "^0.1.1",
+    "gulp-mocha": "^2.0.1",
+    "istanbul": "^0.3.13",
+    "jsdom": "^3.1.2",
     "mocha": "^2.2.4",
-    "react-tools": "^0.13.1",
     "should": "^5.2.0",
-    "supertest": "^0.15.0"
+    "supertest": "^0.15.0",
+    "vinyl-transform": "^1.0.0"
   },
-  "jest": {
-    "rootDir": ".",
-    "scriptPreprocessor": "spec/support/preprocessor.js",
-    "testPathDirs": [
-      "<rootDir>/js/"
-    ],
-    "testDirectoryName": "__tests__",
-    "testFileExtensions": [
-      "spec.js",
-      "spec.jsx"
-    ],
-    "testPathIgnorePatterns": [
-      "node_modules",
-      "spec/support"
-    ],
-    "unmockedModulePathPatterns": [
-      "react",
-      "spec/support/stubRouterContext.jsx"
+  "browserify": {
+    "transform": [
+      "babelify"
     ]
   },
   "scripts": {
-    "prestart": "gulp prod",
     "start": "supervisor server.js",
-    "test": "jest",
-    "test-api": "mocha \"api/__tests__/**/*.js\""
+    "test": "gulp test",
+    "test-api": "istanbul cover --report html --dir \"api/__coverage__\" --x \"js/**/*\" --x \"spec/**/*\" --x \"api/__tests__/**/*\" node_modules/.bin/_mocha -- -i \"api/__tests__/**/*.js\""
   }
 }

@@ -22,7 +22,7 @@ module.exports = {
     'dest': './build/fonts/'
   },
 
-  'tests': './js/__tests__/**/*',
+  'tests': './js/__tests__/**/*.{js,jsx}',
 
   'sourceDir': './public/',
 

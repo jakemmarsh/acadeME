@@ -2,9 +2,8 @@
 
 var React     = require('react/addons');
 var TestUtils = React.addons.TestUtils;
+var should    = require('should');
 var Stub      = require('../../../spec/support/stubRouterContext.jsx');
-
-jest.dontMock('../../components/Footer.jsx');
 
 describe('Footer', function() {
 
@@ -17,8 +16,9 @@ describe('Footer', function() {
     );
   });
 
-  it('should exist', function() {
-    expect(footer.getDOMNode()).toBeDefined();
+  it('should exist', function(done) {
+    should.exist(footer.getDOMNode());
+    done();
   });
 
 });

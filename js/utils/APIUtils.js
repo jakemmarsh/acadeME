@@ -15,7 +15,7 @@ function normalizeResponse(response) {
 function createRequest(verb, path, body) {
   var req;
 
-  if ( typeof window !== 'undefined' ) {
+  if ( typeof window !== 'undefined' && navigator.userAgent !== 'jsdom' ) {
     req = request[verb](path, body).withCredentials();
   } else {
     req = request[verb](path, body);

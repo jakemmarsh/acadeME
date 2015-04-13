@@ -2,9 +2,8 @@
 
 var React     = require('react/addons');
 var TestUtils = React.addons.TestUtils;
+var should    = require('should');
 var Stub      = require('../../../spec/support/stubRouterContext.jsx');
-
-jest.dontMock('../../components/Header.jsx');
 
 describe('Header', function() {
 
@@ -17,8 +16,9 @@ describe('Header', function() {
     );
   });
 
-  it('should exist', function() {
-    expect(header.getDOMNode()).toBeDefined();
+  it('should exist', function(done) {
+    should.exist(header.getDOMNode());
+    done();
   });
 
 });

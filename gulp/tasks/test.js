@@ -1,17 +1,44 @@
 'use strict';
 
 var gulp   = require('gulp');
-var jest   = require('gulp-jest'); // jshint ignore:line
+var jsdom  = require('jsdom').jsdom;
 var config = require('../config');
 
 gulp.task('test', function() {
 
-  return gulp.src(config.tests).pipe(jest({
-    scriptPreprocessor: './preprocessor.js',
-    testDirectoryName: '/js/__tests__',
-    testFileExtensions: [
-      'js'
-    ]
-  }));
+  global.document = jsdom('<!DOCTYPE html><html><body></body></html>');
+  global.window = document.parentWindow;
+  global.navigator = {};
+  global.navigator.userAgent = 'jsdom';
+  global.navigator.appVersion = '';
+
+  return (require('gulp-jsx-coverage').createTask({
+    src: [config.tests],
+
+    istanbul: {
+      coverageVariable: '__MY_TEST_COVERAGE__',
+      exclude: /node_modules|test[0-9]/
+    },
+
+    transpile: {
+      babel: {
+        include: /\.jsx?$/,
+        exclude: /node_modules/
+      }
+    },
+
+    coverage: {
+      reporters: ['text-summary', 'html'],
+      directory: 'js/__coverage__'
+    },
+
+    mocha: {
+      reporter: 'spec'
+    },
+
+    babel: {
+      sourceMap: 'inline'
+    }
+  }))();
 
 });
