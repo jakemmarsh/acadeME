@@ -41,49 +41,49 @@ S3_BUCKET=''
 
 ---
 
-## Directory Structure
+### Directory Structure
 
 Below is an outline and description of this project's directory and file structure. This does **not** include installed or built files, which will be in the directories `/node_modules` and `/build`, respectively, after installing and building.
 
 ```
 /api
-  /__tests__
-  /models
-  /routes
-  /utils
-  index.js
-  passport.js
-  queue.js
-  sockets.js
+  /__tests__                    (All Mocha tests covering the API.)
+  /models                       (All SequelizeJS models used for interaction and saving in the database.)
+  /routes                       (All API endpoints logic.)
+  /utils                        (Helpers for the API.)
+  index.js                      (The Express-based API for interacting with the database.)
+  passport.js                   (User authentication logic and initialization.)
+  queue.js                      (Logic for processing the chat job queue.)
+  sockets.js                    (Logic for handling messages via WebSockets.)
 /gulp
-  /tasks
-  /util
-  config.js
-  index.js
-/helpers
-  createAuthenticatedSuite.js
-  stubRouterContext.js
-  testHelpers.js
-/js
-  /__tests__
-  /actions
-  /components
-  /mixins
-  /pages
-  /stores
-  /utils
-  App.jsx
-  Html.jsx
-  index.js
-  Routes.jsx
+  /tasks                        (All separate Gulp tasks, used for automating build processes.)
+  /util                         (Helpers for the Gulp tasks.)
+  config.js                     (Gulp configuration for file locations, credentials, etc.)
+  index.js                      (Loads all files within /tasks to be sent to the Gulpfile.js.)
+/utils
+  createAuthenticatedSuite.js   (Helper to create a Mocha test suite that automatically logs in to API)
+  stubRouterContext.js          (Helper to stub a react-router component with context, for testing purposes)
+  testHelpers.js                (Miscellaneous helpers used in testing API and frontend)
+/js                             (The frontend logic shared between the server and client.)
+  /__tests__                    (All Mocha tests covering the frontend.)
+  /actions                      (RefluxJS actions for initiating API interaction and store updates.)
+  /components                   (Individual ReactJS components.)
+  /mixins                       (Individual ReactJS mixins.)
+  /pages                        (Entire ReactJS pages served by the router.)
+  /stores                       (RefluxJS stores responsible for client data syncing and storage.)
+  /utils                        (Helpers for any frontend logic.)
+  App.jsx                       (The parent ReactJS component of all pages.)
+  Html.jsx                      (The HTML used to wrap the ReactJS app, necessary for server-side rendering.)
+  index.js                      (The main Javascript file responsible for loading and running the application.)
+  Routes.jsx                    (The react-router logic and architecture for routing the application client-side.)
 /lib
-  /pdfjs
+  /pdfjs                        (Library used for PDF processing and display.)
 /public
-  /fonts
-  /images
-  /styles
-gulpfile.js
-package.json
-populateDb.js
-server.js
+  /fonts                        (Any fonts used by the frontend, to be copied to /build/fonts.)
+  /images                       (Any images used by the frontend, to be copied to /build/images.)
+  /styles                       (SASS files, automatically compiled into a single CSS file in /build/css.)
+gulpfile.js                     (Reads all Gulp tasks from /gulp/tasks and allows you to run them.)
+package.json                    (Project details, dependencies, and scripts.)
+populateDb.js                   (Populates the database with test data when in development mode.)
+server.js                       (Runs the node.js server, serving both the API and frontend.)
 ```
