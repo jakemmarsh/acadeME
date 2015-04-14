@@ -25,5 +25,8 @@ bower_components
 # Build files
 build
 
+# Coverage analysis results
+__coverage__
+
 # Security credentials, etc
 .env
