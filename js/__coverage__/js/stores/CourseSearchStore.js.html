@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/stores/CourseSearchStore.js</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../prettify.css">
+
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">js/stores/CourseSearchStore.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">43.75% <small>(7 / 16)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">20% <small>(1 / 5)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">43.75% <small>(7 / 16)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">js/stores/</a> &#187; CourseSearchStore.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+var Reflux = require("reflux");     // var Reflux        = require('reflux');
+&nbsp;
+var CourseActions = require("../actions/CourseActions");        // var CourseActions = require('../actions/CourseActions');
+var CourseAPI = require("../utils/CourseAPI");                  // var CourseAPI     = require('../utils/CourseAPI');
+&nbsp;
+var CourseSearchStore = Reflux.createStore({
+&nbsp;
+  init: function init() {                                       //   init: function() {
+    this.results = null;
+&nbsp;
+    this.listenTo(CourseActions.search, this.searchInCourse);
+  },
+&nbsp;
+  searchInCourse: <span class="fstat-no" title="function not covered" >function searchInCourse(courseId, query, cb) {</span>        //   searchInCourse: function(courseId, query, cb) {
+<span class="cstat-no" title="statement not covered" >    cb = cb || <span class="fstat-no" title="function not covered" >function () {</span>}; </span>                                         //     cb = cb || function() {};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    console.log("search in course:", courseId, query); </span>                 //     console.log('search in course:', courseId, query);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    CourseAPI.search(courseId, query).then((<span class="fstat-no" title="function not covered" >function (results) {</span>        //     CourseAPI.search(courseId, query).then(function(results) {</span>
+<span class="cstat-no" title="statement not covered" >      this.results = results;</span>
+<span class="cstat-no" title="statement not covered" >      cb(null, this.results);</span>
+<span class="cstat-no" title="statement not covered" >      this.trigger(null, this.results);</span>
+    }).bind(this))["catch"]((<span class="fstat-no" title="function not covered" >function (err) {</span>                           //     }.bind(this)).catch(function(err) {
+<span class="cstat-no" title="statement not covered" >      cb(err);</span>
+<span class="cstat-no" title="statement not covered" >      this.trigger(err);</span>
+<span class="cstat-no" title="statement not covered" >      console.log("error getting search results for course:", courseId); </span>       //       console.log('error getting search results for course:', courseId);
+    }).bind(this));                                                             //     }.bind(this));
+  }
+});
+&nbsp;
+module.exports = CourseSearchStore;
+// SourceMap was distributed to comments by gulp-jsx-coverage</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Apr 14 2015 13:17:18 GMT-0400 (EDT)</div>
+</div>
+
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+
+<script src="../../sorter.js"></script>
+</body>
+</html>

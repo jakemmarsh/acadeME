@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/components/LessonSnippet.jsx</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../prettify.css">
+
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">js/components/LessonSnippet.jsx</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">28% <small>(7 / 25)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 15)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">20% <small>(1 / 5)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">28% <small>(7 / 25)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">js/components/</a> &#187; LessonSnippet.jsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+var React = require("react/addons");        // var React = require('react/addons');
+var _ = require("lodash");                  // var _     = require('lodash');
+var Link = require("react-router").Link;        // var Link  = require('react-router').Link;
+&nbsp;
+var cx = React.addons.classSet;                 // var cx    = React.addons.classSet;
+&nbsp;
+var LessonSnippet = React.createClass({
+  displayName: "LessonSnippet",
+&nbsp;
+  propTypes: {
+    currentUser: React.PropTypes.object.isRequired,
+    lesson: React.PropTypes.object.isRequired,
+    course: React.PropTypes.object.isRequired
+  },
+&nbsp;
+  getDefaultProps: function getDefaultProps() {     // Line 17:   getDefaultProps: function() {
+    return {
+      currentUser: {},
+      lesson: {},
+      course: {}
+    };
+  },
+&nbsp;
+  renderLessonImage: <span class="fstat-no" title="function not covered" >function renderLessonImage() {</span>     // Line 25:   renderLessonImage: function() {
+<span class="cstat-no" title="statement not covered" >    var element = null;</span>
+<span class="cstat-no" title="statement not covered" >    var imageStyles;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (this.props.lesson.imageUrl) {                   // Line 29:     if ( this.props.lesson.imageUrl ) {</span>
+<span class="cstat-no" title="statement not covered" >      imageStyles = {</span>
+        backgroundImage: "url(" + this.props.lesson.imageUrl + ")"      // Line 31:         'backgroundImage': 'url(' + this.props.lesson.imageUrl + ')'
+      };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      element = React.createElement(                                    //         &lt;div className="image-container"&gt;</span>
+        "div",
+        { className: "image-container" },
+        React.createElement("div", { className: "lesson-image", style: imageStyles })       // Line 36:           &lt;div className="lesson-image" style={imageStyles} /&gt;
+      );
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return element;</span>
+  },
+&nbsp;
+  renderQuizButton: <span class="fstat-no" title="function not covered" >function renderQuizButton() {</span>                                           // Line 44:   renderQuizButton: function() {
+<span class="cstat-no" title="statement not covered" >    var element = null;</span>
+<span class="cstat-no" title="statement not covered" >    var haveUser = !_.isEmpty(this.props.currentUser);</span>
+<span class="cstat-no" title="statement not covered" >    var userIsInstructor = haveUser &amp;&amp; this.props.course.instructorId === this.props.currentUser.id;</span>
+<span class="cstat-no" title="statement not covered" >    var quizExists = this.props.lesson.quiz &amp;&amp; _.isNumber(this.props.lesson.quiz.id);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (userIsInstructor &amp;&amp; !quizExists) {                                                  // Line 50:     if ( userIsInstructor &amp;&amp; !quizExists ) {</span>
+<span class="cstat-no" title="statement not covered" >      element = React.createElement(                                                        //         &lt;Link to="CreateQuiz"</span>
+        Link,
+        { to: "CreateQuiz",
+          params: { courseId: this.props.course.id, lessonId: this.props.lesson.id },       // Line 53:               params={{ courseId: this.props.course.id, lessonId: this.props.lesson.id }}
+          className: "button highlight" },                                                  // Line 54:               className="button highlight"&gt;
+        "Create Quiz"
+      );
+    } else <span class="cstat-no" title="statement not covered" >if (quizExists &amp;&amp; haveUser &amp;&amp; !userIsInstructor) {                               // Line 58:     } else if ( quizExists &amp;&amp; haveUser &amp;&amp; !userIsInstructor ) {</span>
+<span class="cstat-no" title="statement not covered" >      element = React.createElement(                                                        //         &lt;Link to="LessonQuiz"</span>
+        Link,
+        { to: "LessonQuiz",
+          params: { courseId: this.props.course.id, lessonId: this.props.lesson.id },       // Line 61:               params={{ courseId: this.props.course.id, lessonId: this.props.lesson.id }}
+          className: "button" },                                                            // Line 62:               className="button"&gt;
+        "Take Quiz"
+      );
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return element;</span>
+  },
+&nbsp;
+  render: <span class="fstat-no" title="function not covered" >function render() {</span>                                                               // Line 71:   render: function() {
+<span class="cstat-no" title="statement not covered" >    var classes = cx({</span>
+      "lesson-snippet": true,                                                               // Line 73:       'lesson-snippet': true,
+      completed: _.some(this.props.course.lessonsCompleted, <span class="fstat-no" title="function not covered" >function (lessonId) {</span>           // Line 74:       'completed': _.some(this.props.course.lessonsCompleted, function(lessonId) { return lessonId === this.props.lesson.id; })
+<span class="cstat-no" title="statement not covered" >        return lessonId === this.props.lesson.id;</span>
+      })
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return React.createElement(                                             // Line 78:       &lt;article className={classes}&gt;</span>
+      "article",
+      { className: classes },
+      this.renderLessonImage(),                                     // Line 80:         {this.renderLessonImage()}
+      React.createElement(                                          // Line 82:         &lt;div className="info-container"&gt;
+        "div",
+        { className: "info-container" },
+        React.createElement(                                // Line 83:           &lt;Link to="CourseLesson"
+          Link,
+          { to: "CourseLesson",
+            params: { courseId: this.props.course.id, lessonId: this.props.lesson.id },     // Line 84:                 params={{ courseId: this.props.course.id, lessonId: this.props.lesson.id }}
+            className: "title" },                                                           // Line 85:                 className="title"&gt;
+          this.props.lesson.title                                                           // Line 86:             {this.props.lesson.title}
+        ),                                                                                  // Line 87:           &lt;/Link&gt;
+        React.createElement(                                                                // Line 89:           &lt;p className="description flush"&gt;{this.props.lesson.description}&lt;/p&gt;
+          "p",
+          { className: "description flush" },
+          this.props.lesson.description
+        ),
+        React.createElement(                                        // Line 91:           &lt;div className="buttons-container soft--top"&gt;
+          "div",
+          { className: "buttons-container soft--top" },
+          React.createElement(                              // Line 92:             &lt;Link to="CourseLesson"
+            Link,
+            { to: "CourseLesson",
+              params: { courseId: this.props.course.id, lessonId: this.props.lesson.id },       // Line 93:                   params={{ courseId: this.props.course.id, lessonId: this.props.lesson.id }}
+              className: "button nudge-half--right" },                                          // Line 94:                   className="button nudge-half--right"&gt;
+            "Read Lesson"
+          ),                                                                                    // Line 96:             &lt;/Link&gt;
+          this.renderQuizButton()                                                               // Line 97:             {this.renderQuizButton()}
+        )                                                                                       // Line 98:           &lt;/div&gt;
+      )                                                                                         // Line 99:         &lt;/div&gt;
+    );
+  }
+&nbsp;
+});
+&nbsp;
+module.exports = LessonSnippet;
+// SourceMap was distributed to comments by gulp-jsx-coverage</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Apr 14 2015 13:17:18 GMT-0400 (EDT)</div>
+</div>
+
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+
+<script src="../../sorter.js"></script>
+</body>
+</html>

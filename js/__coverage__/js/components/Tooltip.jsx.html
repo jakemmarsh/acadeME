@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/components/Tooltip.jsx</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../prettify.css">
+
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">js/components/Tooltip.jsx</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">18.52% <small>(5 / 27)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">16.67% <small>(1 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">18.52% <small>(5 / 27)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">js/components/</a> &#187; Tooltip.jsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+var React = require("react/addons");        // var React = require('react/addons');
+var $ = require("jquery");                  // var $     = require('jquery');
+&nbsp;
+var Tooltip = React.createClass({
+  displayName: "Tooltip",
+&nbsp;
+  propTypes: {
+    content: React.PropTypes.string.isRequired,
+    position: React.PropTypes.string.isRequired,
+    left: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])       // Line 14:     ])
+  },
+&nbsp;
+  getDefaultProps: function getDefaultProps() {                                             // Line 17:   getDefaultProps: function() {
+    return {
+      position: "top",                                                                      // Line 19:       position: 'top',
+      left: 0
+    };
+  },
+&nbsp;
+  getInitialState: <span class="fstat-no" title="function not covered" >function getInitialState() {</span>                                             // Line 24:   getInitialState: function() {
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      width: 0,
+      height: 0
+    };
+  },
+&nbsp;
+  componentDidMount: <span class="fstat-no" title="function not covered" >function componentDidMount() {</span>                                         // Line 31:   componentDidMount: function() {
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      width: $(this.getDOMNode()).outerWidth(),
+      height: $(this.getDOMNode()).outerHeight() + 10
+    });
+  },
+&nbsp;
+  getLeftValue: <span class="fstat-no" title="function not covered" >function getLeftValue() {</span>                                                   // Line 38:   getLeftValue: function() {
+<span class="cstat-no" title="statement not covered" >    var percentRegex = new RegExp("%", "gi"); </span>                                              // Line 39:     var percentRegex = new RegExp('%', 'gi');
+<span class="cstat-no" title="statement not covered" >    var pixelRegex = new RegExp("px", "gi"); </span>                                               // Line 40:     var pixelRegex = new RegExp('px', 'gi');
+<span class="cstat-no" title="statement not covered" >    var returnVal;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (percentRegex.test(this.props.left)) {                                               // Line 43:     if ( percentRegex.test(this.props.left) ) {</span>
+<span class="cstat-no" title="statement not covered" >      returnVal = "calc(" + this.props.left + " - " + this.state.width / 2 + "px)"; </span>        // Line 44:       returnVal = 'calc(' + this.props.left + ' - ' + this.state.width/2 + 'px)';
+    } else <span class="cstat-no" title="statement not covered" >if (pixelRegex.test(this.props.left)) {                                          // Line 45:     } else if ( pixelRegex.test(this.props.left) ) {</span>
+<span class="cstat-no" title="statement not covered" >      returnVal = this.props.left;</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      returnVal = this.props.left + "px"; </span>                                                  // Line 48:       returnVal = this.props.left + 'px';
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return returnVal;</span>
+  },
+&nbsp;
+  getTopValue: <span class="fstat-no" title="function not covered" >function getTopValue() {</span>                                                     // Line 54:   getTopValue: function() {
+<span class="cstat-no" title="statement not covered" >    var returnVal;</span>
+&nbsp;
+    // TODO: finish this logic
+<span class="cstat-no" title="statement not covered" >    switch (this.props.position) {                                                          // Line 58:     switch ( this.props.position ) {</span>
+      case "top":                                                                           // Line 59:       case 'top':
+<span class="cstat-no" title="statement not covered" >        returnVal = "-" + (this.state.height + 5); </span>                                         // Line 60:         returnVal = '-' + (this.state.height + 5);
+<span class="cstat-no" title="statement not covered" >        break;</span>
+      case "right":                                                                         // Line 62:       case 'right':
+<span class="cstat-no" title="statement not covered" >        break;</span>
+      case "bottom":                                                                        // Line 64:       case 'bottom':
+<span class="cstat-no" title="statement not covered" >        break;</span>
+      case "left":                                                                          // Line 66:       case 'left':
+<span class="cstat-no" title="statement not covered" >        break;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return returnVal;</span>
+  },
+&nbsp;
+  render: <span class="fstat-no" title="function not covered" >function render() {</span>                                                               // Line 73:   render: function() {
+<span class="cstat-no" title="statement not covered" >    var classes = "tooltip " + this.props.position; </span>                                        // Line 74:     var classes = 'tooltip ' + this.props.position;
+<span class="cstat-no" title="statement not covered" >    var styles = {</span>
+      left: this.getLeftValue(),                                                            // Line 76:       'left': this.getLeftValue(),
+      top: this.getTopValue(),                                                              // Line 77:       'top': this.getTopValue(),
+      bottom: this.props.bottom };                                                          // Line 79:     };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return React.createElement(                                                             // Line 82:       &lt;div className={classes} style={styles} key={'tooltip'}&gt;</span>
+      "div",
+      { className: classes, style: styles, key: "tooltip" },
+      this.props.content                                                            // Line 83:         {this.props.content}
+    );
+  }
+&nbsp;
+});
+&nbsp;
+module.exports = Tooltip;
+// SourceMap was distributed to comments by gulp-jsx-coverage</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Apr 14 2015 13:17:18 GMT-0400 (EDT)</div>
+</div>
+
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+
+<script src="../../sorter.js"></script>
+</body>
+</html>

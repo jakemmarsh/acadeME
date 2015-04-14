@@ -288,6 +288,8 @@ exports.checkAnswer = function(req, res) {
   var doCheck = function(quizId, questionId, userAnswer) {
     var deferred = when.defer();
 
+    console.log('user in check:', req.user);
+
     if ( !_.isEmpty(req.session.quiz) ) {
       models.Answer.findAll({
         where: {
@@ -295,6 +297,7 @@ exports.checkAnswer = function(req, res) {
           isCorrect: true
         }
       }).then(function(answers) {
+        console.log('user after getting answer for check:', req.user);
         if ( answerMatches(userAnswer, answers) ) {
           req.session.quiz.score += req.session.quiz.currentQuestion.difficulty;
           deferred.resolve(true);
@@ -303,6 +306,7 @@ exports.checkAnswer = function(req, res) {
           deferred.resolve(false);
         }
       }).catch(function(err) {
+        console.log('error doing check:', err);
         deferred.reject({ status: 500, body: err });
       });
     } else {
@@ -313,7 +317,9 @@ exports.checkAnswer = function(req, res) {
   };
 
   doCheck(req.params.quizId, req.params.questionId, req.body.answer).then(function(result) {
+    console.log('user before save:', req.user);
     req.session.save();
+    console.log('user in checkAnswer:', req.user);
     res.status(200).json({ isCorrect: result, score: req.session.quiz.score });
   }).catch(function(err) {
     res.status(err.status).json({ error: err.body });

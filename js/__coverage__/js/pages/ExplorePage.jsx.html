@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/pages/ExplorePage.jsx</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../prettify.css">
+
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">js/pages/ExplorePage.jsx</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">45% <small>(27 / 60)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">24.56% <small>(14 / 57)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">28.57% <small>(4 / 14)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">45% <small>(27 / 60)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">js/pages/</a> &#187; ExplorePage.jsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+var React = require("react/addons");        // var React            = require('react/addons');
+var ReactAsync = require("react-async");        // var ReactAsync       = require('react-async');
+var Reflux = require("reflux");                 // var Reflux           = require('reflux');
+var _ = require("lodash");                      // var _                = require('lodash');
+var Navigation = require("react-router").Navigation;        // var Navigation       = require('react-router').Navigation;
+var DocumentTitle = require("react-document-title");        // var DocumentTitle    = require('react-document-title');
+&nbsp;
+var PageActions = require("../actions/PageActions");        // var PageActions      = require('../actions/PageActions');
+var ExplorePageStore = require("../stores/ExplorePageStore");       // var ExplorePageStore = require('../stores/ExplorePageStore');
+var TopMenu = require("../components/TopMenu.jsx");                 // var TopMenu          = require('../components/TopMenu.jsx');
+var CourseSnippet = require("../components/CourseSnippet.jsx");     // var CourseSnippet    = require('../components/CourseSnippet.jsx');
+&nbsp;
+var ExplorePage = React.createClass({
+  displayName: "ExplorePage",
+&nbsp;
+  mixins: [ReactAsync.Mixin, React.addons.LinkedStateMixin, Reflux.ListenerMixin, Navigation],
+&nbsp;
+  propTypes: {
+    currentUser: React.PropTypes.object
+  },
+&nbsp;
+  getInitialStateAsync: <span class="fstat-no" title="function not covered" >function getInitialStateAsync(cb) {</span>         // Line 23:   getInitialStateAsync: function(cb) {
+<span class="cstat-no" title="statement not covered" >    console.log("get initial state in ExplorePage.jsx"); </span>           // Line 24:     console.log('get initial state in ExplorePage.jsx');
+<span class="cstat-no" title="statement not covered" >    if (this.props.query.q &amp;&amp; this.props.query.q.length) {          // Line 25:     if ( this.props.query.q &amp;&amp; this.props.query.q.length ) {</span>
+<span class="cstat-no" title="statement not covered" >      PageActions.searchAllCourses(this.props.query.q, (<span class="fstat-no" title="function not covered" >function (err, results) {</span>       // Line 26:       PageActions.searchAllCourses(this.props.query.q, function(err, results) {</span>
+<span class="cstat-no" title="statement not covered" >        cb(null, {</span>
+          loading: false,
+          query: this.props.query.q.replace(/(\+)|(%20)/gi, " "),                       // Line 29:           query: this.props.query.q.replace(/(\+)|(%20)/gi, ' '),
+          courses: {
+            newest: [],
+            trending: [],
+            results: results
+          }
+        });
+      }).bind(this));                                                                   // Line 36:       }.bind(this));
+    } else {
+<span class="cstat-no" title="statement not covered" >      PageActions.openExplore(<span class="fstat-no" title="function not covered" >function (err, courses) {</span>                                 // Line 38:       PageActions.openExplore(function(err, courses) {</span>
+<span class="cstat-no" title="statement not covered" >        cb(null, {</span>
+          loading: false,
+          query: "",                                                                    // Line 41:           query: '',
+          courses: courses
+        });
+      });
+    }
+  },
+&nbsp;
+  _onCoursesChange: <span class="fstat-no" title="function not covered" >function _onCoursesChange(err, courses) {</span>                           // Line 48:   _onCoursesChange: function(err, courses) {
+<span class="cstat-no" title="statement not covered" >    if (err) {                                                                          // Line 49:     if ( err ) {</span>
+<span class="cstat-no" title="statement not covered" >      this.setState({ loading: false, error: err.message });</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      this.setState({</span>
+        loading: false,
+        courses: courses,
+        error: null
+      });
+    }
+  },
+&nbsp;
+  _doSearch: <span class="fstat-no" title="function not covered" >function _doSearch() {</span>                                                     // Line 60:   _doSearch: function() {
+<span class="cstat-no" title="statement not covered" >    this.setState({</span>
+      loading: true
+    }, (<span class="fstat-no" title="function not covered" >function () {</span>                                                                   // Line 63:     }, function() {
+<span class="cstat-no" title="statement not covered" >      PageActions.searchAllCourses(this.state.query, this._onCoursesChange);</span>
+    }).bind(this));                                                                     // Line 65:     }.bind(this));
+  },
+&nbsp;
+  componentDidMount: function componentDidMount() {                                     // Line 68:   componentDidMount: function() {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.state.query &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!this.state.courses.results)</span> {                              // Line 69:     if ( this.state.query &amp;&amp; !this.state.courses.results ) {
+<span class="cstat-no" title="statement not covered" >      PageActions.searchAllCourses(this.props.query.q, this._onCoursesChange);</span>
+    } else <span class="missing-if-branch" title="else path not taken" >E</span>if (_.isEmpty(this.state.courses) || <span class="branch-1 cbranch-no" title="branch not covered" >!this.state.courses.newest </span>|| <span class="branch-2 cbranch-no" title="branch not covered" >!this.state.courses.trending)</span> {       // Line 71:     } else if ( _.isEmpty(this.state.courses) || !this.state.courses.newest || !this.state.courses.trending ) {
+      PageActions.openExplore(this._onCoursesChange);
+    }
+    this.listenTo(ExplorePageStore, this._onCoursesChange);
+  },
+&nbsp;
+  componentDidUpdate: <span class="fstat-no" title="function not covered" >function componentDidUpdate(prevProps) {</span>                                                      // Line 77:   componentDidUpdate: function(prevProps) {
+<span class="cstat-no" title="statement not covered" >    var haveNewQuery = this.props.query.q &amp;&amp; this.props.query.q.length &amp;&amp; prevProps.query.q !== this.props.query.q;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (haveNewQuery) {                                                                                             // Line 80:     if ( haveNewQuery ) {</span>
+<span class="cstat-no" title="statement not covered" >      this.setState({</span>
+        query: this.props.query.q
+      }, this._doSearch);
+    } else <span class="cstat-no" title="statement not covered" >if (!this.state.courses || !this.state.courses.newest.length || !this.state.courses.trending.length) {       // Line 84:     } else if ( !this.state.courses || !this.state.courses.newest.length || !this.state.courses.trending.length ) {</span>
+<span class="cstat-no" title="statement not covered" >      PageActions.openExplore(this._onCoursesChange);</span>
+    }
+  },
+&nbsp;
+  submitOnEnter: <span class="fstat-no" title="function not covered" >function submitOnEnter(evt) {</span>                                                                          // Line 89:   submitOnEnter: function(evt) {
+<span class="cstat-no" title="statement not covered" >    var keyCode = evt.keyCode || evt.which;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    console.log("submit on enter:", this.state.query); </span>                                                                 // Line 92:     console.log('submit on enter:', this.state.query);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (keyCode === "13" || keyCode === 13) {                                                                           // Line 94:     if ( (keyCode === '13' || keyCode === 13) ) {</span>
+<span class="cstat-no" title="statement not covered" >      console.log("should replace with"); </span>                                                                              // Line 95:       console.log('should replace with');
+<span class="cstat-no" title="statement not covered" >      if (this.state.query.length) {                                                                                    // Line 96:       if ( this.state.query.length ) {</span>
+<span class="cstat-no" title="statement not covered" >        this.replaceWith("Explore", {}, { q: this.state.query }); </span>                                                      // Line 97:         this.replaceWith('Explore', {}, { q: this.state.query });
+      } else {
+<span class="cstat-no" title="statement not covered" >        this.replaceWith("Explore"); </span>                                                                                   // Line 99:         this.replaceWith('Explore');
+      }
+    }
+  },
+&nbsp;
+  renderCourses: function renderCourses(courses) {                                                                      // Line 104:   renderCourses: function(courses) {
+    var element = null;
+&nbsp;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.state.loading) {                                                                                           // Line 107:     if ( this.state.loading ) {
+<span class="cstat-no" title="statement not covered" >      console.log("element will be loading div"); </span>                                                                      // Line 108:       console.log('element will be loading div');
+<span class="cstat-no" title="statement not covered" >      element = React.createElement(                                                                                    //         &lt;div&gt;loading&lt;/div&gt;</span>
+        "div",
+        null,
+        "loading"
+      );
+    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (courses &amp;&amp; courses.length) {                                                                             // Line 112:     } else if ( courses &amp;&amp; courses.length ) {
+<span class="cstat-no" title="statement not covered" >      element = _.map(courses, <span class="fstat-no" title="function not covered" >function (course, index) {</span>                                                               // Line 113:       element = _.map(courses, function(course, index) {</span>
+<span class="cstat-no" title="statement not covered" >        return React.createElement(CourseSnippet, { key: index, course: course }); </span>                                     // Line 116:         );
+      });
+    }
+&nbsp;
+    return element;
+  },
+&nbsp;
+  renderInitialCourses: function renderInitialCourses() {                                                               // Line 123:   renderInitialCourses: function() {
+    var element = null;
+    var newestCourses = this.state.courses &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >this.state.courses.newest </span>? <span class="branch-0 cbranch-no" title="branch not covered" >this.state.courses.newest </span>: [];
+    var trendingCourses = this.state.courses &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >this.state.courses.trending </span>? <span class="branch-0 cbranch-no" title="branch not covered" >this.state.courses.trending </span>: [];
+&nbsp;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!this.props.query.q) {                                                                                          // Line 128:     if ( !this.props.query.q ) {
+      element = React.createElement(                                                                                    //         &lt;div&gt;
+        "div",
+        null,
+        React.createElement(                                                                                            // Line 131:           &lt;h2 className="page-title newest-courses-title nudge--top nudge-half--bottom"&gt;Newest Courses&lt;/h2&gt;
+          "h2",
+          { className: "page-title newest-courses-title nudge--top nudge-half--bottom" },
+          "Newest Courses"
+        ),
+        React.createElement(                                                                            // Line 132:           &lt;div className="card newest-courses-list"&gt;
+          "div",
+          { className: "card newest-courses-list" },
+          this.renderCourses(newestCourses)                                                     // Line 133:             {this.renderCourses(newestCourses)}
+        ),                                                                                      // Line 134:           &lt;/div&gt;
+        React.createElement(                                                                    // Line 135:           &lt;h2 className="page-title trending-courses-title nudge--top nudge-half--bottom"&gt;Trending Courses&lt;/h2&gt;
+          "h2",
+          { className: "page-title trending-courses-title nudge--top nudge-half--bottom" },
+          "Trending Courses"
+        ),
+        React.createElement(                                                    // Line 136:           &lt;div className="card trending-courses-list"&gt;
+          "div",
+          { className: "card trending-courses-list" },
+          this.renderCourses(trendingCourses)                           // Line 137:             {this.renderCourses(trendingCourses)}
+        )                                                               // Line 138:           &lt;/div&gt;
+      );
+    }
+&nbsp;
+    return element;
+  },
+&nbsp;
+  renderSearchResults: <span class="fstat-no" title="function not covered" >function renderSearchResults() {</span>                 // Line 146:   renderSearchResults: function() {
+<span class="cstat-no" title="statement not covered" >    var element = null;</span>
+<span class="cstat-no" title="statement not covered" >    var courses = this.state.courses &amp;&amp; this.state.courses.results ? this.state.courses.results : [];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (this.props.query.q) {                                           // Line 150:     if ( this.props.query.q ) {</span>
+<span class="cstat-no" title="statement not covered" >      element = React.createElement(                                    // Line 152:         &lt;div&gt;</span>
+        "div",
+        null,
+        React.createElement(                                            // Line 153:           &lt;h2 className="page-title nudge--top nudge-half--bottom"&gt;
+          "h2",
+          { className: "page-title nudge--top nudge-half--bottom" },
+          "Results for: ",
+          this.props.query.q.replace(/(\+)|(%20)/gi, " ")       // Line 154:             Results for: {this.props.query.q.replace(/(\+)|(%20)/gi, ' ')}
+        ),                                                      // Line 155:           &lt;/h2&gt;
+        React.createElement(                                    // Line 156:           &lt;div className="card"&gt;
+          "div",
+          { className: "card" },
+          this.renderCourses(courses)                   // Line 157:             {this.renderCourses(courses)}
+        )                                               // Line 158:           &lt;/div&gt;
+      );
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return element;</span>
+  },
+&nbsp;
+  render: function render() {                           // Line 166:   render: function() {
+    return React.createElement(                         // Line 168:       &lt;DocumentTitle title="Explore"&gt;
+      DocumentTitle,
+      { title: "Explore" },
+      React.createElement(              // Line 169:         &lt;section className="explore-page"&gt;
+        "section",
+        { className: "explore-page" },
+        React.createElement(        // Line 171:           &lt;TopMenu&gt;
+          TopMenu,
+          null,
+          React.createElement(      // Line 172:             &lt;li className="search-container"&gt;
+            "li",
+            { className: "search-container" },
+            React.createElement("i", { className: "fa fa-search" }),        // Line 173:               &lt;i className="fa fa-search" /&gt;
+            React.createElement("input", { type: "text",                    // Line 174:               &lt;input type="text"
+              className: "search",                                          // Line 175:                      className="search"
+              placeholder: "Search for courses...",                         // Line 176:                      placeholder="Search for courses..."
+              valueLink: this.linkState("query"),                           // Line 177:                      valueLink={this.linkState('query')}
+              onKeyPress: this.submitOnEnter })                             // Line 178:                      onKeyPress={this.submitOnEnter} /&gt;
+          )                                                                 // Line 179:             &lt;/li&gt;
+        ),                                                                  // Line 180:           &lt;/TopMenu&gt;
+        React.createElement(                                                // Line 182:           &lt;div className="courses-container soft--sides soft--bottom"&gt;
+          "div",
+          { className: "courses-container soft--sides soft--bottom" },
+          this.props.query.q ? <span class="branch-0 cbranch-no" title="branch not covered" >this.renderSearchResults() </span>: this.renderInitialCourses()     // Line 183:             {this.props.query.q ? this.renderSearchResults() : this.renderInitialCourses()}
+        )                                                                                   // Line 184:           &lt;/div&gt;
+      )                                                                                     // Line 186:         &lt;/section&gt;
+    );
+  }
+&nbsp;
+});
+&nbsp;
+module.exports = ExplorePage;
+// SourceMap was distributed to comments by gulp-jsx-coverage</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Apr 14 2015 13:17:18 GMT-0400 (EDT)</div>
+</div>
+
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+
+<script src="../../sorter.js"></script>
+</body>
+</html>

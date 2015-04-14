@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/Routes.jsx</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../prettify.css">
+
+    <link rel="stylesheet" href="../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">js/Routes.jsx</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">100% <small>(20 / 20)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">100% <small>(20 / 20)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">js/</a> &#187; Routes.jsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+var React = require("react/addons");        // var React            = require('react/addons');
+var Router = require("react-router");       // var Router           = require('react-router');
+var Route = Router.Route;                   // var Route            = Router.Route;
+var DefaultRoute = Router.DefaultRoute;     // var DefaultRoute     = Router.DefaultRoute;
+var NotFoundRoute = Router.NotFoundRoute;       // var NotFoundRoute    = Router.NotFoundRoute;
+&nbsp;
+var App = require("./App.jsx");                 // var App              = require('./App.jsx');
+&nbsp;
+var CurriculumPage = require("./pages/CurriculumPage.jsx");     // var CurriculumPage   = require('./pages/CurriculumPage.jsx');
+var RegisterPage = require("./pages/RegisterPage.jsx");         // var RegisterPage     = require('./pages/RegisterPage.jsx');
+var ExplorePage = require("./pages/ExplorePage.jsx");           // var ExplorePage      = require('./pages/ExplorePage.jsx');
+var CreateCoursePage = require("./pages/CreateCoursePage.jsx");     // var CreateCoursePage = require('./pages/CreateCoursePage.jsx');
+var CoursePage = require("./pages/CoursePage.jsx");                 // var CoursePage       = require('./pages/CoursePage.jsx');
+var CourseLessonList = require("./pages/Course/LessonList.jsx");        // var CourseLessonList = require('./pages/Course/LessonList.jsx');
+var CourseLesson = require("./pages/Course/Lesson.jsx");                // var CourseLesson     = require('./pages/Course/Lesson.jsx');
+var LessonQuiz = require("./pages/Course/Quiz.jsx");                    // var LessonQuiz       = require('./pages/Course/Quiz.jsx');
+var CourseSearch = require("./pages/Course/Search.jsx");                // var CourseSearch     = require('./pages/Course/Search.jsx');
+var CourseChat = require("./pages/Course/Chat.jsx");                    // var CourseChat       = require('./pages/Course/Chat.jsx');
+var CreateLesson = require("./pages/Course/CreateLesson.jsx");          // var CreateLesson     = require('./pages/Course/CreateLesson.jsx');
+var CreateQuiz = require("./pages/Course/CreateQuiz.jsx");              // var CreateQuiz       = require('./pages/Course/CreateQuiz.jsx');
+var NotFoundPage = require("./pages/NotFoundPage.jsx");                 // var NotFoundPage     = require('./pages/NotFoundPage.jsx');
+&nbsp;
+module.exports = React.createElement(                                   // Line 26:   &lt;Route path='/' handler={App}&gt;
+  Route,
+  { path: "/", handler: App },
+  React.createElement(DefaultRoute, { handler: ExplorePage }),      //     &lt;DefaultRoute handler={ExplorePage} /&gt;
+  React.createElement(Route, { name: "Home", path: "/", handler: CurriculumPage }),     // Line 30:     &lt;Route name='Home' path='/' handler={CurriculumPage} /&gt;
+  React.createElement(Route, { name: "Register", path: "/register", handler: RegisterPage }),       // Line 32:     &lt;Route name='Register' path='/register' handler={RegisterPage} /&gt;
+  React.createElement(Route, { name: "Explore", path: "/explore", handler: ExplorePage }),          // Line 34:     &lt;Route name='Explore' path='/explore' handler={ExplorePage} /&gt;
+  React.createElement(Route, { name: "CreateCourse", path: "/create", handler: CreateCoursePage }),     // Line 36:     &lt;Route name='CreateCourse' path='/create' handler={CreateCoursePage} /&gt;
+  React.createElement(                                                                                  // Line 38:     &lt;Route name='Course' handler={CoursePage}&gt;
+    Route,
+    { name: "Course", handler: CoursePage },
+    React.createElement(Route, { name: "CourseLessonList", path: "/course/:courseId", handler: CourseLessonList }),     // Line 39:       &lt;Route name='CourseLessonList' path='/course/:courseId' handler={CourseLessonList} /&gt;
+    React.createElement(Route, { name: "CourseLesson", path: "/course/:courseId/lesson/:lessonId", handler: CourseLesson }),        // Line 40:       &lt;Route name='CourseLesson' path='/course/:courseId/lesson/:lessonId' handler={CourseLesson} /&gt;
+    React.createElement(Route, { name: "LessonQuiz", path: "/course/:courseId/lesson/:lessonId/quiz", handler: LessonQuiz }),       // Line 41:       &lt;Route name='LessonQuiz' path='/course/:courseId/lesson/:lessonId/quiz' handler={LessonQuiz} /&gt;
+    React.createElement(Route, { name: "CourseSearch", path: "/course/:courseId/search", handler: CourseSearch }),                  // Line 42:       &lt;Route name='CourseSearch' path='/course/:courseId/search' handler={CourseSearch} /&gt;
+    React.createElement(Route, { name: "CourseChat", path: "/course/:courseId/chat", handler: CourseChat }),                        // Line 43:       &lt;Route name='CourseChat' path='/course/:courseId/chat' handler={CourseChat} /&gt;
+    React.createElement(Route, { name: "CreateLesson", path: "/course/:courseId/create", handler: CreateLesson }),                  // Line 44:       &lt;Route name='CreateLesson' path='/course/:courseId/create' handler={CreateLesson} /&gt;
+    React.createElement(Route, { name: "CreateQuiz", path: "/course/:courseId/lesson/:lessonId/quiz/create", handler: CreateQuiz }),        // Line 45:       &lt;Route name='CreateQuiz' path='/course/:courseId/lesson/:lessonId/quiz/create' handler={CreateQuiz} /&gt;
+    React.createElement(DefaultRoute, { handler: CourseLessonList })                                                                        // Line 46:       &lt;DefaultRoute handler={CourseLessonList} /&gt;
+  ),                                                                                                                                        // Line 47:     &lt;/Route&gt;
+  React.createElement(NotFoundRoute, { handler: NotFoundPage })                                                                             // Line 49:     &lt;NotFoundRoute handler={NotFoundPage} /&gt;
+);
+// SourceMap was distributed to comments by gulp-jsx-coverage</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Apr 14 2015 13:17:18 GMT-0400 (EDT)</div>
+</div>
+
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+
+<script src="../sorter.js"></script>
+</body>
+</html>

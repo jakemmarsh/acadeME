@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/mixins/ChatSocketMixin.js</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../prettify.css">
+
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">js/mixins/ChatSocketMixin.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">13.33% <small>(4 / 30)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">13.33% <small>(4 / 30)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">js/mixins/</a> &#187; ChatSocketMixin.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+var when = require("when");     // var when = require('when');
+var io = require("socket.io-client");       // var io   = require('socket.io-client');
+&nbsp;
+var ChatSocketMixin = {
+&nbsp;
+  socket: null,
+&nbsp;
+  getInitialState: <span class="fstat-no" title="function not covered" >function getInitialState() {</span>     //   getInitialState: function() {
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      newMessages: []
+    };
+  },
+&nbsp;
+  clearNewMessages: <span class="fstat-no" title="function not covered" >function clearNewMessages() {</span>       //   clearNewMessages: function() {
+<span class="cstat-no" title="statement not covered" >    this.setState({ newMessages: [] });</span>
+  },
+&nbsp;
+  addNewMessage: <span class="fstat-no" title="function not covered" >function addNewMessage(message) {</span>      //   addNewMessage: function(message) {
+<span class="cstat-no" title="statement not covered" >    var newMessagesCopy = this.state.newMessages;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    console.log("add new:", message.body); </span>             //     console.log('add new:', message.body);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    newMessagesCopy.push(message);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.setState({ newMessages: newMessagesCopy });</span>
+  },
+&nbsp;
+  openSocket: <span class="fstat-no" title="function not covered" >function openSocket() {</span>                   //   openSocket: function() {
+<span class="cstat-no" title="statement not covered" >    if (!this.socket) {                                 //     if ( !this.socket ) {</span>
+<span class="cstat-no" title="statement not covered" >      this.socket = io("http://localhost:3000"); </span>       //       this.socket = io('http://localhost:3000');
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      this.socket.on("updateChat", (<span class="fstat-no" title="function not covered" >function (message) {</span>        //       this.socket.on('updateChat', function(message) {</span>
+<span class="cstat-no" title="statement not covered" >        console.log("update chat:", message); </span>                  //         console.log('update chat:', message);
+<span class="cstat-no" title="statement not covered" >        this.addNewMessage(message);</span>
+      }).bind(this));                                           //       }.bind(this));
+    }
+  },
+&nbsp;
+  joinChat: <span class="fstat-no" title="function not covered" >function joinChat(courseId, currentUserId, recipientId, cb) {</span>       //   joinChat: function(courseId, currentUserId, recipientId, cb) {
+<span class="cstat-no" title="statement not covered" >    var deferred = when.defer();</span>
+<span class="cstat-no" title="statement not covered" >    var sortedIds = [currentUserId, recipientId].sort();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    cb = cb || <span class="fstat-no" title="function not covered" >function () {</span>}; </span>                                                 //     cb = cb || function() {};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.openSocket();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.leaveChat((<span class="fstat-no" title="function not covered" >function () {</span>                                               //     this.leaveChat(function() {</span>
+<span class="cstat-no" title="statement not covered" >      this.socket.emit("joinChat", {                                            //       this.socket.emit('joinChat', {</span>
+        courseId: courseId,
+        userOneId: sortedIds[0],
+        userTwoId: sortedIds[1]
+      }, deferred.resolve);
+    }).bind(this));                                                             //     }.bind(this));
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return deferred.promise;</span>
+  },
+&nbsp;
+  sendMessage: <span class="fstat-no" title="function not covered" >function sendMessage(message, conversationId, currentUserId, attachment, cb) {</span>       //   sendMessage: function(message, conversationId, currentUserId, attachment, cb) {
+<span class="cstat-no" title="statement not covered" >    cb = cb || <span class="fstat-no" title="function not covered" >function () {</span>}; </span>                                                                     //     cb = cb || function() {};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    console.log("send message:", message); </span>                                                         //     console.log('send message:', message);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.socket.emit("sendMessage", {                                                               //     this.socket.emit('sendMessage', {</span>
+      message: {
+        body: message || "",                                                                        //         body: message || '',
+        ConversationId: conversationId,
+        UserId: currentUserId
+      },
+      attachment: attachment
+    }, cb);
+  },
+&nbsp;
+  leaveChat: <span class="fstat-no" title="function not covered" >function leaveChat(cb) {</span>                                                               //   leaveChat: function(cb) {
+<span class="cstat-no" title="statement not covered" >    cb = cb || <span class="fstat-no" title="function not covered" >function () {</span>}; </span>                                                                     //     cb = cb || function() {};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (this.socket) {                                                                              //     if ( this.socket ) {</span>
+<span class="cstat-no" title="statement not covered" >      this.socket.emit("leaveChat"); </span>                                                               //       this.socket.emit('leaveChat');
+<span class="cstat-no" title="statement not covered" >      this.clearNewMessages();</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    cb();</span>
+  }
+&nbsp;
+};
+&nbsp;
+module.exports = ChatSocketMixin;
+// SourceMap was distributed to comments by gulp-jsx-coverage</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Apr 14 2015 13:17:18 GMT-0400 (EDT)</div>
+</div>
+
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+
+<script src="../../sorter.js"></script>
+</body>
+</html>

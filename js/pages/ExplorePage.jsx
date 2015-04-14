@@ -81,7 +81,7 @@ var ExplorePage = React.createClass({
       this.setState({
         query: this.props.query.q
       }, this._doSearch);
-    } else if ( !this.state.courses.newest.length || !this.state.courses.trending.length ) {
+    } else if ( !this.state.courses || !this.state.courses.newest.length || !this.state.courses.trending.length ) {
       PageActions.openExplore(this._onCoursesChange);
     }
   },
@@ -128,12 +128,12 @@ var ExplorePage = React.createClass({
     if ( !this.props.query.q ) {
       element = (
         <div>
-          <h2 className="page-title nudge--top nudge-half--bottom">Newest Courses</h2>
-          <div className="card">
+          <h2 className="page-title newest-courses-title nudge--top nudge-half--bottom">Newest Courses</h2>
+          <div className="card newest-courses-list">
             {this.renderCourses(newestCourses)}
           </div>
-          <h2 className="page-title nudge--top nudge-half--bottom">Trending Courses</h2>
-          <div className="card">
+          <h2 className="page-title trending-courses-title nudge--top nudge-half--bottom">Trending Courses</h2>
+          <div className="card trending-courses-list">
             {this.renderCourses(trendingCourses)}
           </div>
         </div>

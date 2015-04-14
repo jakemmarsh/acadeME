@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/stores/CurrentConversationStore.js</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../prettify.css">
+
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">js/stores/CurrentConversationStore.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">42.11% <small>(8 / 19)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">20% <small>(1 / 5)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">42.11% <small>(8 / 19)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">js/stores/</a> &#187; CurrentConversationStore.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+var Reflux = require("reflux");     // var Reflux           = require('reflux');
+&nbsp;
+var ChatAPI = require("../utils/ChatAPI");      // var ChatAPI          = require('../utils/ChatAPI');
+var ChatActions = require("../actions/ChatActions");        // var ChatActions      = require('../actions/ChatActions');
+var CurrentUserStore = require("../stores/CurrentUserStore");       // var CurrentUserStore = require('../stores/CurrentUserStore');
+&nbsp;
+var CurrentConversationStore = Reflux.createStore({
+&nbsp;
+  init: function init() {                                           //   init: function() {
+    this.conversation = null;
+&nbsp;
+    this.listenTo(ChatActions.openConversation, this.openConversation);
+  },
+&nbsp;
+  openConversation: <span class="fstat-no" title="function not covered" >function openConversation(courseId, recipientId, cb) {</span>      //   openConversation: function(courseId, recipientId, cb) {
+<span class="cstat-no" title="statement not covered" >    if (CurrentUserStore.user &amp;&amp; CurrentUserStore.user.id) {                    //     if ( CurrentUserStore.user &amp;&amp; CurrentUserStore.user.id ) {</span>
+<span class="cstat-no" title="statement not covered" >      cb = cb || <span class="fstat-no" title="function not covered" >function () {</span>}; </span>                                               //       cb = cb || function() {};
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      console.log("open conversation with course:", courseId, "recipient:", recipientId); </span>      //       console.log('open conversation with course:', courseId, 'recipient:', recipientId);
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      ChatAPI.getConversation(courseId, CurrentUserStore.user.id, recipientId).then((<span class="fstat-no" title="function not covered" >function (conversation) {</span>      //       ChatAPI.getConversation(courseId, CurrentUserStore.user.id, recipientId).then(function(conversation) {</span>
+<span class="cstat-no" title="statement not covered" >        this.conversation = conversation;</span>
+<span class="cstat-no" title="statement not covered" >        cb(null, conversation);</span>
+<span class="cstat-no" title="statement not covered" >        this.trigger(null, conversation);</span>
+      }).bind(this))["catch"]((<span class="fstat-no" title="function not covered" >function (err) {</span>                                                                     //       }.bind(this)).catch(function(err) {
+<span class="cstat-no" title="statement not covered" >        this.conversation = null;</span>
+<span class="cstat-no" title="statement not covered" >        cb(err);</span>
+<span class="cstat-no" title="statement not covered" >        this.trigger(err);</span>
+<span class="cstat-no" title="statement not covered" >        console.log("error getting conversation:", err); </span>                                                           //         console.log('error getting conversation:', err);
+      }).bind(this));                                                                                               //       }.bind(this));
+    }
+  }
+&nbsp;
+});
+&nbsp;
+module.exports = CurrentConversationStore;
+// SourceMap was distributed to comments by gulp-jsx-coverage</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Apr 14 2015 13:17:18 GMT-0400 (EDT)</div>
+</div>
+
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+
+<script src="../../sorter.js"></script>
+</body>
+</html>

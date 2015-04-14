@@ -96,7 +96,6 @@
   },
   "scripts": {
     "start": "supervisor server.js",
-    "test": "gulp test",
-    "test-api": "istanbul cover --report html --dir \"api/__coverage__\" --x \"js/**/*\" --x \"spec/**/*\" --x \"api/__tests__/**/*\" node_modules/.bin/_mocha -- -i \"api/__tests__/**/*.js\""
+    "test": "istanbul cover --report html --dir \"api/__coverage__\" --x \"js/**/*\" --x \"spec/**/*\" --x \"api/__tests__/**/*\" --x \"populateDb.js\" --x \"server.js\" node_modules/.bin/_mocha -- -i \"api/__tests__/**/*.js\""
   }
 }

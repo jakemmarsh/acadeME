@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/components/RecipientList.jsx</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../prettify.css">
+
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">js/components/RecipientList.jsx</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">20.69% <small>(6 / 29)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 26)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">12.5% <small>(1 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">20.69% <small>(6 / 29)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">js/components/</a> &#187; RecipientList.jsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+var React = require("react/addons");        // var React      = require('react/addons');
+var _ = require("lodash");                  // var _          = require('lodash');
+&nbsp;
+var UserAvatar = require("./UserAvatar.jsx");       // var UserAvatar = require('./UserAvatar.jsx');
+&nbsp;
+var RecipientList = React.createClass({
+  displayName: "RecipientList",
+&nbsp;
+  propTypes: {
+    currentUser: React.PropTypes.object.isRequired,
+    course: React.PropTypes.object.isRequired,
+    recipients: React.PropTypes.array.isRequired,
+    conversation: React.PropTypes.object.isRequired,
+    openConversation: React.PropTypes.func.isRequired
+  },
+&nbsp;
+  getDefaultProps: function getDefaultProps() {     // Line 18:   getDefaultProps: function() {
+    return {
+      currentUser: {},
+      course: {},
+      recipients: [],
+      conversation: {}
+    };
+  },
+&nbsp;
+  isActive: <span class="fstat-no" title="function not covered" >function isActive(recipientId) {</span>        // Line 27:   isActive: function(recipientId) {
+<span class="cstat-no" title="statement not covered" >    if (this.props.conversation) {                  // Line 28:     if ( this.props.conversation ) {</span>
+<span class="cstat-no" title="statement not covered" >      return this.props.conversation.userOneId === recipientId || this.props.conversation.userTwoId === recipientId;</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    }
+  },
+&nbsp;
+  renderInstructorTitle: <span class="fstat-no" title="function not covered" >function renderInstructorTitle() {</span>     // Line 35:   renderInstructorTitle: function() {
+<span class="cstat-no" title="statement not covered" >    var element = null;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (this.props.course &amp;&amp; this.props.course.instructor &amp;&amp; this.props.currentUser.id !== this.props.course.instructor.id) {       // Line 38:     if ( this.props.course &amp;&amp; this.props.course.instructor &amp;&amp; this.props.currentUser.id !== this.props.course.instructor.id ) {</span>
+<span class="cstat-no" title="statement not covered" >      element = React.createElement(                                                                                                //         &lt;li className="title"&gt;&lt;h5 className="flush"&gt;Instructor&lt;/h5&gt;&lt;/li&gt;</span>
+        "li",
+        { className: "title" },
+        React.createElement(
+          "h5",
+          { className: "flush" },
+          "Instructor"
+        )
+      );
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return element;</span>
+  },
+&nbsp;
+  renderInstructor: <span class="fstat-no" title="function not covered" >function renderInstructor() {</span>                                                   // Line 47:   renderInstructor: function() {
+<span class="cstat-no" title="statement not covered" >    var element = null;</span>
+<span class="cstat-no" title="statement not covered" >    var classes;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (this.props.course &amp;&amp; this.props.course.instructor &amp;&amp; this.props.currentUser.id !== this.props.course.instructor.id) {       // Line 51:     if ( this.props.course &amp;&amp; this.props.course.instructor &amp;&amp; this.props.currentUser.id !== this.props.course.instructor.id ) {</span>
+<span class="cstat-no" title="statement not covered" >      classes = this.isActive(this.props.course.instructor.id) ? "active" : ""; </span>                                                    // Line 52:       classes = this.isActive(this.props.course.instructor.id) ? 'active' : '';
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      element = React.createElement(                                                                                                // Line 55:         &lt;li onClick={this.props.openConversation.bind(null, this.props.course.instructor)} className={classes}&gt;</span>
+        "li",
+        { onClick: this.props.openConversation.bind(null, this.props.course.instructor), className: classes },
+        React.createElement(                                                                                                // Line 56:           &lt;div className="avatar-container"&gt;
+          "div",
+          { className: "avatar-container" },
+          React.createElement(UserAvatar, { user: this.props.course.instructor })                                   // Line 57:             &lt;UserAvatar user={this.props.course.instructor} /&gt;
+        ),                                                                                                          // Line 58:           &lt;/div&gt;
+        React.createElement(                                                                                        // Line 59:           &lt;div className="name-container"&gt;
+          "div",
+          { className: "name-container" },
+          this.props.course.instructor.fullName                                                             // Line 60:             {this.props.course.instructor.fullName}
+        )                                                                                                   // Line 61:           &lt;/div&gt;
+      );
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return element;</span>
+  },
+&nbsp;
+  renderRecipientsTitle: <span class="fstat-no" title="function not covered" >function renderRecipientsTitle() {</span>                                                 // Line 69:   renderRecipientsTitle: function() {
+<span class="cstat-no" title="statement not covered" >    var element = null;</span>
+<span class="cstat-no" title="statement not covered" >    var titleString = this.props.course.instructor &amp;&amp; this.props.course.instructor.id === this.props.currentUser.id ? "Students" : "Classmates"; </span>       // Line 71:     var titleString = (this.props.course.instructor &amp;&amp; this.props.course.instructor.id === this.props.currentUser.id ) ? 'Students' : 'Classmates';
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (this.props.course &amp;&amp; this.props.recipients) {                                                                                                   // Line 73:     if ( this.props.course &amp;&amp; this.props.recipients ) {</span>
+<span class="cstat-no" title="statement not covered" >      element = React.createElement(                                                                                                                    // Line 75:         &lt;li className="title"&gt;&lt;h5 className="flush"&gt;{titleString}&lt;/h5&gt;&lt;/li&gt;</span>
+        "li",
+        { className: "title" },
+        React.createElement(
+          "h5",
+          { className: "flush" },
+          titleString
+        )
+      );
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return element;</span>
+  },
+&nbsp;
+  renderRecipients: <span class="fstat-no" title="function not covered" >function renderRecipients() {</span>                                                               // Line 82:   renderRecipients: function() {
+<span class="cstat-no" title="statement not covered" >    var classes;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return _.map(this.props.recipients, (<span class="fstat-no" title="function not covered" >function (recipient, index) {</span>                                          // Line 85:     return _.map(this.props.recipients, function(recipient, index) {</span>
+<span class="cstat-no" title="statement not covered" >      classes = this.isActive(recipient.id) ? "active" : ""; </span>                                                   // Line 86:       classes = this.isActive(recipient.id) ? 'active' : '';
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      return React.createElement(                                                                               // Line 89:         &lt;li key={index} onClick={this.props.openConversation.bind(null, recipient)} className={classes}&gt;</span>
+        "li",
+        { key: index, onClick: this.props.openConversation.bind(null, recipient), className: classes },
+        React.createElement(                                                                            // Line 90:           &lt;div className="avatar-container"&gt;
+          "div",
+          { className: "avatar-container" },
+          React.createElement(UserAvatar, { user: recipient })                                  // Line 91:             &lt;UserAvatar user={recipient} /&gt;
+        ),                                                                                      // Line 92:           &lt;/div&gt;
+        React.createElement(                                                                    // Line 93:           &lt;div className="name-container"&gt;
+          "div",
+          { className: "name-container" },
+          recipient.fullName                                                            // Line 94:             {recipient.fullName}
+        )                                                                               // Line 95:           &lt;/div&gt;
+      );
+    }).bind(this));                                                                     // Line 98:     }.bind(this));
+  },
+&nbsp;
+  render: <span class="fstat-no" title="function not covered" >function render() {</span>                                                           // Line 101:   render: function() {
+<span class="cstat-no" title="statement not covered" >    return React.createElement(                                                         // Line 103:       &lt;ul className="recipient-list"&gt;</span>
+      "ul",
+      { className: "recipient-list" },
+      this.renderInstructorTitle(),                                             // Line 105:         {this.renderInstructorTitle()}
+      this.renderInstructor(),                                                  // Line 107:         {this.renderInstructor()}
+      this.renderRecipientsTitle(),                                             // Line 109:         {this.renderRecipientsTitle()}
+      this.renderRecipients(),                                                  // Line 111:         {this.renderRecipients()}
+      React.createElement("div", { className: "shadow" })                       // Line 113:         &lt;div className="shadow" /&gt;
+    );
+  }
+&nbsp;
+});
+&nbsp;
+module.exports = RecipientList;
+// SourceMap was distributed to comments by gulp-jsx-coverage</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Apr 14 2015 13:17:18 GMT-0400 (EDT)</div>
+</div>
+
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+
+<script src="../../sorter.js"></script>
+</body>
+</html>

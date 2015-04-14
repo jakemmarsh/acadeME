@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/pages/Course/CreateLesson.jsx</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../../prettify.css">
+
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">js/pages/Course/CreateLesson.jsx</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">33.33% <small>(10 / 30)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">9.09% <small>(1 / 11)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">33.33% <small>(10 / 30)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">js/pages/Course/</a> &#187; CreateLesson.jsx</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+var React = require("react/addons");        // var React         = require('react/addons');
+var when = require("when");                 // var when          = require('when');
+var Navigation = require("react-router").Navigation;        // var Navigation    = require('react-router').Navigation;
+&nbsp;
+var awsAPI = require("../../utils/awsAPI");                 // var awsAPI        = require('../../utils/awsAPI');
+var CourseActions = require("../../actions/CourseActions");     // var CourseActions = require('../../actions/CourseActions');
+var FileInput = require("../../components/FileInput.jsx");      // var FileInput     = require('../../components/FileInput.jsx');
+var Editor = require("../../components/Editor.jsx");            // var Editor        = require('../../components/Editor.jsx');
+&nbsp;
+var CreateLesson = React.createClass({
+  displayName: "CreateLesson",
+&nbsp;
+  mixins: [React.addons.LinkedStateMixin, Navigation],
+&nbsp;
+  propTypes: {
+    currentUser: React.PropTypes.object.isRequired,
+    course: React.PropTypes.object.isRequired
+  },
+&nbsp;
+  getDefaultProps: function getDefaultProps() {                 // Line 21:   getDefaultProps: function() {
+    return {
+      currentUser: {},
+      course: {}
+    };
+  },
+&nbsp;
+  getInitialState: <span class="fstat-no" title="function not covered" >function getInitialState() {</span>                 // Line 28:   getInitialState: function() {
+<span class="cstat-no" title="statement not covered" >    return {</span>
+      title: "",                                                // Line 30:       title: '',
+      description: "",                                          // Line 31:       description: '',
+      image: null
+    };
+  },
+&nbsp;
+  updateImage: <span class="fstat-no" title="function not covered" >function updateImage(file) {</span>                     // Line 36:   updateImage: function(file) {
+<span class="cstat-no" title="statement not covered" >    this.setState({ image: file });</span>
+  },
+&nbsp;
+  createLesson: <span class="fstat-no" title="function not covered" >function createLesson(lesson) {</span>                 // Line 40:   createLesson: function(lesson) {
+<span class="cstat-no" title="statement not covered" >    var deferred = when.defer();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    CourseActions.createLesson(lesson, <span class="fstat-no" title="function not covered" >function (err, createdLesson) {</span>      // Line 43:     CourseActions.createLesson(lesson, function(err, createdLesson) {</span>
+<span class="cstat-no" title="statement not covered" >      if (err) {                                                            // Line 44:       if ( err ) {</span>
+<span class="cstat-no" title="statement not covered" >        console.log("error creating lesson:", err); </span>                        // Line 45:         console.log('error creating lesson:', err);
+      } else {
+<span class="cstat-no" title="statement not covered" >        console.log("lesson created:", createdLesson); </span>                     // Line 47:         console.log('lesson created:', createdLesson);
+<span class="cstat-no" title="statement not covered" >        deferred.resolve(createdLesson);</span>
+      }
+    });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return deferred.promise;</span>
+  },
+&nbsp;
+  uploadImage: <span class="fstat-no" title="function not covered" >function uploadImage(lesson) {</span>                               // Line 55:   uploadImage: function(lesson) {
+<span class="cstat-no" title="statement not covered" >    var deferred = when.defer();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (this.state.image) {                                                 // Line 58:     if ( this.state.image ) {</span>
+<span class="cstat-no" title="statement not covered" >      awsAPI.uploadLessonImage(this.state.image, lesson.id).then(<span class="fstat-no" title="function not covered" >function () {</span>      // Line 59:       awsAPI.uploadLessonImage(this.state.image, lesson.id).then(function() {</span>
+<span class="cstat-no" title="statement not covered" >        deferred.resolve(lesson);</span>
+      })["catch"](<span class="fstat-no" title="function not covered" >function (err) {</span>                                                  // Line 61:       }).catch(function(err) {
+<span class="cstat-no" title="statement not covered" >        console.log("error uploading lesson image:", err); </span>                         // Line 62:         console.log('error uploading lesson image:', err);
+      });
+    } else {
+<span class="cstat-no" title="statement not covered" >      deferred.resolve(lesson);</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return deferred.promise;</span>
+  },
+&nbsp;
+  handleSubmit: <span class="fstat-no" title="function not covered" >function handleSubmit(data) {</span>                                       // Line 71:   handleSubmit: function(data) {
+<span class="cstat-no" title="statement not covered" >    var lesson = {</span>
+      title: this.state.title,
+      description: this.state.description,
+      bodyElements: data || []
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this.createLesson(lesson).then(this.uploadImage).then((<span class="fstat-no" title="function not covered" >function (createdLesson) {</span>       // Line 78:     this.createLesson(lesson).then(this.uploadImage).then(function(createdLesson) {</span>
+<span class="cstat-no" title="statement not covered" >      this.transitionTo("CourseLesson", { courseId: this.props.course.id, lessonId: createdLesson.id }); </span>       // Line 79:       this.transitionTo('CourseLesson', { courseId: this.props.course.id, lessonId: createdLesson.id });
+    }).bind(this));                                                                                             // Line 80:     }.bind(this));
+  },
+&nbsp;
+  render: <span class="fstat-no" title="function not covered" >function render() {</span>                                                                                   // Line 83:   render: function() {
+<span class="cstat-no" title="statement not covered" >    return React.createElement(                                                                                 //       &lt;section className="create-lesson nudge"&gt;</span>
+      "section",
+      { className: "create-lesson nudge" },
+      React.createElement(                                                                              // Line 87:         &lt;h2 className="page-title"&gt;Create a Lesson&lt;/h2&gt;
+        "h2",
+        { className: "page-title" },
+        "Create a Lesson"
+      ),
+      React.createElement("input", { type: "text", valueLink: this.linkState("title"), placeholder: "Lesson title", className: "title-input nudge-half--bottom" }),     // Line 89:         &lt;input type="text" valueLink={this.linkState('title')} placeholder="Lesson title" className="title-input nudge-half--bottom" /&gt;
+      React.createElement("textarea", { valueLink: this.linkState("description"),                                                                                       // Line 91:         &lt;textarea valueLink={this.linkState('description')}
+        className: "description-input nudge-half--bottom",                                                                                                              // Line 92:                   className="description-input nudge-half--bottom"
+        placeholder: "Brief description of the lesson" }),                                                                                                              // Line 93:                   placeholder="Brief description of the lesson" /&gt;
+      React.createElement(                                                                                                                                              // Line 95:         &lt;h4 className="flush--bottom"&gt;Cover Image&lt;/h4&gt;
+        "h4",
+        { className: "flush--bottom" },
+        "Cover Image"
+      ),
+      React.createElement(FileInput, { id: "imageUrl", accept: "image/x-png, image/gif, image/jpeg", processFile: this.updateImage, className: "image-input nudge-half--bottom" }),     // Line 97:         &lt;FileInput id="imageUrl" accept="image/x-png, image/gif, image/jpeg" processFile={this.updateImage} className="image-input nudge-half--bottom" /&gt;
+      React.createElement(Editor, { save: this.handleSubmit })                                                                                                                          // Line 99:         &lt;Editor save={this.handleSubmit} /&gt;
+    );
+  }
+&nbsp;
+});
+&nbsp;
+module.exports = CreateLesson;
+// SourceMap was distributed to comments by gulp-jsx-coverage</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Apr 14 2015 13:17:18 GMT-0400 (EDT)</div>
+</div>
+
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+
+<script src="../../../sorter.js"></script>
+</body>
+</html>

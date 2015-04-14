@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for api/index.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../prettify.css">
+    <link rel="stylesheet" href="../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">api/index.js</span></h1>
+    <h2>
+        Statements: <span class="metric">100% <small>(45 / 45)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(2 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">100% <small>(45 / 45)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">api/</a> &#187; index.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+module.exports = function(server) {
+&nbsp;
+  var path          = require('path');
+  var express       = require('express');
+  var api           = express();
+  var routes        = require(path.join(__dirname, 'routes'));
+  var queue         = require('./queue')();
+  var setupPassport = require('./passport');
+&nbsp;
+  /* ====================================================== */
+&nbsp;
+  require('./sockets')(server, queue);
+&nbsp;
+  /* ====================================================== */
+&nbsp;
+  setupPassport();
+&nbsp;
+  /* ====================================================== */
+&nbsp;
+  // Auth endpoints
+  api.post('/auth/register', routes.auth.register);
+  api.get('/auth/check', routes.auth.isAuthenticated, function(req, res) {
+    res.status(200).json(req.user);
+  });
+  api.post('/auth/login', routes.auth.login);
+  api.post('/auth/logout', routes.auth.isAuthenticated, routes.auth.logout);
+&nbsp;
+  /* ====================================================== */
+&nbsp;
+  // User endpoints
+  api.get('/user/:identifier', routes.user.get);
+&nbsp;
+  /* ====================================================== */
+&nbsp;
+  // Course endpoints
+  api.get('/course', routes.course.getAll);
+  api.get('/course/search/:query', routes.course.searchAll);
+  api.get('/course/newest', routes.course.getNewest);
+  api.get('/course/trending', routes.course.getTrending);
+  api.get('/course/:identifier', routes.course.get);
+  api.get('/course/user/:userId', routes.auth.isAuthenticated, routes.course.getForUser);
+  api.post('/course', routes.auth.isAuthenticated, routes.course.create);
+  api.post('/course/:id/enroll', routes.auth.isAuthenticated, routes.course.enroll);
+  api.delete('/course/:id/enroll', routes.auth.isAuthenticated, routes.course.unEnroll);
+  api.get('/course/:id/search/:query', routes.course.search);
+  api.post('/course/:id/lesson', routes.auth.isAuthenticated, routes.course.createLesson);
+  api.post('/course/:id/lesson/:lessonId/quiz', routes.quiz.create);
+  api.delete('/course/:id', routes.auth.isAuthenticated, routes.course.delete);
+&nbsp;
+  /* ====================================================== */
+&nbsp;
+  // Lesson endpoints
+  api.get('/lesson/:identifier', routes.lesson.get);
+  api.get('/lesson/:id/quiz', routes.quiz.get);
+  api.delete('/lesson/:id', routes.auth.isAuthenticated, routes.lesson.delete);
+&nbsp;
+  /* ====================================================== */
+&nbsp;
+  // Quiz endpoints
+  api.post('/quiz/:quizId/begin', routes.quiz.begin);
+  api.post('/quiz/:quizId/check/:questionId', routes.quiz.checkAnswer);
+  api.get('/quiz/:quizId/question', routes.quiz.getQuestion);
+  api.get('/quiz/suggestions', routes.quiz.suggestQuestions);
+  api.post('/quiz/:quizId/question', routes.quiz.createQuestion);
+  api.post('/quiz/:quizId/question/:questionId/answers', routes.quiz.createAnswers);
+  api.post('/quiz/:quizId/complete/lesson/:lessonId', routes.auth.isAuthenticated, routes.quiz.markComplete);
+&nbsp;
+  /* ====================================================== */
+&nbsp;
+  api.post('/upload/:type/:id/:filename?', routes.auth.isAuthenticated, routes.aws.uploadFile);
+  api.post('/upload/sir-trevor', routes.auth.isAuthenticated, routes.aws.uploadSirTrevorFile);
+&nbsp;
+  /* ====================================================== */
+&nbsp;
+  // Chat endpoints
+  api.get('/chat/:courseId/recipients', routes.chat.getRecipients);
+  api.get('/chat/:courseId/conversation', routes.chat.getConversation);
+  api.get('/chat/annotations/:attachmentId', routes.chat.getAnnotations);
+  api.post('/chat/annotations/:attachmentId', routes.chat.addAnnotation);
+&nbsp;
+  /* ====================================================== */
+&nbsp;
+  return api;
+&nbsp;
+};</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Apr 14 2015 13:20:20 GMT-0400 (EDT)</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

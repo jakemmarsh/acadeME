@@ -8,6 +8,7 @@ gulp.task('test', function() {
 
   global.document = jsdom('<!DOCTYPE html><html><body></body></html>');
   global.window = document.parentWindow;
+  global.location = { href: '' };
   global.navigator = {};
   global.navigator.userAgent = 'jsdom';
   global.navigator.appVersion = '';
@@ -17,7 +18,7 @@ gulp.task('test', function() {
 
     istanbul: {
       coverageVariable: '__MY_TEST_COVERAGE__',
-      exclude: /node_modules|test[0-9]/
+      exclude: /node_modules|test[0-9]|spec/
     },
 
     transpile: {
