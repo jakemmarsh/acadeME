@@ -3,7 +3,7 @@
 var React       = require('react/addons');
 var TestUtils   = React.addons.TestUtils;
 var should      = require('should');
-var TestHelpers = require('../../../helpers/testHelpers');
+var TestHelpers = require('../../../utils/testHelpers');
 var ExplorePage = require('../../../js/pages/ExplorePage.jsx');
 
 describe('Explore Page', function() {

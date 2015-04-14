@@ -2,7 +2,7 @@
 
 var request = require('supertest');
 
-require('../../../helpers/createAuthenticatedSuite')('user routes', function() {
+require('../../../utils/createAuthenticatedSuite')('user routes', function() {
 
   var url = 'http://localhost:3000/api/';
 

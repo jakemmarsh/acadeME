@@ -3,7 +3,7 @@
 var React     = require('react/addons');
 var TestUtils = React.addons.TestUtils;
 var should    = require('should');
-var Stub      = require('../../../helpers/stubRouterContext.jsx');
+var Stub      = require('../../../utils/stubRouterContext.jsx');
 
 describe('Footer', function() {
 
