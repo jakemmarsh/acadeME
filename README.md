@@ -1,7 +1,11 @@
 acadeME
 =======
 
-An interactive e-Learning platform for University of Maine's senior Computer Science capstone project. Built using my [react-rocket-boilerplate](https://github.com/jakemmarsh/react-rocket-boilerplate).
+By [Jake Marsh](http://jakemmarsh.com), advised by Sudarshan Chawathe.
+
+An interactive e-Learning platform for University of Maine's senior Computer Science capstone. The goal is to build upon the approaches taken by popular e-Learning sites, adding additional features and ideas to make the experience closer to that of the physical classroom. This is due to e-Learning's growing popularity and benefits but lack of interaction, feedback, or guidance.
+
+Built using my [react-rocket-boilerplate](https://github.com/jakemmarsh/react-rocket-boilerplate).
 
 ![Screenshot of the user interface](https://raw.githubusercontent.com/jakemmarsh/acadeME/master/screenshot.png)
 
