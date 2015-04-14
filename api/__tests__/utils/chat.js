@@ -3,7 +3,7 @@
 var should    = require('should');
 var chatUtils = require('../../utils/chat');
 
-require('../../../spec/support/createAuthenticatedSuite')('Chat utils', function() {
+require('../../../helpers/createAuthenticatedSuite')('Chat utils', function() {
 
   it('should upsert a conversation', function(done) {
     var courseId = 1;

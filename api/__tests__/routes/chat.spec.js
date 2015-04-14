@@ -2,7 +2,7 @@
 
 var request = require('supertest');
 
-require('../../../spec/support/createAuthenticatedSuite')('chat routes', function() {
+require('../../../helpers/createAuthenticatedSuite')('chat routes', function() {
 
   var url = 'http://localhost:3000/api/';
 
