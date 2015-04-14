@@ -38,3 +38,52 @@ AWS_KEY=''
 AWS_SECRET=''
 S3_BUCKET=''
 ```
+
+---
+
+## Directory Structure
+
+Below is an outline and description of this project's directory and file structure. This does **not** include installed or built files, which will be in the directories `/node_modules` and `/build`, respectively, after installing and building.
+
+```
+/api
+  /__tests__
+  /models
+  /routes
+  /utils
+  index.js
+  passport.js
+  queue.js
+  sockets.js
+/gulp
+  /tasks
+  /util
+  config.js
+  index.js
+/helpers
+  createAuthenticatedSuite.js
+  stubRouterContext.js
+  testHelpers.js
+/js
+  /__tests__
+  /actions
+  /components
+  /mixins
+  /pages
+  /stores
+  /utils
+  App.jsx
+  Html.jsx
+  index.js
+  Routes.jsx
+/lib
+  /pdfjs
+/public
+  /fonts
+  /images
+  /styles
+gulpfile.js
+package.json
+populateDb.js
+server.js
+```
