@@ -9,9 +9,8 @@ var TestLocation   = require('react-router/lib/locations/TestLocation');
 module.exports = {
 
   testPage: function(initialPath, targetComponent, steps) {
-    var div = document.createElement('div');
     var router = Router.create({
-      routes: require('../../js/Routes.jsx'),
+      routes: require('../js/Routes.jsx'),
       location: new TestLocation([initialPath])
     });
     var routerMainComponent;
@@ -24,7 +23,9 @@ module.exports = {
     router.run(function (Handler, state) {
       step = steps.shift();
 
-      routerMainComponent = React.render(<Handler params={state.params} query={state.query} />, div);
+      routerMainComponent = TestUtils.renderIntoDocument(
+        <Handler params={state.params} query={state.query} />
+      );
 
       step(TestUtils.findRenderedComponentWithType(routerMainComponent, targetComponent));
     }.bind(this));
