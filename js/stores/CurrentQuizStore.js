@@ -9,6 +9,8 @@ var QuizAPI       = require('../utils/QuizAPI');
 var CurrentQuizStore = Reflux.createStore({
 
   init: function() {
+    this.quiz = null;
+
     this.listenTo(LessonActions.openQuiz, this.loadQuizFor);
     this.listenTo(QuizActions.begin, this.beginQuiz);
     this.listenTo(QuizActions.getQuestion, this.loadQuestion);

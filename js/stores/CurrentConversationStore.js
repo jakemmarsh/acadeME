@@ -1,10 +1,9 @@
 'use strict';
 
-var Reflux           = require('reflux');
+var Reflux      = require('reflux');
 
-var ChatAPI          = require('../utils/ChatAPI');
-var ChatActions      = require('../actions/ChatActions');
-var CurrentUserStore = require('../stores/CurrentUserStore');
+var ChatAPI     = require('../utils/ChatAPI');
+var ChatActions = require('../actions/ChatActions');
 
 var CurrentConversationStore = Reflux.createStore({
 
@@ -14,23 +13,21 @@ var CurrentConversationStore = Reflux.createStore({
     this.listenTo(ChatActions.openConversation, this.openConversation);
   },
 
-  openConversation: function(courseId, recipientId, cb) {
-    if ( CurrentUserStore.user && CurrentUserStore.user.id ) {
-      cb = cb || function() {};
+  openConversation: function(courseId, currentUserId, recipientId, cb) {
+    cb = cb || function() {};
 
-      console.log('open conversation with course:', courseId, 'recipient:', recipientId);
+    console.log('open conversation with course:', courseId, 'recipient:', recipientId);
 
-      ChatAPI.getConversation(courseId, CurrentUserStore.user.id, recipientId).then(function(conversation) {
-        this.conversation = conversation;
-        cb(null, conversation);
-        this.trigger(null, conversation);
-      }.bind(this)).catch(function(err) {
-        this.conversation = null;
-        cb(err);
-        this.trigger(err);
-        console.log('error getting conversation:', err);
-      }.bind(this));
-    }
+    ChatAPI.getConversation(courseId, currentUserId, recipientId).then(function(conversation) {
+      this.conversation = conversation;
+      cb(null, conversation);
+      this.trigger(null, conversation);
+    }.bind(this)).catch(function(err) {
+      this.conversation = null;
+      cb(err);
+      this.trigger(err);
+      console.log('error getting conversation:', err);
+    }.bind(this));
   }
 
 });

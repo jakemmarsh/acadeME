@@ -72,7 +72,7 @@ var Chat = React.createClass({
   openConversation: function(recipient) {
     if ( _.isEmpty(this.state.conversation.recipient) || recipient.id !== this.state.conversation.recipient.id ) {
       this.joinChat(this.props.course.id, this.props.currentUser.id, recipient.id).then(function() {
-        ChatActions.openConversation(this.props.course.id, recipient.id, this._onConversationChange);
+        ChatActions.openConversation(this.props.course.id, this.props.currentUser.id, recipient.id, this._onConversationChange);
         this.setState({ currentRecipient: recipient });
       }.bind(this));
     }

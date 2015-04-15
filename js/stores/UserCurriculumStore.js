@@ -19,24 +19,20 @@ var UserCurriculumStore = Reflux.createStore({
     this.listenTo(CurrentUserStore, this.loadUserCourses.bind(this, null));
   },
 
-  loadUserCourses: function(cb) {
+  loadUserCourses: function(currentUserId, cb) {
     cb = cb || function() {};
 
     console.log('retrieve user courses');
 
-    if ( !_.isEmpty(CurrentUserStore.user) ) {
-      CourseAPI.getForUser(CurrentUserStore.user.id).then(function(courses) {
-        this.courses = courses || [];
-        cb(null, this.courses);
-        this.trigger(null, this.courses);
-      }.bind(this)).catch(function(err) {
-        console.log('error retrieving user courses:', err);
-        cb(err);
-        this.trigger(err);
-      }.bind(this));
-    } else {
-      cb();
-    }
+    CourseAPI.getForUser(currentUserId).then(function(courses) {
+      this.courses = courses || [];
+      cb(null, this.courses);
+      this.trigger(null, this.courses);
+    }.bind(this)).catch(function(err) {
+      console.log('error retrieving user courses:', err);
+      cb(err);
+      this.trigger(err);
+    }.bind(this));
   },
 
   enrollInCourse: function(courseId, cb) {

@@ -27,7 +27,7 @@ var CurriculumPage = React.createClass({
 
   getInitialStateAsync: function(cb) {
     console.log('get initial state in CurriculumPage.jsx');
-    PageActions.openCurriculum(function(courses) {
+    PageActions.openCurriculum(this.props.currentUser.id, function(courses) {
       cb(null, {
         courses: courses || {}
       });
