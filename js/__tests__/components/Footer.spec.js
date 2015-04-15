@@ -5,7 +5,7 @@ var TestUtils = React.addons.TestUtils;
 var should    = require('should');
 var Stub      = require('../../../utils/stubRouterContext.jsx');
 
-describe('Footer', function() {
+describe('Component: Footer', function() {
 
   var FooterComponent = Stub(require('../../components/Footer.jsx'));
   var footer;

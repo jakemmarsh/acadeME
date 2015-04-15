@@ -23,7 +23,7 @@ Built using my [react-rocket-boilerplate](https://github.com/jakemmarsh/react-ro
 
 ### Sample .env configuration file
 
-Below is a `.env` file (with any actual keys/credentials removed). This same structure can be used to add any extra configuration information you may need, available at `process.env.*` while running.
+Below is a `.env` file (with any actual keys/credentials removed). This same structure can be used to add any extra configuration information you may need, available at `process.env.*` while running on the server-side.
 
 ```
 DB_USER=''

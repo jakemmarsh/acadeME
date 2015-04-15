@@ -5,7 +5,7 @@ var TestUtils = React.addons.TestUtils;
 var should    = require('should');
 var Stub      = require('../../../utils/stubRouterContext.jsx');
 
-describe('Header', function() {
+describe('Component: Header', function() {
 
   var HeaderComponent = Stub(require('../../components/Header.jsx'));
   var header;

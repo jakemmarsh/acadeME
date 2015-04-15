@@ -81,7 +81,7 @@ var ExplorePage = React.createClass({
       this.setState({
         query: this.props.query.q
       }, this._doSearch);
-    } else if ( !this.state.courses || !this.state.courses.newest.length || !this.state.courses.trending.length ) {
+    } else if ( _.isEmpty(this.state.courses) || !this.state.courses.newest.length || !this.state.courses.trending.length ) {
       PageActions.openExplore(this._onCoursesChange);
     }
   },
