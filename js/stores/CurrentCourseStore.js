@@ -19,7 +19,7 @@ var CurrentCourseStore = Reflux.createStore({
     cb = cb || function() {};
 
     this.course = course;
-    console.log('set course:', course);
+    console.log('set course:', course.id);
     cb(null, this.course);
     this.trigger(null, this.course);
   },
@@ -50,7 +50,6 @@ var CurrentCourseStore = Reflux.createStore({
     }.bind(this)).catch(function(err) {
       console.log('error creating lesson:', err);
       cb(err);
-      this.trigger(err);
     }.bind(this));
   }
 
