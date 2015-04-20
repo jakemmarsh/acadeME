@@ -82,7 +82,7 @@ module.exports = function(models) {
       CourseId: course.id,
       LessonId: lesson.id,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel ante finibus, dictum nisi et, dictum mi. Nam lobortis consequat purus sit amet mattis. Nam at tincidunt risus.',
-      tags: ['test', 'lorem', 'ipsum'],
+      tags: ['test', 'lorem', 'ipsum', 'fsa', 'automata'],
       numQuestions: 2
     };
 
@@ -103,7 +103,7 @@ module.exports = function(models) {
       {
         QuizId: quiz.id,
         type: 'multi',
-        body: 'What is the capitol of Maine?',
+        body: 'How many stacks does a finite state machine require?',
         difficulty: 5
       },
       {
@@ -133,20 +133,20 @@ module.exports = function(models) {
     var answers = [
       {
         QuestionId: questionOne.id,
-        body: 'Augusta',
+        body: '0',
         isCorrect: true
       },
       {
         QuestionId: questionOne.id,
-        body: 'Portland'
+        body: '1'
       },
       {
         QuestionId: questionOne.id,
-        body: 'Brewer'
+        body: '2'
       },
       {
         QuestionId: questionOne.id,
-        body: 'Bangor'
+        body: 'None of the above'
       },
       {
         QuestionId: questionTwo.id,
