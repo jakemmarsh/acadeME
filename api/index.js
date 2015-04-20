@@ -6,12 +6,12 @@ module.exports = function(server) {
   var express       = require('express');
   var api           = express();
   var routes        = require(path.join(__dirname, 'routes'));
-  var queue         = require('./queue')();
-  var setupPassport = require('./passport');
+  var queue         = require('./utils/queue')();
+  var setupPassport = require('./utils/passport');
 
   /* ====================================================== */
 
-  require('./sockets')(server, queue);
+  require('./utils/sockets')(server, queue);
 
   /* ====================================================== */
 

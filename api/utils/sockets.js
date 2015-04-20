@@ -59,18 +59,31 @@ module.exports = function(server, queue) {
 
     /* ====================================================== */
 
-    socket.on('leaveChat', function() {
+    socket.on('leaveChat', function(cb) {
+      cb = cb || function() {};
+
       console.log('leave');
+
       socket.leave(socket.room);
       socket.conversationId = null;
       socket.room = null;
+
+      cb();
     });
 
     /* ====================================================== */
 
-    socket.on('manualDisconnect', function() {
+    socket.on('manualDisconnect', function(cb) {
+      cb = cb || function() {};
+
       console.log('manual disconnect');
-      socket.leave(socket.room);
+
+      if ( socket.room ) {
+        socket.leave(socket.room);
+      }
+
+      cb();
+
       socket.disconnect();
     });
 
