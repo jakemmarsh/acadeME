@@ -8,6 +8,8 @@ module.exports = function(name, tests) {
 
   describe(name, function() {
 
+    this.timeout(5000);
+
     before(function(done) {
       var user = {
         email: 'test@test.com',
@@ -19,11 +21,11 @@ module.exports = function(name, tests) {
       .send(user)
       .end(function(err, res) {
         global.cookies = res.headers['set-cookie'].pop().split(';')[0];
-        done();
+        setTimeout(done, 1000);
       });
     });
 
-    tests();
+    tests.call(this);
 
   });
 

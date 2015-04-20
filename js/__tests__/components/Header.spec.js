@@ -21,4 +21,26 @@ describe('Component: Header', function() {
     done();
   });
 
+  it('should render user dropdown on hover', function(done) {
+    var dropdown;
+
+    // Dropdown should initially be hidden, which throws an error on find
+    try {
+      dropdown = TestUtils.findRenderedDOMComponentWithClass(header, 'user-dropdown');
+    } catch(e) {
+      // Error should exist
+      (e === null).should.be.false; // jshint ignore:line
+    }
+
+    TestUtils.Simulate.click(TestUtils.findRenderedDOMComponentWithClass(header, 'dropdown-container'));
+
+    TestUtils.findRenderedDOMComponentWithClass(header, 'user-dropdown').should.be.ok; // jshint ignore: line
+
+    done();
+  });
+
+  it('should render course creation button if user is an instructor', function(done) {
+    done();
+  });
+
 });

@@ -8,6 +8,12 @@ var Spinner = React.createClass({
     loading: React.PropTypes.bool.isRequired
   },
 
+  getDefaultProps: function() {
+    return {
+      loading: false
+    };
+  },
+
   render: function() {
     var element = null;
 

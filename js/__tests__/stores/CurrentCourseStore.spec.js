@@ -6,7 +6,7 @@ var CourseActions       = require('../../../js/actions/CourseActions');
 require('../../../utils/createAuthenticatedSuite')('Store: CurrentCourse', function() {
 
   it('should be empty on init', function(done) {
-    (CurrentCourseStore.coures === null).should.be.true; // jshint ignore:line
+    (CurrentCourseStore.course === null).should.be.true; // jshint ignore:line
     done();
   });
 

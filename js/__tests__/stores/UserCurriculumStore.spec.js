@@ -4,7 +4,7 @@ var UserCurriculumStore = require('../../../js/stores/UserCurriculumStore');
 var PageActions         = require('../../../js/actions/PageActions');
 var CourseActions       = require('../../../js/actions/CourseActions');
 
-require('../../../utils/createAuthenticatedSuite')('Store: CurrentLesson', function() {
+require('../../../utils/createAuthenticatedSuite')('Store: UserCurriculum', function() {
 
   it('should be empty on init', function(done) {
     (UserCurriculumStore.courses === null).should.be.true; // jshint ignore:line
@@ -26,6 +26,7 @@ require('../../../utils/createAuthenticatedSuite')('Store: CurrentLesson', funct
 
     CourseActions.unenroll(1, function(err) {
       (err === null).should.be.true; // jshint ignore:line
+      UserCurriculumStore.courses.should.have.property('length');
       UserCurriculumStore.courses.length.should.be.below(oldLength);
       done();
     });
@@ -36,6 +37,7 @@ require('../../../utils/createAuthenticatedSuite')('Store: CurrentLesson', funct
 
     CourseActions.enroll(1, function(err) {
       (err === null).should.be.true; // jshint ignore:line
+      UserCurriculumStore.courses.should.have.property('length');
       UserCurriculumStore.courses.length.should.be.above(oldLength);
       done();
     });
