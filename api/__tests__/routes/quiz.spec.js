@@ -91,7 +91,7 @@ require('../../../utils/createAuthenticatedSuite')('quiz routes', function() {
 
     req.cookies = global.cookies;
 
-    req.send({ answer: 'Augusta' }).end(function(err, res) {
+    req.send({ answer: '0' }).end(function(err, res) {
       res.status.should.be.equal(200);
       res.body.score.should.be.above(50); // Ensure quiz has been incremented in session
       global.cookies = res.headers['set-cookie'].pop().split(';')[0];
