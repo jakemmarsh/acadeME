@@ -84,7 +84,7 @@ var Header = React.createClass({
 
     if ( this.state.shouldDisplayDropdown ) {
       element = (
-        <ul>
+        <ul className="user-dropdown">
           <li>
             <i className="fa fa-sign-out" /> Logout
             <a onClick={UserActions.logout.bind(null, null)} />

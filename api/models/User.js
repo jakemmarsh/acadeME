@@ -1,6 +1,7 @@
 'use strict';
 
 var bcrypt = require('bcrypt');
+var _      = require('lodash');
 
 module.exports = function(sequelize, DataTypes) {
 
@@ -21,6 +22,12 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     hooks: {
+      beforeBulkCreate: function(instances, options, cb) {
+        _.each(instances, function(user) {
+          user.setDataValue('hash', bcrypt.hashSync(user.hash, 10));
+        });
+        cb();
+      },
       beforeValidate: function(user, model, cb) {
         if ( user.hash ) {
           bcrypt.hash(user.hash, 10, function(err, hash) {

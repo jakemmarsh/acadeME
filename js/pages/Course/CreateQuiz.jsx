@@ -233,7 +233,7 @@ var CreateLesson = React.createClass({
           <TagInput ref="tagInput"
                     addTag={this.addTag}
                     removeTag={this.removeTag}
-                    placeholder="Playlist tags" />
+                    placeholder="Quiz topics" />
 
           <p>How many questions do you want this quiz to consist of? <strong>Note: it is recommended that this number be lower than the number of questions you actually write, in order for students to be algorithmically posed questions of appropriate difficulty.</strong></p>
 

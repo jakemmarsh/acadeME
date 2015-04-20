@@ -86,6 +86,7 @@
     "jsdom": "^3.1.2",
     "mocha": "^2.2.4",
     "should": "^5.2.0",
+    "sinon": "^1.14.1",
     "supertest": "^0.15.0",
     "vinyl-transform": "^1.0.0"
   },

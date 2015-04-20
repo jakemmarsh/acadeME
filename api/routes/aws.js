@@ -18,45 +18,9 @@ var AWS = Knox.createClient({
 
 /* ====================================================== */
 
-function convertPdfToImage(file, type, entityId) {
+function uploadToAWS(file, type, entityId, extension) {
 
   var deferred = when.defer();
-  var extension = mime.extensions[file.mimetype][0];
-  // var bufs = [];
-
-  // if ( extension === 'pdf' ) {
-  //   gm(file.buffer, file.name + '.jpeg').stream(function(err, stdout) {
-  //     if ( err ) {
-  //       deferred.reject({ status: 500, body: err });
-  //     } else {
-  //       extension = 'jpg';
-
-  //       stdout.on('data', function(d) { bufs.push(d); });
-
-  //       stdout.on('end', function() {
-  //         file.buffer = Buffer.concat(bufs);
-  //         file.size = _.reduce(bufs, function(sum, buf) { return sum + buf.length; });
-  //         deferred.resolve([file, type, entityId, extension]);
-  //       });
-  //     }
-  //   });
-  // } else {
-    deferred.resolve([file, type, entityId, extension]);
-  // }
-
-  return deferred.promise;
-
-}
-
-/* ====================================================== */
-
-function uploadToAWS(data) {
-
-  var deferred = when.defer();
-  var file = data[0];
-  var type = data[1];
-  var entityId = data[2];
-  var extension = data[3];
   var datePrefix = moment().format('YYYY[/]MM');
   var key = crypto.randomBytes(10).toString('hex');
   var headers = {
@@ -189,7 +153,7 @@ exports.uploadFile = function(req, res) {
       };
       var updateFunction = req.params.type === 'attachment' ? saveAttachment : updateEntity;
 
-      convertPdfToImage(finalFile, req.params.type, req.params.id)
+      uploadToAWS(finalFile, req.params.type, req.params.id, mime.extensions[mimetype][0])
       .then(uploadToAWS)
       .then(updateFunction).then(function(data) {
         if ( typeof data === 'string' ) {
@@ -236,7 +200,7 @@ exports.uploadSirTrevorFile = function(req, res) {
         mimetype: mimetype
       };
 
-      uploadToAWS([finalFile, 'lesson_body', null, mime.extensions[mimetype][0]]).then(function(data) {
+      uploadToAWS(finalFile, 'lesson_body', null, mime.extensions[mimetype][0]).then(function(data) {
         res.status(200).json({ path: 'http://' + process.env.S3_BUCKET + '.s3.amazonaws.com' + data[2] });
       }).catch(function(err) {
         res.status(err.status).json({ error: err.body });
