@@ -4,7 +4,7 @@ var url       = require('url');
 var when      = require('when');
 var kue       = require('kue');
 var _         = require('lodash');
-var chatUtils = require('./utils/chat');
+var chatUtils = require('./chat');
 
 /* ====================================================== */
 

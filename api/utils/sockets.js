@@ -1,7 +1,7 @@
 'use strict';
 
 var humps     = require('humps');
-var chatUtils = require('./utils/chat');
+var chatUtils = require('./chat');
 
 /* ====================================================== */
 
