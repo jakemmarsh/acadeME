@@ -10,19 +10,6 @@ describe('Store: CurrentUser', function() {
     done();
   });
 
-  it('should set user on action', function(done) {
-    var user = {
-      id: 1
-    };
-
-    UserActions.set(user, function(err) {
-      (err === null).should.be.true; // jshint ignore:line
-      CurrentUserStore.user.should.be.instanceOf(Object);
-      CurrentUserStore.user.id.should.equal(1);
-      done();
-    });
-  });
-
   it('should log user in on action', function(done) {
     var user = {
       email: 'test@test.com',
@@ -36,6 +23,23 @@ describe('Store: CurrentUser', function() {
       CurrentUserStore.user.should.have.property('lastName');
       done();
     });
+  });
+
+  it('should set user on action', function(done) {
+    var user = {
+      id: 1
+    };
+
+    UserActions.set(user, function(err) {
+      (err === null).should.be.true; // jshint ignore:line
+      CurrentUserStore.user.should.be.instanceOf(Object);
+      CurrentUserStore.user.id.should.equal(1);
+      done();
+    });
+  });
+
+  it('should log user out on action', function(done) {
+    UserActions.logout(done);
   });
 
 });

@@ -1,19 +1,19 @@
 'use strict';
 
-var React     = require('react/addons');
-var TestUtils = React.addons.TestUtils;
-var should    = require('should');
-var Stub      = require('../../../utils/stubRouterContext.jsx');
+var React       = require('react/addons');
+var TestUtils   = React.addons.TestUtils;
+var should      = require('should');
+var Stub        = require('../../../utils/stubRouterContext.jsx');
+var TestHelpers = require('../../../utils/testHelpers');
 
-describe('Component: Header', function() {
+require('../../../utils/createAuthenticatedSuite')('Component: Header', function() {
 
-  var HeaderComponent = Stub(require('../../components/Header.jsx'));
+  var user = TestHelpers.testUser;
+  var HeaderComponent = Stub(require('../../components/Header.jsx'), { currentUser: user });
   var header;
 
-  beforeEach(function() {
-    header = TestUtils.renderIntoDocument(
-      <HeaderComponent currentUser={{}} />
-    );
+  before(function() {
+    header = TestUtils.renderIntoDocument(React.createElement(HeaderComponent));
   });
 
   it('should exist', function(done) {
@@ -40,6 +40,9 @@ describe('Component: Header', function() {
   });
 
   it('should render course creation button if user is an instructor', function(done) {
+    if ( user.type === 'instructor' ) {
+      TestUtils.findRenderedDOMComponentWithClass(header, 'create-course-button').should.be.ok; // jshint ignore: line
+    }
     done();
   });
 

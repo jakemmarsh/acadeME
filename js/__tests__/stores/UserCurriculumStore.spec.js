@@ -12,33 +12,34 @@ require('../../../utils/createAuthenticatedSuite')('Store: UserCurriculum', func
   });
 
   it('should load user courses on action', function(done) {
-    PageActions.openCurriculum(4, function(err) {
+    PageActions.openCurriculum(3, function(err, courses) {
       (err === null).should.be.true; // jshint ignore:line
-      UserCurriculumStore.courses.should.be.instanceOf(Array);
-      UserCurriculumStore.courses[0].should.have.property('title');
-      UserCurriculumStore.courses[0].should.have.property('description');
+      courses.should.be.instanceOf(Array);
+      courses[0].should.be.instanceOf(Object);
+      courses[0].should.have.property('title');
+      courses[0].should.have.property('description');
       done();
     });
   });
 
   it('should unenroll from a course on action', function(done) {
-    var oldLength = UserCurriculumStore.courses.length;
+    var oldLength = UserCurriculumStore.courses ? UserCurriculumStore.courses.length : 1;
 
-    CourseActions.unenroll(1, function(err) {
+    CourseActions.unEnroll(1, function(err, courses) {
       (err === null).should.be.true; // jshint ignore:line
-      UserCurriculumStore.courses.should.have.property('length');
-      UserCurriculumStore.courses.length.should.be.below(oldLength);
+      courses.should.be.instanceOf(Array);
+      courses.length.should.be.below(oldLength);
       done();
     });
   });
 
   it('should enroll in a course on action', function(done) {
-    var oldLength = UserCurriculumStore.courses.length;
+    var oldLength = UserCurriculumStore.courses ? UserCurriculumStore.courses.length : 0;
 
-    CourseActions.enroll(1, function(err) {
+    CourseActions.enroll(1, function(err, courses) {
       (err === null).should.be.true; // jshint ignore:line
-      UserCurriculumStore.courses.should.have.property('length');
-      UserCurriculumStore.courses.length.should.be.above(oldLength);
+      courses.should.be.instanceOf(Array);
+      courses.length.should.be.above(oldLength);
       done();
     });
   });

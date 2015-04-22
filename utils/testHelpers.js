@@ -8,6 +8,15 @@ var TestLocation   = require('react-router/lib/locations/TestLocation');
 
 module.exports = {
 
+  testUser: {
+    id: 1,
+    email: 'test@test.com',
+    firstName: 'John',
+    lastName: 'Doe',
+    type: 'instructor',
+    imageUrl: null
+  },
+
   testPage: function(initialPath, targetComponent, steps) {
     var router = Router.create({
       routes: require('../js/Routes.jsx'),
