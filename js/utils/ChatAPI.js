@@ -7,7 +7,7 @@ var APIUtils = require('./APIUtils');
 var ChatAPI = {
 
   getCourseRecipients: function(courseId) {
-    return APIUtils.get('chat/'+ courseId + '/recipients');
+    return APIUtils.get('chat/' + courseId + '/recipients');
   },
 
   getConversation: function(courseId, currentUserId, recipientId) {
@@ -17,7 +17,7 @@ var ChatAPI = {
       userTwo: sortedIds[1]
     });
 
-    return APIUtils.get('chat/'+ courseId + '/conversation?' + params);
+    return APIUtils.get('chat/' + courseId + '/conversation?' + params);
   },
 
   uploadAttachment: function(conversationId, currentUserId, file) {

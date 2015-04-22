@@ -24,6 +24,7 @@ var CourseRecipientsStore = Reflux.createStore({
       cb(null, this.annotations);
       this.trigger(null, this.annotations);
     }.bind(this)).catch(function(err) {
+      console.log('error loading annotations:', err);
       cb(err);
       this.trigger(err);
     }.bind(this));
@@ -39,6 +40,7 @@ var CourseRecipientsStore = Reflux.createStore({
       cb(null, this.annotations);
       this.trigger(null, this.annotations);
     }.bind(this)).catch(function(err) {
+      console.log('error saving annotation:', err);
       cb(err);
     });
   }

@@ -5,7 +5,7 @@ var Reflux      = require('reflux');
 var UserActions = require('../actions/UserActions');
 var AuthAPI     = require('../utils/AuthAPI');
 
-var CurrentTrackStore = Reflux.createStore({
+var CurrentUserStore = Reflux.createStore({
 
   init: function() {
     this.user = null;
@@ -70,4 +70,4 @@ var CurrentTrackStore = Reflux.createStore({
 
 });
 
-module.exports = CurrentTrackStore;
+module.exports = CurrentUserStore;

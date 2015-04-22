@@ -92,7 +92,7 @@ var App = React.createClass({
             </div>
           </div>
 
-          <Footer />
+          <Footer currentUser={this.state.currentUser} />
 
       </div>
     );
