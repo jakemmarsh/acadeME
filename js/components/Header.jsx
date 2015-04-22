@@ -16,6 +16,12 @@ var Header = React.createClass({
     currentUser: React.PropTypes.object.isRequired
   },
 
+  getDefaultProps: function() {
+    return {
+      currentUser: {}
+    };
+  },
+
   getInitialState: function() {
     return {
       shouldDisplayDropdown: false
