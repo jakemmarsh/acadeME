@@ -3,16 +3,16 @@
 var React       = require('react/addons');
 var TestUtils   = React.addons.TestUtils;
 var should      = require('should');
+var sinon       = require('sinon');
+var superagent  = require('superagent');
 var TestHelpers = require('../../../utils/testHelpers');
 var ExplorePage = require('../../../js/pages/ExplorePage.jsx');
 
-describe('Explore Page', function() {
+require('../../../utils/createAuthenticatedSuite')('Page: Explore', function() {
 
   var page;
 
   beforeEach(function(done) {
-    this.timeout(10000);
-
     TestHelpers.testPage('/explore', ExplorePage, function(component) {
       page = component;
       done();
@@ -51,13 +51,12 @@ describe('Explore Page', function() {
 
     page.state.query.should.be.exactly('test');
 
-    page.props.query.q.should.be.exactly('test');
-
     done();
   });
 
-  it('should hit the API on search', function(done) {
+  it('should submit search on enter', function(done) {
     var input = TestUtils.findRenderedDOMComponentWithClass(page, 'search');
+    var submitSpy = sinon.spy(page, 'submitOnEnter');
 
     TestUtils.Simulate.change(input, { target: { value: 'test' } });
 
@@ -65,15 +64,10 @@ describe('Explore Page', function() {
 
     TestUtils.Simulate.keyPress(input, { key: 'Enter' });
 
-    console.log('query:', page.props.query);
+    (submitSpy.called).should.be.true; // jshint ignore:line
 
-    page.props.query.q.should.be.exactly('test');
-
+    submitSpy.restore();
     done();
   });
-
-  // it('should show results after search', function(done) {
-  //   done();
-  // });
 
 });
