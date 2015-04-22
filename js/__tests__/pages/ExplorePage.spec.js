@@ -4,7 +4,6 @@ var React       = require('react/addons');
 var TestUtils   = React.addons.TestUtils;
 var should      = require('should');
 var sinon       = require('sinon');
-var superagent  = require('superagent');
 var TestHelpers = require('../../../utils/testHelpers');
 var ExplorePage = require('../../../js/pages/ExplorePage.jsx');
 
