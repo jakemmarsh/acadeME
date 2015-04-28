@@ -16,6 +16,5 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
-  "newcap": false,
-  "predef": ["jest", "before", "after"]
+  "newcap": false
 }
