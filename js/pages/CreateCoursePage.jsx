@@ -1,6 +1,7 @@
 'use strict';
 
 var React         = require('react/addons');
+var ReactAsync    = require('react-async');
 var when          = require('when');
 var Navigation    = require('react-router').Navigation;
 var DocumentTitle = require('react-document-title');
@@ -11,7 +12,7 @@ var FileInput     = require('../components/FileInput.jsx');
 
 var CreateCoursePage = React.createClass({
 
-  mixins: [Navigation, React.addons.LinkedStateMixin],
+  mixins: [ReactAsync.Mixin, Navigation, React.addons.LinkedStateMixin],
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired,
@@ -25,12 +26,12 @@ var CreateCoursePage = React.createClass({
     };
   },
 
-  getInitialState: function() {
-    return {
+  getInitialStateAsync: function(cb) {
+    cb(null, {
       title: '',
       description: '',
       image: null
-    };
+    });
   },
 
   updateImage: function(file) {
@@ -72,8 +73,10 @@ var CreateCoursePage = React.createClass({
       description: this.state.description
     };
 
-    evt.stopPropagation();
-    evt.preventDefault();
+    if ( evt ) {
+      evt.stopPropagation();
+      evt.preventDefault();
+    }
 
     this.createCourse(course).then(this.uploadImage).then(function(createdCourse) {
       this.transitionTo('Course', { courseId: createdCourse.id });
@@ -97,7 +100,7 @@ var CreateCoursePage = React.createClass({
 
             <FileInput id="imageUrl" className="image-input nudge-half--bottom" accept="image/x-png, image/gif, image/jpeg" processFile={this.updateImage} />
 
-            <input type="submit" className="button float-right nudge--bottom" value="Create Course" />
+            <input type="submit" className="submit button float-right nudge--bottom" value="Create Course" />
 
           </form>
 

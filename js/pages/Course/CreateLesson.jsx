@@ -1,6 +1,7 @@
 'use strict';
 
 var React         = require('react/addons');
+var ReactAsync    = require('react-async');
 var when          = require('when');
 var Navigation    = require('react-router').Navigation;
 
@@ -11,7 +12,7 @@ var Editor        = require('../../components/Editor.jsx');
 
 var CreateLesson = React.createClass({
 
-  mixins: [React.addons.LinkedStateMixin, Navigation],
+  mixins: [ReactAsync.Mixin, React.addons.LinkedStateMixin, Navigation],
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired,
@@ -25,12 +26,12 @@ var CreateLesson = React.createClass({
     };
   },
 
-  getInitialState: function() {
-    return {
+  getInitialStateAsync: function(cb) {
+    cb(null, {
       title: '',
       description: '',
       image: null
-    };
+    });
   },
 
   updateImage: function(file) {

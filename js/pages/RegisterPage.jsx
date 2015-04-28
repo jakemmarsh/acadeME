@@ -1,6 +1,7 @@
 'use strict';
 
 var React         = require('react/addons');
+var ReactAsync    = require('react-async');
 var _             = require('lodash');
 var when          = require('when');
 var Navigation    = require('react-router').Navigation;
@@ -13,14 +14,14 @@ var FileInput     = require('../components/FileInput.jsx');
 
 var RegisterPage = React.createClass({
 
-  mixins: [React.addons.LinkedStateMixin, Navigation],
+  mixins: [ReactAsync.Mixin, React.addons.LinkedStateMixin, Navigation],
 
   propTypes: {
     currentUser: React.PropTypes.object
   },
 
-  getInitialState: function() {
-    return {
+  getInitialStateAsync: function(cb) {
+    cb(null, {
       loading: false,
       email: '',
       firstName: '',
@@ -29,7 +30,7 @@ var RegisterPage = React.createClass({
       confirmPassword: '',
       image: null,
       submitDisabled: true
-    };
+    });
   },
 
   componentWillReceiveProps: function(nextProps) {

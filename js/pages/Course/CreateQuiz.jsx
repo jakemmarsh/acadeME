@@ -1,6 +1,7 @@
 'use strict';
 
 var React      = require('react/addons');
+var ReactAsync = require('react-async');
 var when       = require('when');
 var _          = require('lodash');
 var Navigation = require('react-router').Navigation;
@@ -12,7 +13,7 @@ var TagInput   = require('../../components/TagInput.jsx');
 
 var CreateLesson = React.createClass({
 
-  mixins: [Navigation, React.addons.LinkedStateMixin],
+  mixins: [ReactAsync.Mixin, Navigation, React.addons.LinkedStateMixin],
 
   propTypes: {
     currentUser: React.PropTypes.object.isRequired,
@@ -27,8 +28,8 @@ var CreateLesson = React.createClass({
     };
   },
 
-  getInitialState: function() {
-    return {
+  getInitialStateAsync: function(cb) {
+    cb(null, {
       numQuestions: 1,
       tags: [],
       suggestedQuestions: [],
@@ -45,7 +46,7 @@ var CreateLesson = React.createClass({
       userHasEnteredTags: false,
       userHasViewedSuggestions: false,
       quizCreated: false
-    };
+    });
   },
 
   _saveQuiz: function() {
