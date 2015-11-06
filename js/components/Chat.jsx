@@ -59,7 +59,7 @@ var Chat = React.createClass({
     //this.listenTo(CurrentConversationStore, this._onConversationChange);
 
     if ( !_.isEmpty(this.props.course) && !_.isEmpty(this.props.currentUser) ) {
-      CourseActions.openChat(this.props.course.id, this._onRecipientsChange);
+      CourseActions.openChat(this.props.course.id);
     }
   },
 
