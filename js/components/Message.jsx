@@ -49,7 +49,6 @@ var Message = React.createClass({
   },
 
   renderMessageAttachment: function() {
-    var element = null;
     var classes = cx({
       'text-right': true,
       'nudge-quarter--top': this.props.message.body && this.props.message.body.length
@@ -65,8 +64,6 @@ var Message = React.createClass({
         </div>
       );
     }
-
-    return element;
   },
 
   render: function() {
